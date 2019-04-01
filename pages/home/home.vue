@@ -1,4 +1,5 @@
 <template>
+
 	<view class="home_page">
 		<view class="header">
 			<searchBox></searchBox>
@@ -53,6 +54,7 @@
 		<view class="tab_filtrate_wrapper">
 			<tabFiltrate :data="navBarListTit"></tabFiltrate>
 			<product></product>
+
 		</view>
 	</view>
 </template>
@@ -78,6 +80,7 @@
 		},
 		data() {
 			return {
+
 				home_huiyuan: '../../static/home/home_huiyuan.png',
 				home_gengduo_icon: '../../static/home/home_gengduo_icon.png',
 				home_shop_1: '../../static/home/home_shop_1.png',
@@ -115,6 +118,7 @@
 			searchBox,
 			tabFiltrate,
 			product,
+
 
 		}
 	}

@@ -42,7 +42,13 @@
 				"navigationBarTextStyle":"black"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/chooseCode/chooseCode",
+            "style" : {
+				"navigationBarTitleText": "选择幸运号码"
+			}
+        }
+    ],
 	"tabBar": {
 		"color": "#7a7e83",
 		"selectedColor": "#FE594B",
