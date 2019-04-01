@@ -1,45 +1,97 @@
 <template>
 	<view class="tel_number_wrapper">
 		<view class="title_text">输入手机号，快速注册</view>
-		<view class="">
-			<view>
-				<view class="">中国</view>
-				<view>+86</view>
-				<image src="" mode=""></image>
+		<view class="main_content">
+			<view class="mainland_tel">
+				<view class="left_text">中国</view>
+				<view class="add_num">+86</view>
+				<image src="http://qnimage.xiteng.com/right_icon@2x.png" mode="aspectFit" class="next_icon"></image>
 			</view>
+			<input type="number" value="" @input="inputFn" placeholder="请输入手机号" />
 		</view>
+		<button type="warn" class="next_btn" :disabled="panduan?true:false" @click="goVerification">下一步</button>
 	</view>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				
+export default {
+	data() {
+		return {
+			panduan:true
+		};
+	},
+	components: {},
+	computed: {},
+	methods: {
+		inputFn(e){ 
+			if(e.target.value.length>=11){
+				this.panduan=false
 			}
 		},
-		components: {
-			
-		},
-		computed: {
-			
-		},
-		methods: {
-			
+		goVerification(){
+			uni.navigateTo({
+				url:"./verificationCode"
+			})
 		}
 	}
+};
 </script>
 
 <style scoped>
-	.tel_number_wrapper{
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-	.title_text{
-		color: #333333;
-		font-size: 40upx;
-		margin-top: 100upx;
-	}
+.tel_number_wrapper {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 35upx;
+	box-sizing: border-box;
+}
+.title_text {
+	color: #333333;
+	font-size: 40upx;
+	margin-top: 100upx;
+}
+.main_content {
+	width: 100%;
+	margin-top: 100upx;
+}
+.mainland_tel {
+	width: 100%;
+	height: 100upx;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	color: #1c1c1c;
+	font-size: 28upx;
+}
+.left_text {
+	width: 60upx;
+}
+.add_num {
+	margin-left: 23upx;
+	flex: 1;
+}
+.next_icon {
+	width: 13upx;
+	height: 24upx;
+}
+.main_content > input {
+	width: 100%;
+	height: 100upx;
+	color: #636363;
+	font-size: 30upx;
+}
+.next_btn {
+	width: 100%;
+	height: 88upx;
+	background:rgba(192,15,15,1);
+	border-radius: 10upx;
+	color: #DEDEDE;
+	font-size: 30upx;
+	margin-top: 140upx;
+	opacity:0.74;
+	line-height: 88upx;
+	text-align: center;
+}
 </style>
