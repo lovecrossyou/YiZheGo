@@ -9,7 +9,7 @@
 			</view>
 			<input type="number" value="" @input="inputFn" placeholder="请输入手机号" />
 		</view>
-		<button type="warn" class="next_btn" :disabled="panduan?true:false" @click="goVerification">下一步</button>
+		<button type="warn" class="next_btn" :disabled="judge?true:false" @click="goVerification">下一步</button>
 	</view>
 </template>
 
@@ -17,7 +17,7 @@
 export default {
 	data() {
 		return {
-			panduan:true
+			judge:true
 		};
 	},
 	components: {},
@@ -25,7 +25,7 @@ export default {
 	methods: {
 		inputFn(e){ 
 			if(e.target.value.length>=11){
-				this.panduan=false
+				this.judge=false
 			}
 		},
 		goVerification(){
