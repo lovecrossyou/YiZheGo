@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view @click="enter">
-			选号1
+			选号3
 		</view>
 	</view>
 </template>
