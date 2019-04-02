@@ -43,9 +43,20 @@
 			}
 		}
 	    ,{
-            "path" : "pages/chooseCode/chooseCode",
+	        "path" : "pages/chooseCode/chooseCode",
+	        "style" : {
+	    		"navigationBarTitleText": "选择幸运号码"
+	    	}
+	    },{
+            "path" : "pages/details/productDetails",
             "style" : {
-				"navigationBarTitleText": "选择幸运号码"
+				"navigationBarTitleText": "商品详情",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
 			}
         }
     ],

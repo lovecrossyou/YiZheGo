@@ -1,6 +1,5 @@
 <template>
 	<view>
-		
 		<view class="uni-padding-wrap">
 			<view class="page-section swiper">
 				<view class="page-section-spacing">
