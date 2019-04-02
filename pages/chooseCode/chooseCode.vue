@@ -25,7 +25,7 @@
 					v-for="(codeArray, arrayIndex) in codeList"
 					:key="arrayIndex"
 				>
-					<view class="code" v-for="(code, index) in codeArray" :key="index">
+					<view class="code" v-for="(code, index) in codeArray.split(',')" :key="index">
 						{{ code }}
 					</view>
 					<view class="blank"></view>
@@ -38,14 +38,19 @@
 </template>
 
 <script>
+	import {mapState} from 'vuex'
 export default {
 	data() {
 		return {
 			ballList: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
-			codeList: [['1', '3', '5'],['1', '3', '5'],['1', '3', '5'],['1', '3', '5'],['1', '3', '5'],['1', '3', '5'],['1', '3', '5']
-			,['1', '3', '5'],['1', '3', '5'],['1', '3', '5'],['1', '3', '5'],['1', '3', '5'],['1', '3', '5'],['1', '3', '5']
-			]
+			
 		};
+	},
+	computed:{
+		...mapState({
+			codeCount:state=>state.chooseCode.codeCount,
+			codeList:state=>state.chooseCode.codeList,
+		})
 	}
 };
 </script>
