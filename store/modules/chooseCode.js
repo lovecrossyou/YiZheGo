@@ -1,5 +1,23 @@
 import api from '../../util/api'
 
+
+// class Ball {
+// 	// value color active
+// 	
+// 	// setActive
+// 	// getValue
+// setColor
+// }
+
+
+// class BallGroup
+// reset
+// setValue
+// isModifying
+// isComplete
+
+
+
 export default {
 	namespaced: true,
 	state:{
@@ -21,11 +39,14 @@ export default {
 			
 			
 			//console.log(data);
-				let codes = state.codeList[state.modifyIndex].code;
+				let preCodes = state.codeList[state.modifyIndex].code;
 				for(let i=0;i<3;i++){
-				if(codes[i] < 0){
+				if(preCodes[i] < 0){
 					//codes[i] = data;
-					state.codeList[state.modifyIndex].code[i] = data;
+					const nextCodes = preCodes.map(c=>c);
+					nextCodes[i] = data;
+					
+					state.codeList[state.modifyIndex].code = nextCodes;
 					console.log(state.codeList[state.modifyIndex]);
 					//state.codeList[state.modifyIndex].state = 'modify'+i;
 					if(i==2){

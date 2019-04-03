@@ -76,7 +76,7 @@
 			}
 		},
 		onLoad(){
-			this.fetchHomeDiscountGameList()
+			// this.fetchHomeDiscountGameList()
 		},
 		data() {
 			return {
