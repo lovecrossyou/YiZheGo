@@ -18,6 +18,8 @@ const api = {
 				}
 			}
 		});
-	}
+	},
+	//微信授权登录
+	wxlogin: params => request.post('/login/weChatMiniPrograms',params)
 }
 export default api
