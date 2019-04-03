@@ -3,7 +3,7 @@
 		<!-- 顶部导航 -->
 		<view class="header">
 			<view class="left-arrow">
-				<image :src="nav_icon_back"></image>
+				<image :src="nav_icon_back" @click="goBack"></image>
 			</view>
 			<view class="product_title">
 				<view class="product_title_item" v-for="(item,i) in ['商品','详情']" :key='i' :class="[selectedIndex==i?'activeBd':'initialBd']" @click="changeIndex(i)" >
@@ -141,7 +141,8 @@
 				</view>
 			</view>
 		</view>
-
+		<!-- 商品详情 -->
+		<view></view>
 	</view>
 </template>
 <script>
@@ -157,8 +158,10 @@
 		},
 		methods: {
 			changeIndex(ind){
-				console.log(1111111111,this.selectedIndex)
 				this.selectedIndex = ind
+			},
+			goBack(){
+				uni.go
 			}
 		},
 		data() {

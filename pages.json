@@ -24,23 +24,24 @@
 			"path": "pages/login/WeChatLogin/WeChatLogin",
 			"style": {
 				"navigationBarTitleText": "喜腾",
-				"navigationBarBackgroundColor":"#FBF8F8",
-				"navigationBarTextStyle":"black"
+				"navigationBarBackgroundColor": "#FBF8F8",
+				"navigationBarTextStyle": "black"
 			}
 		}, {
 			"path": "pages/login/WeChatLogin/inputTelNumber",
 			"style": {
 				// "navigationBarTitleText": "手机号验证",
-				"navigationBarBackgroundColor":"#FBF8F8",
-				"navigationBarTextStyle":"black"
+				"navigationBarBackgroundColor": "#fff",
+				"navigationBarTextStyle": "black"
 			}
 		}, {
 			"path": "pages/login/WeChatLogin/verificationCode",
 			"style": {
 				// "navigationBarTitleText": "验证码",
-				"navigationBarBackgroundColor":"#FBF8F8",
-				"navigationBarTextStyle":"black"
+				"navigationBarBackgroundColor": "#fff",
+				"navigationBarTextStyle": "black"
 			}
+<<<<<<< HEAD
 		}
 	    ,{
 	        "path" : "pages/chooseCode/chooseCode",
@@ -57,9 +58,22 @@
 						"type": "transparent"
 					}
 				}
+=======
+		}, {
+			"path": "pages/chooseCode/chooseCode",
+			"style": {
+				"navigationBarTitleText": "选择幸运号码"
+>>>>>>> 775c94c5c1952afd518d5dc7a50bc81d2a40f410
 			}
-        }
-    ],
+		}, {
+			"path": "pages/login/verifyCodeLogin/verifyCodeLogin",
+			"style": {
+				"navigationBarTitleText": "验证码登录",
+				"navigationBarBackgroundColor": "#FBF8F8",
+				"navigationBarTextStyle": "black"
+			}
+		}
+	],
 	"tabBar": {
 		"color": "#7a7e83",
 		"selectedColor": "#FE594B",

@@ -1,15 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import home from '/store/modules/home.js'
-
+import home from './modules/home.js'
+import chooseCode from './modules/chooseCode.js'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
 	modules:{
-		address,
-		publish,
-		main,
-		home
+		home,
+		chooseCode
 	},
 	
     state: {
