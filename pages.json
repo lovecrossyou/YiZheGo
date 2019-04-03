@@ -41,16 +41,14 @@
 				"navigationBarBackgroundColor": "#fff",
 				"navigationBarTextStyle": "black"
 			}
-<<<<<<< HEAD
-		}
-	    ,{
-	        "path" : "pages/chooseCode/chooseCode",
-	        "style" : {
-	    		"navigationBarTitleText": "选择幸运号码"
-	    	}
-	    },{
-            "path" : "pages/details/productDetails",
-            "style" : {
+		}, {
+			"path": "pages/chooseCode/chooseCode",
+			"style": {
+				"navigationBarTitleText": "选择幸运号码"
+			}
+		}, {
+			"path": "pages/details/productDetails",
+			"style": {
 				"navigationBarTitleText": "商品详情",
 				"navigationStyle": "custom",
 				"app-plus": {
@@ -58,12 +56,6 @@
 						"type": "transparent"
 					}
 				}
-=======
-		}, {
-			"path": "pages/chooseCode/chooseCode",
-			"style": {
-				"navigationBarTitleText": "选择幸运号码"
->>>>>>> 775c94c5c1952afd518d5dc7a50bc81d2a40f410
 			}
 		}, {
 			"path": "pages/login/verifyCodeLogin/verifyCodeLogin",
