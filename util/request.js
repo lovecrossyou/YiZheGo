@@ -15,6 +15,7 @@ const errorPrompt = (err) => {
 }
 
 request.interceptors.request.use((request) => {
+	
 	uni.showLoading();
 	return request
 })
