@@ -5,7 +5,7 @@
 				从0～9中选择3个号码，选中立享1折，中签号码与 当天3D中奖号码同步，每天22:00揭晓。
 			</text>
 			<view class="ball-list">
-				<view class="ball" v-for="(ball, index) in ballList" :key="index">{{ ball }}</view>
+				<view class="ball" v-for="(ball, index) in ballList" :key="index" @click="setCode(ball)">{{ ball }}</view>
 			</view>
 			<view class="button-list">
 				<text class="choose-tips">点击号码选中</text>
@@ -20,12 +20,12 @@
 				3D号码
 			</text>
 			<view class="code-list">
-				<view class="code-array" v-for="(codeArray, arrayIndex) in codeList" :key="arrayIndex">
-					<view class="code" v-for="(code, index) in codeArray.split(',')" :key="index">
-						{{ code }}
+				<view class="code-array" v-for="(codeArray, arrayIndex) in codeList" :key="arrayIndex" v-if="codeArray.state!=='other'">
+					<view class="code" v-for="(code, index) in codeArray.code" :key="index" :style="{opacity:code>-1?1:0.5 }">
+						{{ code>-1 ? code : ''}}
 					</view>
 					<view class="blank"></view>
-					<view class="re-choose">重选</view>
+					<view class="re-choose" @click="show">重选</view>
 				</view>
 			</view>
 		</view>
@@ -35,12 +35,12 @@
 
 <script>
 	import {
-		mapState
+		mapState,mapGetters,mapMutations
 	} from 'vuex'
 	export default {
 		data() {
 			return {
-				ballList: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
+				ballList: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
 
 			};
 		},
@@ -48,7 +48,18 @@
 			...mapState({
 				codeCount: state => state.chooseCode.codeCount,
 				codeList: state => state.chooseCode.codeList,
+			}),
+			...mapGetters({
+				//codeListShow: 'chooseCode/codeListShow',
 			})
+		},
+		methods:{
+			...mapMutations({
+				setCode:'chooseCode/setCode'
+			}),
+			show(){
+				console.log(this.codeList);
+			}
 		}
 	};
 </script>
