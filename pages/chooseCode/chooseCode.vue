@@ -7,25 +7,44 @@
 			</view>
 			<view class="button-list">
 				<text class="choose-tips">点击号码选中</text>
-				<view class="button">机选一注</view>
-				<view class="button">全部机选</view>
+				<button class="button" :style="{ opacity: allFinished ? 0.5 : 1 }" :disabled="allFinished" @click="randomCode">机选一注</button>
+				<button class="button" :style="{ opacity: isResetState ? 0.5 : 1 }" :disabled="isResetState" @click="randomAllCode(codeCount)">全部机选</button>
 			</view>
 		</view>
 		<view class="code-content">
 			<text class="code-tips">
 				您可选择
-				<text class="code-tips color-tips">3组</text>
+				<text class="code-tips color-tips">{{ codeCount }}组</text>
 				3D号码
 			</text>
 			<view class="code-list">
 				<view class="code-array" v-for="(codeArray, arrayIndex) in codeList" :key="arrayIndex" v-if="codeArray.state !== 'other'">
 					<view class="code" v-for="(code, index) in codeArray.code" :key="index" :style="{ opacity: code > -1 ? 1 : 0.5 }">{{ code > -1 ? code : '' }}</view>
+
+					<button
+						class="code"
+						v-for="(code, index) in codeArray.code"
+						:key="index"
+						:style="{ opacity: code > -1 ? 1 : 0.5 }"
+						@click="deleteCode(index)"
+						:disabled="codeArray.state !== 'modify'"
+					>
+						{{ code > -1 ? code : '' }}
+					</button>
 					<view class="blank"></view>
-					<view class="re-choose" @click="show">重选</view>
+					<button
+						class="re-choose"
+						@click="resetCode(arrayIndex)"
+						v-if="codeArray.showReset"
+						:style="{ opacity: codeArray.state === 'modify' ? 0.5 : 1 }"
+						:disabled="codeArray.state === 'modify'"
+					>
+						重选
+					</button>
 				</view>
 			</view>
 		</view>
-		<view class="confirm-button">我选好了</view>
+		<view class="confirm-button" :style="{ background: allFinished ? '#D22222' : '#E28A8A' }">我选好了</view>
 	</view>
 </template>
 
@@ -43,12 +62,17 @@ export default {
 			codeList: state => state.chooseCode.codeList
 		}),
 		...mapGetters({
-			//codeListShow: 'chooseCode/codeListShow',
+			allFinished: 'chooseCode/allFinished',
+			isResetState: 'chooseCode/isResetState'
 		})
 	},
 	methods: {
 		...mapMutations({
-			setCode: 'chooseCode/setCode'
+			setCode: 'chooseCode/setCode',
+			deleteCode: 'chooseCode/deleteCode',
+			resetCode: 'chooseCode/resetCode',
+			randomCode: 'chooseCode/randomCode',
+			randomAllCode: 'chooseCode/randomAllCode'
 		}),
 		show() {
 			console.log(this.codeList);
@@ -132,6 +156,9 @@ export default {
 				display: flex;
 				justify-content: center;
 				align-items: center;
+				padding-left: 0;
+				padding-right: 0;
+				text-align: center;
 			}
 		}
 	}
@@ -139,7 +166,7 @@ export default {
 	.code-content {
 		padding-top: 48upx;
 		padding-left: 36upx;
-		padding-bottom: 80upx;
+		margin-bottom: 80upx;
 		display: flex;
 		flex-direction: column;
 
@@ -209,7 +236,6 @@ export default {
 		bottom: 0;
 		width: 100%;
 		height: 80upx;
-		background: rgba(210, 34, 34, 1);
 		font-size: 34upx;
 		font-family: Adobe Heiti Std R;
 		font-weight: normal;

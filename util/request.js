@@ -30,6 +30,7 @@ const createAccessInfo = () => {
 }
 
 
+
 request.config.baseURL = baseURL
 // request.config.headers = {
 // 	"content-type": "application/json",
@@ -62,7 +63,7 @@ request.interceptors.request.use((request) => {
 
 request.interceptors.response.use((response, promise) => {
 	uni.hideLoading()
-	console.log('response ',JSON.stringify(response));
+	console.log('response ', JSON.stringify(response));
 	if (!(response.status === 200)) {
 		errorPrompt(response)
 	}

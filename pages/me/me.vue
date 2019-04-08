@@ -1,4 +1,5 @@
 <template>
+	
 	<view class="user_wrapper">
 		<view class="user_info">
 			<image src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2330852463,1127692662&fm=27&gp=0.jpg" class="header_img"></image>
@@ -8,29 +9,23 @@
 			</view>
 			<image src="http://qnimage.xiteng.com/right_icon@2x.png" alt="" class="next_icon"></image>
 		</view>
-		<view class="order_area_wrapper">
-			<view class="all_order"></view>
-		</view>
-		<view>
-			<itemList img="../../static/me/me_icon%20_invite@2x.png" title="订单" all="全部"></itemList>
-		</view>
-		
+		<view class="order_area_wrapper"><view class="all_order"></view></view>
+		<view><itemList img="../../static/me/me_icon%20_invite@2x.png" title="订单" all="全部"></itemList></view>
 	</view>
 </template>
 
 <script>
 import itemList from "./components/itemList.vue"
+
 export default {
 	data() {
 		return {};
 	},
+
 	methods: {
-		
+
 	},
-	components:{
-		itemList
-	}
-};
+	};
 </script>
 
 <style scoped>
@@ -74,13 +69,13 @@ export default {
 	height: 30upx;
 	margin-right: 13upx;
 }
-.aa{
+.aa {
 	width: 100%;
 	height: 300upx;
 	background-color: #fff;
 	margin-top: 40upx;
 }
-.order_area_wrapper{
+.order_area_wrapper {
 	width: 100%;
 	margin-top: 20upx;
 }
