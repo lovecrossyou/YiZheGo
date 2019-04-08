@@ -1,6 +1,12 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/launch/launch",
+			"style": {
+				"navigationBarTitleText": "喜腾抢购"
+			}
+		},
+		{
 			"path": "pages/home/home",
 			"style": {
 				"navigationBarTitleText": "首页"
@@ -18,7 +24,9 @@
 		}, {
 			"path": "pages/moments/moments",
 			"style": {
-				"navigationBarTitleText": "动态"
+				"navigationBarTitleText": "动态",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "rgba(255,255,255,1)"
 			}
 		}, {
 			"path": "pages/login/WeChatLogin/WeChatLogin",
@@ -47,6 +55,17 @@
 				"navigationBarTitleText": "选择幸运号码"
 			}
 		}, {
+			"path": "pages/details/productDetails",
+			"style": {
+				"navigationBarTitleText": "商品详情",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent"
+					}
+				}
+			}
+		}, {
 			"path": "pages/login/verifyCodeLogin/verifyCodeLogin",
 			"style": {
 				"navigationBarTitleText": "验证码登录",
@@ -54,6 +73,7 @@
 				"navigationBarTextStyle": "black"
 			}
 		}
+
 	],
 	"tabBar": {
 		"color": "#7a7e83",

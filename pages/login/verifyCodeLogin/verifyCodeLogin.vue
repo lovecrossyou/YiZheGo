@@ -13,7 +13,7 @@
 		<view class="partition_line">
 			<view class="or_text">微信快捷登录</view>
 		</view>
-		<image src="../../../static/login/wechat@2x.png" mode="" class="weixin"></image>
+		<image src="../../../static/login/wechat@2x.png" mode="" class="weixin" @click="goWeChat"></image>
 	</view>
 </template>
 
@@ -24,7 +24,13 @@ export default {
 	},
 	components: {},
 	computed: {},
-	methods: {}
+	methods: {
+		goWeChat(){
+			uni.navigateTo({
+				url:"../WeChatLogin/WeChatLogin"
+			})
+		}
+	}
 };
 </script>
 

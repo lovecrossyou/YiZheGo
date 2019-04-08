@@ -4,7 +4,7 @@
 			<view class="page-section swiper">
 				<view class="page-section-spacing">
 					<swiper class="swiper" :indicator-dots="indicatorDots"  :interval="interval" :duration="duration">
-						<swiper-item v-for='(item,i) in [1,2,3,4]' :key='i'>
+						<swiper-item v-for='(item,i) in discusRecommendList.' :key='i'>
 							<view class="swiper-item uni-bg-red">
 								<!-- <image :src="item.imageUrl"></image> -->
 								<image :src="mall_banner"></image>
@@ -18,19 +18,14 @@
 </template>
 
 <script>
-	import {
-		mapState
-	} from "vuex";
+	import {mapState} from "vuex";
 	export default {
 		data() {
 			return {
-				mall_banner: "../../static/home/banner.png",
-				background: ['color1', 'color2', 'color3'],
 				indicatorDots: true,
 				autoplay: true,
 				interval: 2000,
-				duration: 500,
-				arr: []
+				duration: 500
 			}
 		},
 		methods: {
@@ -47,17 +42,12 @@
 				this.duration = e.target.value
 			}
 		},
-		computed: {
-			...mapState({
-				bannerList: state => state.main.bannerList
-			})
-		}
 	}
 </script>
 
 <style scoped>
 	.swiper-item>image {
-		width: 100%;
+		width: 691upx;
 		height: 240upx;
 	}
 </style>
