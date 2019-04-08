@@ -8,7 +8,9 @@
 		}, {
 			"path": "pages/me/me",
 			"style": {
-				"navigationBarTitleText": "我"
+				"navigationBarTitleText": "我",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
 			}
 		}, {
 			"path": "pages/message/message",
