@@ -44,9 +44,6 @@ const errorPrompt = (err) => {
 }
 
 request.interceptors.request.use((request) => {
-<<<<<<< HEAD
-	
-=======
 	let body = request.body;
 	if (body) {
 		body = Object.assign({}, { ...body
@@ -59,7 +56,6 @@ request.interceptors.request.use((request) => {
 		}
 	}
 	request.body = body;
->>>>>>> b64a9257e82cc24124c69a449c22c64051fda7cd
 	uni.showLoading();
 	return request
 })
