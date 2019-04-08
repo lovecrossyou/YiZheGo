@@ -1,6 +1,12 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+			"path": "pages/launch/launch",
+			"style": {
+				"navigationBarTitleText": "喜腾抢购"
+			}
+		},
+		{
 			"path": "pages/home/home",
 			"style": {
 				"navigationBarTitleText": "首页"
@@ -65,6 +71,7 @@
 				"navigationBarTextStyle": "black"
 			}
 		}
+
 	],
 	"tabBar": {
 		"color": "#7a7e83",

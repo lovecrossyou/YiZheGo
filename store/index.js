@@ -31,24 +31,41 @@ const store = new Vuex.Store({
 		logout(state) {
 			state.userName = "";
 			state.hasLogin = false;
+		},
+		saveToken(state, token) {
+			state.token = token;
+		},
+		saveUserInfo(state, userInfo) {
+			state.userInfo = userInfo;
+		},
+		saveOpenId(state, openid) {
+			state.openid = openid;
 		}
 	},
 	actions: {
+		checkLoginStatus({
+			commit,
+			state
+		}) {
+			const token = service.getToken();
+			if (token) {
+				commit('saveToken', token);
+			}
+		},
 		async wxlogin({
-			cimmit,
+			commit,
 			state
 		}, params) {
-			const res = await api.wxlogin(params);
 			const {
 				token,
 				userInfo,
 				openid
-			} = res;
-			state.token = token;
-			state.userInfo = userInfo;
-			state.openid = openid;
-			
+			} = await api.wxlogin(params);
+			commit('saveToken', token);
+			commit('saveUserInfo', userInfo);
+			commit('saveOpenId', openid);
 			service.addToken(token);
+			uni.navigateBack();
 		}
 	}
 })
