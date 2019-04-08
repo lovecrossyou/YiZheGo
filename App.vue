@@ -1,7 +1,14 @@
 <script>
+	import {
+		mapState
+	} from "vuex";
 	export default {
+		computed: {
+			...mapState(['hasLogin'])
+		},
 		onLaunch: function () {
-			console.log('App Launch')
+			console.log('App Launch hasLogin ', this.hasLogin);
+			this.$store.dispatch('checkLoginStatus');
 		},
 		onShow: function () {
 			console.log('App Show')
