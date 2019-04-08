@@ -24,7 +24,10 @@
 		}, {
 			"path": "pages/moments/moments",
 			"style": {
-				"navigationBarTitleText": "动态"
+				"navigationBarTitleText": "动态",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "rgba(255,255,255,1)",
+				"navigationBarHeight":"500upx"
 			}
 		}, {
 			"path": "pages/login/WeChatLogin/WeChatLogin",
