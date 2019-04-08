@@ -7,7 +7,6 @@
 			...mapState(['hasLogin'])
 		},
 		onLaunch: function () {
-			console.log('App Launch hasLogin ', this.hasLogin);
 			this.$store.dispatch('checkLoginStatus');
 		},
 		onShow: function () {

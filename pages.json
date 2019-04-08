@@ -26,8 +26,7 @@
 			"style": {
 				"navigationBarTitleText": "动态",
 				"navigationBarTextStyle": "black",
-				"navigationBarBackgroundColor": "rgba(255,255,255,1)",
-				"navigationBarHeight":"500upx"
+				"navigationBarBackgroundColor": "rgba(255,255,255,1)"
 			}
 		}, {
 			"path": "pages/login/WeChatLogin/WeChatLogin",
