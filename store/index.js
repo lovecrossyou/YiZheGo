@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import home from './modules/home.js'
 import api from '../util/api.js';
 import service from "../service.js";
+import moments from "./modules/moments.js";
 
 import chooseCode from './modules/chooseCode.js'
 Vue.use(Vuex)
@@ -10,7 +11,8 @@ Vue.use(Vuex)
 const store = new Vuex.Store({
 	modules: {
 		home,
-		chooseCode
+		chooseCode,
+		moments
 	},
 
 	state: {
