@@ -1,6 +1,7 @@
 import Fly from 'flyio/dist/npm/wx'
 const request = new Fly()
-const baseURL = 'http://192.168.1.226:9334/'
+const baseURL = 'http://123.57.161.212:9939/xitenggamejar/'
+//http://123.57.161.212:9939/xitenggamejar/swagger-ui.html
 request.config.baseURL = baseURL
 // request.config.headers = {
 // 	"content-type": "application/json",
