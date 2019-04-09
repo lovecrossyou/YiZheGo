@@ -2,8 +2,12 @@ import request from './request'
 const uploadBaseUrl = "";
 
 const api = {
-	//获取茶商城首页分类
-	homeDiscountGameList:params => request.post('/discountGameList/all',params),
+	
+	// 热销榜单
+	hotSaleList:params => request.post('/discountGameList/byTimeLimit',params),
+	// 精选抢购活动
+	byTimeLimitChoiceList:params=>request.post('/discountGameList/byTimeLimitChoice',params),
+	
 	searchNearby: (params) => request.post("map/search", params),
 	//上传
 	uploader: (file, callback) => {
