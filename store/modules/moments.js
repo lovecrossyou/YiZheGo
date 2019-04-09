@@ -1,7 +1,7 @@
 const state = {
-	navigationlist:["推荐","讨论","晒单","中签","福彩"],
-	isOnclick:0,
-		discusRecommendList: [{
+	navigationlist: ["推荐", "讨论", "晒单", "中签", "福彩"],
+	isOnclick: 0,
+	discusRecommendList: [{
 			"userIconUrl": "/static/moments/user_icon.jpg",
 			"userName": "钻石大佬",
 			"userSex": 0,
@@ -27,17 +27,17 @@ const state = {
 }
 
 const getters = {
-	
+
 }
 
 const mutations = {
-	navigationclick(state,index){
+	navigationclick(state, index) {
 		state.isOnclick = index;
 	}
 }
 
 export default {
-	namespaced:true,
+	namespaced: true,
 	state,
 	mutations,
 	getters

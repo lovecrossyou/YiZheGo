@@ -29,6 +29,10 @@
 				"navigationBarBackgroundColor": "rgba(255,255,255,1)"
 			}
 		}, {
+			"path": "pages/moments/components/moment",
+			"style": {
+			}
+		},{
 			"path": "pages/login/WeChatLogin/WeChatLogin",
 			"style": {
 				"navigationBarTitleText": "喜腾",
