@@ -48,9 +48,9 @@
 			}
 		},
 		computed: {
-			...mapState({
-				bannerList: state => state.main.bannerList
-			})
+// 			...mapState({
+// 				bannerList: state => state.main.bannerList
+// 			})
 		}
 	}
 </script>
