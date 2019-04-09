@@ -6,7 +6,7 @@
 			<security-code @inputFnOn="inputFnOn"></security-code>
 		</view>
 		<view class="count_down">40S后可重新获取</view>
-		<button type="warn" :disabled="judge">完成</button>
+		<button type="warn" :disabled="judge" @click="goVerifyLogin">完成</button>
 	</view>
 </template>
 
@@ -25,6 +25,11 @@ export default {
 	methods: {
 		inputFnOn() {
 			this.judge = false;
+		},
+		goVerifyLogin(){
+			uni.navigateTo({
+				url:"../verifyCodeLogin/verifyCodeLogin"
+			})
 		}
 	}
 };

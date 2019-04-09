@@ -28,19 +28,23 @@
 					{
 						imageUrl:"../../static/home/home_shop_1.png",
 						productName:"周杰伦",
-						productPrice:99999
+						productPrice:99999,
+						productId:1
 					},{
 						imageUrl:"../../static/home/home_shop_1.png",
 						productName:"周杰伦周杰伦周杰伦周杰伦周杰伦周杰伦周杰伦周杰伦周杰伦周杰伦",
-						productPrice:99999
+						productPrice:99999,
+						productId:2
 					},{
 						imageUrl:"../../static/home/home_shop_1.png",
 						productName:"周杰伦",
-						productPrice:99999
+						productPrice:99999,
+						productId:3
 					},{
 						imageUrl:"../../static/home/home_shop_1.png",
 						productName:"周杰伦",
-						productPrice:99999
+						productPrice:99999,
+						productId:4
 					},
 				]
 			}
@@ -53,7 +57,7 @@
 		methods:{
 			goDetail(productId){
 				uni.navigateTo({
-					url:"/pages/product/product?productId="+productId
+					url:"/pages/details/productDetails"
 				})
 			}
 		}
