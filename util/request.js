@@ -63,14 +63,13 @@ request.interceptors.request.use((request) => {
 
 request.interceptors.response.use((response, promise) => {
 	uni.hideLoading()
-	console.log('response ', JSON.stringify(response));
 	if (!(response.status === 200)) {
 		errorPrompt(response)
 	}
 	return promise.resolve(response.data)
 }, (err, promise) => {
-	uni.hideLoading()
-	errorPrompt(err)
+	uni.hideLoading()	
+	errorPrompt(err.response)
 	return promise.reject(err)
 })
 
