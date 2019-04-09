@@ -1,6 +1,5 @@
 <template>
 	<view class="mainBg" @click="enter">
-		<image class="bg" :src="launchBg"></image>
 	</view>
 </template>
 
@@ -8,7 +7,6 @@
 	import {
 		mapState
 	} from "vuex";
-	import launchBg from "@/static/launch.png"
 
 	export default {
 		methods: {
