@@ -1,6 +1,6 @@
 <template>
 	<view class="user_wrapper">
-		<view class="user_info">
+		<view class="user_info" @click="goPersonalData">
 			<image src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2330852463,1127692662&fm=27&gp=0.jpg" class="header_img"></image>
 			<view class="user_content">
 				<view class="user_vip">
@@ -49,6 +49,13 @@ export default {
 	components: {
 		itemList,
 		orderStatus
+	},
+	methods:{
+		goPersonalData(){
+			uni.navigateTo({
+				url:"./personalData"
+			})
+		}
 	}
 };
 </script>
