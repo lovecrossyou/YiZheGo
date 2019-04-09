@@ -6,23 +6,28 @@
 			</block>
 		</view>
 		<view class="contentlist">
-			<view class="recommend" v-show="isOnclick===0">00000000</view>
+			<block v-show="isOnclick===0" v-for="(item,index) in discusRecommendList" :key="index">
+				<moment :momentitem="item"></moment>
+			</block>
 			<view class="comment" v-show="isOnclick===1">11111111</view>
 			<view class="showwinorder" v-show="isOnclick===2">222222222</view>
 			<view class="wingame" v-show="isOnclick===3">3333333</view>
-			<view class="lottery" v-show="isOnclick===4">4444444</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import api from "@/util/api.js"
+	import moment from './components/moment'
 	import {
 		mapState,
 		mapMutations
 	} from "vuex"
 	export default {
 		data() {
-			return {};
+			return {
+				discusRecommendList:[]
+			};
 		},
 		computed: {
 			...mapState({
@@ -34,6 +39,15 @@
 			...mapMutations({
 				navigationclick: "moments/navigationclick"
 			})
+		},
+		async onLoad() {
+			const res =await api.discusRecommendList({
+				
+			});
+			this.discusRecommendList = discusRecommendList;
+		},
+		components:{
+			moment
 		}
 	}
 </script>

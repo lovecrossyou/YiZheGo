@@ -5,6 +5,8 @@ const api = {
 	//获取茶商城首页分类
 	homeDiscountGameList:params => request.post('/discountGameList/all',params),
 	searchNearby: (params) => request.post("map/search", params),
+	discusRecommendList:params => request.post(' /discountGame/discusRecommendList',params),
+	
 	//上传
 	uploader: (file, callback) => {
 		uni.uploadFile({
