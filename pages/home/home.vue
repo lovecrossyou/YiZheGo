@@ -70,8 +70,11 @@
 		computed: {
 			...mapState(['hasLogin']),
 			...mapState({
-				hotSaleList:state=>state.home.hotSaleList,
-			})
+				hotSales:state=>state.home.hotSaleList,
+			}),
+			hotSaleList(){
+				return this.hotSales.slice(0,3);
+			}
 		},
 		methods: {
 			async fetchHotSaleList() {
