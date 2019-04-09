@@ -10,7 +10,7 @@
 			<view class="comment" v-show="isOnclick===1">11111111</view>
 			<view class="showwinorder" v-show="isOnclick===2">222222222</view>
 			<view class="wingame" v-show="isOnclick===3">3333333</view>
-			<view class="福彩" v-show="isOnclick===4">4444444</view>
+			<view class="lottery" v-show="isOnclick===4">4444444</view>
 		</view>
 	</view>
 </template>
@@ -63,6 +63,7 @@
 				font-family: PingFangSC-Regular;
 				font-weight: 400;
 				color: rgba(205, 46, 63, 1);
+				border-bottom: solid 2upx rgba(205,46,63,1);
 			}
 		}
 		

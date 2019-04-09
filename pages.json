@@ -14,7 +14,9 @@
 		}, {
 			"path": "pages/me/me",
 			"style": {
-				"navigationBarTitleText": "我"
+				"navigationBarTitleText": "我",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
 			}
 		}, {
 			"path": "pages/message/message",
@@ -29,6 +31,10 @@
 				"navigationBarBackgroundColor": "rgba(255,255,255,1)"
 			}
 		}, {
+			"path": "pages/moments/components/moment",
+			"style": {
+			}
+		},{
 			"path": "pages/login/WeChatLogin/WeChatLogin",
 			"style": {
 				"navigationBarTitleText": "喜腾",

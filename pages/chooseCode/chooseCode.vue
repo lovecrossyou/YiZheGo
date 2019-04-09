@@ -9,17 +9,18 @@
 				<text class="choose-tips">点击号码选中</text>
 				<button class="button" :style="{ opacity: allFinished ? 0.5 : 1 }" :disabled="allFinished" @click="randomCode">机选一注</button>
 				<button class="button" :style="{ opacity: isResetState ? 0.5 : 1 }" :disabled="isResetState" @click="randomAllCode(codeCount)">全部机选</button>
-				
 			</view>
 		</view>
 		<view class="code-content">
 			<text class="code-tips">
 				您可选择
-				<text class="code-tips color-tips">{{codeCount}}组</text>
+				<text class="code-tips color-tips">{{ codeCount }}组</text>
 				3D号码
 			</text>
 			<view class="code-list">
 				<view class="code-array" v-for="(codeArray, arrayIndex) in codeList" :key="arrayIndex" v-if="codeArray.state !== 'other'">
+					<view class="code" v-for="(code, index) in codeArray.code" :key="index" :style="{ opacity: code > -1 ? 1 : 0.5 }">{{ code > -1 ? code : '' }}</view>
+
 					<button
 						class="code"
 						v-for="(code, index) in codeArray.code"
@@ -43,7 +44,9 @@
 				</view>
 			</view>
 		</view>
+
 		<view class="confirm-button" :style="{background: allFinished ? '#D22222' : '#E28A8A' }" @click="show">我选好了</view>
+
 	</view>
 </template>
 
@@ -72,8 +75,7 @@ export default {
 			deleteCode: 'chooseCode/deleteCode',
 			resetCode: 'chooseCode/resetCode',
 			randomCode: 'chooseCode/randomCode',
-			randomAllCode: 'chooseCode/randomAllCode',
-			
+			randomAllCode: 'chooseCode/randomAllCode'
 		}),
 		show() {
 			console.log(this.allCode);
@@ -237,7 +239,6 @@ export default {
 		bottom: 0;
 		width: 100%;
 		height: 80upx;
-		//background: rgba(210, 34, 34, 1);
 		font-size: 34upx;
 		font-family: Adobe Heiti Std R;
 		font-weight: normal;
