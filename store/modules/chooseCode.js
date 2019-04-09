@@ -48,7 +48,7 @@ function getAllCode(codeCount) {
 	 let restArr = [];
 	 
 	 for(let i=0;i<group;i++){
-		 console.log('自己')
+		 
 		 for(let j=0;j<1000;j++){
 			 let num = j+'';
 			 let zeroSize = 3- num.length;
@@ -58,14 +58,14 @@ function getAllCode(codeCount) {
 			codeArray.push(num.split('').join());
 		 }
 	 }
-	 console.log(codeArray)
+	
 	for (let resti = 0; resti < rest; resti++) {
-		 console.log('随机')
+		
 		let code = getOneCode(restArr);
 		
 		restArr.push(code.join());
 	}
-	console.log(restArr)
+	
 	codeArray = 	codeArray.concat(restArr);
 	codeArray.sort();
 	return codeArray;
@@ -75,18 +75,10 @@ function getAllCode(codeCount) {
 export default {
 	namespaced: true,
 	state: {
-		codeCount: 1001,
+		codeCount: 1,
 		codeList: [{
 			code: [-1, -1, -1],
 			state: 'modify',
-			showReset: false,
-		}, {
-			code: [-1, -1, -1],
-			state: 'other',
-			showReset: false,
-		}, {
-			code: [-1, -1, -1],
-			state: 'other',
 			showReset: false,
 		}],
 		modifyIndex: 0,
@@ -175,6 +167,27 @@ export default {
 			state.codeList = codeList;
 			state.modifyIndex = codeList.length -1;
 			uni.hideLoading();
+		},
+		changeCodeCount(state,count){
+			let blankList = [];
+			for(let i=0;i<count;i++){
+				
+				let codeItem = {};
+				codeItem.code = [-1, -1, -1];
+				codeItem.state = 'other';
+				codeItem.showReset = false;
+				if(i===0){
+					codeItem.state = 'modify';
+				}
+				blankList.push(codeItem);
+				
+				
+			}
+			
+			state.codeList = blankList;
+			state.modifyIndex = 0;
+			state.codeCount = count;
+			state.tempIndex = [];
 		}
 
 	},
