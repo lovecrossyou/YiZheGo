@@ -38,6 +38,13 @@ request.config.baseURL = baseURL
 // }
 
 const errorPrompt = (err) => {
+	if(err.data.message === '用户不存在'){
+		uni.navigateTo({
+			url: "/pages/login/WeChatLogin/WeChatLogin"
+		})
+		return;
+	}
+	
 	uni.showToast({
 		title: err.data.message || 'fetch data error.',
 		icon: 'none'

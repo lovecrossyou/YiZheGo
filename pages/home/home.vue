@@ -94,7 +94,6 @@
 			this.fetchHotSaleList()
 			this.fetchTimeLimitChoiceList()
 			if (!this.hasLogin) {
-				console.log('xxxx');
 				uni.navigateTo({
 					url: "/pages/login/WeChatLogin/WeChatLogin"
 				})
