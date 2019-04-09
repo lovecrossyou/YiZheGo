@@ -30,38 +30,19 @@
 		</view>
 		<view class="other_unctions">
 			<itemList img="../../static/me/yaoqing.png" title="邀请好友"></itemList>
-			<itemList img="../../static/me/me_icon_vip@2x.png" title="会员中心"></itemList>
+			<view @click="turnToVip">
+				<itemList img="../../static/me/me_icon_vip@2x.png" title="会员中心"></itemList>
+			</view>
+			
 		</view>
 		<view class="other_unctions end_item">
 			<itemList img="../../static/me/me_icon_currency@2x.png" title="通用"></itemList>
-		</view>
-		<view @click="turnToVip">
-			会员中心
 		</view>
 	</view>
 </template>
 
 <script>
-<<<<<<< HEAD
-	export default {
-		data() {
-			return {
-				
-			};
-		},
-		
-		methods:{
-			enter(){
-				uni.navigateTo({
-					url:'../chooseCode/chooseCode'
-				})
-			},
-			turnToVip(){
-				uni.navigateTo({
-					url:'./vip/vip-center'
-				})
-			}
-=======
+
 import itemList from './components/itemList.vue';
 import orderStatus from './components/orderStatus.vue';
 
@@ -78,7 +59,11 @@ export default {
 			uni.navigateTo({
 				url:"./personalData"
 			})
->>>>>>> 1fca3daf0f9518b11c053567a5da84e082e649b1
+		},
+		turnToVip(){
+			uni.navigateTo({
+				url:'./vip/vip-center'
+			})
 		}
 	}
 };

@@ -60,16 +60,12 @@
 			"style": {
 				"navigationBarTitleText": "选择幸运号码"
 			}
-<<<<<<< HEAD
         },
 		{
 			"path" : "pages/me/vip/vip-center",
 			"style": {
 				"navigationBarTitleText" : "会员中心"
 			}
-		}
-    ],
-=======
 		}, {
 			"path": "pages/details/productDetails",
 			"style": {
@@ -98,7 +94,6 @@
 		}
 
 	],
->>>>>>> 1fca3daf0f9518b11c053567a5da84e082e649b1
 	"tabBar": {
 		"color": "#7a7e83",
 		"selectedColor": "#FE594B",
