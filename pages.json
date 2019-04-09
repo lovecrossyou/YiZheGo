@@ -32,9 +32,8 @@
 			}
 		}, {
 			"path": "pages/moments/components/moment",
-			"style": {
-			}
-		},{
+			"style": {}
+		}, {
 			"path": "pages/login/WeChatLogin/WeChatLogin",
 			"style": {
 				"navigationBarTitleText": "喜腾",
@@ -60,6 +59,12 @@
 			"style": {
 				"navigationBarTitleText": "选择幸运号码"
 			}
+		},
+		{
+			"path": "pages/me/vip/vip-center",
+			"style": {
+				"navigationBarTitleText": "会员中心"
+			}
 		}, {
 			"path": "pages/details/productDetails",
 			"style": {
@@ -78,10 +83,21 @@
 				"navigationBarBackgroundColor": "#FBF8F8",
 				"navigationBarTextStyle": "black"
 			}
-		},{
+
+		}, {
 			"path": "pages/chooseCode/confirmOrder",
 			"style": {
 				"navigationBarTitleText": "购买数量"
+
+			}
+		},
+		{
+			"path": "pages/me/personalData",
+			"style": {
+				"navigationBarTitleText": "个人资料",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+
 			}
 		}
 

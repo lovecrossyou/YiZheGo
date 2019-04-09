@@ -6,7 +6,7 @@
 		</view>
 		<view class="right_item">
 			<view class="right_text">{{all}}</view>
-			<image src="http://qnimage.xiteng.com/right_icon@2x.png" alt="" class="next_icon"></image>
+			<image src="http://qnimage.xiteng.com/next_go_icon.png" alt="" class="next_icon"></image>
 		</view>
 	</view>
 </template>
