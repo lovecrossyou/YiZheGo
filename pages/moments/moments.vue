@@ -41,10 +41,8 @@
 			})
 		},
 		async onLoad() {
-			const res =await api.discusRecommendList({
-				
-			});
-			this.discusRecommendList = discusRecommendList;
+			const res = await api.discusRecommendList({});
+			this.discusRecommendList = res.slice(0,10);
 		},
 		components:{
 			moment
