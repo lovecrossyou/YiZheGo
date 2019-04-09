@@ -3,13 +3,25 @@
 		{
 			"path": "pages/launch/launch",
 			"style": {
-				"navigationBarTitleText": "喜腾抢购"
+				"navigationBarTitleText": "喜腾抢购",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent" //透明渐变导航栏,
+					}
+				}
 			}
 		},
 		{
 			"path": "pages/home/home",
 			"style": {
-				"navigationBarTitleText": "首页"
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "首页",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent" //透明渐变导航栏,
+					}
+				}
 			}
 		}, {
 			"path": "pages/me/me",
@@ -32,9 +44,8 @@
 			}
 		}, {
 			"path": "pages/moments/components/moment",
-			"style": {
-			}
-		},{
+			"style": {}
+		}, {
 			"path": "pages/login/WeChatLogin/WeChatLogin",
 			"style": {
 				"navigationBarTitleText": "喜腾",
@@ -60,11 +71,11 @@
 			"style": {
 				"navigationBarTitleText": "选择幸运号码"
 			}
-        },
+		},
 		{
-			"path" : "pages/me/vip/vip-center",
+			"path": "pages/me/vip/vip-center",
 			"style": {
-				"navigationBarTitleText" : "会员中心"
+				"navigationBarTitleText": "会员中心"
 			}
 		}, {
 			"path": "pages/details/productDetails",
@@ -84,12 +95,21 @@
 				"navigationBarBackgroundColor": "#FBF8F8",
 				"navigationBarTextStyle": "black"
 			}
+
 		}, {
+			"path": "pages/chooseCode/confirmOrder",
+			"style": {
+				"navigationBarTitleText": "购买数量"
+
+			}
+		},
+		{
 			"path": "pages/me/personalData",
 			"style": {
 				"navigationBarTitleText": "个人资料",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
+
 			}
 		}
 
