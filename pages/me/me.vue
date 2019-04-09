@@ -11,7 +11,7 @@ export default {
 	methods: {
 		enter() {
 			uni.navigateTo({
-				url: '../chooseCode/chooseCode'
+				url: '../chooseCode/confirmOrder'
 			});
 		}
 	}

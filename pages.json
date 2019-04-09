@@ -72,6 +72,11 @@
 				"navigationBarBackgroundColor": "#FBF8F8",
 				"navigationBarTextStyle": "black"
 			}
+		},{
+			"path": "pages/chooseCode/confirmOrder",
+			"style": {
+				"navigationBarTitleText": "购买数量"
+			}
 		}
 
 	],

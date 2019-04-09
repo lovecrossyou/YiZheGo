@@ -43,7 +43,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="confirm-button" :style="{background: allFinished ? '#D22222' : '#E28A8A' }">我选好了</view>
+		<view class="confirm-button" :style="{background: allFinished ? '#D22222' : '#E28A8A' }" @click="show">我选好了</view>
 	</view>
 </template>
 
@@ -63,6 +63,7 @@ export default {
 		...mapGetters({
 			allFinished: 'chooseCode/allFinished',
 			isResetState: 'chooseCode/isResetState',
+			allCode: 'chooseCode/allCode',
 		})
 	},
 	methods: {
@@ -75,7 +76,7 @@ export default {
 			
 		}),
 		show() {
-			console.log(this.codeList);
+			console.log(this.allCode);
 		}
 	}
 };
