@@ -47,7 +47,13 @@
             "style" : {
 				"navigationBarTitleText": "选择幸运号码"
 			}
-        }
+        },
+		{
+			"path" : "pages/me/vip/vip-center",
+			"style": {
+				"navigationBarTitleText" : "会员中心"
+			}
+		}
     ],
 	"tabBar": {
 		"color": "#7a7e83",
