@@ -1,6 +1,6 @@
 <template>
-	<view>
-		
+	<view @click="enter">
+		选号
 	</view>
 </template>
 
@@ -10,6 +10,13 @@
 			return {
 				
 			};
+		},
+		methods:{
+			enter(){
+				uni.navigateTo({
+					url:'../chooseCode/confirmOrder'
+				})
+			}
 		}
 	}
 </script>
