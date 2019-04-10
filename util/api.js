@@ -12,7 +12,16 @@ const api = {
 	productDetails: params => request.post('/discountGame/detail', params),
 
 	searchNearby: (params) => request.post("map/search", params),
-	discusRecommendList: params => request.post(' /discountGame/discusRecommendList', params),
+	//推荐列表
+	discusRecommendList:params => request.post('/discountGame/discusRecommendList',params),
+	//讨论列表
+	discusCommentList:params => request.post('/discountGame/discusCommentList',params),
+	//晒单列表
+	showWinOrderList:params => request.post('/discountGame/showWinOrderList',params),
+
+	discusRecommendList:params => request.post(' /discountGame/discusRecommendList',params),
+	//我
+	userInfo:(params) => request.post("/user/info",params),
 
 	//上传
 	uploader: (file, callback) => {

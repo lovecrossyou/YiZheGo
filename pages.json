@@ -99,8 +99,15 @@
 		}, {
 			"path": "pages/chooseCode/confirmOrder",
 			"style": {
-				"navigationBarTitleText": "购买数量"
+				"navigationBarTitleText": "确认订单"
 
+			}
+		},
+		{
+			"path": "pages/chooseCode/pay",
+			"style": {
+				"navigationBarTitleText": "确认付款"
+		
 			}
 		},
 		{
@@ -128,16 +135,15 @@
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
-		}
-	    ,{
-            "path" : "pages/me/address/address",
-            "style" : {
+		}, {
+			"path": "pages/me/address/address",
+			"style": {
 				"navigationBarTitleText": "地址",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
-        }
-    ],
+		}
+	],
 	"tabBar": {
 		"color": "#7a7e83",
 		"selectedColor": "#FE594B",
@@ -171,7 +177,7 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarBackgroundColor": "#FF594B",
-		"backgroundColor": "#FF594B"
+		"backgroundColor": "#FFFFFF"
 	},
 	"condition": { //模式配置，仅开发期间生效
 		"current": 0, //当前激活的模式(list 的索引项)
