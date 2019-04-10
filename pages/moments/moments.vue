@@ -2,16 +2,14 @@
 	<view class="moments">
 		<view class="navigation">
 			<block v-for="(item,index) in navigationlist" :key=index>
-				<view class="navigationtext" :class="{'navigationclicktext':isOnclick===index}" @click="navigationclick(index)">{{item}}</view>
+				<view class="navigationtext" :class="{'navigationclicktext':isOnclick===index}" @click="navigationclick(index);changelist(index)">{{item}}</view>
 			</block>
 		</view>
 		<view class="contentlist">
-			<block v-show="isOnclick===0" v-for="(item,index) in discusRecommendList" :key="index">
+			<block v-if="isOnclick<3" v-for="(item,index) in list" :key="index">
 				<moment :momentitem="item"></moment>
 			</block>
-			<view class="comment" v-show="isOnclick===1">11111111</view>
-			<view class="showwinorder" v-show="isOnclick===2">222222222</view>
-			<view class="wingame" v-show="isOnclick===3">3333333</view>
+			<view v-if="isOnclick>2">待开发</view>
 		</view>
 	</view>
 </template>
@@ -19,30 +17,45 @@
 <script>
 	import api from "@/util/api.js"
 	import moment from './components/moment'
-	import {
-		mapState,
-		mapMutations
-	} from "vuex"
 	export default {
 		data() {
 			return {
-				discusRecommendList:[]
-			};
+				isOnclick: 0,
+				navigationlist: ["推荐", "讨论", "晒单", "中签"],
+				list:[]
+			}
 		},
 		computed: {
-			...mapState({
-				navigationlist: state => state.moments.navigationlist,
-				isOnclick: state => state.moments.isOnclick
-			})
 		},
 		methods: {
-			...mapMutations({
-				navigationclick: "moments/navigationclick"
-			})
+			navigationclick(index){
+				this.isOnclick=index;
+			},
+			async changelist(index){
+				let res=[];
+				switch(index){
+					case 0:
+						res = await api.discusRecommendList({});
+						this.list = res;
+						break;
+					case 1:
+						res = await api.discusCommentList({});
+						this.list = res;
+						break;
+					case 2:
+						res = await api.showWinOrderList({});
+						this.list = res;
+						break;
+					case 3:
+						break;
+				}
+			}
 		},
 		async onLoad() {
-			const res = await api.discusRecommendList({});
-			this.discusRecommendList = res;
+			const res = await api.discusRecommendList({
+				
+			});
+			this.list = res;
 		},
 		components:{
 			moment

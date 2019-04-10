@@ -9,7 +9,12 @@ const api = {
 	byTimeLimitChoiceList:params=>request.post('/discountGameList/byTimeLimitChoice',params),
 	
 	searchNearby: (params) => request.post("map/search", params),
-	discusRecommendList:params => request.post(' /discountGame/discusRecommendList',params),
+	//推荐列表
+	discusRecommendList:params => request.post('/discountGame/discusRecommendList',params),
+	//讨论列表
+	discusCommentList:params => request.post('/discountGame/discusCommentList',params),
+	//晒单列表
+	showWinOrderList:params => request.post('/discountGame/showWinOrderList',params),
 	
 	//上传
 	uploader: (file, callback) => {
