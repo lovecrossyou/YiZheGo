@@ -48,6 +48,7 @@
 	.momentwrapper {
 		width: 100%;
 		background: rgba(255, 255, 255, 1);
+		margin-bottom: 20upx;
 
 		.user {
 			width: 100%;
