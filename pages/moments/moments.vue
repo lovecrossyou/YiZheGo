@@ -42,7 +42,7 @@
 		},
 		async onLoad() {
 			const res = await api.discusRecommendList({});
-			this.discusRecommendList = res.slice(0,10);
+			this.discusRecommendList = res;
 		},
 		components:{
 			moment
@@ -79,11 +79,11 @@
 			}
 		}
 		
-		.comtentlist{
+		.contentlist{
 			width: 100%;
-			height: 500upx;
-			background: rgba(234,234,234,1);
-			margin-top: 26upx;
+			background: #eeeeee;
+			padding: 20upx 30upx;
+			box-sizing: border-box;
 		}
 	}
 </style>
