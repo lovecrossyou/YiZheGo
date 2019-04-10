@@ -11,6 +11,9 @@ const api = {
 	searchNearby: (params) => request.post("map/search", params),
 	discusRecommendList:params => request.post(' /discountGame/discusRecommendList',params),
 	
+	//我
+	userInfo:(params) => request.post("/user/info",params),
+	
 	//上传
 	uploader: (file, callback) => {
 		uni.uploadFile({

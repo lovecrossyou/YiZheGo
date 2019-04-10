@@ -1,13 +1,13 @@
 <template>
 	<view class="user_wrapper">
 		<view class="user_info" @click="goPersonalData">
-			<image src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2330852463,1127692662&fm=27&gp=0.jpg" class="header_img"></image>
+			<image :src="personalInfoList.userInfo.icon" mode="aspectFill" class="header_img"></image>
 			<view class="user_content">
 				<view class="user_vip">
-					<view class="user_name">你的名字</view>
+					<view class="user_name">{{personalInfoList.userInfo.cnName}}</view>
 					<image src="../../static/me/vip.png" mode="" class="vip_icon"></image>
 				</view>
-				<view class="xt_num">喜腾号：20165874</view>
+				<view class="xt_num">喜腾号：{{personalInfoList.userInfo.xtNumber}}</view>
 			</view>
 			<image src="http://qnimage.xiteng.com/next_go_icon.png" alt="" class="next_icon"></image>
 		</view>
@@ -41,12 +41,16 @@
 </template>
 
 <script>
+	import api from "../../util/api.js";
+
 	import itemList from './components/itemList.vue';
 	import orderStatus from './components/orderStatus.vue';
 
 	export default {
 		data() {
-			return {};
+			return {
+				personalInfoList:{},
+			};
 		},
 
 		components: {
@@ -56,14 +60,22 @@
 		methods: {
 			goPersonalData() {
 				uni.navigateTo({
-					url: './personalData'
+					url: "./personalData"
 				});
 			},
 			turnToVip() {
 				uni.navigateTo({
 					url: './vip/vip-center'
 				});
-			}
+			},
+			async personalInfo(){
+				let res = await api.userInfo({})
+				this.personalInfoList = res;
+				console.log(this.personalInfoList)
+			},
+		},
+		onLoad() {
+			this.personalInfo()
 		}
 	};
 </script>
