@@ -78,27 +78,23 @@
 		},
 		methods: {
 			async fetchHotSaleList() {
-				const res = await api.hotSaleList({
-					accessInfo: {}
-				})
+				const res = await api.hotSaleList({})
 				this.$store.commit('home/setHotSaleList',res)
 			},
 			async fetchTimeLimitChoiceList(){
-				const res = await api.byTimeLimitChoiceList({
-					accessInfo:{}
-				})
+				const res = await api.byTimeLimitChoiceList({})
 				this.$store.commit('home/setTimeLimitChoiceList',res)
 			}
 		},
 		onLoad() {
 			this.fetchHotSaleList()
 			this.fetchTimeLimitChoiceList()
-			if (!this.hasLogin) {
-				console.log('xxxx');
-				uni.navigateTo({
-					url: "/pages/login/WeChatLogin/WeChatLogin"
-				})
-			}
+// 			if (!this.hasLogin) {
+// 				console.log('xxxx');
+// 				uni.navigateTo({
+// 					url: "/pages/login/WeChatLogin/WeChatLogin"
+// 				})
+// 			}
 		},
 		data() {
 			return {
@@ -150,6 +146,7 @@
 
 		.header {
 			width: 100%;
+			background:#FFFFFF;
 			position: relative;
 		}
 
@@ -302,13 +299,18 @@
 					}
 
 					.hot_sale_product_name {
+						width:80%;
+						padding: 4upx 20upx;
+						height:34upx;
+						box-sizing: border-box;
+						overflow: hidden;
+						text-overflow: ellipsis;
 						background: rgba(250, 224, 181, 1);
-						border-radius: 16px;
+						border-radius: 16upx;
 						font-size: 24upx;
 						font-family: PingFang-SC-Medium;
 						font-weight: 500;
 						color: rgba(101, 69, 48, 1);
-						padding: 4upx 20upx;
 						margin-top: 16upx;
 						margin-bottom: 10upx;
 					}

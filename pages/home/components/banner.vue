@@ -46,11 +46,6 @@
 			durationChange(e) {
 				this.duration = e.target.value
 			}
-		},
-		computed: {
-// 			...mapState({
-// 				bannerList: state => state.main.bannerList
-// 			})
 		}
 	}
 </script>
