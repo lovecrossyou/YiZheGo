@@ -99,8 +99,15 @@
 		}, {
 			"path": "pages/chooseCode/confirmOrder",
 			"style": {
-				"navigationBarTitleText": "购买数量"
+				"navigationBarTitleText": "确认订单"
 
+			}
+		},
+		{
+			"path": "pages/chooseCode/pay",
+			"style": {
+				"navigationBarTitleText": "确认付款"
+		
 			}
 		},
 		{
