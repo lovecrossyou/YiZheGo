@@ -1,5 +1,5 @@
 <template>
-	<view class="product_details_wrapper">
+	<view class="product_details_wrapper" v-if="productDetail">
 		<!-- 顶部导航 -->
 		<view class="header">
 			<view class="left-arrow">
@@ -17,9 +17,9 @@
 		<!-- 轮播 -->
 		<view class="scroll-wrapper">
 			<swiper class="swiper" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
-				<swiper-item class="swiper-item" v-for="(item,i) in imageUrlList" :key='i'>
+				<swiper-item class="swiper-item" v-for="(item,i) in banners" :key='i'>
 					<view>
-						<image :src="item.imgUrl"></image>
+						<image :src="item"></image>
 					</view>
 				</swiper-item>
 			</swiper>
@@ -153,8 +153,12 @@
 	export default {
 		computed: {
 			...mapState({
-
-			})
+				productDetail:state=>state.productDetail.productDetail
+			}),
+			banners(){
+				if(this.productDetail===null)return [];
+				return this.productDetail.productItemModel.productShowImageUrlList
+			}
 		},
 		methods: {
 			changeIndex(ind){
@@ -162,7 +166,16 @@
 			},
 			goBack(){
 				uni.go
+			},
+			async fetchProductDetails(){
+				const res = await api.productDetails({
+					discountGameId:1
+				});
+				this.$store.commit('productDetail/setProductDetails',res)
 			}
+		},
+		onLoad(){
+			this.fetchProductDetails()
 		},
 		data() {
 			return {

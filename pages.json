@@ -84,7 +84,7 @@
 				"navigationStyle": "custom",
 				"app-plus": {
 					"titleNView": {
-						"type": "transparent"
+						"type": "transparent" //透明渐变导航栏,
 					}
 				}
 			}

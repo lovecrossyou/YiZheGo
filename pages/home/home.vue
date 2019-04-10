@@ -22,12 +22,12 @@
 					</view>
 				</view>
 				<view class="tooopencom_product_list">
-					<view class="tooopencom_product_item" v-for="(item,i) in tooopencomList" :key="i">
+					<view class="tooopencom_product_item" v-for="(item,i) in timeLimitChoiceList" :key="i">
 						<view class="image">
-							<image :src="item.img"></image>
-							<view class="tooopencom_product_price">￥{{item.price}}</view>
+							<image :src="item.productImageUrl"></image>
+							<view class="tooopencom_product_price">￥{{item.oneDiscountPrice}}</view>
 						</view>
-						<view class="tooopencom_product_name">{{item.name}}</view>
+						<view class="tooopencom_product_name">{{item.productName}}</view>
 					</view>
 				</view>
 			</view>
@@ -40,7 +40,7 @@
 				</view>
 			</view>
 			<view class="hot_sale_list">
-				<view class="hot_sale_product_item" v-for="(item,i) in hotSaleList" :key="i">
+				<view class="hot_sale_product_item" v-for="(item,i) in timeLimitChoiceList" :key="i">
 					<view class="image">
 						<image :src="item.productImageUrl "></image>
 					</view>
@@ -59,7 +59,9 @@
 </template>
 
 <script>
-	import { mapState } from "vuex";
+	import {
+		mapState
+	} from "vuex";
 	import api from '../../util/api.js';
 	import banner from './components/banner';
 	import searchBox from './components/searchBox';
@@ -70,30 +72,36 @@
 		computed: {
 			...mapState(['hasLogin']),
 			...mapState({
-				hotSales:state=>state.home.hotSaleList,
+				timeLimitChoices: state => state.home.timeLimitChoiceList,
 			}),
-			hotSaleList(){
-				return this.hotSales.slice(0,3);
+			timeLimitChoiceList() {
+				return this.timeLimitChoices.slice(0, 3);
 			}
 		},
 		methods: {
-			goNext(item){
+			goNext(item) {
 				uni.navigateTo({
-					url:item.page
+					url: item.page
 				})
 			},
-			async fetchHotSaleList() {
-				const res = await api.hotSaleList({})
-				this.$store.commit('home/setHotSaleList',res)
+			async fetchByTimeLimitList() {
+				const res = await api.byTimeLimitList({})
+				this.$store.commit('home/setByTimeLimitList', res)
 			},
-			async fetchTimeLimitChoiceList(){
+			async fetchTimeLimitChoiceList() {
 				const res = await api.byTimeLimitChoiceList({})
-				this.$store.commit('home/setTimeLimitChoiceList',res)
-			}
+				this.$store.commit('home/setTimeLimitChoiceList', res)
+			},
+			async fetchNewsBenefitList() {
+				const res = await api.newsBenefitList({})
+				this.$store.commit('home/setNewsBenefitList', res)
+			},
+
 		},
 		onLoad() {
-			this.fetchHotSaleList()
+			this.fetchByTimeLimitList()
 			this.fetchTimeLimitChoiceList()
+			this.fetchNewsBenefitList()
 
 			if (!this.hasLogin) {
 				uni.navigateTo({
@@ -105,38 +113,26 @@
 			return {
 				home_huiyuan: '../../static/home/home_huiyuan.png',
 				home_gengduo_icon: '../../static/home/home_gengduo_icon.png',
-				home_shop_1: '../../static/home/home_shop_1.png',
 				navBarListTit: ["精选", "销量", "价格"],
-				navList: [{
-					img: '../../static/home/home_nav_zhongqian.png',
-					name: "中签",
-					page: "/pages/ranklist/ranklist"
-				}, {
-					img: '../../static/home/home_nav_shaidan.png',
-					name: "晒单",
-					page: "/pages/ranklist/ranklist"
-				}, {
-					img: '../../static/home/home_nav_bangdan.png',
-					name: "榜单",
-					page: "/pages/ranklist/ranklist"
-				}, {
-					img: '../../static/home/home_nav_fenlei.png',
-					name: "分类",
-					page: "/pages/ranklist/ranklist"
-				}, ],
-				tooopencomList: [{
-					img: '../../static/home/home_shop_1.png',
-					name: "口红",
-					price: 2.3
-				}, {
-					img: '../../static/home/home_shop_1.png',
-					name: "洗发水",
-					price: 3.3
-				}, {
-					img: '../../static/home/home_shop_1.png',
-					name: "粉底液",
-					price: 5.3
-				}, ],
+				navList: [
+					{
+						img: '../../static/home/home_nav_zhongqian.png',
+						name: "中签",
+						page: "/pages/ranklist/ranklist"
+					}, {
+						img: '../../static/home/home_nav_shaidan.png',
+						name: "晒单",
+						page: "/pages/ranklist/ranklist"
+					}, {
+						img: '../../static/home/home_nav_bangdan.png',
+						name: "榜单",
+						page: "/pages/ranklist/ranklist"
+					}, {
+						img: '../../static/home/home_nav_fenlei.png',
+						name: "分类",
+						page: "/pages/ranklist/ranklist"
+					}
+				]
 			}
 		},
 		components: {
@@ -155,7 +151,7 @@
 
 		.header {
 			width: 100%;
-			background:#FFFFFF;
+			background: #FFFFFF;
 			position: relative;
 		}
 
@@ -308,12 +304,13 @@
 					}
 
 					.hot_sale_product_name {
-						width:80%;
+						width: 80%;
 						padding: 4upx 20upx;
-						height:34upx;
+						height: 34upx;
 						box-sizing: border-box;
 						overflow: hidden;
 						text-overflow: ellipsis;
+						text-align: center;
 						background: rgba(250, 224, 181, 1);
 						border-radius: 16upx;
 						font-size: 24upx;
