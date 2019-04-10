@@ -66,6 +66,7 @@ const store = new Vuex.Store({
 			commit('saveToken', token);
 			commit('saveUserInfo', userInfo);
 			commit('saveOpenId', openid);
+			console.log('token ',token);
 			service.addToken(token);
 			uni.navigateBack();
 		}

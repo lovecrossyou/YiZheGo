@@ -1,33 +1,35 @@
 <template>
 	<view class="momentwrapper">
 		<view class="user">
-			<image class="user_icon" src="/static/moments/user_icon.jpg"></image>
+			<image class="user_icon" :src="momentitem.userIconUrl"></image>
 			<view class="user_icon_right">
 				<view class="user_wrapper">
 					<view class="user_name">{{momentitem.userName}}</view>
-					<image class="user_sex" src="/static/moments/icon_man.png"></image>
+					<image class="user_sex" v-if="momentitem.userSex==='男'" src="/static/moments/icon_man.png"></image>
+					<image class="user_sex" v-else="momentitem.userSex==='女'" src="/static/moments/icon_woman.png"></image>
 				</view>
-				<view class="time">2018-05-10 14:16</view>
+				<view class="time">{{momentitem.createTime}}</view>
 			</view>
 		</view>
-		<view class="moment_text">中签了，太棒了，手气相当不错，平台有保障，没问题，看图说话。</view>
+		<view class="moment_text">{{momentitem.commentContent}}</view>
 		<view class="moment_image_wrapper">
-			<image class="moment_image" src="/static/moments/banner_1.png"></image>
+			<image class="moment_image" :src="momentitem.imageOrVideoUrl[0]"></image>
 			<view class="moment_image_num_wrapper">
 				<image class="moment_num_icon" src="/static/moments/shaidan_icon_tupian.png"></image>
-				<view class="moment_image_num">5</view>
+				<view class="moment_image_num">{{momentitem.imageOrVideoUrl.length}}</view>
 			</view>
 		</view>
 		<view class="moment_data">
-			<view class="gamestage">期数: 201607260002</view>
+			<view class="gamestage" v-if="momentitem.discountGameStage">期数: {{momentitem.discountGameStage}}</view>
+			<view class="gamestage" v-else="!momentitem.discountGameStage"></view>
 			<view class="moment_num">
 				<view class="praise">
 					<image class="praise_img" src="/static/moments/icon_illume.png"></image>
-					<view class="praise_num">999</view>
+					<view class="praise_num">{{momentitem.praiseCount}}</view>
 				</view>
 				<view class="comment">
 					<image class="comment_img" src="/static/moments/icon_comment.png"></image>
-					<view class="comment_num">99</view>
+					<view class="comment_num">{{momentitem.commentCount}}</view>
 				</view>
 			</view>
 		</view>
@@ -46,6 +48,7 @@
 	.momentwrapper {
 		width: 100%;
 		background: rgba(255, 255, 255, 1);
+		margin-bottom: 20upx;
 
 		.user {
 			width: 100%;
@@ -102,7 +105,7 @@
 			font-weight: 400;
 			color: rgba(51, 51, 51, 1);
 			line-height: 36upx;
-			margin: 31upx 46upx 18upx 32upx;
+			margin: 31upx 32upx 18upx 32upx;
 			box-sizing: border-box;
 		}
 
@@ -154,6 +157,7 @@
 			justify-content: space-between;
 			width: 100%;
 			margin-top: 459upx;
+			margin-right: 31upx;
 
 			.gamestage {
 				font-size: 24upx;
@@ -167,7 +171,6 @@
 			.moment_num{
 				display: flex;
 				flex-direction: row;
-				margin-right: 31upx;
 				
 				.praise {
 					display: flex;
@@ -206,6 +209,7 @@
 						color: rgba(102, 102, 102, 1);
 						margin-left: 10upx;
 						margin-top: -5upx;
+						margin-right: 31upx;
 					}
 				}
 			}
