@@ -1,5 +1,5 @@
 <template>
-	<view class="wrapper">
+	<view class="wrapper" @click="goNext">
 		<view class="left_item">
 			<view class="item_text">{{title}}</view>
 		</view>
@@ -17,8 +17,17 @@ export default {
 	},
 	props:{
 		title:String,
-		leftText:String
+		leftText:String,
+		page:String
+	},
+	methods:{
+		goNext(){
+			uni.navigateTo({
+				url: this.page
+			});
+		}
 	}
+	
 };
 </script>
 

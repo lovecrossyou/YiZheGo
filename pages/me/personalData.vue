@@ -22,7 +22,7 @@
 		<view class="bottom_item_list">
 			<selectItemList title="性别" leftText="男"></selectItemList>
 			<selectItemList title="星座" leftText="白羊座"></selectItemList>
-			<selectItemList title="送货地址" ></selectItemList>
+			<selectItemList page="/pages/me/address/address" title="送货地址" ></selectItemList>
 		</view>
 	</view>
 </template>
