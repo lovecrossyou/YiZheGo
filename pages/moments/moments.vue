@@ -36,19 +36,17 @@
 				switch(index){
 					case 0:
 						res = await api.discusRecommendList({});
-						this.list = res;
 						break;
 					case 1:
 						res = await api.discusCommentList({});
-						this.list = res;
 						break;
 					case 2:
 						res = await api.showWinOrderList({});
-						this.list = res;
 						break;
 					case 3:
 						break;
-				}
+				};
+				this.list = res;
 			}
 		},
 		async onLoad() {

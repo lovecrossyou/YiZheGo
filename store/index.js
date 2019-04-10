@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import home from './modules/home.js'
+import home from './modules/home.js';
+import productDetail from './modules/productDetails.js';
 import api from '../util/api.js';
 import service from "../service.js";
 import moments from "./modules/moments.js";
@@ -12,7 +13,8 @@ const store = new Vuex.Store({
 	modules: {
 		home,
 		chooseCode,
-		moments
+		moments,
+		productDetail
 	},
 
 	state: {
@@ -66,6 +68,7 @@ const store = new Vuex.Store({
 			commit('saveToken', token);
 			commit('saveUserInfo', userInfo);
 			commit('saveOpenId', openid);
+			console.log('token ',token);
 			service.addToken(token);
 			uni.navigateBack();
 		}

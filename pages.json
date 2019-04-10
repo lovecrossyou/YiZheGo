@@ -1,5 +1,5 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages ranklist
 		{
 			"path": "pages/launch/launch",
 			"style": {
@@ -84,7 +84,7 @@
 				"navigationStyle": "custom",
 				"app-plus": {
 					"titleNView": {
-						"type": "transparent"
+						"type": "transparent" //透明渐变导航栏,
 					}
 				}
 			}
@@ -111,8 +111,31 @@
 				"navigationBarTextStyle": "black"
 
 			}
+		},
+		{
+			"path": "pages/ranklist/ranklist",
+			"style": {
+				"navigationBarTitleText": "榜单",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
 		}
 
+		, {
+			"path": "pages/me/wallet/wallet",
+			"style": {
+				"navigationBarTitleText": "钱包",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/me/address/address",
+			"style": {
+				"navigationBarTitleText": "地址",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}
 	],
 	"tabBar": {
 		"color": "#7a7e83",
@@ -147,7 +170,7 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarBackgroundColor": "#FF594B",
-		"backgroundColor": "#FF594B"
+		"backgroundColor": "#FFFFFF"
 	},
 	"condition": { //模式配置，仅开发期间生效
 		"current": 0, //当前激活的模式(list 的索引项)

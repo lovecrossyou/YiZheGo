@@ -40,7 +40,7 @@
 		align-items: center;
 		position: fixed;
 		left:0;
-		top:100upx;
+		top:10upx;
 		z-index: 999;
 		.search_wrapper_item {
 			flex:1;

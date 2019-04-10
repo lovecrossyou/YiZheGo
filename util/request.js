@@ -30,7 +30,6 @@ const createAccessInfo = () => {
 }
 
 
-
 request.config.baseURL = baseURL
 // request.config.headers = {
 // 	"content-type": "application/json",
