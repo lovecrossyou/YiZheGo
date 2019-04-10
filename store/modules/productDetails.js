@@ -3,9 +3,7 @@ const state = {
 }
 const mutations = {
 	setProductDetails(state,data){
-		console.log('================',data)
 		state.productDetail = data;
-		
 	}
 }
 export default {
