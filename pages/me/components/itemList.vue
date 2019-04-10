@@ -1,5 +1,5 @@
 <template>
-	<view class="wrapper">
+	<view class="wrapper" @click="goNext">
 		<view class="left_item">
 			<image :src="img" class="item_img"></image>
 			<view class="item_text">{{title}}</view>
@@ -21,7 +21,15 @@ export default {
 	props:{
 		title:String,
 		all:String,
-		img:String
+		img:String,
+		page:String
+	},
+	methods:{
+		goNext(){
+			uni.navigateTo({
+				url:this.page
+			})
+		}
 	}
 };
 </script>

@@ -121,6 +121,14 @@
 			}
 		}
 
+		, {
+			"path": "pages/me/wallet/wallet",
+			"style": {
+				"navigationBarTitleText": "钱包",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}
 	],
 	"tabBar": {
 		"color": "#7a7e83",

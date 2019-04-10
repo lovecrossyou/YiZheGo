@@ -21,120 +21,138 @@
 				<orderStatus img="../../static/me/me_order_btn_refund@2x.png" statusText="3D退款"></orderStatus>
 			</view>
 		</view>
-		<view class="other_unctions"><itemList img="../../static/me/me_icon_wallet@2x.png" title="钱包"></itemList></view>
+		<view class="other_unctions">
+			<itemList page="/pages/me/wallet/wallet" img="../../static/me/me_icon_wallet@2x.png" title="钱包"></itemList>
+		</view>
 		<view class="other_unctions">
 			<itemList img="../../static/me/me_icon_collect@2x.png" title="我的关注"></itemList>
 			<itemList img="../../static/me/me_icon_dynamic@2x.png" title="我的动态"></itemList>
 		</view>
 		<view class="other_unctions">
 			<itemList img="../../static/me/yaoqing.png" title="邀请好友"></itemList>
-			<view @click="turnToVip"><itemList img="../../static/me/me_icon_vip@2x.png" title="会员中心"></itemList></view>
+			<view @click="turnToVip">
+				<itemList img="../../static/me/me_icon_vip@2x.png" title="会员中心"></itemList>
+			</view>
 		</view>
-		<view class="other_unctions end_item"><itemList img="../../static/me/me_icon_currency@2x.png" title="通用"></itemList></view>
+		<view class="other_unctions end_item">
+			<itemList img="../../static/me/me_icon_currency@2x.png" title="通用"></itemList>
+		</view>
 	</view>
 </template>
 
 <script>
-import itemList from './components/itemList.vue';
-import orderStatus from './components/orderStatus.vue';
+	import itemList from './components/itemList.vue';
+	import orderStatus from './components/orderStatus.vue';
 
-export default {
-	data() {
-		return {};
-	},
-
-	components: {
-		itemList,
-		orderStatus
-	},
-	methods: {
-		goPersonalData() {
-			uni.navigateTo({
-				url: './personalData'
-			});
+	export default {
+		data() {
+			return {};
 		},
-		turnToVip() {
-			uni.navigateTo({
-				url: './vip/vip-center'
-			});
+
+		components: {
+			itemList,
+			orderStatus
+		},
+		methods: {
+			goPersonalData() {
+				uni.navigateTo({
+					url: './personalData'
+				});
+			},
+			turnToVip() {
+				uni.navigateTo({
+					url: './vip/vip-center'
+				});
+			}
 		}
-	}
-};
+	};
 </script>
 
 <style scoped>
-.user_wrapper {
-	width: 100%;
-	background-color: #f3f3f3;
-}
-.user_info {
-	width: 100%;
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	border-top: 1upx solid #ddd;
-	border-bottom: 1upx solid #ddd;
-	padding: 20upx;
-	box-sizing: border-box;
-	background-color: #fff;
-}
-.header_img {
-	width: 120upx;
-	height: 120upx;
-}
-.user_content {
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	margin-left: 25upx;
-	justify-content: space-around;
-}
-.user_name {
-	color: #333;
-	font-size: 30upx;
-}
-.xt_num {
-	color: #777777;
-	font-size: 24upx;
-	margin-top: 13upx;
-}
-.next_icon {
-	width: 17upx;
-	height: 30upx;
-	margin-right: 13upx;
-}
-.aa {
-	width: 100%;
-	height: 300upx;
-	background-color: #fff;
-	margin-top: 40upx;
-}
-.order_area_wrapper {
-	width: 100%;
-	margin-top: 20upx;
-}
-.order_status {
-	width: 100%;
-	background-color: #fff;
-	padding: 30upx 0;
-	box-sizing: border-box;
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-	border-top: 1upx solid #dedede;
-}
-.other_unctions {
-	margin-top: 20upx;
-}
-.user_vip {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-}
-.vip_icon {
-	width: 30upx;
-	height: 35upx;
-	margin: 5upx 0 0 10upx;
-}
+	.user_wrapper {
+		width: 100%;
+		background-color: #f3f3f3;
+	}
+
+	.user_info {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		border-top: 1upx solid #ddd;
+		border-bottom: 1upx solid #ddd;
+		padding: 20upx;
+		box-sizing: border-box;
+		background-color: #fff;
+	}
+
+	.header_img {
+		width: 120upx;
+		height: 120upx;
+	}
+
+	.user_content {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		margin-left: 25upx;
+		justify-content: space-around;
+	}
+
+	.user_name {
+		color: #333;
+		font-size: 30upx;
+	}
+
+	.xt_num {
+		color: #777777;
+		font-size: 24upx;
+		margin-top: 13upx;
+	}
+
+	.next_icon {
+		width: 17upx;
+		height: 30upx;
+		margin-right: 13upx;
+	}
+
+	.aa {
+		width: 100%;
+		height: 300upx;
+		background-color: #fff;
+		margin-top: 40upx;
+	}
+
+	.order_area_wrapper {
+		width: 100%;
+		margin-top: 20upx;
+	}
+
+	.order_status {
+		width: 100%;
+		background-color: #fff;
+		padding: 30upx 0;
+		box-sizing: border-box;
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		border-top: 1upx solid #dedede;
+	}
+
+	.other_unctions {
+		margin-top: 20upx;
+	}
+
+	.user_vip {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+
+	.vip_icon {
+		width: 30upx;
+		height: 35upx;
+		margin: 5upx 0 0 10upx;
+	}
 </style>
