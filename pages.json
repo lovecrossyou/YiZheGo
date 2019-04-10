@@ -128,16 +128,15 @@
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
-		}
-	    ,{
-            "path" : "pages/me/address/address",
-            "style" : {
+		}, {
+			"path": "pages/me/address/address",
+			"style": {
 				"navigationBarTitleText": "地址",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
-        }
-    ],
+		}
+	],
 	"tabBar": {
 		"color": "#7a7e83",
 		"selectedColor": "#FE594B",
