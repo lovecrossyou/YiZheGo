@@ -40,13 +40,13 @@
 				</view>
 			</view>
 			<view class="hot_sale_list">
-				<view class="hot_sale_product_item" v-for="(item,i) in tooopencomList" :key="i">
+				<view class="hot_sale_product_item" v-for="(item,i) in hotSaleList" :key="i">
 					<view class="image">
-						<image :src="item.img"></image>
+						<image :src="item.productImageUrl "></image>
 					</view>
-					<view class="hot_sale_product_price">￥{{item.price}}</view>
-					<view class="hot_sale_product_name">{{item.name}}</view>
-					<view class="already_sale">已抢{{item.price}}w</view>
+					<view class="hot_sale_product_price">￥{{item.oneDiscountPrice}}</view>
+					<view class="hot_sale_product_name">{{item.productName}}</view>
+					<view class="already_sale">已抢{{item.currentPurchaseCount}}</view>
 				</view>
 			</view>
 		</view>
@@ -59,9 +59,7 @@
 </template>
 
 <script>
-	import {
-		mapState
-	} from "vuex";
+	import { mapState } from "vuex";
 	import api from '../../util/api.js';
 	import banner from './components/banner';
 	import searchBox from './components/searchBox';
@@ -70,20 +68,32 @@
 
 	export default {
 		computed: {
-			...mapState(['hasLogin'])
+			...mapState(['hasLogin']),
+			...mapState({
+				hotSales:state=>state.home.hotSaleList,
+			}),
+			hotSaleList(){
+				return this.hotSales.slice(0,3);
+			}
 		},
 		methods: {
-			async fetchHomeDiscountGameList() {
-				const res = await api.homeDiscountGameList({
+			async fetchHotSaleList() {
+				const res = await api.hotSaleList({
 					accessInfo: {}
 				})
-				console.log("啊啊啊啊啊", res)
+				this.$store.commit('home/setHotSaleList',res)
+			},
+			async fetchTimeLimitChoiceList(){
+				const res = await api.byTimeLimitChoiceList({
+					accessInfo:{}
+				})
+				this.$store.commit('home/setTimeLimitChoiceList',res)
 			}
 		},
 		onLoad() {
-			// this.fetchHomeDiscountGameList()
+			this.fetchHotSaleList()
+			this.fetchTimeLimitChoiceList()
 			if (!this.hasLogin) {
-				console.log('xxxx');
 				uni.navigateTo({
 					url: "/pages/login/WeChatLogin/WeChatLogin"
 				})

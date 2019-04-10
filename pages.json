@@ -3,13 +3,25 @@
 		{
 			"path": "pages/launch/launch",
 			"style": {
-				"navigationBarTitleText": "喜腾抢购"
+				"navigationBarTitleText": "喜腾抢购",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent" //透明渐变导航栏,
+					}
+				}
 			}
 		},
 		{
 			"path": "pages/home/home",
 			"style": {
-				"navigationBarTitleText": "首页"
+				"navigationStyle": "custom",
+				"navigationBarTitleText": "首页",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent" //透明渐变导航栏,
+					}
+				}
 			}
 		}, {
 			"path": "pages/me/me",
