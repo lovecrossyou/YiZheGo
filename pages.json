@@ -84,7 +84,7 @@
 				"navigationStyle": "custom",
 				"app-plus": {
 					"titleNView": {
-						"type": "transparent"
+						"type": "transparent" //透明渐变导航栏,
 					}
 				}
 			}
@@ -128,6 +128,21 @@
 			}
 		}
 
+		, {
+			"path": "pages/me/wallet/wallet",
+			"style": {
+				"navigationBarTitleText": "钱包",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/me/address/address",
+			"style": {
+				"navigationBarTitleText": "地址",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}
 	],
 	"tabBar": {
 		"color": "#7a7e83",
@@ -162,7 +177,7 @@
 	"globalStyle": {
 		"navigationBarTextStyle": "white",
 		"navigationBarBackgroundColor": "#FF594B",
-		"backgroundColor": "#FF594B"
+		"backgroundColor": "#FFFFFF"
 	},
 	"condition": { //模式配置，仅开发期间生效
 		"current": 0, //当前激活的模式(list 的索引项)

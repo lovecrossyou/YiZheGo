@@ -1,6 +1,6 @@
 <template>
 	<view class="recommend_wrapper">
-		<view class="recommend_item" v-for='(item,i) in timeLimitChoiceList' :key='i' @click="goDetail(item.productId)">
+		<view class="recommend_item" v-for='(item,i) in timeLimitList' :key='i' @click="goDetail(item.productId)">
 			<view class="recommend_item_img">
 				<image :src="item.timeLimitProductImageUrl " alt="" />
 			</view>
@@ -23,35 +23,13 @@
 	export default {
 		computed:{
 			...mapState({
-				timeLimitChoiceList:state=>state.home.timeLimitChoiceList,
+				timeLimitList:state=>state.home.timeLimitList,
 			})
 		},
 		data() {
 			return {
 				home_huo_icon:'../../static/home/home_huo_icon.png',
-				recommendProductModelList: [
-					{
-						imageUrl:"../../static/home/home_shop_1.png",
-						productName:"周杰伦",
-						productPrice:99999,
-						productId:1
-					},{
-						imageUrl:"../../static/home/home_shop_1.png",
-						productName:"周杰伦周杰伦周杰伦周杰伦周杰伦周杰伦周杰伦周杰伦周杰伦周杰伦",
-						productPrice:99999,
-						productId:2
-					},{
-						imageUrl:"../../static/home/home_shop_1.png",
-						productName:"周杰伦",
-						productPrice:99999,
-						productId:3
-					},{
-						imageUrl:"../../static/home/home_shop_1.png",
-						productName:"周杰伦",
-						productPrice:99999,
-						productId:4
-					},
-				]
+				
 			}
 		},
 		methods:{

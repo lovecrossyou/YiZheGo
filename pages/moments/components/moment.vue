@@ -6,13 +6,13 @@
 				<view class="user_wrapper">
 					<view class="user_name">{{momentitem.userName}}</view>
 					<image class="user_sex" v-if="momentitem.userSex==='男'" src="/static/moments/icon_man.png"></image>
-					<image class="user_sex" v-else="momentitem.userSex==='女'" src="/static/moments/icon_woman.png"></image>
+					<image class="user_sex" v-else src="/static/moments/icon_woman.png"></image>
 				</view>
 				<view class="time">{{momentitem.createTime}}</view>
 			</view>
 		</view>
 		<view class="moment_text">{{momentitem.commentContent}}</view>
-		<view class="moment_image_wrapper">
+		<view class="moment_image_wrapper" v-if="momentitem.imageOrVideoUrl.length!==0">
 			<image class="moment_image" :src="momentitem.imageOrVideoUrl[0]"></image>
 			<view class="moment_image_num_wrapper">
 				<image class="moment_num_icon" src="/static/moments/shaidan_icon_tupian.png"></image>
@@ -21,7 +21,7 @@
 		</view>
 		<view class="moment_data">
 			<view class="gamestage" v-if="momentitem.discountGameStage">期数: {{momentitem.discountGameStage}}</view>
-			<view class="gamestage" v-else="!momentitem.discountGameStage"></view>
+			<view class="gamestage" v-else></view>
 			<view class="moment_num">
 				<view class="praise">
 					<image class="praise_img" src="/static/moments/icon_illume.png"></image>
@@ -46,7 +46,10 @@
 
 <style lang="less">
 	.momentwrapper {
+		display: flex;
+		flex-direction: column;
 		width: 100%;
+		height: auto;
 		background: rgba(255, 255, 255, 1);
 		margin-bottom: 20upx;
 
@@ -111,11 +114,12 @@
 
 		.moment_image_wrapper {
 			width: 100%;
+			height: 400upx;
 			position: relative;
 
 			.moment_image {
 				width: 630upx;
-				height: 400upx;
+				height: 100%;
 				margin-left: 30upx;
 				position: absolute;
 
@@ -152,11 +156,12 @@
 		}
 
 		.moment_data {
+			width: 100%;
+			height: 60upx;
 			display: flex;
 			flex-direction: row;
 			justify-content: space-between;
-			width: 100%;
-			margin-top: 459upx;
+			margin-top: 41upx;
 			margin-right: 31upx;
 
 			.gamestage {
@@ -171,6 +176,7 @@
 			.moment_num{
 				display: flex;
 				flex-direction: row;
+				margin-right: 1upx;
 				
 				.praise {
 					display: flex;
