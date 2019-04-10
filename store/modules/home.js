@@ -1,13 +1,17 @@
 const state = {
-	hotSaleList: [],
+	timeLimitList: [],
 	timeLimitChoiceList: [],
+	newsBenefitList: [],
 }
 const mutations = {
-	setHotSaleList(state, data) {
-		state.hotSaleList = data
+	setByTimeLimitList(state, data) {
+		state.timeLimitList = data
 	},
 	setTimeLimitChoiceList(state, data) {
 		state.timeLimitChoiceList = data
+	},
+	setNewsBenefitList(state, data) {
+		state.newsBenefitList = data
 	}
 }
 export default {
