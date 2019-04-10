@@ -25,8 +25,6 @@
 				list:[]
 			}
 		},
-		computed: {
-		},
 		methods: {
 			navigationclick(index){
 				this.isOnclick=index;
