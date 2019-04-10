@@ -6,7 +6,7 @@
 		</view>
 		<view class="nav">
 			<view class="nav_list">
-				<view class="nav_list_item" v-for="(item,i) in navList" :key="i">
+				<view class="nav_list_item" v-for="(item,i) in navList" :key="i" @click="goNext(item)">
 					<image :src="item.img"></image>
 					<view>{{item.name}}</view>
 				</view>
@@ -77,6 +77,11 @@
 			}
 		},
 		methods: {
+			goNext(item){
+				uni.navigateTo({
+					url:item.page
+				})
+			},
 			async fetchHotSaleList() {
 				const res = await api.hotSaleList({
 					accessInfo: {}
@@ -107,16 +112,20 @@
 				navBarListTit: ["精选", "销量", "价格"],
 				navList: [{
 					img: '../../static/home/home_nav_zhongqian.png',
-					name: "中签"
+					name: "中签",
+					page: "/pages/ranklist/ranklist"
 				}, {
 					img: '../../static/home/home_nav_shaidan.png',
-					name: "晒单"
+					name: "晒单",
+					page: "/pages/ranklist/ranklist"
 				}, {
 					img: '../../static/home/home_nav_bangdan.png',
-					name: "榜单"
+					name: "榜单",
+					page: "/pages/ranklist/ranklist"
 				}, {
 					img: '../../static/home/home_nav_fenlei.png',
-					name: "分类"
+					name: "分类",
+					page: "/pages/ranklist/ranklist"
 				}, ],
 				tooopencomList: [{
 					img: '../../static/home/home_shop_1.png',

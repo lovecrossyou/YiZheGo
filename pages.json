@@ -1,5 +1,5 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages ranklist
 		{
 			"path": "pages/launch/launch",
 			"style": {
@@ -110,6 +110,14 @@
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 
+			}
+		},
+		{
+			"path": "pages/ranklist/ranklist",
+			"style": {
+				"navigationBarTitleText": "榜单",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
 			}
 		}
 
