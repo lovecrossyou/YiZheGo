@@ -195,7 +195,7 @@
 				this.selectedIndex = ind
 			},
 			goBack(){
-				uni.go
+				uni.navigateBack();
 			},
 			async fetchProductDetails(){
 				const res = await api.productDetails({
