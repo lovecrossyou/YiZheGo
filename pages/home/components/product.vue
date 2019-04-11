@@ -1,6 +1,6 @@
 <template>
 	<view class="recommend_wrapper">
-		<view class="recommend_item" v-for='(item,i) in timeLimitList' :key='i' @click="goDetail(item.productId)">
+		<view class="recommend_item" v-for='(item,i) in timeLimitList' :key='i' @click="goDetail(item.discountGameId)">
 			<view class="recommend_item_img">
 				<image :src="item.timeLimitProductImageUrl " alt="" />
 			</view>
