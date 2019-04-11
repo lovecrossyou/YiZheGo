@@ -38,7 +38,7 @@
 					
 					<view class="price-action">
 						<view class="price">¥298.00</view>
-						<view class="action">立即邀请</view>
+						<view class="action" @click="turnToLuckyList">立即邀请</view>
 					</view>
 				</view>
 			</view>	
@@ -49,6 +49,15 @@
 
 
 <script>
+	export default {
+		methods:{
+			turnToLuckyList(){
+				uni.navigateTo({
+					url:'./lucky-list'
+				})
+			}
+		}
+	}
 </script>
 
 <style lang="scss">

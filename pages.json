@@ -66,6 +66,16 @@
 			"style": {
 				"navigationBarTitleText" : "会员中心"
 			}
+		},{
+			"path" : "pages/me/vip/lucky-list",
+			"style": {
+				"navigationBarTitleText" : "中签榜"
+			}
+		},{
+			"path" : "pages/me/vip/lucky-detail",
+			"style": {
+				"navigationBarTitleText" : "中签详情"
+			}
 		}, {
 			"path": "pages/details/productDetails",
 			"style": {
