@@ -2,8 +2,8 @@
 	<view class="product_details_wrapper" v-if="productDetail">
 		<!-- 顶部导航 -->
 		<view class="header">
-			<view class="left-arrow">
-				<image :src="nav_icon_back" @click="goBack"></image>
+			<view class="left-arrow" @click="goBack">
+				<image :src="nav_icon_back" ></image>
 			</view>
 			<view class="product_title">
 				<view class="product_title_item" v-for="(item,i) in ['商品','详情']" :key='i' :class="[selectedIndex==i?'activeBd':'initialBd']" @click="changeIndex(i)" >
@@ -197,9 +197,9 @@
 			goBack(){
 				uni.navigateBack();
 			},
-			async fetchProductDetails(){
+			async fetchProductDetails(productId){
 				const res = await api.productDetails({
-					discountGameId:1
+					discountGameId:productId
 				});
 				this.$store.commit('productDetail/setProductDetails',res)
 			},
@@ -209,8 +209,9 @@
 				})
 			}
 		},
-		onLoad(){
-			this.fetchProductDetails()
+		onLoad(opt){
+			console.log('详情啊=========',opt.productId)
+			this.fetchProductDetails(opt.productId)
 		},
 		data() {
 			return {
