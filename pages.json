@@ -43,7 +43,17 @@
 				"navigationBarBackgroundColor": "rgba(255,255,255,1)"
 			}
 		}, {
+			"path": "pages/moments/momentdetails",
+			"style": {
+				"navigationBarTitleText": "详情",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "rgba(255,255,255,1)"
+			}
+		}, {
 			"path": "pages/moments/components/moment",
+			"style": {}
+		}, {
+			"path": "pages/moments/components/momentdetail",
 			"style": {}
 		}, {
 			"path": "pages/login/WeChatLogin/WeChatLogin",

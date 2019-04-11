@@ -11,7 +11,7 @@
 				<view class="time">{{momentitem.createTime}}</view>
 			</view>
 		</view>
-		<view class="moment_text">{{momentitem.commentContent}}</view>
+		<view class="moment_text" @click="goMomentdetail(id)">{{momentitem.commentContent}}</view>
 		<view class="moment_image_wrapper" v-if="momentitem.imageOrVideoUrl.length!==0">
 			<image class="moment_image" :src="momentitem.imageOrVideoUrl[0]"></image>
 			<view class="moment_image_num_wrapper">
@@ -40,6 +40,16 @@
 	export default{
 		props:{
 			momentitem:{}
+		},
+		data(){
+			id:0
+		},
+		methods:{
+			goMomentdetail(id){
+				uni.navigateTo({
+					url:"/pages/moments/components/momentdetail"
+				})
+			}
 		}
 	}
 </script>
