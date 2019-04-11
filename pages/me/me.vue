@@ -29,7 +29,9 @@
 			<itemList img="../../static/me/me_icon_dynamic@2x.png" title="我的动态"></itemList>
 		</view>
 		<view class="other_unctions">
-			<itemList img="../../static/me/yaoqing.png" title="邀请好友"></itemList>
+			<view @click="goInviteFriend">
+				<itemList img="../../static/me/yaoqing.png" title="邀请好友"></itemList>
+			</view>
 			<view @click="turnToVip">
 				<itemList img="../../static/me/me_icon_vip@2x.png" title="会员中心"></itemList>
 			</view>
@@ -67,6 +69,11 @@
 				uni.navigateTo({
 					url: './vip/vip-center'
 				});
+			},
+			goInviteFriend(){
+				uni.navigateTo({
+					url:"./inviteFriend"
+				})
 			},
 			async personalInfo(){
 				let res = await api.userInfo({})

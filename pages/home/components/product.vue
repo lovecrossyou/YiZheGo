@@ -35,7 +35,7 @@
 		methods:{
 			goDetail(productId){
 				uni.navigateTo({
-					url:"/pages/details/productDetails"
+					url:"/pages/details/productDetails?productId="+productId
 				})
 			},
 			
