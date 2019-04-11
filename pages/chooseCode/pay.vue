@@ -2,7 +2,7 @@
 	 <view class="container">
 	 	<view class="order_content">
 	 		<view class="order_pay_top">
-	 			<view class="order_pay_top_amount">¥6.00</view>
+	 			<view class="order_pay_top_amount">¥{{totalPayRmb}}</view>
 				<view class="order_pay_top_msg">支付金额</view>
 	 		</view>
 	 		
@@ -21,33 +21,61 @@
 				</view>
 			</block>	
 		</view>
-	 	<view class="confirm_footer" @click="toPay">立即支付</view>
+	 	<view class="confirm_footer" @click="toPay(payResult)">立即支付</view>
 	 </view>
 </template>
 
 <script>
+	import api from '../../util/api.js';
+	import pay from '../../util/payUtil.js';
 	export default{
+		onLoad(option){
+			console.log("订单号----------"+option.payOrderNo+'------------'+option.totalPayRmb);
+			this.payOrderNo = option.payOrderNo;
+			this.totalPayRmb = option.totalPayRmb;
+		},
 		methods:{
-			toPay(){
+			async toPay(callback){
+				const orderInfo = await api.commitPay({
+					  openId: "string",
+					  payChannel: this.paychannels[this.selectIndex].payChannel,
+					  payOrderNo: this.payOrderNo
+				});
+				console.log("开始支付----------"+JSON.stringify(orderInfo));
+				pay.pay({
+					provider:this.paychannels[this.selectIndex].provider,
+					orderInfo:JSON.stringify(orderInfo)
+				},callback)
+	
+			},
+			payResult(msg){
+				console.log('支付结果:' + JSON.stringify(msg));
 				uni.navigateTo({
-					url:'./payResult'
+					//url: "/pages/order/order-pay-result"
 				})
 			}
+			
 		},
 		data(){
 			return {
+				payOrderNo:0,
+				totalPayRmb:0,
 				selectIndex:0,
 				paychannels:[{
 				            icon: '../../static/pay/pay_icon_weixin@2x.png',
 				            selIcon: '../../static/pay/pay_btn_selected_weixin@2x.png',
 				            title: "微信支付",
-				            unselIcon: '../../static/pay/pay_btn@2x.png'
+				            unselIcon: '../../static/pay/pay_btn@2x.png',
+							payChannel:"WeixinPay",
+							provider:'wxpay'
 				            },
 				            {
 				            icon: '../../static/pay/pay_icon_zhifubao@2x.png',
 				            selIcon: '../../static/pay/pay_btn_selected_weixin@2x.png',
 				            title: "支付宝付款",
-				            unselIcon: '../../static/pay/pay_btn@2x.png'
+				            unselIcon: '../../static/pay/pay_btn@2x.png',
+							payChannel:"AlipayClient",
+							provider:'alipay'
 				            }]
 			}
 		}

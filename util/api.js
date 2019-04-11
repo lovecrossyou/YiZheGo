@@ -23,6 +23,14 @@ const api = {
 	//我
 	userInfo:(params) => request.post("/user/info",params),
 
+    //确认订单
+	confirmOrderInfo:params => request.post("/discountGameOrder/immediateBuy",params),
+	
+	//提交订单
+	commitOrder:params => request.post("/discountGameOrder/commit",params),
+	
+	//支付
+	commitPay:params => request.post("/client/discountGamePay/confirm",params),
 	//上传
 	uploader: (file, callback) => {
 		uni.uploadFile({

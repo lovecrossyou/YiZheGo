@@ -14,10 +14,11 @@
 		<image v-bind:src="lineCai" class="delivery-userinfo-line"></image>
 		<view class="product-info">
 			<view class="product-info-pro">
-              <image v-bind:src="lineCai" class="product-info-pro-img"></image>
+              <image v-bind:src="orderInfo.relatedProductImageUrl" class="product-info-pro-img"></image>
 			  <view class="product-info-pro-name">
-				  <view class="product-info-pro-name-text">荣耀v20</view>
-				  <view class="product-info-pro-name-price">¥100.00</view>
+				  <view class="product-info-pro-name-text">{{orderInfo.relatedProductName}}</view>
+				  <view class="product-info-pro-name-price" v-if="directBuy">¥{{orderInfo.originalPrice}}</view>
+				  <view class="product-info-pro-name-price" v-else>¥{{orderInfo.originalPrice}}</view>
 			  </view>
 			</view>
 			<view class="product-info-pro-amount">
@@ -28,11 +29,12 @@
 		<view class="price-info">
 			<view class="price-info-product">
 				<view class="price-info-product-text">商品</view>
-				<view class="price-info-product-price">¥10.00</view>
+				<view class="price-info-product-price" v-if="directBuy">¥{{orderInfo.originalPrice}}</view>
+				<view class="price-info-product-price" v-else>¥{{orderInfo.originalPrice}}</view>
 			</view>
 			<view class="price-info-product">
 				<view class="price-info-product-text">运费</view>
-				<view class="price-info-product-price">+¥6.00</view>
+				<view class="price-info-product-price">+¥{{orderInfo.freight}}</view>
 			</view>
 		</view>
 		<view class="choose-code" @click="chooseCode">
@@ -65,10 +67,10 @@
 				<view class="confirm-footer-price-amount">共1件</view>
 				<view class="confirm-footer-price-pay-info">
 					<view class="confirm-footer-price-pay-text">实付款:</view>
-					<view class="confirm-footer-price-pay">¥100.00</view>
+					<view class="confirm-footer-price-pay">¥{{orderInfo.totalPayRmbPrice}}</view>
 				</view>
 			</view>
-			<view class="confirm-footer-commit" @click="toPay">提交订单</view>
+			<view class="confirm-footer-commit" @click="commitOrder">提交订单</view>
 		</view>
 	<!-- <view class="choose-code" @click="chooseCode">
 		选择号码
@@ -79,7 +81,14 @@
 <script>
 	import uniNumberBox from "../components/uni-number-box/uni-number-box.vue"
 	import {mapState,mapMutations,mapGetters} from 'vuex';
+	import api from '../../util/api.js';
+
 	export default{
+		onLoad:function(option){
+			console.log("确认订单商品-----------"+option.directBuy+'------------'+option.discountGameId);
+			this.$store.commit('confirmPay/setBuyType',option.directBuy)
+			this.getConfirmOrderInfo(option.discountGameId);
+		},
 		data(){
 			return{
 				addIcon:'../../static/pay/icon_location.png',
@@ -92,6 +101,8 @@
 		computed:{
 			...mapState({
 				buyCount:state=>state.chooseCode.codeCount,
+				orderInfo:state=>state.confirmPay.orderInfo,
+				directBuy:state=>state.confirmPay.buyType,
 			}),
 			...mapGetters({
 				allCode: 'chooseCode/allCode',
@@ -99,6 +110,27 @@
 			
 		},
 		methods:{
+			async getConfirmOrderInfo(discountGameId){
+				const res = await api.confirmOrderInfo({
+					discountGameId:discountGameId,
+					purchaseAmount:1
+				});
+				console.log("确认订单信息-----------"+JSON.stringify(res));
+				this.$store.commit('confirmPay/setOrderInfo',res)
+			},
+			async commitOrder(){
+				const res = await api.commitOrder({
+					codeList:this.allCode,
+					deliverAddressId:1,
+					directBuy:this.directBuy,
+					discountGameId:this.orderInfo.discountGameId,
+					purchaseCount:1,
+				})
+				console.log("提交订单-----------"+JSON.stringify(res));
+				uni.navigateTo({
+					url:'./pay?payOrderNo='+res.payOrderNo+'&totalPayRmb='+res.totalPayRmb
+				})
+			},
 			...mapMutations({
 				changeCodeCount:'chooseCode/changeCodeCount'
 			}),
@@ -106,18 +138,6 @@
 				uni.navigateTo({
 					url:'./chooseCode'
 				})
-			},
-			toPay(){
-				
-				uni.showToast({
-					title:JSON.stringify(this.allCode)
-				})
-				setTimeout(()=>{
-					uni.navigateTo({
-						url:'./pay'
-					})
-				},2000)
-				
 			},
 			reduce(){
 				if(this.buyCount>1){

@@ -164,11 +164,11 @@
 				<image class="top"  :src="btn_collection"></image>
 				<view class="name">关注</view>
 			</view>
-			<view class="right_buy">
+			<view class="right_buy" @click="confirmOrder(true)">
 				<view class="top" >￥{{productDetail.productItemModel.originalPrice}}</view>
 				<view class="big">全价购买</view>
 			</view>
-			<view class="right_buy bgr" @click="confirmOrder">
+			<view class="right_buy bgr" @click="confirmOrder(false)">
 				<view class="top" >￥{{productDetail.productItemModel.oneDiscountPrice}}</view>
 				<view class="big">一折抢购</view>
 			</view>
@@ -203,9 +203,9 @@
 				});
 				this.$store.commit('productDetail/setProductDetails',res)
 			},
-			confirmOrder(){
+			confirmOrder(directBuy){
 				uni.navigateTo({
-					url:'../chooseCode/confirmOrder'
+					url:'../chooseCode/confirmOrder?discountGameId='+ this.productDetail.discountGameId+'&directBuy='+directBuy
 				})
 			}
 		},
