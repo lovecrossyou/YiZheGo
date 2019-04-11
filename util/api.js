@@ -1,5 +1,5 @@
 import request from './request'
-const uploadBaseUrl = "";
+const uploadBaseUrl = "http://www.xiteng.com/xitenggamenode/";
 
 const api = {
 	// 新人福利
@@ -26,7 +26,7 @@ const api = {
 	//上传
 	uploader: (file, callback) => {
 		uni.uploadFile({
-			url: uploadBaseUrl + '/manage/qiniu/upload',
+			url: uploadBaseUrl + '/upload',
 			filePath: file,
 			name: 'file',
 			success: (result) => {
