@@ -45,7 +45,7 @@ export default {
 			let res = await api.userInfo({});
 			this.personalInfoList = res;
 			console.log(this.personalInfoList);
-		}
+		}	
 	},
 	onLoad() {
 		this.personalInfo();
