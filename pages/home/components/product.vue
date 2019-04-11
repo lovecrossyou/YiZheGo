@@ -1,8 +1,8 @@
 <template>
 	<view class="recommend_wrapper">
-		<view class="recommend_item" v-for='(item,i) in recommendProductModelList' :key='i' @click="goDetail(item.productId)">
+		<view class="recommend_item" v-for='(item,i) in timeLimitList' :key='i' @click="goDetail(item.discountGameId)">
 			<view class="recommend_item_img">
-				<image :src="item.imageUrl" alt="" />
+				<image :src="item.timeLimitProductImageUrl " alt="" />
 			</view>
 			<view class="recommend_item_intro">
 				<view class="recommend_item_title">
@@ -10,8 +10,8 @@
 					<span>{{item.productName}}</span>
 				</view>
 				<view class="recommend_item_intro_sale">
-					<view class="price">￥<span style="font-size: 36upx;">{{item.productPrice}}</span></view>
-					<view class="already_sale"><image :src="home_huo_icon"></image>已抢{{item.productPrice}}件</view>
+					<view class="price">￥<span style="font-size: 36upx;">{{item.oneDiscountPrice}}</span></view>
+					<view class="already_sale"><image :src="home_huo_icon"></image>已抢{{item.currentPurchaseCount}}件</view>
 				</view>
 			</view>
 		</view>
@@ -21,45 +21,24 @@
 <script>
 	import {mapState} from 'vuex';
 	export default {
+		computed:{
+			...mapState({
+				timeLimitList:state=>state.home.timeLimitList,
+			})
+		},
 		data() {
 			return {
 				home_huo_icon:'../../static/home/home_huo_icon.png',
-				recommendProductModelList: [
-					{
-						imageUrl:"../../static/home/home_shop_1.png",
-						productName:"周杰伦",
-						productPrice:99999,
-						productId:1
-					},{
-						imageUrl:"../../static/home/home_shop_1.png",
-						productName:"周杰伦周杰伦周杰伦周杰伦周杰伦周杰伦周杰伦周杰伦周杰伦周杰伦",
-						productPrice:99999,
-						productId:2
-					},{
-						imageUrl:"../../static/home/home_shop_1.png",
-						productName:"周杰伦",
-						productPrice:99999,
-						productId:3
-					},{
-						imageUrl:"../../static/home/home_shop_1.png",
-						productName:"周杰伦",
-						productPrice:99999,
-						productId:4
-					},
-				]
+				
 			}
 		},
-// 		computed:{
-// 			...mapState({
-// 				recommendProductModelList:state=>state.main.recommendProductModelList
-// 			})
-// 		},
 		methods:{
 			goDetail(productId){
 				uni.navigateTo({
 					url:"/pages/details/productDetails"
 				})
-			}
+			},
+			
 		}
 	}
 </script>

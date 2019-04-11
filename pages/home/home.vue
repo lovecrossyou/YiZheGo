@@ -6,7 +6,7 @@
 		</view>
 		<view class="nav">
 			<view class="nav_list">
-				<view class="nav_list_item" v-for="(item,i) in navList" :key="i">
+				<view class="nav_list_item" v-for="(item,i) in navList" :key="i" @click="goNext(item)">
 					<image :src="item.img"></image>
 					<view>{{item.name}}</view>
 				</view>
@@ -22,12 +22,12 @@
 					</view>
 				</view>
 				<view class="tooopencom_product_list">
-					<view class="tooopencom_product_item" v-for="(item,i) in tooopencomList" :key="i">
+					<view class="tooopencom_product_item" v-for="(item,i) in timeLimitChoiceList" :key="i">
 						<view class="image">
-							<image :src="item.img"></image>
-							<view class="tooopencom_product_price">￥{{item.price}}</view>
+							<image :src="item.productImageUrl"></image>
+							<view class="tooopencom_product_price">￥{{item.oneDiscountPrice}}</view>
 						</view>
-						<view class="tooopencom_product_name">{{item.name}}</view>
+						<view class="tooopencom_product_name">{{item.productName}}</view>
 					</view>
 				</view>
 			</view>
@@ -40,13 +40,13 @@
 				</view>
 			</view>
 			<view class="hot_sale_list">
-				<view class="hot_sale_product_item" v-for="(item,i) in tooopencomList" :key="i">
+				<view class="hot_sale_product_item" v-for="(item,i) in timeLimitChoiceList" :key="i">
 					<view class="image">
-						<image :src="item.img"></image>
+						<image :src="item.productImageUrl "></image>
 					</view>
-					<view class="hot_sale_product_price">￥{{item.price}}</view>
-					<view class="hot_sale_product_name">{{item.name}}</view>
-					<view class="already_sale">已抢{{item.price}}w</view>
+					<view class="hot_sale_product_price">￥{{item.oneDiscountPrice}}</view>
+					<view class="hot_sale_product_name">{{item.productName}}</view>
+					<view class="already_sale">已抢{{item.currentPurchaseCount}}</view>
 				</view>
 			</view>
 		</view>
@@ -70,20 +70,40 @@
 
 	export default {
 		computed: {
-			...mapState(['hasLogin'])
-		},
-		methods: {
-			async fetchHomeDiscountGameList() {
-				const res = await api.homeDiscountGameList({
-					accessInfo: {}
-				})
-				console.log("啊啊啊啊啊", res)
+			...mapState(['hasLogin']),
+			...mapState({
+				timeLimitChoices: state => state.home.timeLimitChoiceList,
+			}),
+			timeLimitChoiceList() {
+				return this.timeLimitChoices.slice(0, 3);
 			}
 		},
+		methods: {
+			goNext(item) {
+				uni.navigateTo({
+					url: item.page
+				})
+			},
+			async fetchByTimeLimitList() {
+				const res = await api.byTimeLimitList({})
+				this.$store.commit('home/setByTimeLimitList', res)
+			},
+			async fetchTimeLimitChoiceList() {
+				const res = await api.byTimeLimitChoiceList({})
+				this.$store.commit('home/setTimeLimitChoiceList', res)
+			},
+			async fetchNewsBenefitList() {
+				const res = await api.newsBenefitList({})
+				this.$store.commit('home/setNewsBenefitList', res)
+			},
+
+		},
 		onLoad() {
-			// this.fetchHomeDiscountGameList()
+			this.fetchByTimeLimitList()
+			this.fetchTimeLimitChoiceList()
+			this.fetchNewsBenefitList()
+
 			if (!this.hasLogin) {
-				console.log('xxxx');
 				uni.navigateTo({
 					url: "/pages/login/WeChatLogin/WeChatLogin"
 				})
@@ -93,34 +113,26 @@
 			return {
 				home_huiyuan: '../../static/home/home_huiyuan.png',
 				home_gengduo_icon: '../../static/home/home_gengduo_icon.png',
-				home_shop_1: '../../static/home/home_shop_1.png',
 				navBarListTit: ["精选", "销量", "价格"],
-				navList: [{
-					img: '../../static/home/home_nav_zhongqian.png',
-					name: "中签"
-				}, {
-					img: '../../static/home/home_nav_shaidan.png',
-					name: "晒单"
-				}, {
-					img: '../../static/home/home_nav_bangdan.png',
-					name: "榜单"
-				}, {
-					img: '../../static/home/home_nav_fenlei.png',
-					name: "分类"
-				}, ],
-				tooopencomList: [{
-					img: '../../static/home/home_shop_1.png',
-					name: "口红",
-					price: 2.3
-				}, {
-					img: '../../static/home/home_shop_1.png',
-					name: "洗发水",
-					price: 3.3
-				}, {
-					img: '../../static/home/home_shop_1.png',
-					name: "粉底液",
-					price: 5.3
-				}, ],
+				navList: [
+					{
+						img: '../../static/home/home_nav_zhongqian.png',
+						name: "中签",
+						page: "/pages/ranklist/ranklist"
+					}, {
+						img: '../../static/home/home_nav_shaidan.png',
+						name: "晒单",
+						page: "/pages/ranklist/ranklist"
+					}, {
+						img: '../../static/home/home_nav_bangdan.png',
+						name: "榜单",
+						page: "/pages/ranklist/ranklist"
+					}, {
+						img: '../../static/home/home_nav_fenlei.png',
+						name: "分类",
+						page: "/pages/ranklist/ranklist"
+					}
+				]
 			}
 		},
 		components: {
@@ -139,6 +151,7 @@
 
 		.header {
 			width: 100%;
+			background: #FFFFFF;
 			position: relative;
 		}
 
@@ -291,13 +304,19 @@
 					}
 
 					.hot_sale_product_name {
+						width: 80%;
+						padding: 4upx 20upx;
+						height: 34upx;
+						box-sizing: border-box;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						text-align: center;
 						background: rgba(250, 224, 181, 1);
-						border-radius: 16px;
+						border-radius: 16upx;
 						font-size: 24upx;
 						font-family: PingFang-SC-Medium;
 						font-weight: 500;
 						color: rgba(101, 69, 48, 1);
-						padding: 4upx 20upx;
 						margin-top: 16upx;
 						margin-bottom: 10upx;
 					}

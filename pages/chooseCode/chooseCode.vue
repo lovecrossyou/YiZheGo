@@ -19,7 +19,7 @@
 			</text>
 			<view class="code-list">
 				<view class="code-array" v-for="(codeArray, arrayIndex) in codeList" :key="arrayIndex" v-if="codeArray.state !== 'other'">
-					<view class="code" v-for="(code, index) in codeArray.code" :key="index" :style="{ opacity: code > -1 ? 1 : 0.5 }">{{ code > -1 ? code : '' }}</view>
+					
 
 					<button
 						class="code"
@@ -44,7 +44,9 @@
 				</view>
 			</view>
 		</view>
-		<view class="confirm-button" :style="{ background: allFinished ? '#D22222' : '#E28A8A' }">我选好了</view>
+
+		<view class="confirm-button" :style="{background: allFinished ? '#D22222' : '#E28A8A' }" @click="goBack">我选好了</view>
+
 	</view>
 </template>
 
@@ -63,7 +65,8 @@ export default {
 		}),
 		...mapGetters({
 			allFinished: 'chooseCode/allFinished',
-			isResetState: 'chooseCode/isResetState'
+			isResetState: 'chooseCode/isResetState',
+			allCode: 'chooseCode/allCode',
 		})
 	},
 	methods: {
@@ -74,8 +77,8 @@ export default {
 			randomCode: 'chooseCode/randomCode',
 			randomAllCode: 'chooseCode/randomAllCode'
 		}),
-		show() {
-			console.log(this.codeList);
+		goBack() {
+			uni.navigateBack({});
 		}
 	}
 };

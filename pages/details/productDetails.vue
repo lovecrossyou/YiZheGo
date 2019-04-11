@@ -1,5 +1,5 @@
 <template>
-	<view class="product_details_wrapper">
+	<view class="product_details_wrapper" v-if="productDetail">
 		<!-- 顶部导航 -->
 		<view class="header">
 			<view class="left-arrow">
@@ -17,9 +17,9 @@
 		<!-- 轮播 -->
 		<view class="scroll-wrapper">
 			<swiper class="swiper" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
-				<swiper-item class="swiper-item" v-for="(item,i) in imageUrlList" :key='i'>
+				<swiper-item class="swiper-item" v-for="(item,i) in banners" :key='i'>
 					<view>
-						<image :src="item.imgUrl"></image>
+						<image :src="item"></image>
 					</view>
 				</swiper-item>
 			</swiper>
@@ -29,20 +29,22 @@
 		<view class="price-section">
 			<view class="price-section-item">
 				<view class="price">
-					￥1
+					￥<span class="big">{{productDetail.productItemModel.oneDiscountPrice}}</span>
 				</view>
-				<view>距结束仅剩</view>
+				<view class="vip">
+					<image :src="icon_vip"></image>
+					<view class="original_price">市场价 ￥{{productDetail.productItemModel.originalPrice}}</view>
+				</view>
 			</view>
 			<view class="price-section-item">
-				<view>152人购买</view>
-				<view>22时30分44秒</view>
+				<view><image class="icon_fire" :src="icon_fire"></image>已抢{{productDetail.currentPurchaseCount}}件</view>
 			</view>
 		</view>
 		<!-- 商品信息  -->
 		<view class="product-info">
 			<view class="product-info-title">
-				<span class="pinkage">{{freight}}</span>
-				<span class="info-name">{{productInfoModel}}</span>
+				<span class="pinkage">一折购</span>
+				<span class="info-name">{{productDetail.productItemModel.productName}}</span>
 			</view>
 			<view class="rule">
 				<view class="product-info-guarantee">
@@ -57,18 +59,18 @@
 		<!-- 中签 -->
 		<view class="winning_periods">
 			<view class="particulars_item">
-				<view class="periods">第 {{count}} 期</view>
+				<view class="periods">第 {{productDetail.discountGameStage}} 期</view>
 				<view class="count_down">
 					<view>
 						<image :src="icon_time"></image>距揭晓还剩
 					</view>
-					<view>1:33:4:</view>
+					<view>{{productDetail.openResultTime}}</view>
 				</view>
 			</view>
 			<view class="particulars_item">
 				<view class="designation">往期中签</view>
 				<view class="view_more">
-					<view>{{count}}</view>
+					<view>123456</view>
 					<image :src="icon_right"></image>
 				</view>
 			</view>
@@ -142,7 +144,35 @@
 			</view>
 		</view>
 		<!-- 商品详情 -->
-		<view></view>
+		<view class="winning_periods">
+			<view class="particulars_item">
+				<view class="designation">商品详情</view>
+			</view>
+			<view class="detail_imgurllist">
+				<block v-for="(item,i) in productDetail.productItemModel.productDetailImageUrlList" :key="i">
+					<image :src="item.productDetailImageUrl"></image>
+				</block>
+			</view>
+		</view>
+		<!-- 底部菜单 -->
+		<view class="footer">
+			<view class="left_message">
+				<image class="top" :src="btn_message"></image>
+				<view class="name">客服</view>
+			</view>
+			<view class="left_message">
+				<image class="top"  :src="btn_collection"></image>
+				<view class="name">关注</view>
+			</view>
+			<view class="right_buy">
+				<view class="top" >￥{{productDetail.productItemModel.originalPrice}}</view>
+				<view class="big">全价购买</view>
+			</view>
+			<view class="right_buy bgr" @click="confirmOrder">
+				<view class="top" >￥{{productDetail.productItemModel.oneDiscountPrice}}</view>
+				<view class="big">一折抢购</view>
+			</view>
+		</view>
 	</view>
 </template>
 <script>
@@ -153,31 +183,44 @@
 	export default {
 		computed: {
 			...mapState({
-
-			})
+				productDetail:state=>state.productDetail.productDetail
+			}),
+			banners(){
+				if(this.productDetail===null)return [];
+				return this.productDetail.productItemModel.productShowImageUrlList
+			}
 		},
 		methods: {
 			changeIndex(ind){
 				this.selectedIndex = ind
 			},
 			goBack(){
-				uni.go
+				uni.navigateBack();
+			},
+			async fetchProductDetails(){
+				const res = await api.productDetails({
+					discountGameId:1
+				});
+				this.$store.commit('productDetail/setProductDetails',res)
+			},
+			confirmOrder(){
+				uni.navigateTo({
+					url:'../chooseCode/confirmOrder'
+				})
 			}
+		},
+		onLoad(){
+			this.fetchProductDetails()
 		},
 		data() {
 			return {
 				selectedIndex:0,
 				commentModelList: [{
-						userIcoin: "../../static/home/home_shop_1.png",
 						userName: "电视成金",
 						time: 123,
 						qishu: 201805260002,
 						content: "中签了，太棒了，手气相当不错，真的是0元呀，没问题，看图说话。",
-						imageUrlList: [
-							"../../static/home/home_shop_1.png",
-							"../../static/home/home_shop_1.png",
-							"../../static/home/home_shop_1.png",
-						]
+						imageUrlList: []
 					},
 					{
 						userIcoin: "../../static/home/home_shop_1.png",
@@ -185,17 +228,11 @@
 						time: 123,
 						qishu: 201805260002,
 						content: "中签了，太棒了，手气相当不错，真的是0元呀，没问题，看图说话。",
-						imageUrlList: [
-							"../../static/home/home_shop_1.png",
-							"../../static/home/home_shop_1.png",
-							"../../static/home/home_shop_1.png",
-						]
+						imageUrlList: []
 					}
 				],
-				count: "2019078",
-				freight: "一折购",
-				productInfoModel: "伊利 安慕希希腊风味常温酸奶原味205g*12盒/礼盒装",
 				guarantee: "从0～9中选3个号码，选中即享1折。中签号码与当天3D中奖号码同步，每天22:00揭晓，不中全额退款，源自京东自营商品，天天发货。",
+				commitment: ["破损包退", "正品保证", "七天退换", "极速退款"],
 				indicatorDots: true,
 				autoplay: true,
 				interval: 2000,
@@ -209,17 +246,9 @@
 				icon_man: "../../static/details/icon_man.png",
 				icon_woman: "../../static/details/icon_woman.png",
 				nav_icon_back: "../../static/details/nav_icon_back.png",
-
-				imageUrlList: [{
-					imgUrl: "../../static/home/home_shop_1.png"
-				}, {
-					imgUrl: "../../static/home/home_shop_1.png"
-				}, {
-					imgUrl: "../../static/home/home_shop_1.png"
-				}, {
-					imgUrl: "../../static/home/home_shop_1.png"
-				}, ],
-				commitment: ["破损包退", "正品保证", "七天退换", "极速退款"]
+				icon_vip: "../../static/details/icon_vip.png",
+				icon_fire: "../../static/details/icon_fire.png",
+				btn_collection: "../../static/details/btn_collection.png",
 			};
 		},
 
@@ -308,16 +337,43 @@
 			font-size: 28upx;
 			padding: 20upx 24upx 0 24upx;
 			box-sizing: border-box;
-
-			.price-section-item {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			.price-section-item{
 				display: flex;
+				flex-direction: row;
 				align-items: center;
-				justify-content: space-between;
-
-				.price {
-					font-size: 40upx;
+				.icon_fire{
+					width:20upx;
+					height:32upx;
+					margin-right:6upx;
+				}
+				.price{
+					font-size:32upx;
+					font-family:PingFangSC-Regular;
+					font-weight:400;
+					color:rgba(212,27,45,1);
+					line-height:42upx;
+					margin-right:14upx;
+					.big{
+						font-size:60upx;
+					}
+				}
+				.vip{
+					font-size:22upx;
+					font-family:PingFangSC-Light;
+					font-weight:300;
+					text-decoration:line-through;
+					color:rgba(255,255,255,1);
+					line-height:42upx;
+					image{
+						width:108upx;
+						height:32upx;
+					}
 				}
 			}
+			
 		}
 
 		.product-info {
@@ -551,7 +607,14 @@
 			}
 
 		}
-
+		
+		.detail_imgurllist{
+			image{
+				width:100%;
+				
+			}
+		}
+		
 		.particulars_item {
 			display: flex;
 			align-items: center;
@@ -592,6 +655,55 @@
 				}
 			}
 
+		}
+		
+		.footer {
+			width:100%;
+			height: 98upx;
+			background: #FFFFFF;
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			display: flex;
+			align-items: center;
+			.left_message{
+				flex:1;
+				font-size:20upx;
+				font-family:HiraginoSansGB-W3;
+				font-weight:normal;
+				color:rgba(51,51,51,1);
+				image{
+					width:36upx;
+					height:36upx;
+				}
+			}
+			.right_buy{
+				flex:3;
+				background: #F4A360;
+				font-size:26upx;
+				font-family:PingFangSC-Regular;
+				font-weight:400;
+				color:rgba(255,255,255,1);
+				.big{
+					font-size:28upx;
+				}
+			}
+			.bgr{
+				background:#CC2636;
+			}
+			
+			.left_message,
+			.right_buy{
+				height: 98upx;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				.top{
+					margin-bottom:10upx;
+				}
+			}
 		}
 
 	}

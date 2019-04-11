@@ -1,0 +1,151 @@
+<template>
+	 <view class="container">
+	 	<view class="order_content">
+	 		<view class="order_pay_top">
+	 			<view class="order_pay_top_amount">¥6.00</view>
+				<view class="order_pay_top_msg">支付金额</view>
+	 		</view>
+	 		
+	 	</view>
+		<view class="p_option_info">
+			<view class="p_text">请选择支付方式</view>
+			<block v-for="(channel,index) in paychannels" :key="index">
+				<view class="p_option">
+					<view class="p_option_left">
+						<image v-bind:src="channel.icon" class="pay_icon">
+						</image>
+						<view class="p_option_title">{{channel.title}}</view>
+					</view>
+					<image v-if="selectIndex==index" v-bind:src="channel.selIcon" class="pay_icon_right" @click="selectIndex=index"></image>
+					<image v-else v-bind:src="channel.unselIcon" class="pay_icon_right" @click="selectIndex=index"></image>
+				</view>
+			</block>	
+		</view>
+	 	<view class="confirm_footer" @click="toPay">立即支付</view>
+	 </view>
+</template>
+
+<script>
+	export default{
+		methods:{
+			toPay(){
+				uni.navigateTo({
+					url:'./payResult'
+				})
+			}
+		},
+		data(){
+			return {
+				selectIndex:0,
+				paychannels:[{
+				            icon: '../../static/pay/pay_icon_weixin@2x.png',
+				            selIcon: '../../static/pay/pay_btn_selected_weixin@2x.png',
+				            title: "微信支付",
+				            unselIcon: '../../static/pay/pay_btn@2x.png'
+				            },
+				            {
+				            icon: '../../static/pay/pay_icon_zhifubao@2x.png',
+				            selIcon: '../../static/pay/pay_btn_selected_weixin@2x.png',
+				            title: "支付宝付款",
+				            unselIcon: '../../static/pay/pay_btn@2x.png'
+				            }]
+			}
+		}
+	}
+</script>
+
+<style lang="scss">
+	.container {
+	    background: #F7F7F7;
+		width: 100%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		.order_content {
+	          height: 169upx;
+			  width: 100%;
+	          background: #ffffff;
+			  .order_pay_top {
+	                display: flex;
+	                flex-direction: column;
+	                align-items: center;
+					justify-content: center;
+					.order_pay_top_amount {
+	                          margin-top: 39upx;
+	                          font-size:50upx;
+	                          font-family: PingFang-SC-Bold;
+	                          color: rgba(204,38,54,1);
+	                          line-height: 73upx;
+	                }
+					.order_pay_top_msg{
+						font-size:26upx;
+						font-family:PingFang-SC-Medium;
+						font-weight:500;
+						color:rgba(153,153,153,1);
+						margin-top: 5upx;
+					}
+	            }
+	    }
+		.p_option_info{
+			margin-top: 20upx;
+			width: 100%;
+			height: 120upx;
+			.p_text{
+				font-size:30upx;
+				font-family:PingFangSC-Regular;
+				font-weight:400;
+				color:rgba(51,51,51,1);
+				background: #ffffff;
+				padding: 20upx;
+			}
+			.p_option {
+			      display: flex;
+			      flex-direction: row;
+			      justify-content: space-between;
+			      align-items: center;
+				  background: #ffffff;
+				  .p_option_left {
+			           display: flex;
+			           flex-direction: row;
+			           align-items: center;
+			           height: 117upx;
+					   margin-left: 20upx;
+					   .pay_icon {
+			                   width: 38upx;
+			                   height: 38upx;
+			            }
+						.p_option_title {
+			                   height: 97upx;
+			                   font-size: 28upx;
+			                   font-family: PingFang-SC-Medium;
+			                   font-weight: 500;
+			                   color: rgba(31, 31, 31, 1);
+			                   line-height: 97upx;
+			                   margin-left: 20upx;
+			            }
+			        }
+					.pay_icon_right {
+			                width: 44upx;
+			                height: 44upx;
+							margin-right: 20upx;
+			
+			         }
+			}
+		}
+		
+		.confirm_footer {
+			position: fixed;
+			bottom: 50upx;
+			width: 690upx;
+	         height: 80upx;
+	         background: rgba(204,38,54,1);
+	         font-size: 30upx;
+	         font-family: PingFang-SC-Medium;
+	         font-weight: 500;
+	         color: rgba(255, 255, 255, 1);
+	         line-height: 98upx;
+	         text-align: center;
+	    }
+	}
+</style>

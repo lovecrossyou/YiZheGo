@@ -6,7 +6,7 @@
 		<view class="search_wrapper_center">
 			<view class="search_wrapper_center_input">
 				<image :src="home_search" alt="" />
-				<view>æœç´¢å•†å“</view>
+				<view>ËÑË÷ÉÌÆ·</view>
 			</view>
 		</view>
 		<view class="search_wrapper_item">
@@ -40,7 +40,7 @@
 		align-items: center;
 		position: fixed;
 		left:0;
-		top:100upx;
+		top:10upx;
 		z-index: 999;
 		.search_wrapper_item {
 			flex:1;

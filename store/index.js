@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import home from './modules/home.js'
+import home from './modules/home.js';
+import productDetail from './modules/productDetails.js';
 import api from '../util/api.js';
 import service from "../service.js";
-import moments from "./modules/moments.js";
 
 import chooseCode from './modules/chooseCode.js'
 Vue.use(Vuex)
@@ -12,7 +12,7 @@ const store = new Vuex.Store({
 	modules: {
 		home,
 		chooseCode,
-		moments
+		productDetail
 	},
 
 	state: {
@@ -20,7 +20,7 @@ const store = new Vuex.Store({
 		 * 是否需要强制登录
 		 */
 		forcedLogin: false,
-		hasLogin: false,
+		hasLogin: true,
 		userInfo: null,
 		token: null,
 		openid: null
@@ -66,6 +66,7 @@ const store = new Vuex.Store({
 			commit('saveToken', token);
 			commit('saveUserInfo', userInfo);
 			commit('saveOpenId', openid);
+			console.log('token ',token);
 			service.addToken(token);
 			uni.navigateBack();
 		}

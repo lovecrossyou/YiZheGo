@@ -24,7 +24,7 @@
 	export default {
 		data() {
 			return {
-				mall_banner: "../../static/home/banner.png",
+				mall_banner: "http://qnimage.xiteng.com/banner.png",
 				background: ['color1', 'color2', 'color3'],
 				indicatorDots: true,
 				autoplay: true,
@@ -46,11 +46,6 @@
 			durationChange(e) {
 				this.duration = e.target.value
 			}
-		},
-		computed: {
-			...mapState({
-				bannerList: state => state.main.bannerList
-			})
 		}
 	}
 </script>

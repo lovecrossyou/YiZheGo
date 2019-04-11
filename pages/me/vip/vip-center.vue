@@ -70,7 +70,7 @@
 			width: 100%;
 			height: 628upx;
 			display: block;
-			background: url("../../../static/me/vip/vip_top_img.png") no-repeat;
+			background: url("http://qnimage.xiteng.com/vip_top_img.png") no-repeat;
 			background-size: 100% 100%;
 		}
 		
@@ -87,7 +87,7 @@
 					width: 190upx;
 					height: 190upx;
 					margin-left: 30upx;
-					background: url("../../../static/me/vip/vip_exp.png") no-repeat;
+					background: url("http://qnimage.xiteng.com/vip_exp.png") no-repeat;
 					background-size: 100% 100%;
 				}
 				.item-content {
@@ -112,7 +112,7 @@
 							.tag {
 								width: 33upx;
 								height: 23upx;
-								background: url("../../../static/me/vip/vip_tag.png") no-repeat;
+								background: url("http://qnimage.xiteng.com/vip_tag.png") no-repeat;
 								background-size: 100% 100%;
 							}
 							.text {

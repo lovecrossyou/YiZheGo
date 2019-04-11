@@ -30,7 +30,6 @@ const createAccessInfo = () => {
 }
 
 
-
 request.config.baseURL = baseURL
 // request.config.headers = {
 // 	"content-type": "application/json",
@@ -38,6 +37,13 @@ request.config.baseURL = baseURL
 // }
 
 const errorPrompt = (err) => {
+	if(err.data.message === '用户不存在'){
+		uni.navigateTo({
+			url: "/pages/login/WeChatLogin/WeChatLogin"
+		})
+		return;
+	}
+	
 	uni.showToast({
 		title: err.data.message || 'fetch data error.',
 		icon: 'none'
@@ -63,14 +69,13 @@ request.interceptors.request.use((request) => {
 
 request.interceptors.response.use((response, promise) => {
 	uni.hideLoading()
-	console.log('response ', JSON.stringify(response));
 	if (!(response.status === 200)) {
 		errorPrompt(response)
 	}
 	return promise.resolve(response.data)
 }, (err, promise) => {
-	uni.hideLoading()
-	errorPrompt(err)
+	uni.hideLoading()	
+	errorPrompt(err.response)
 	return promise.reject(err)
 })
 
