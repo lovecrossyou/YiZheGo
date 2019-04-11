@@ -168,7 +168,7 @@
 				<view class="top" >￥{{productDetail.productItemModel.originalPrice}}</view>
 				<view class="big">全价购买</view>
 			</view>
-			<view class="right_buy bgr">
+			<view class="right_buy bgr" @click="confirmOrder">
 				<view class="top" >￥{{productDetail.productItemModel.oneDiscountPrice}}</view>
 				<view class="big">一折抢购</view>
 			</view>
@@ -202,6 +202,11 @@
 					discountGameId:1
 				});
 				this.$store.commit('productDetail/setProductDetails',res)
+			},
+			confirmOrder(){
+				uni.navigateTo({
+					url:'../chooseCode/confirmOrder'
+				})
 			}
 		},
 		onLoad(){

@@ -78,7 +78,7 @@
 
 <script>
 	import uniNumberBox from "../components/uni-number-box/uni-number-box.vue"
-	import {mapState,mapMutations} from 'vuex';
+	import {mapState,mapMutations,mapGetters} from 'vuex';
 	export default{
 		data(){
 			return{
@@ -92,8 +92,10 @@
 		computed:{
 			...mapState({
 				buyCount:state=>state.chooseCode.codeCount,
+			}),
+			...mapGetters({
+				allCode: 'chooseCode/allCode',
 			})
-			
 			
 		},
 		methods:{
@@ -106,9 +108,16 @@
 				})
 			},
 			toPay(){
-				uni.navigateTo({
-					url:'./pay'
+				
+				uni.showToast({
+					title:JSON.stringify(this.allCode)
 				})
+				setTimeout(()=>{
+					uni.navigateTo({
+						url:'./pay'
+					})
+				},2000)
+				
 			},
 			reduce(){
 				if(this.buyCount>1){
@@ -117,6 +126,9 @@
 			},
 			onCountChanged(event){
 				this.changeCodeCount(+event.target.value)
+			},
+			plus(){
+				changeCodeCount(this.buyCount+1)
 			}
 		}
 	}
