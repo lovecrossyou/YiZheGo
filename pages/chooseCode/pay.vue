@@ -21,14 +21,18 @@
 				</view>
 			</block>	
 		</view>
-	 	<view class="confirm_footer" @click="toPay(payResult)">立即支付</view>
+	 	<view class="confirm_footer" @click="toPay">立即支付</view>
 	 </view>
 </template>
 
 <script>
 	export default{
 		methods:{
-			
+			toPay(){
+				uni.navigateTo({
+					url:'./payResult'
+				})
+			}
 		},
 		data(){
 			return {
