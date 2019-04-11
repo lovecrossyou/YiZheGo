@@ -56,13 +56,17 @@
             }
         },
         {
-            "path" : "pages/moments/components/moment",
+            "path" : "pages/moments/components/recommend",
             "style" : {}
         },
-        {
-            "path" : "pages/moments/components/momentdetail",
-            "style" : {}
-        },
+		{
+		    "path" : "pages/moments/components/comment",
+		    "style" : {}
+		},
+		{
+		    "path" : "pages/moments/components/showWinOrder",
+		    "style" : {}
+		},
         {
             "path" : "pages/login/WeChatLogin/WeChatLogin",
             "style" : {
@@ -136,7 +140,6 @@
 		    "style" : {
 		        "navigationBarTitleText" : "支付结果"
 		    }
-<<<<<<< HEAD
 		},
         {
             "path" : "pages/me/personalData",
