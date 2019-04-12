@@ -52,8 +52,11 @@ const store = new Vuex.Store({
 			state
 		}) {
 			const token = service.getToken();
+			const openid = service.getOpenId();
 			if (token) {
 				commit('saveToken', token);
+				commit('saveOpenId', openid);
+				console.log('openid ##',openid)
 			}
 		},
 		async wxlogin({
@@ -68,8 +71,9 @@ const store = new Vuex.Store({
 			commit('saveToken', token);
 			commit('saveUserInfo', userInfo);
 			commit('saveOpenId', openid);
-			console.log('token ',token);
+			console.log('token ', token);
 			service.addToken(token);
+			service.addOpenId(openid);
 			uni.navigateBack();
 		}
 	}
