@@ -14,7 +14,8 @@
             "delay" : 0
         },
         "modules" : {
-            "Payment" : {}
+            "Payment" : {},
+            "Share" : {}
         },
         /* 模块配置 */
         "distribute" : {
@@ -52,6 +53,12 @@
                 "payment" : {
                     "weixin" : {
                         "appid" : "wxa456b7c393c74a35"
+                    }
+                },
+                "share" : {
+                    "weixin" : {
+                        "appid" : "wxa456b7c393c74a35",
+                        "appsecret" : "16af659c697f8"
                     }
                 }
             }
