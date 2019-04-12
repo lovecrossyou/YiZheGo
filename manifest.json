@@ -15,7 +15,11 @@
         },
         "modules" : {
             "Payment" : {},
+<<<<<<< HEAD
             "OAuth" : {}
+=======
+            "Share" : {}
+>>>>>>> 6df3cba0d482290ff6bf73c2e3360074c87f6a03
         },
         /* 模块配置 */
         "distribute" : {
@@ -52,6 +56,7 @@
             "sdkConfigs" : {
                 "payment" : {
                     "weixin" : {
+<<<<<<< HEAD
                         "appid" : "wx0513af67bd4eb342"
                     }
                 },
@@ -59,6 +64,15 @@
                     "weixin" : {
                         "appid" : "wx0513af67bd4eb342",
                         "appsecret" : "0faed1797d3f783b480adcba975130b9"
+=======
+                        "appid" : "wxa456b7c393c74a35"
+                    }
+                },
+                "share" : {
+                    "weixin" : {
+                        "appid" : "wxa456b7c393c74a35",
+                        "appsecret" : "16af659c697f8"
+>>>>>>> 6df3cba0d482290ff6bf73c2e3360074c87f6a03
                     }
                 }
             }
