@@ -16,8 +16,8 @@
 		</view>
 		<view class="invite">
 			<view class="rule">亲，送你2个红包，一起来玩1折抢购吧!从0~9选3个号码,选中立享1折。全场1折、正品保证、公开透明!</view>
-			<image :src="yaoqing_icon_jinagli" ></image>
-			<view class="invite_btn">立即邀请</view>
+			<image :src="yaoqing_bg" ></image>
+			<view class="invite_btn" @click="inviteBtn">立即邀请</view>
 		</view>
 		<view class="footer">
 			<view class="img">
@@ -35,8 +35,13 @@
 	export default{
 		data(){
 			return {
-				bg_yaoqing_hongbao:'../../static/me/bg_yaoqing_hongbao.png',
+				yaoqing_bg:'../../static/me/yaoqing_bg.png',
 				yaoqing_icon_jinagli:'../../static/me/yaoqing_icon_jinagli.png',
+			}
+		},
+		methods:{
+			inviteBtn(){
+				console.log('邀请好友...')
 			}
 		}
 	}
@@ -51,8 +56,7 @@
 			justify-content: space-around;
 			align-items: center;
 			text-align: center;
-			background: #2B2E2E;
-			// background: url('./static/me/bg_banner_yaoqing.png') no-repeat;
+			background:url('../../static/me/yaoqing_top_bg.png') no-repeat;
 			.banner_item{
 				padding:60upx 0;
 				box-sizing: border-box;
@@ -74,23 +78,24 @@
 		}
 		.invite{
 			width:100%;
-			padding:16upx 10upx;
-			box-sizing: border-box;
+			margin-top:20upx;
 			position: relative;
+			text-align: center;
 			image{
-				width:100%;
-				// height:800upx;
+				width:718upx;
+				height:877upx;
 			}
 			.rule{
 				width:86%;
+				text-align: left;
 				background:#fff;
 				line-height:1.5;
-				border-radius: 8upx;
+				border-radius: 10upx;
 				font-size:28upx;
 				font-family:PingFang-SC-Regular;
 				font-weight:400;
 				color:rgba(141,141,141,1);
-				padding:10upx 14upx;
+				padding:10upx 20upx;
 				box-sizing: border-box;
 				position: absolute;
 				left:50%;
