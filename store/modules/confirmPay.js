@@ -1,6 +1,7 @@
 const state={
 	orderInfo:null,
-	buyType:null
+	buyType:null,
+	address:{},
 }
 
 const mutations={
@@ -9,6 +10,11 @@ const mutations={
 	},
 	setBuyType(state,data){
 		state.buyType = data;
+	},
+	setAddressList(state,data){
+		if(data!=null&data.length>0){
+			state.address = data[0];
+		}
 	}
 }
 

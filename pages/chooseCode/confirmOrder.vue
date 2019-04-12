@@ -1,15 +1,19 @@
 <template>
 	<view class="container">
-		<view class="delivery-info">
+		<view class="delivery-info" @click="addressList" v-if="address">
 			<view class="delivery-userinfo">
-				<view class="delivery-userinfo-name">收货人:乐意</view>
-				<view class="delivery-userinfo-name">15210963519</view>
+				<view class="delivery-userinfo-name">收货人:{{address.recievName}}</view>
+				<view class="delivery-userinfo-name">{{address.phoneNum}}</view>
 			</view>
 			<view class="delivery-userinfo-addInfo">
 				<image v-bind:src="addIcon" class="delivery-userinfo-addInfo-icon"></image>
-				<view class="delivery-userinfo-addInfo-add">收货地址:北京市西交民巷八大胡同拐弯处</view>
+				<view class="delivery-userinfo-addInfo-add">收货地址:{{address.fullAddress}}</view>
 			</view>
 			<image v-bind:src="rightArrow" class="delivery-userinfo-arrow"></image>
+		</view>
+		<view class="delivery-no-info" @click="addressList" v-else>
+			<image v-bind:src="addIcon" class="delivery-no-info-icon"></image>
+			<view class="delivery-no-info-msg">选择收货地址</view>
 		</view>
 		<image v-bind:src="lineCai" class="delivery-userinfo-line"></image>
 		<view class="product-info">
@@ -23,7 +27,7 @@
 			</view>
 			<view class="product-info-pro-amount">
 				<view class="product-info-pro-amount-text">抢购数量</view>
-				<uni-number-box></uni-number-box>
+				<uni-number-box @changes="onCountChanged"></uni-number-box>
 			</view>
 		</view>
 		<view class="price-info">
@@ -37,7 +41,7 @@
 				<view class="price-info-product-price">+¥{{orderInfo.freight}}</view>
 			</view>
 		</view>
-		<view class="choose-code" @click="chooseCode">
+		<view class="choose-code" @click="chooseCode" v-if="directBuy">
 			<view class="choose-code-msg">
 				<view class="choose-code-msg-red">选择号码</view>
 				<view class="choose-code-msg-time">0~9选3个号码 选中立享1折 不中全额退款</view>
@@ -89,6 +93,7 @@
 			console.log("确认订单商品-----------" + option.directBuy + '------------' + option.discountGameId);
 			this.$store.commit('confirmPay/setBuyType', option.directBuy)
 			this.getConfirmOrderInfo(option.discountGameId);
+			this.getAddressList();
 		},
 		data() {
 			return {
@@ -106,7 +111,8 @@
 				buyCount: state => state.chooseCode.codeCount,
 				orderInfo: state => state.confirmPay.orderInfo,
 				directBuy: state => state.confirmPay.buyType,
-				openid: state=>state.openid
+				openid: state=>state.openid,
+				address:state => state.confirmPay.address,
 			}),
 			...mapGetters({
 				allCode: 'chooseCode/allCode',
@@ -114,6 +120,11 @@
 
 		},
 		methods: {
+			async getAddressList(){
+				const res = await api.addressList({size:10,pageNo:0});
+				console.log("收货地址-----------" + JSON.stringify(res));
+				this.$store.commit('confirmPay/setAddressList',res.content)
+			},
 			async getConfirmOrderInfo(discountGameId) {
 				const res = await api.confirmOrderInfo({
 					discountGameId: discountGameId,
@@ -126,10 +137,10 @@
 			async getOrder() {
 				return api.commitOrder({
 					codeList: this.allCode,
-					deliverAddressId: 1,
+					deliverAddressId: this.address.id,
 					directBuy: this.directBuy,
 					discountGameId: this.orderInfo.discountGameId,
-					purchaseCount: 1,
+					purchaseCount: this.buyCount,
 				})
 			},
 			async commitOrder() {
@@ -178,16 +189,14 @@
 					url: './chooseCode'
 				})
 			},
-			reduce() {
-				if (this.buyCount > 1) {
-					this.changeCodeCount(this.buyCount - 1)
-				}
-			},
 			onCountChanged(event) {
-				this.changeCodeCount(+event.target.value)
+				console.log("修改数量-----------" + event);
+				this.changeCodeCount(event)
 			},
-			plus() {
-				changeCodeCount(this.buyCount + 1)
+			addressList(){
+				uni.navigateTo({
+					url: '../me/address/address'
+				})
 			}
 		}
 	}
@@ -249,6 +258,24 @@
 				width: 17upx;
 				height: 30upx;
 				right: 10upx;
+			}
+		}
+		.delivery-no-info{
+			display: flex;
+			flex-direction: row;
+			background: #FFFFFF;
+			height: 90upx;
+			align-items: center;
+			margin-left:20upx;
+			.delivery-no-info-icon {
+				width: 27upx;
+				height: 31upx;
+			}
+			.delivery-no-info-msg{
+				font-size: 30upx;
+				font-family: PingFangSC-Regular;
+				color: rgba(51, 51, 51, 1);
+				margin-left: 10upx;
 			}
 		}
 

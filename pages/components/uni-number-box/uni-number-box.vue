@@ -15,11 +15,11 @@
             },
             min: {
                 type: Number,
-                default: 0
+                default: 1
             },
             max: {
                 type: Number,
-                default: 100
+                default: 1000
             },
             step: {
                 type: Number,
@@ -68,6 +68,7 @@
                     return
                 }
                 this.inputValue = value / scale;
+				this.$emit("changes",this.inputValue);
             },
             _getDecimalScale() {
                 let scale = 1
