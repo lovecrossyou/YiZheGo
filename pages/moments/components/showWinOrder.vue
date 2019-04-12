@@ -13,7 +13,7 @@
 						<view class="time">{{item.createTime}}</view>
 					</view>
 				</view>
-				<view class="momentcontent"  @click="godetails(id)">
+				<view class="momentcontent"  @click="godetails(index)">
 					<view class="moment_text">{{item.commentContent}}</view>
 					<view class="moment_image_wrapper" v-if="item.imageOrVideoUrl.length!==0">
 						<image class="moment_image" :src="item.imageOrVideoUrl[0]"></image>
@@ -31,7 +31,7 @@
 							<image class="praise_img" src="/static/moments/icon_illume.png"></image>
 							<view class="praise_num">{{item.praiseCount}}</view>
 						</view>
-						<view class="comment"  @click="godetails(id)">
+						<view class="comment"  @click="godetails(index)">
 							<image class="comment_img" src="/static/moments/icon_comment.png"></image>
 							<view class="comment_num">{{item.commentCount}}</view>
 						</view>
@@ -52,9 +52,9 @@
 			}
 		},
 		methods:{
-			godetails(id){
+			godetails(index){
 				uni.navigateTo({
-					url:"/pages/moments/commentdetails"
+					url:"/pages/moments/showWinOrderdetails?id="+this.list[index].showWinOrderCommentId
 				})
 			}
 		},

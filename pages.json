@@ -50,19 +50,11 @@
         {
             "path" : "pages/moments/showWinOrderdetails",
             "style" : {
-                "navigationBarTitleText" : "晒单详情",
+                "navigationBarTitleText" : "详情",
                 "navigationBarTextStyle" : "black",
                 "navigationBarBackgroundColor" : "rgba(255,255,255,1)"
             }
         },
-		{
-		    "path" : "pages/moments/commentdetails",
-		    "style" : {
-		        "navigationBarTitleText" : "讨论详情",
-		        "navigationBarTextStyle" : "black",
-		        "navigationBarBackgroundColor" : "rgba(255,255,255,1)"
-		    }
-		},
         {
             "path" : "pages/login/WeChatLogin/WeChatLogin",
             "style" : {
@@ -131,12 +123,12 @@
                 "navigationBarTitleText" : "确认付款"
             }
         },
-		{
-		    "path" : "pages/chooseCode/payResult",
-		    "style" : {
-		        "navigationBarTitleText" : "支付结果"
-		    }
-		},
+        {
+            "path" : "pages/chooseCode/payResult",
+            "style" : {
+                "navigationBarTitleText" : "支付结果"
+            }
+        },
         {
             "path" : "pages/me/personalData",
             "style" : {
@@ -176,6 +168,10 @@
                 "navigationBarBackgroundColor" : "#ffffff",
                 "navigationBarTextStyle" : "black"
             }
+        },
+        {
+            "path" : "pages/moments/components/recommend",
+            "style" : {}
         }
     ],
     "tabBar" : {
