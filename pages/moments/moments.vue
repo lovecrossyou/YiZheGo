@@ -31,23 +31,6 @@
 			navigationclick(index){
 				this.isOnclick=index;
 			}
-// 			async changelist(index){
-// 				let res=[];
-// 				switch(index){
-// 					case 0:
-// 						res = await api.discusRecommendList({});
-// 						break;
-// 					case 1:
-// 						res = await api.discusCommentList({});
-// 						break;
-// 					case 2:
-// 						res = await api.showWinOrderList({});
-// 						break;
-// 					case 3:
-// 						break;
-// 				};
-// 				this.list = res;
-// 			}
 		},
 		components:{
 			recommend,
@@ -60,6 +43,7 @@
 <style lang="scss">
 	.moments {
 		width: 100%;
+		background: #eeeeee;
 
 		.navigation {
 			width: 100%;
@@ -68,7 +52,12 @@
 			flex-direction: row;
 			justify-content: space-around;
 			align-items: center;
+			background:white;
 			border-top: solid 1upx rgba(234,234,234,1);
+			position: fixed;
+			top: 0upx;
+			z-index: 10;
+		
 
 			.navigationtext {
 				font-size: 30upx;
@@ -88,9 +77,9 @@
 		
 		.contentlist{
 			width: 100%;
-			background: #eeeeee;
 			padding: 20upx 30upx;
 			box-sizing: border-box;
+			margin-top: 101upx;
 		}
 	}
 </style>
