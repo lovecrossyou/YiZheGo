@@ -22,6 +22,8 @@ const api = {
 	discusRecommendList:params => request.post(' /discountGame/discusRecommendList',params),
 	//我
 	userInfo:(params) => request.post("/user/info",params),
+	//中签列表
+	luckyList:(params) => request.post('/discountGame/winGameListByStage', params),
 
 	//上传
 	uploader: (file, callback) => {

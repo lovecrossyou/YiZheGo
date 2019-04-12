@@ -94,9 +94,39 @@
             }
         },
         {
+            "path" : "pages/chooseCode/confirmOrder",
+            "style" : {
+                "navigationBarTitleText" : "确认订单"
+            }
+        },
+        {
+            "path" : "pages/chooseCode/pay",
+            "style" : {
+                "navigationBarTitleText" : "确认付款"
+            }
+        },
+        {
+            "path" : "pages/chooseCode/payResult",
+            "style" : {
+                "navigationBarTitleText" : "支付结果"
+            }
+        },
+        {
             "path" : "pages/me/vip/vip-center",
             "style" : {
                 "navigationBarTitleText" : "会员中心"
+            }
+        },
+        {
+            "path" : "pages/me/vip/lucky-list",
+            "style" : {
+                "navigationBarTitleText" : "中签榜"
+            }
+        },
+        {
+            "path" : "pages/me/vip/lucky-detail",
+            "style" : {
+                "navigationBarTitleText" : "中签详情"
             }
         },
         {
@@ -106,7 +136,7 @@
                 "navigationStyle" : "custom",
                 "app-plus" : {
                     "titleNView" : {
-                        "type" : "transparent" //透明渐变导航栏,
+                        "type" : "transparent"
                     }
                 }
             }
@@ -119,168 +149,6 @@
                 "navigationBarTextStyle" : "black"
             }
         },
-        {
-            "path" : "pages/chooseCode/confirmOrder",
-            "style" : {
-                "navigationBarTitleText" : "确认订单"
-            }
-        },
-        {
-            "path" : "pages/chooseCode/pay",
-            "style" : {
-                "navigationBarTitleText" : "确认付款"
-            }
-        },
-		{
-		    "path" : "pages/chooseCode/payResult",
-		    "style" : {
-		        "navigationBarTitleText" : "支付结果"
-		    }
-		},
-<<<<<<< HEAD
-		{
-			"path": "pages/home/home",
-			"style": {
-				"navigationBarTitleText": "首页"
-			}
-		}, {
-			"path": "pages/me/me",
-			"style": {
-				"navigationBarTitleText": "我",
-				"navigationBarBackgroundColor": "#ffffff",
-				"navigationBarTextStyle": "black"
-			}
-		}, {
-			"path": "pages/message/message",
-			"style": {
-				"navigationBarTitleText": "消息"
-			}
-		}, {
-			"path": "pages/moments/moments",
-			"style": {
-				"navigationBarTitleText": "动态",
-				"navigationBarTextStyle": "black",
-				"navigationBarBackgroundColor": "rgba(255,255,255,1)"
-			}
-		}, {
-			"path": "pages/moments/components/moment",
-			"style": {
-			}
-		},{
-			"path": "pages/login/WeChatLogin/WeChatLogin",
-			"style": {
-				"navigationBarTitleText": "喜腾",
-				"navigationBarBackgroundColor": "#FBF8F8",
-				"navigationBarTextStyle": "black"
-			}
-		}, {
-			"path": "pages/login/WeChatLogin/inputTelNumber",
-			"style": {
-				// "navigationBarTitleText": "手机号验证",
-				"navigationBarBackgroundColor": "#fff",
-				"navigationBarTextStyle": "black"
-			}
-		}, {
-			"path": "pages/login/WeChatLogin/verificationCode",
-			"style": {
-				// "navigationBarTitleText": "验证码",
-				"navigationBarBackgroundColor": "#fff",
-				"navigationBarTextStyle": "black"
-			}
-		}, {
-			"path": "pages/chooseCode/chooseCode",
-			"style": {
-				"navigationBarTitleText": "选择幸运号码"
-			}
-        },
-		{
-			"path" : "pages/me/vip/vip-center",
-			"style": {
-				"navigationBarTitleText" : "会员中心"
-			}
-		},{
-			"path" : "pages/me/vip/lucky-list",
-			"style": {
-				"navigationBarTitleText" : "中签榜"
-			}
-		},{
-			"path" : "pages/me/vip/lucky-detail",
-			"style": {
-				"navigationBarTitleText" : "中签详情"
-			}
-		}, {
-			"path": "pages/details/productDetails",
-			"style": {
-				"navigationBarTitleText": "商品详情",
-				"navigationStyle": "custom",
-				"app-plus": {
-					"titleNView": {
-						"type": "transparent"
-					}
-				}
-			}
-		}, {
-			"path": "pages/login/verifyCodeLogin/verifyCodeLogin",
-			"style": {
-				"navigationBarTitleText": "验证码登录",
-				"navigationBarBackgroundColor": "#FBF8F8",
-				"navigationBarTextStyle": "black"
-			}
-		}, {
-			"path": "pages/me/personalData",
-			"style": {
-				"navigationBarTitleText": "个人资料",
-				"navigationBarBackgroundColor": "#ffffff",
-				"navigationBarTextStyle": "black"
-			}
-		}
-
-	],
-	"tabBar": {
-		"color": "#7a7e83",
-		"selectedColor": "#FE594B",
-		"backgroundColor": "#ffffff",
-		"list": [{
-				"pagePath": "pages/home/home",
-				"text": "首页",
-				"iconPath": "static/tab/mall_tab_home.png",
-				"selectedIconPath": "static/tab/mall_tab_home_selected.png"
-			},
-			{
-				"pagePath": "pages/moments/moments",
-				"text": "动态",
-				"iconPath": "static/tab/mall_tab_mall.png",
-				"selectedIconPath": "static/tab/mall_tab_mall_selected.png"
-			},
-			{
-				"pagePath": "pages/message/message",
-				"text": "消息",
-				"iconPath": "static/tab/mall_tab_message.png",
-				"selectedIconPath": "static/tab/mall_tab_message_selected.png"
-			},
-			{
-				"pagePath": "pages/me/me",
-				"text": "我的",
-				"iconPath": "static/tab/mall_tab_i.png",
-				"selectedIconPath": "static/tab/mall_tab_i _selected.png"
-			}
-		]
-	},
-	"globalStyle": {
-		"navigationBarTextStyle": "white",
-		"navigationBarBackgroundColor": "#FF594B",
-		"backgroundColor": "#FF594B"
-	},
-	"condition": { //模式配置，仅开发期间生效
-		"current": 0, //当前激活的模式(list 的索引项)
-		"list": [{
-			"name": "", //模式名称
-			"path": "", //启动页面，必选
-			"query": "" //启动参数，在页面的onLoad函数里面得到
-		}]
-	}
-}
-=======
         {
             "path" : "pages/me/personalData",
             "style" : {
@@ -312,6 +180,10 @@
                 "navigationBarBackgroundColor" : "#ffffff",
                 "navigationBarTextStyle" : "black"
             }
+        },
+        {
+            "path" : "pages/me/components/userPrizeItem",
+            "style" : {}
         }
     ],
     "tabBar" : {
@@ -362,4 +234,3 @@
         ]
     }
 }
->>>>>>> e1352d29b3a0769ae01570405fded2930f91cebe

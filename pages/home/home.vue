@@ -118,7 +118,7 @@
 					{
 						img: '../../static/home/home_nav_zhongqian.png',
 						name: "中签",
-						page: "/pages/ranklist/ranklist"
+						page: "/pages/me/vip/lucky-list"
 					}, {
 						img: '../../static/home/home_nav_shaidan.png',
 						name: "晒单",
