@@ -56,18 +56,6 @@
             }
         },
         {
-            "path" : "pages/moments/components/recommend",
-            "style" : {}
-        },
-		{
-		    "path" : "pages/moments/components/comment",
-		    "style" : {}
-		},
-		{
-		    "path" : "pages/moments/components/showWinOrder",
-		    "style" : {}
-		},
-        {
             "path" : "pages/login/WeChatLogin/WeChatLogin",
             "style" : {
                 "navigationBarTitleText" : "喜腾",
@@ -238,4 +226,3 @@
         ]
     }
 }
-

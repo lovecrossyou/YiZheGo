@@ -15,10 +15,10 @@
 </template>
 
 <script>
-	import api from "@/util/api.js"
-	import recommend from '/pages/moments/components/recommend.vue'
-	import comment from '/pages/moments/components/comment.vue'
-	import showWinOrder from '/pages/moments/components/showWinOrder.vue'
+	import api from "@/util/api.js";
+	import recommend from './components/recommend';
+	import comment from './components/comment';
+	import showWinOrder from './components/showWinOrder';
 	
 	export default {
 		data() {
@@ -30,7 +30,7 @@
 		methods: {
 			navigationclick(index){
 				this.isOnclick=index;
-			},
+			}
 // 			async changelist(index){
 // 				let res=[];
 // 				switch(index){

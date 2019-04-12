@@ -1,7 +1,7 @@
 <template>
 	<view class="showWinOrderwrapper">
 		<block v-for="(item,index) in list" :key="index">
-			<view class="showWinOrder">
+			<view class="showWinOrderItem">
 				<view class="user">
 					<image class="user_icon" :src="item.userIconUrl"></image>
 					<view class="user_icon_right">
@@ -66,14 +66,13 @@
 
 <style lang="less">
 	.showWinOrderwrapper{
-		width: 100%
+		width: 100%;
 		
-		.showWinOrder {
+		.showWinOrderItem {
 			display: flex;
 			flex-direction: column;
 			width: 100%;
 			background: rgba(255, 255, 255, 1);
-			margin-bottom: 20upx;
 		
 			.user {
 				width: 100%;

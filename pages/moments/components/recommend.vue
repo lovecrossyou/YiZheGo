@@ -1,7 +1,7 @@
 <template>
 	<view class="recommendwrapper">
 		<block v-for="(item,index) in list" :key="index">
-			<view class="recommend">
+			<view class="recommendItem">
 				<view class="user">
 					<image class="user_icon" :src="item.userIconUrl"></image>
 					<view class="user_icon_right">
@@ -66,9 +66,9 @@
 
 <style lang="less">
 	.recommendwrapper{
-		width: 100%
+		width: 100%;
 		
-		.recommend {
+		.recommendItem {
 			display: flex;
 			flex-direction: column;
 			width: 100%;
