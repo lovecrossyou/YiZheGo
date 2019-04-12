@@ -1,13 +1,13 @@
 <template>
 	<view class="container">
-		<view class="delivery-info">
+		<view class="delivery-info" @click="addressList">
 			<view class="delivery-userinfo">
-				<view class="delivery-userinfo-name">收货人:乐意</view>
-				<view class="delivery-userinfo-name">15210963519</view>
+				<view class="delivery-userinfo-name">收货人:{{address.recievName}}</view>
+				<view class="delivery-userinfo-name">{{address.phoneNum}}</view>
 			</view>
 			<view class="delivery-userinfo-addInfo">
 				<image v-bind:src="addIcon" class="delivery-userinfo-addInfo-icon"></image>
-				<view class="delivery-userinfo-addInfo-add">收货地址:北京市西交民巷八大胡同拐弯处</view>
+				<view class="delivery-userinfo-addInfo-add">收货地址:{{address.fullAddress}}</view>
 			</view>
 			<image v-bind:src="rightArrow" class="delivery-userinfo-arrow"></image>
 		</view>
@@ -37,7 +37,7 @@
 				<view class="price-info-product-price">+¥{{orderInfo.freight}}</view>
 			</view>
 		</view>
-		<view class="choose-code" @click="chooseCode">
+		<view class="choose-code" @click="chooseCode" v-if="directBuy">
 			<view class="choose-code-msg">
 				<view class="choose-code-msg-red">选择号码</view>
 				<view class="choose-code-msg-time">0~9选3个号码 选中立享1折 不中全额退款</view>
@@ -89,6 +89,7 @@
 			console.log("确认订单商品-----------" + option.directBuy + '------------' + option.discountGameId);
 			this.$store.commit('confirmPay/setBuyType', option.directBuy)
 			this.getConfirmOrderInfo(option.discountGameId);
+			this.getAddressList();
 		},
 		data() {
 			return {
@@ -106,7 +107,8 @@
 				buyCount: state => state.chooseCode.codeCount,
 				orderInfo: state => state.confirmPay.orderInfo,
 				directBuy: state => state.confirmPay.buyType,
-				openid: state=>state.openid
+				openid: state=>state.openid,
+				address:state => state.confirmPay.address,
 			}),
 			...mapGetters({
 				allCode: 'chooseCode/allCode',
@@ -114,6 +116,11 @@
 
 		},
 		methods: {
+			async getAddressList(){
+				const res = await api.addressList({size:10,pageNo:0});
+				console.log("收货地址-----------" + JSON.stringify(res));
+				this.$store.commit('confirmPay/setAddressList',res.content)
+			},
 			async getConfirmOrderInfo(discountGameId) {
 				const res = await api.confirmOrderInfo({
 					discountGameId: discountGameId,
@@ -188,6 +195,11 @@
 			},
 			plus() {
 				changeCodeCount(this.buyCount + 1)
+			},
+			addressList(){
+				uni.navigateTo({
+					url: '../me/address/address'
+				})
 			}
 		}
 	}
