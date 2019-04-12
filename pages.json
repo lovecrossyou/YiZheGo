@@ -56,14 +56,6 @@
             }
         },
         {
-            "path" : "pages/moments/components/moment",
-            "style" : {}
-        },
-        {
-            "path" : "pages/moments/components/momentdetail",
-            "style" : {}
-        },
-        {
             "path" : "pages/login/WeChatLogin/WeChatLogin",
             "style" : {
                 "navigationBarTitleText" : "喜腾",
@@ -185,7 +177,7 @@
         "list" : [
             {
                 "pagePath" : "pages/home/home",
-                "text" : "抢购",
+                "text" : "首页",
                 "iconPath" : "static/tab/tab_shouye_d@2x.png",
                 "selectedIconPath" : "static/tab/tab_shouye_s@2x.png"
             },
@@ -197,13 +189,13 @@
             },
             {
                 "pagePath" : "pages/message/message",
-                "text" : "喜信",
+                "text" : "消息",
                 "iconPath" : "static/tab/tab_xixin_d@2x.png",
                 "selectedIconPath" : "static/tab/tab_xixin_s@2x.png"
             },
             {
                 "pagePath" : "pages/me/me",
-                "text" : "我",
+                "text" : "我的",
                 "iconPath" : "static/tab/tab_me_d@2x.png",
                 "selectedIconPath" : "static/tab/tab_me_s@2x.png"
             }
