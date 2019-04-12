@@ -1,6 +1,6 @@
 <template>
 	<view class="container">
-		<view class="delivery-info" @click="addressList">
+		<view class="delivery-info" @click="addressList" v-if="address">
 			<view class="delivery-userinfo">
 				<view class="delivery-userinfo-name">收货人:{{address.recievName}}</view>
 				<view class="delivery-userinfo-name">{{address.phoneNum}}</view>
@@ -10,6 +10,10 @@
 				<view class="delivery-userinfo-addInfo-add">收货地址:{{address.fullAddress}}</view>
 			</view>
 			<image v-bind:src="rightArrow" class="delivery-userinfo-arrow"></image>
+		</view>
+		<view class="delivery-no-info" @click="addressList" v-else>
+			<image v-bind:src="addIcon" class="delivery-no-info-icon"></image>
+			<view class="delivery-no-info-msg">选择收货地址</view>
 		</view>
 		<image v-bind:src="lineCai" class="delivery-userinfo-line"></image>
 		<view class="product-info">
@@ -254,6 +258,24 @@
 				width: 17upx;
 				height: 30upx;
 				right: 10upx;
+			}
+		}
+		.delivery-no-info{
+			display: flex;
+			flex-direction: row;
+			background: #FFFFFF;
+			height: 90upx;
+			align-items: center;
+			margin-left:20upx;
+			.delivery-no-info-icon {
+				width: 27upx;
+				height: 31upx;
+			}
+			.delivery-no-info-msg{
+				font-size: 30upx;
+				font-family: PingFangSC-Regular;
+				color: rgba(51, 51, 51, 1);
+				margin-left: 10upx;
 			}
 		}
 
