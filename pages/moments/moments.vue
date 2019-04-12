@@ -16,9 +16,9 @@
 
 <script>
 	import api from "@/util/api.js"
-	import recommend from '/pages/moments/components/recommend.vue'
-	import comment from '/pages/moments/components/comment.vue'
-	import showWinOrder from '/pages/moments/components/showWinOrder.vue'
+	import recommend from '/pages/moments/components/recommend'
+	import comment from '/pages/moments/components/comment'
+	import showWinOrder from '/pages/moments/components/showWinOrder'
 	
 	export default {
 		data() {
