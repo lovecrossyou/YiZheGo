@@ -136,7 +136,6 @@
 		    "style" : {
 		        "navigationBarTitleText" : "支付结果"
 		    }
-<<<<<<< HEAD
 		},
         {
             "path" : "pages/me/personalData",
@@ -174,89 +173,6 @@
             "path" : "pages/me/inviteFriend",
             "style" : {
                 "navigationBarTitleText" : "邀请好友",
-                "navigationBarBackgroundColor" : "#ffffff",
-                "navigationBarTextStyle" : "black"
-            }
-        }
-    ],
-    "tabBar" : {
-        "color" : "#7a7e83",
-        "selectedColor" : "#FE594B",
-        "backgroundColor" : "#ffffff",
-        "list" : [
-            {
-                "pagePath" : "pages/home/home",
-                "text" : "首页",
-                "iconPath" : "static/tab/mall_tab_home.png",
-                "selectedIconPath" : "static/tab/mall_tab_home_selected.png"
-            },
-            {
-                "pagePath" : "pages/moments/moments",
-                "text" : "动态",
-                "iconPath" : "static/tab/mall_tab_mall.png",
-                "selectedIconPath" : "static/tab/mall_tab_mall_selected.png"
-            },
-            {
-                "pagePath" : "pages/message/message",
-                "text" : "消息",
-                "iconPath" : "static/tab/mall_tab_message.png",
-                "selectedIconPath" : "static/tab/mall_tab_message_selected.png"
-            },
-            {
-                "pagePath" : "pages/me/me",
-                "text" : "我的",
-                "iconPath" : "static/tab/mall_tab_i.png",
-                "selectedIconPath" : "static/tab/mall_tab_i _selected.png"
-            }
-        ]
-    },
-    "globalStyle" : {
-        "navigationBarTextStyle" : "white",
-        "navigationBarBackgroundColor" : "#FF594B",
-        "backgroundColor" : "#FFFFFF"
-    },
-    "condition" : {
-        //模式配置，仅开发期间生效
-        "current" : 0, //当前激活的模式(list 的索引项)
-        "list" : [
-            {
-                "name" : "", //模式名称
-                "path" : "", //启动页面，必选
-                "query" : "" //启动参数，在页面的onLoad函数里面得到
-            }
-        ]
-    }
-}
-=======
-		},
-        {
-            "path" : "pages/me/personalData",
-            "style" : {
-                "navigationBarTitleText" : "个人资料",
-                "navigationBarBackgroundColor" : "#ffffff",
-                "navigationBarTextStyle" : "black"
-            }
-        },
-        {
-            "path" : "pages/ranklist/ranklist",
-            "style" : {
-                "navigationBarTitleText" : "榜单",
-                "navigationBarBackgroundColor" : "#ffffff",
-                "navigationBarTextStyle" : "black"
-            }
-        },
-        {
-            "path" : "pages/me/wallet/wallet",
-            "style" : {
-                "navigationBarTitleText" : "钱包",
-                "navigationBarBackgroundColor" : "#ffffff",
-                "navigationBarTextStyle" : "black"
-            }
-        },
-        {
-            "path" : "pages/me/address/address",
-            "style" : {
-                "navigationBarTitleText" : "地址",
                 "navigationBarBackgroundColor" : "#ffffff",
                 "navigationBarTextStyle" : "black"
             }
@@ -310,4 +226,3 @@
         ]
     }
 }
->>>>>>> e1352d29b3a0769ae01570405fded2930f91cebe
