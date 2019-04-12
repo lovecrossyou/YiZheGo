@@ -150,6 +150,24 @@
             }
         },
         {
+            "path" : "pages/chooseCode/confirmOrder",
+            "style" : {
+                "navigationBarTitleText" : "确认订单"
+            }
+        },
+        {
+            "path" : "pages/chooseCode/pay",
+            "style" : {
+                "navigationBarTitleText" : "确认付款"
+            }
+        },
+		{
+		    "path" : "pages/chooseCode/payResult",
+		    "style" : {
+		        "navigationBarTitleText" : "支付结果"
+		    }
+		},
+        {
             "path" : "pages/me/personalData",
             "style" : {
                 "navigationBarTitleText" : "个人资料",
@@ -182,8 +200,12 @@
             }
         },
         {
-            "path" : "pages/me/components/userPrizeItem",
-            "style" : {}
+            "path" : "pages/me/inviteFriend",
+            "style" : {
+                "navigationBarTitleText" : "邀请好友",
+                "navigationBarBackgroundColor" : "#ffffff",
+                "navigationBarTextStyle" : "black"
+            }
         }
     ],
     "tabBar" : {

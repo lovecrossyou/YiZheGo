@@ -2,59 +2,40 @@
 	<view class="moments">
 		<view class="navigation">
 			<block v-for="(item,index) in navigationlist" :key=index>
-				<view class="navigationtext" :class="{'navigationclicktext':isOnclick===index}" @click="navigationclick(index);changelist(index)">{{item}}</view>
+				<view class="navigationtext" :class="{'navigationclicktext':isOnclick===index}" @click="navigationclick(index)">{{item}}</view>
 			</block>
 		</view>
 		<view class="contentlist">
-			<block v-if="isOnclick<3" v-for="(item,index) in list" :key="index">
-				<moment :momentitem="item"></moment>
-			</block>
-			<view v-if="isOnclick>2">待开发</view>
+			<recommend v-if="isOnclick===0"></recommend>
+			<comment v-if="isOnclick===1"></comment>
+			<showWinOrder v-if="isOnclick===2"></showWinOrder>
+			<view v-if="isOnclick===3">待开发</view>
 		</view>
 	</view>
 </template>
 
 <script>
-	import api from "@/util/api.js"
-	import moment from './components/moment'
+	import api from "@/util/api.js";
+	import recommend from './components/recommend';
+	import comment from './components/comment';
+	import showWinOrder from './components/showWinOrder';
+	
 	export default {
 		data() {
 			return {
 				isOnclick: 0,
 				navigationlist: ["推荐", "讨论", "晒单", "中签"],
-				list:[]
 			}
 		},
 		methods: {
 			navigationclick(index){
 				this.isOnclick=index;
-			},
-			async changelist(index){
-				let res=[];
-				switch(index){
-					case 0:
-						res = await api.discusRecommendList({});
-						break;
-					case 1:
-						res = await api.discusCommentList({});
-						break;
-					case 2:
-						res = await api.showWinOrderList({});
-						break;
-					case 3:
-						break;
-				};
-				this.list = res;
 			}
 		},
-		async onLoad() {
-			const res = await api.discusRecommendList({
-				
-			});
-			this.list = res;
-		},
 		components:{
-			moment
+			recommend,
+			comment,
+			showWinOrder
 		}
 	}
 </script>
@@ -62,6 +43,7 @@
 <style lang="scss">
 	.moments {
 		width: 100%;
+		background: #eeeeee;
 
 		.navigation {
 			width: 100%;
@@ -70,7 +52,12 @@
 			flex-direction: row;
 			justify-content: space-around;
 			align-items: center;
+			background:white;
 			border-top: solid 1upx rgba(234,234,234,1);
+			position: fixed;
+			top: 0upx;
+			z-index: 10;
+		
 
 			.navigationtext {
 				font-size: 30upx;
@@ -90,9 +77,9 @@
 		
 		.contentlist{
 			width: 100%;
-			background: #eeeeee;
 			padding: 20upx 30upx;
 			box-sizing: border-box;
+			margin-top: 101upx;
 		}
 	}
 </style>

@@ -4,6 +4,7 @@ import home from './modules/home.js';
 import productDetail from './modules/productDetails.js';
 import api from '../util/api.js';
 import service from "../service.js";
+import confirmPay from './modules/confirmPay.js';
 
 import chooseCode from './modules/chooseCode.js'
 Vue.use(Vuex)
@@ -12,7 +13,8 @@ const store = new Vuex.Store({
 	modules: {
 		home,
 		chooseCode,
-		productDetail
+		productDetail,
+		confirmPay
 	},
 
 	state: {
@@ -50,8 +52,11 @@ const store = new Vuex.Store({
 			state
 		}) {
 			const token = service.getToken();
+			const openid = service.getOpenId();
 			if (token) {
 				commit('saveToken', token);
+				commit('saveOpenId', openid);
+				console.log('openid ##',openid)
 			}
 		},
 		async wxlogin({
@@ -66,8 +71,9 @@ const store = new Vuex.Store({
 			commit('saveToken', token);
 			commit('saveUserInfo', userInfo);
 			commit('saveOpenId', openid);
-			console.log('token ',token);
+			console.log('token ', token);
 			service.addToken(token);
+			service.addOpenId(openid);
 			uni.navigateBack();
 		}
 	}

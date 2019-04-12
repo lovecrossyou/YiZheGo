@@ -1,6 +1,8 @@
 // 管理账号信息
 const TOKEN_KEY = 'TOKEN_KEY';
 const INFO_KEY = 'INFO_KEY';
+const OPENID = 'OPENID'
+
 
 const getToken = function() {
 	let ret = '';
@@ -13,6 +15,17 @@ const getToken = function() {
 
 const addToken = function(token) {
 	uni.setStorageSync(TOKEN_KEY, JSON.stringify(token));
+}
+
+const addOpenId = function(openid) {
+	uni.setStorageSync(OPENID, openid);
+}
+
+const getOpenId = function(openid) {
+	let ret = '';
+	ret = uni.getStorageSync(OPENID);
+	if (!ret) return ret;
+	return ret;
 }
 
 
@@ -33,5 +46,7 @@ export default {
 	getToken,
 	getInfo,
 	addToken,
-	addInfo
+	addInfo,
+	getOpenId,
+	addOpenId
 }

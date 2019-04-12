@@ -25,6 +25,17 @@ const api = {
 	//中签列表
 	luckyList:(params) => request.post('/discountGame/winGameListByStage', params),
 
+    //确认订单
+	confirmOrderInfo:params => request.post("/discountGameOrder/immediateBuy",params),
+	
+	//提交订单
+	commitOrder:params => request.post("/discountGameOrder/commit",params),
+	
+	//支付
+	commitPay:params => request.post("/client/discountGamePay/confirm",params),
+	
+	//收货地址
+	addressList:params => request.post("/deliveryAddress/list",params),
 	//上传
 	uploader: (file, callback) => {
 		uni.uploadFile({

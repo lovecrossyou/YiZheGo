@@ -2,8 +2,8 @@
 	<view class="product_details_wrapper" v-if="productDetail">
 		<!-- 顶部导航 -->
 		<view class="header">
-			<view class="left-arrow">
-				<image :src="nav_icon_back" @click="goBack"></image>
+			<view class="left-arrow" @click="goBack">
+				<image :src="nav_icon_back" ></image>
 			</view>
 			<view class="product_title">
 				<view class="product_title_item" v-for="(item,i) in ['商品','详情']" :key='i' :class="[selectedIndex==i?'activeBd':'initialBd']" @click="changeIndex(i)" >
@@ -164,11 +164,11 @@
 				<image class="top"  :src="btn_collection"></image>
 				<view class="name">关注</view>
 			</view>
-			<view class="right_buy">
+			<view class="right_buy" @click="confirmOrder(true)">
 				<view class="top" >￥{{productDetail.productItemModel.originalPrice}}</view>
 				<view class="big">全价购买</view>
 			</view>
-			<view class="right_buy bgr" @click="confirmOrder">
+			<view class="right_buy bgr" @click="confirmOrder(false)">
 				<view class="top" >￥{{productDetail.productItemModel.oneDiscountPrice}}</view>
 				<view class="big">一折抢购</view>
 			</view>
@@ -197,20 +197,21 @@
 			goBack(){
 				uni.navigateBack();
 			},
-			async fetchProductDetails(){
+			async fetchProductDetails(productId){
 				const res = await api.productDetails({
-					discountGameId:1
+					discountGameId:productId
 				});
 				this.$store.commit('productDetail/setProductDetails',res)
 			},
-			confirmOrder(){
+			confirmOrder(directBuy){
 				uni.navigateTo({
-					url:'../chooseCode/confirmOrder'
+					url:'../chooseCode/confirmOrder?discountGameId='+ this.productDetail.discountGameId+'&directBuy='+directBuy
 				})
 			}
 		},
-		onLoad(){
-			this.fetchProductDetails()
+		onLoad(opt){
+			console.log('详情啊=========',opt.productId)
+			this.fetchProductDetails(opt.productId)
 		},
 		data() {
 			return {
