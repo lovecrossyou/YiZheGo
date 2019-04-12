@@ -56,6 +56,18 @@
             }
         },
         {
+            "path" : "pages/moments/components/recommend",
+            "style" : {}
+        },
+		{
+		    "path" : "pages/moments/components/comment",
+		    "style" : {}
+		},
+		{
+		    "path" : "pages/moments/components/showWinOrder",
+		    "style" : {}
+		},
+        {
             "path" : "pages/login/WeChatLogin/WeChatLogin",
             "style" : {
                 "navigationBarTitleText" : "喜腾",
@@ -168,14 +180,6 @@
                 "navigationBarBackgroundColor" : "#ffffff",
                 "navigationBarTextStyle" : "black"
             }
-        },
-        {
-            "path" : "pages/me/personalData",
-            "style" : {
-                "navigationBarTitleText" : "个人资料",
-                "navigationBarBackgroundColor" : "#ffffff",
-                "navigationBarTextStyle" : "black"
-            }
         }
     ],
     "tabBar" : {
@@ -186,26 +190,26 @@
             {
                 "pagePath" : "pages/home/home",
                 "text" : "首页",
-                "iconPath" : "static/tab/tab_shouye_d@2x.png",
-                "selectedIconPath" : "static/tab/tab_shouye_s@2x.png"
+                "iconPath" : "static/tab/mall_tab_home.png",
+                "selectedIconPath" : "static/tab/mall_tab_home_selected.png"
             },
             {
                 "pagePath" : "pages/moments/moments",
                 "text" : "动态",
-                "iconPath" : "static/tab/tab_dongtai_d@2x.png",
-                "selectedIconPath" : "static/tab/tab_dongtai_s@2x.png"
+                "iconPath" : "static/tab/mall_tab_mall.png",
+                "selectedIconPath" : "static/tab/mall_tab_mall_selected.png"
             },
             {
                 "pagePath" : "pages/message/message",
                 "text" : "消息",
-                "iconPath" : "static/tab/tab_xixin_d@2x.png",
-                "selectedIconPath" : "static/tab/tab_xixin_s@2x.png"
+                "iconPath" : "static/tab/mall_tab_message.png",
+                "selectedIconPath" : "static/tab/mall_tab_message_selected.png"
             },
             {
                 "pagePath" : "pages/me/me",
                 "text" : "我的",
-                "iconPath" : "static/tab/tab_me_d@2x.png",
-                "selectedIconPath" : "static/tab/tab_me_s@2x.png"
+                "iconPath" : "static/tab/mall_tab_i.png",
+                "selectedIconPath" : "static/tab/mall_tab_i _selected.png"
             }
         ]
     },
@@ -226,3 +230,4 @@
         ]
     }
 }
+
