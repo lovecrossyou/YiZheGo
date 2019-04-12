@@ -13,22 +13,25 @@
 						<view class="time">{{item.createTime}}</view>
 					</view>
 				</view>
-				<view class="moment_text" @click="goMomentdetails(id)">{{item.commentContent}}</view>
-				<view class="moment_image_wrapper" v-if="item.imageOrVideoUrl.length!==0">
-					<image class="moment_image" :src="item.imageOrVideoUrl[0]"></image>
-					<view class="moment_image_num_wrapper">
-						<image class="moment_num_icon" src="/static/moments/shaidan_icon_tupian.png"></image>
-						<view class="moment_image_num">{{item.imageOrVideoUrl.length}}</view>
+				<view class="momentcontent"  @click="godetails(id)">
+					<view class="moment_text">{{item.commentContent}}</view>
+					<view class="moment_image_wrapper" v-if="item.imageOrVideoUrl.length!==0">
+						<image class="moment_image" :src="item.imageOrVideoUrl[0]"></image>
+						<view class="moment_image_num_wrapper">
+							<image class="moment_num_icon" src="/static/moments/shaidan_icon_tupian.png"></image>
+							<view class="moment_image_num">{{item.imageOrVideoUrl.length}}</view>
+						</view>
 					</view>
 				</view>
 				<view class="moment_data">
-					<view class="gamestage">期数: {{item.discountGameStage}}</view>
+					<view class="gamestage" v-if="item.discountGameStage">期数: {{item.discountGameStage}}</view>
+					<view class="gamestage" v-else></view>
 					<view class="moment_num">
 						<view class="praise">
 							<image class="praise_img" src="/static/moments/icon_illume.png"></image>
 							<view class="praise_num">{{item.praiseCount}}</view>
 						</view>
-						<view class="comment">
+						<view class="comment"  @click="godetails(id)">
 							<image class="comment_img" src="/static/moments/icon_comment.png"></image>
 							<view class="comment_num">{{item.commentCount}}</view>
 						</view>
@@ -49,9 +52,9 @@
 			}
 		},
 		methods:{
-			goMomentdetail(id){
+			godetails(id){
 				uni.navigateTo({
-					url:"/pages/moments/momentdetails"
+					url:"/pages/moments/commentdetails"
 				})
 			}
 		},
@@ -123,57 +126,61 @@
 		
 			}
 		
-			.moment_text {
-				font-size: 28upx;
-				font-family: PingFangSC-Regular;
-				font-weight: 400;
-				color: rgba(51, 51, 51, 1);
-				line-height: 36upx;
-				margin: 31upx 32upx 18upx 32upx;
-				box-sizing: border-box;
-			}
-		
-			.moment_image_wrapper {
+			.momentcontent{
 				width: 100%;
-				height: 400upx;
-				position: relative;
-		
-				.moment_image {
-					width: 630upx;
-					height: 100%;
-					margin-left: 30upx;
-					position: absolute;
-		
+				
+				.moment_text {
+					font-size: 28upx;
+					font-family: PingFangSC-Regular;
+					font-weight: 400;
+					color: rgba(51, 51, 51, 1);
+					line-height: 36upx;
+					margin: 31upx 32upx 18upx 32upx;
+					box-sizing: border-box;
 				}
-		
-				.moment_image_num_wrapper {
-					display: flex;
-					flex-direction: row;
-					justify-content: center;
-					align-items: center;
-					width: 66upx;
-					height: 33upx;
-					background: rgba(0, 0, 0, 1);
-					opacity: 0.3;
-					border-radius: 10px;
-					margin-top: 349upx;
-					margin-left: 544upx;
-					position: absolute;
-		
-					.moment_num_icon {
-						width: 18upx;
-						height: 16upx;
+						
+				.moment_image_wrapper {
+					width: 100%;
+					height: 400upx;
+					position: relative;
+						
+					.moment_image {
+						width: 630upx;
+						height: 100%;
+						margin-left: 30upx;
+						position: absolute;
+						
 					}
-		
-					.moment_image_num {
-						font-size: 22upx;
-						font-family: PingFangSC-Regular;
-						font-weight: 400;
-						color: rgba(255, 255, 255, 1);
-						margin-left: 5upx;
+						
+					.moment_image_num_wrapper {
+						display: flex;
+						flex-direction: row;
+						justify-content: center;
+						align-items: center;
+						width: 66upx;
+						height: 33upx;
+						background: rgba(0, 0, 0, 1);
+						opacity: 0.3;
+						border-radius: 10px;
+						margin-top: 349upx;
+						margin-left: 544upx;
+						position: absolute;
+						
+						.moment_num_icon {
+							width: 18upx;
+							height: 16upx;
+						}
+						
+						.moment_image_num {
+							font-size: 22upx;
+							font-family: PingFangSC-Regular;
+							font-weight: 400;
+							color: rgba(255, 255, 255, 1);
+							margin-left: 5upx;
+						}
 					}
+						
 				}
-		
 			}
 		
 			.moment_data {
