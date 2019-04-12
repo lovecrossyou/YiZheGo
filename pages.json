@@ -56,6 +56,14 @@
 			}
 		},
 		{
+			"path": "pages/moments/praiseDetail",
+			"style": {
+				"navigationBarTitleText": "点赞详情",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "rgba(255,255,255,1)"
+			}
+		},
+		{
 			"path": "pages/login/WeChatLogin/WeChatLogin",
 			"style": {
 				"navigationBarTitleText": "喜腾",
