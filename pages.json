@@ -48,13 +48,21 @@
             }
         },
         {
-            "path" : "pages/moments/momentdetails",
+            "path" : "pages/moments/showWinOrderdetails",
             "style" : {
-                "navigationBarTitleText" : "详情",
+                "navigationBarTitleText" : "晒单详情",
                 "navigationBarTextStyle" : "black",
                 "navigationBarBackgroundColor" : "rgba(255,255,255,1)"
             }
         },
+		{
+		    "path" : "pages/moments/commentdetails",
+		    "style" : {
+		        "navigationBarTitleText" : "讨论详情",
+		        "navigationBarTextStyle" : "black",
+		        "navigationBarBackgroundColor" : "rgba(255,255,255,1)"
+		    }
+		},
         {
             "path" : "pages/moments/components/recommend",
             "style" : {}
