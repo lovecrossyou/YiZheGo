@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
 	"pages": [
 		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages ranklist
@@ -231,3 +232,225 @@
 		}]
 	}
 }
+=======
+{
+    "pages" : [
+        //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages ranklist
+        {
+            "path" : "pages/launch/launch",
+            "style" : {
+                "navigationBarTitleText" : "喜腾抢购",
+                "navigationStyle" : "custom",
+                "app-plus" : {
+                    "titleNView" : {
+                        "type" : "transparent" //透明渐变导航栏,
+                    }
+                }
+            }
+        },
+        {
+            "path" : "pages/home/home",
+            "style" : {
+                "navigationStyle" : "custom",
+                "navigationBarTitleText" : "首页",
+                "app-plus" : {
+                    "titleNView" : {
+                        "type" : "transparent" //透明渐变导航栏,
+                    }
+                }
+            }
+        },
+        {
+            "path" : "pages/me/me",
+            "style" : {
+                "navigationBarTitleText" : "我",
+                "navigationBarBackgroundColor" : "#ffffff",
+                "navigationBarTextStyle" : "black"
+            }
+        },
+        {
+            "path" : "pages/message/message",
+            "style" : {
+                "navigationBarTitleText" : "消息"
+            }
+        },
+        {
+            "path" : "pages/moments/moments",
+            "style" : {
+                "navigationBarTitleText" : "动态",
+                "navigationBarTextStyle" : "black",
+                "navigationBarBackgroundColor" : "rgba(255,255,255,1)"
+            }
+        },
+        {
+            "path" : "pages/moments/showWinOrderdetails",
+            "style" : {
+                "navigationBarTitleText" : "晒单详情",
+                "navigationBarTextStyle" : "black",
+                "navigationBarBackgroundColor" : "rgba(255,255,255,1)"
+            }
+        },
+        {
+            "path" : "pages/login/WeChatLogin/WeChatLogin",
+            "style" : {
+                "navigationBarTitleText" : "喜腾",
+                "navigationBarBackgroundColor" : "#FBF8F8",
+                "navigationBarTextStyle" : "black"
+            }
+        },
+        {
+            "path" : "pages/login/WeChatLogin/inputTelNumber",
+            "style" : {
+                // "navigationBarTitleText": "手机号验证",
+                "navigationBarBackgroundColor" : "#fff",
+                "navigationBarTextStyle" : "black"
+            }
+        },
+        {
+            "path" : "pages/login/WeChatLogin/verificationCode",
+            "style" : {
+                // "navigationBarTitleText": "验证码",
+                "navigationBarBackgroundColor" : "#fff",
+                "navigationBarTextStyle" : "black"
+            }
+        },
+        {
+            "path" : "pages/chooseCode/chooseCode",
+            "style" : {
+                "navigationBarTitleText" : "选择幸运号码"
+            }
+        },
+        {
+            "path" : "pages/me/vip/vip-center",
+            "style" : {
+                "navigationBarTitleText" : "会员中心"
+            }
+        },
+        {
+            "path" : "pages/details/productDetails",
+            "style" : {
+                "navigationBarTitleText" : "商品详情",
+                "navigationStyle" : "custom",
+                "app-plus" : {
+                    "titleNView" : {
+                        "type" : "transparent" //透明渐变导航栏,
+                    }
+                }
+            }
+        },
+        {
+            "path" : "pages/login/verifyCodeLogin/verifyCodeLogin",
+            "style" : {
+                "navigationBarTitleText" : "验证码登录",
+                "navigationBarBackgroundColor" : "#FBF8F8",
+                "navigationBarTextStyle" : "black"
+            }
+        },
+        {
+            "path" : "pages/chooseCode/confirmOrder",
+            "style" : {
+                "navigationBarTitleText" : "确认订单"
+            }
+        },
+        {
+            "path" : "pages/chooseCode/pay",
+            "style" : {
+                "navigationBarTitleText" : "确认付款"
+            }
+        },
+		{
+		    "path" : "pages/chooseCode/payResult",
+		    "style" : {
+		        "navigationBarTitleText" : "支付结果"
+		    }
+		},
+        {
+            "path" : "pages/me/personalData",
+            "style" : {
+                "navigationBarTitleText" : "个人资料",
+                "navigationBarBackgroundColor" : "#ffffff",
+                "navigationBarTextStyle" : "black"
+            }
+        },
+        {
+            "path" : "pages/ranklist/ranklist",
+            "style" : {
+                "navigationBarTitleText" : "榜单",
+                "navigationBarBackgroundColor" : "#ffffff",
+                "navigationBarTextStyle" : "black"
+            }
+        },
+        {
+            "path" : "pages/me/wallet/wallet",
+            "style" : {
+                "navigationBarTitleText" : "钱包",
+                "navigationBarBackgroundColor" : "#ffffff",
+                "navigationBarTextStyle" : "black"
+            }
+        },
+        {
+            "path" : "pages/me/address/address",
+            "style" : {
+                "navigationBarTitleText" : "地址",
+                "navigationBarBackgroundColor" : "#ffffff",
+                "navigationBarTextStyle" : "black"
+            }
+        },
+        {
+            "path" : "pages/me/inviteFriend",
+            "style" : {
+                "navigationBarTitleText" : "邀请好友",
+                "navigationBarBackgroundColor" : "#ffffff",
+                "navigationBarTextStyle" : "black"
+            }
+        }
+    ],
+    "tabBar" : {
+        "color" : "#7a7e83",
+        "selectedColor" : "#FE594B",
+        "backgroundColor" : "#ffffff",
+        "list" : [
+            {
+                "pagePath" : "pages/home/home",
+                "text" : "首页",
+                "iconPath" : "static/tab/tab_shouye_d@2x.png",
+                "selectedIconPath" : "static/tab/tab_shouye_s@2x.png"
+            },
+            {
+                "pagePath" : "pages/moments/moments",
+                "text" : "动态",
+                "iconPath" : "static/tab/tab_dongtai_d@2x.png",
+                "selectedIconPath" : "static/tab/tab_dongtai_s@2x.png"
+            },
+            {
+                "pagePath" : "pages/message/message",
+                "text" : "消息",
+                "iconPath" : "static/tab/tab_xixin_d@2x.png",
+                "selectedIconPath" : "static/tab/tab_xixin_s@2x.png"
+            },
+            {
+                "pagePath" : "pages/me/me",
+                "text" : "我的",
+                "iconPath" : "static/tab/tab_me_d@2x.png",
+                "selectedIconPath" : "static/tab/tab_me_s@2x.png"
+            }
+        ]
+    },
+    "globalStyle" : {
+        "navigationBarTextStyle" : "white",
+        "navigationBarBackgroundColor" : "#FF594B",
+        "backgroundColor" : "#FFFFFF"
+    },
+    "condition" : {
+        //模式配置，仅开发期间生效
+        "current" : 0, //当前激活的模式(list 的索引项)
+        "list" : [
+            {
+                "name" : "", //模式名称
+                "path" : "", //启动页面，必选
+                "query" : "" //启动参数，在页面的onLoad函数里面得到
+            }
+        ]
+    }
+}
+>>>>>>> 0234cecd933841b714094b2e67fc47f6b357dc9f
