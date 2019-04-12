@@ -23,7 +23,7 @@
 			</view>
 			<view class="product-info-pro-amount">
 				<view class="product-info-pro-amount-text">抢购数量</view>
-				<uni-number-box></uni-number-box>
+				<uni-number-box @changes="onCountChanged"></uni-number-box>
 			</view>
 		</view>
 		<view class="price-info">
@@ -133,10 +133,10 @@
 			async getOrder() {
 				return api.commitOrder({
 					codeList: this.allCode,
-					deliverAddressId: 1,
+					deliverAddressId: this.address.id,
 					directBuy: this.directBuy,
 					discountGameId: this.orderInfo.discountGameId,
-					purchaseCount: 1,
+					purchaseCount: this.buyCount,
 				})
 			},
 			async commitOrder() {
@@ -185,16 +185,9 @@
 					url: './chooseCode'
 				})
 			},
-			reduce() {
-				if (this.buyCount > 1) {
-					this.changeCodeCount(this.buyCount - 1)
-				}
-			},
 			onCountChanged(event) {
-				this.changeCodeCount(+event.target.value)
-			},
-			plus() {
-				changeCodeCount(this.buyCount + 1)
+				console.log("修改数量-----------" + event);
+				this.changeCodeCount(event)
 			},
 			addressList(){
 				uni.navigateTo({
