@@ -34,6 +34,9 @@ const api = {
 	
 	//支付
 	commitPay:params => request.post("/client/discountGamePay/confirm",params),
+	
+	//收货地址
+	addressList:params => request.post("/deliveryAddress/list",params),
 	//上传
 	uploader: (file, callback) => {
 		uni.uploadFile({
