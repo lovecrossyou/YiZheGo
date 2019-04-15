@@ -1,28 +1,31 @@
 <template>
 	<view class="container">
 		<view class="pay-status">
-			<image v-bind:src="successIcon" class="pay-icon"></image>
-			<view class="pay-msg">支付成功</view>
+			<image v-bind:src="successIcon" class="pay-icon" v-if="result.payResult=='success'"></image>
+			<image v-bind:src="failIcon" class="pay-icon" v-else></image>
+			
+			<view class="pay-msg" v-if="result.payResult=='success'">支付成功</view>
+			<view class="pay-fail-msg" v-else>支付失败</view>
 		</view>
 		<view class="product-info">
-				<image v-bind:src="logo" class="product-img"></image>
+				<image v-bind:src="orderDetails.productImageUrl" class="product-img"></image>
 				<view class="product-text">
-					<view class="product-name">商品名称</view>
+					<view class="product-name">{{orderDetails.productName}}</view>
 					<view class="product-price">
-						<view class="product-now-price">¥100.00</view>
-						<view class="product-old-price">¥100.00</view>
+						<view class="product-now-price">¥{{orderDetails.oneDiscountPrice}}</view>
+						<view class="product-old-price">¥{{orderDetails.originalPrice}}</view>
 					</view>
 				</view>
 		</view>
 		<view class="pay-order-info">
-			<view class="pay-order-text">订单号:</view>
-			<view class="pay-order-text">下单时间:</view>
-			<view class="pay-order-text">商品代码:</view>
-			<view class="pay-order-text">期数:</view>
-			<view class="pay-order-text">抢购数量:</view>
-			<view class="pay-order-text">金额:</view>
-			<view class="pay-order-text">支付方式:</view>
-			<view class="pay-order-text">支付时间:</view>
+			<view class="pay-order-text">订单号:{{result.payOrderNo}}</view>
+			<view class="pay-order-text">下单时间:{{orderDetails.clientOrderTime}}</view>
+			<view class="pay-order-text">商品代码:{{orderDetails.productNo}}</view>
+			<view class="pay-order-text">期数:{{orderDetails.discountGameStage}}</view>
+			<view class="pay-order-text">抢购数量:{{orderDetails.purchaseCount}}</view>
+			<view class="pay-order-text">金额:{{result.totalFee}}</view>
+			<view class="pay-order-text">支付方式:{{orderDetails.payChannel}}</view>
+			<view class="pay-order-text">支付时间:{{orderDetails.lastPayTime}}</view>
 		</view>
 		<view class="pay-button-info">
 			<view class="pay-button">完成</view>
@@ -31,12 +34,55 @@
 </template>
 
 <script>
+	import api from '../../util/api.js';
+	import {
+		mapState,
+	} from 'vuex';
 	export default{
+		onLoad(option){
+			console.log("订单号----------"+option.payOrderNo+'------------'+option.payChannel+'------------'+option.openId);
+			this.payOrderNo = option.payOrderNo;
+			this.payChannel = option.payChannel;
+			this.openId = option.openId;
+			this.queryResult();
+			this.clientOrderDetail();
+		},
+		computed:{
+			...mapState({
+				result:state => state.payResult.result,
+				orderDetails:state => state.payResult.orderDetails,
+			})
+		},
 		data(){
 			return {
 				successIcon:"../../static/pay/icon_pay success@2x.png",
 				failIcon:"../../static/pay/icon_pay_failure@2x.png",
-				logo:'../../static/logo.png'
+				logo:'../../static/logo.png',
+				payOrderNo:0,
+				payChannel:'',
+				totalPayRmb:0,
+				openId:0,
+			}
+		},
+		methods:{
+			async queryResult(){
+				const result = await api.queryResult({
+					  createTime: "",
+					  description: "",
+					  openId: this.openId,
+					  payChannel: this.payChannel,
+					  payOrderNo:this.payOrderNo,
+					  totalFee: this.totalPayRmb
+				})
+				console.log("支付结果----------"+JSON.stringify(result));
+				this.$store.commit('payResult/setPayResult', result);
+			},
+		    async clientOrderDetail(){
+				const orderDetail = await api.clientOrderDetail({
+					payOrderNo:this.payOrderNo
+				})
+				console.log("订单详情----------"+JSON.stringify(orderDetail));
+				this.$store.commit('payResult/setOrderDetails', orderDetail);
 			}
 		}
 	}
@@ -65,6 +111,13 @@
 				font-family:FZLTHK--GBK1-0;
 				font-weight:normal;
 				color:rgba(38,204,104,1);
+				margin-top: 5upx;
+			}
+			.pay-fail-msg{
+				font-size:30upx;
+				font-family:FZLTHK--GBK1-0;
+				font-weight:normal;
+				color:#CC2636;
 				margin-top: 5upx;
 			}
 		}
