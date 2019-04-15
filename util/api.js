@@ -18,10 +18,15 @@ const api = {
 	discusCommentList:params => request.post('/discountGame/discusCommentList',params),
 	//晒单列表
 	showWinOrderList:params => request.post('/discountGame/showWinOrderList',params),
+	//晒单讨论详情
+	showWinOrderDetail:params => request.post('/discountGame/showWinOrderDetail',params),
+
 
 	discusRecommendList:params => request.post(' /discountGame/discusRecommendList',params),
 	//我
 	userInfo:(params) => request.post("/user/info",params),
+	//中签列表
+	luckyList:(params) => request.post('/discountGame/winGameListByStage', params),
 
     //确认订单
 	confirmOrderInfo:params => request.post("/discountGameOrder/immediateBuy",params),
