@@ -5,7 +5,7 @@ import productDetail from './modules/productDetails.js';
 import api from '../util/api.js';
 import service from "../service.js";
 import confirmPay from './modules/confirmPay.js';
-
+import payResult from './modules/payResult.js';
 import chooseCode from './modules/chooseCode.js'
 Vue.use(Vuex)
 
@@ -14,7 +14,8 @@ const store = new Vuex.Store({
 		home,
 		chooseCode,
 		productDetail,
-		confirmPay
+		confirmPay,
+		payResult
 	},
 
 	state: {
