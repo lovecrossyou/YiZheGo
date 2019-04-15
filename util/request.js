@@ -31,10 +31,6 @@ const createAccessInfo = () => {
 
 
 request.config.baseURL = baseURL
-// request.config.headers = {
-// 	"content-type": "application/json",
-// 	"accessToken": service.getToken()
-// }
 
 const errorPrompt = (err) => {
 	if(err.data.message === '用户不存在'){
