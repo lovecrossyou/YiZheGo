@@ -43,6 +43,9 @@ const api = {
 	queryResult:params => request.post("/client/discountGamePay/queryResult",params),
 	//订单详情
 	clientOrderDetail:params => request.post("/discountGameOrder/clientOrderDetail",params),
+	
+	//判断是否设置支付密码
+	checkSetPayPassword:params => request.post("/client/bankCard/checkSetPayPassword",params),
 
 	//上传
 	uploader: (file, callback) => {

@@ -10,24 +10,34 @@
 		<view class="p_option_info">
 			<view class="p_text">请选择支付方式</view>
 			<block v-for="(channel,index) in paychannels" :key="index">
-				<view class="p_option">
+				<view class="p_option" @click="changePaychanel(index)">
 					<view class="p_option_left">
 						<image v-bind:src="channel.icon" class="pay_icon">
 						</image>
 						<view class="p_option_title">{{channel.title}}</view>
 					</view>
-					<image v-if="selectIndex==index" v-bind:src="channel.selIcon" class="pay_icon_right" @click="selectIndex=index"></image>
-					<image v-else v-bind:src="channel.unselIcon" class="pay_icon_right" @click="selectIndex=index"></image>
+					<image v-if="selectIndex==index" v-bind:src="channel.selIcon" class="pay_icon_right"></image>
+					<image v-else v-bind:src="channel.unselIcon" class="pay_icon_right"></image>
 				</view>
 			</block>	
 		</view>
 	 	<view class="confirm_footer" @click="toPay(payResult)">立即支付</view>
+		<xy-dialog 
+			title="请输入支付密码"
+			content="操作成功,你懂得~"
+			ref="xyDialog"
+			@confirmButton="clickConfirm"
+		>
+		   
+		</xy-dialog>
 	 </view>
 </template>
 
 <script>
 	import api from '../../util/api.js';
 	import pay from '../../util/payUtil.js';
+	import xyDialog from '../components/xy-dialog.vue';
+	import uniPassword from '../components/payPsw/uni-password.vue'
 	import {
 		mapState,
 	} from 'vuex';
@@ -42,8 +52,13 @@
 				openid: state=>state.openid,
 			}),
 		},
+		components:{xyDialog},
 		methods:{
 			async toPay(callback){
+				if(this.paychannels[this.selectIndex].payChannel=='Wallet'){
+					this.checkSetPayPassword();
+					return;
+				}
 				const orderInfo = await api.commitPay({
 					  openId: this.openid,
 					  payChannel: this.paychannels[this.selectIndex].payChannel,
@@ -62,14 +77,31 @@
 					url: "./payResult?payOrderNo="+this.payOrderNo+"&totalPayRmb="+this.totalPayRmb+"&payChannel="+
 					this.paychannels[this.selectIndex].payChannel+"&openId="+this.openid
 				})
+			},
+			changePaychanel(index){
+				this.selectIndex = index 
+			},
+			async checkSetPayPassword(){
+				const res = await api.checkSetPayPassword({});
+				console.log("是否设置支付密码----------"+JSON.stringify(res));
+				if(res){
+					this.handleActionShow();
+				}
+			},
+			toSetPsw(){
+				uni.navigateTo({
+					url:"./payPsw"
+				});
+			},
+			handleActionShow() {
+				this.$refs.xyDialog.show()
 			}
-			
 		},
 		data(){
 			return {
 				payOrderNo:0,
 				totalPayRmb:0,
-				selectIndex:0,
+				selectIndex:2,
 				paychannels:[{
 				            icon: '../../static/pay/pay_icon_weixin@2x.png',
 				            selIcon: '../../static/pay/pay_btn_selected_weixin@2x.png',
@@ -90,7 +122,7 @@
 				            selIcon: '../../static/pay/pay_btn_selected_weixin@2x.png',
 				            title: "钱包",
 				            unselIcon: '../../static/pay/pay_btn@2x.png',
-							payChannel:"",
+							payChannel:"Wallet",
 							provider:''
 				            }]
 			}
