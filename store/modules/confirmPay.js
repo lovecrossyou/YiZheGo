@@ -1,7 +1,7 @@
 const state={
 	orderInfo:null,
 	buyType:null,
-	address:{},
+	address:null,
 }
 
 const mutations={
