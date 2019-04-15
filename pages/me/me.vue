@@ -13,7 +13,7 @@
 		</view>
 		<!-- 订单 -->
 		<view class="order_area_wrapper">
-			<itemList img="../../static/me/me_icon%20_invite@2x.png" title="订单" all="全部"></itemList>
+			<itemList img="../../static/me/me_icon%20_invite@2x.png" title="订单" all="全部" page='./myOrder/myOrder'></itemList>
 			<view class="order_status">
 				<orderStatus img="../../static/me/me_order_btn_obligation@2x.png" statusText="待付款"></orderStatus>
 				<orderStatus img="../../static/me/me_order_btn_announce_tobe@2x.png" statusText="待揭晓"></orderStatus>

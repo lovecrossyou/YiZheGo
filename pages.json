@@ -193,7 +193,15 @@
 			"path": "pages/moments/components/recommend",
 			"style": {}
 		}
-	],
+	    ,{
+            "path" : "pages/me/myOrder/myOrder",
+            "style" : {
+				"navigationBarTitleText": "一折购",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+        }
+    ],
 	"tabBar": {
 		"color": "#7a7e83",
 		"selectedColor": "#FE594B",
