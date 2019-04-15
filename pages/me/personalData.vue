@@ -10,7 +10,7 @@
 		<selectItemList title="名字" :leftText="personalInfoList.userInfo.cnName"></selectItemList>
 		<view class="xt_num_area">
 			<view class="header_img_text">喜腾号</view>
-			<view class="num_text">{{personalInfoList.userInfo.xtNumber}}</view>
+			<view class="num_text">{{ personalInfoList.userInfo.xtNumber }}</view>
 		</view>
 		<view class="wx_code_wrapper">
 			<view class="header_img_text">我的二维码</view>
@@ -20,7 +20,7 @@
 			</view>
 		</view>
 		<view class="bottom_item_list">
-			<selectItemList title="性别" :leftText="personalInfoList.userInfo.sex==1?'男':'女'"></selectItemList>
+			<selectItemList title="性别" :leftText="personalInfoList.userInfo.sex == 1 ? '男' : '女'"></selectItemList>
 			<selectItemList title="星座" :leftText="personalInfoList.userInfo.constellation"></selectItemList>
 			<selectItemList page="/pages/me/address/address" title="送货地址"></selectItemList>
 		</view>
@@ -28,127 +28,158 @@
 </template>
 
 <script>
-	import api from '../../util/api.js';
-	import selectItemList from './components/selectItemList.vue';
-	export default {
-		data() {
-			return {
-				personalInfoList: {}
-			};
+import api from '../../util/api.js';
+import selectItemList from './components/selectItemList.vue';
+export default {
+	data() {
+		return {
+			personalInfoList: {}
+		};
+	},
+	components: {
+		selectItemList
+	},
+	computed: {},
+	methods: {
+		changeIcon() {
+// 			uni.chooseImage({
+// 				count: 1, //默认9
+// 				sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+// 				success: function(res) {
+// 					const imagePath = res.tempFilePaths[0];
+// 					api.uploader(imagePath, res => {
+// 						console.log(JSON.stringify(res));
+// 					});
+// 				}
+// 			});
+			uni.chooseImage({
+				success: chooseImageRes => {
+					const tempFilePaths = chooseImageRes.tempFilePaths;
+					uni.uploadFile({
+						url: 'https://www.example.com/upload', //仅为示例，非真实的接口地址
+						filePath: tempFilePaths[0],
+						name: 'file',
+						formData: {
+							user: 'test'
+						},
+						success: uploadFileRes => {
+							console.log(uploadFileRes.data);
+						}
+					});
+				}
+			});
+
+			// 				let that = this;
+			// 				uni.chooseImage({
+			// 					success: chooseImageRes => {
+			// 						const tempFilePaths = chooseImageRes.tempFilePaths;
+			// 						uni.uploadFile({
+			// 							url: 'http://192.168.1.235:8001/eus/v1/users/' + this.userInfo.user_id + '/avatar', //仅为示例，非真实的接口地址
+			// 							filePath: tempFilePaths[0],
+			// 							name: 'file',
+			// 							success: res => {
+			// 								const imgData = JSON.parse(res.data);
+			// 								that.userInfo.avatar = imgData.image_path;
+			// 							}
+			// 						});
+			// 					}
+			// 				});
 		},
-		components: {
-			selectItemList
-		},
-		computed: {},
-		methods: {
-			changeIcon() {
-				// 
-				uni.chooseImage({
-					count: 1, //默认9
-					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-					success: function(res) {
-						const imagePath = res.tempFilePaths[0];
-						api.uploader(imagePath, res => {
-							console.log(JSON.stringify(res));
-						})
-					}
-				});
-			},
-			async personalInfo() {
-				let res = await api.userInfo({});
-				this.personalInfoList = res;
-				console.log(this.personalInfoList);
-			}
-		},
-		onLoad() {
-			this.personalInfo();
+		async personalInfo() {
+			let res = await api.userInfo({});
+			this.personalInfoList = res;
+			console.log(this.personalInfoList);
 		}
-	};
+	},
+	onLoad() {
+		this.personalInfo();
+	}
+};
 </script>
 
 <style scoped>
-	.personal_wrapper {
-		width: 100%;
-		background-color: #f5f5f5;
-	}
+.personal_wrapper {
+	width: 100%;
+	background-color: #f5f5f5;
+}
 
-	.header_img_wrapper {
-		width: 100%;
-		height: 140upx;
-		background-color: #fff;
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-		border-top: solid 1upx rgba(229, 229, 229, 1);
-		border-bottom: solid 1upx rgba(229, 229, 229, 1);
-		padding: 26upx;
-		box-sizing: border-box;
-		margin-top: 30upx;
-	}
+.header_img_wrapper {
+	width: 100%;
+	height: 140upx;
+	background-color: #fff;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	border-top: solid 1upx rgba(229, 229, 229, 1);
+	border-bottom: solid 1upx rgba(229, 229, 229, 1);
+	padding: 26upx;
+	box-sizing: border-box;
+	margin-top: 30upx;
+}
 
-	.header_img_text {
-		color: #333;
-		font-size: 30upx;
-	}
+.header_img_text {
+	color: #333;
+	font-size: 30upx;
+}
 
-	.right_header_img {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-	}
+.right_header_img {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
 
-	.header_img {
-		width: 100upx;
-		height: 100upx;
-		border-radius: 5upx;
-		margin-right: 22upx;
-	}
+.header_img {
+	width: 100upx;
+	height: 100upx;
+	border-radius: 5upx;
+	margin-right: 22upx;
+}
 
-	.next_icon {
-		width: 20upx;
-		height: 34upx;
-	}
+.next_icon {
+	width: 20upx;
+	height: 34upx;
+}
 
-	.xt_num_area {
-		width: 100%;
-		height: 100upx;
-		background-color: #fff;
-		padding: 0 26upx;
-		box-sizing: border-box;
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-	}
+.xt_num_area {
+	width: 100%;
+	height: 100upx;
+	background-color: #fff;
+	padding: 0 26upx;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
 
-	.num_text {
-		color: #999;
-		font-size: 24upx;
-	}
+.num_text {
+	color: #999;
+	font-size: 24upx;
+}
 
-	.wx_code_wrapper {
-		width: 100%;
-		height: 100upx;
-		background-color: #fff;
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-		border-top: solid 1upx rgba(229, 229, 229, 1);
-		border-bottom: solid 1upx rgba(229, 229, 229, 1);
-		padding: 26upx;
-		box-sizing: border-box;
-	}
+.wx_code_wrapper {
+	width: 100%;
+	height: 100upx;
+	background-color: #fff;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	border-top: solid 1upx rgba(229, 229, 229, 1);
+	border-bottom: solid 1upx rgba(229, 229, 229, 1);
+	padding: 26upx;
+	box-sizing: border-box;
+}
 
-	.xw_code_icon {
-		width: 33upx;
-		height: 33upx;
-		margin-right: 11upx;
-	}
+.xw_code_icon {
+	width: 33upx;
+	height: 33upx;
+	margin-right: 11upx;
+}
 
-	.bottom_item_list {
-		margin-top: 27upx;
-		border-top: solid 1upx rgba(229, 229, 229, 1);
-	}
+.bottom_item_list {
+	margin-top: 27upx;
+	border-top: solid 1upx rgba(229, 229, 229, 1);
+}
 </style>
