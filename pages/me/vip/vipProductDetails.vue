@@ -30,16 +30,16 @@
 		<view class="price-section">
 			<view class="price-section-item">
 				<view class="price">
-					￥<span class="big">{{productDetail.productItemModel.oneDiscountPrice}}</span>
+					￥<span class="big">{{productDetail.price}}</span>
 				</view>
 				<view class="vip">
 					<image :src="icon_vip"></image>
-					<view class="original_price">市场价 ￥{{productDetail.productItemModel.originalPrice}}</view>
+					<view class="original_price">市场价 ￥{{productDetail.price}}</view>
 				</view>
 			</view>
 			<view class="price-section-item">
 				<view>
-					<image class="icon_fire" :src="icon_fire"></image>已抢{{productDetail.currentPurchaseCount}}件
+					<image class="icon_fire" :src="icon_fire"></image>已抢999件
 				</view>
 			</view>
 		</view>
@@ -47,7 +47,7 @@
 		<view class="product-info">
 			<view class="product-info-title">
 				<span class="pinkage">一折购</span>
-				<span class="info-name">{{productDetail.productItemModel.productName}}</span>
+				<span class="info-name">{{productDetail.productName}}</span>
 			</view>
 			<view class="rule">
 				<view class="product-info-guarantee">
@@ -62,24 +62,24 @@
 		<!-- 中签 -->
 		<view class="winning_periods">
 			<view class="particulars_item">
-				<view class="periods">第 {{productDetail.discountGameStage}} 期</view>
+				<view class="periods">第 10 期</view>
 				<view class="count_down">
 					<view>
 						<image :src="icon_time"></image>距揭晓还剩
 					</view>
-					<view>{{productDetail.openResultTime}}</view>
+					<view>2019</view>
 				</view>
 			</view>
-			<view class="particulars_item">
+			<!-- <view class="particulars_item">
 				<view class="designation">往期中签</view>
 				<view class="view_more">
 					<view>123456</view>
 					<image :src="icon_right"></image>
 				</view>
-			</view>
+			</view> -->
 		</view>
 		<!-- 正在抢购 -->
-		<view class="winning_periods">
+		<!-- <view class="winning_periods">
 			<view class="particulars_item">
 				<view class="designation">正在抢购</view>
 				<view class="view_more">
@@ -100,9 +100,9 @@
 					</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
 		<!-- 晒单 -->
-		<view class="winning_periods">
+		<!-- <view class="winning_periods">
 			<view class="particulars_item">
 				<view class="designation">晒单 </view>
 				<view class="view_more">
@@ -145,14 +145,14 @@
 					</view>
 				</view>
 			</view>
-		</view>
+		</view> -->
 		<!-- 商品详情 -->
 		<view class="winning_periods">
 			<view class="particulars_item">
 				<view class="designation">商品详情</view>
 			</view>
 			<view class="detail_imgurllist">
-				<block v-for="(item,i) in productDetail.productItemModel.productDetailImageUrlList" :key="i">
+				<block v-for="(item,i) in productDetail.productDetailImageUrlList" :key="i">
 					<image :src="item.productDetailImageUrl" mode="widthFix"></image>
 				</block>
 			</view>
@@ -163,37 +163,50 @@
 				<image class="top" :src="btn_message"></image>
 				<view class="name">客服</view>
 			</view>
-			<view class="left_message">
+			<view class="left_message" @click="buy">
 				<image class="top" :src="btn_collection"></image>
-				<view class="name">关注</view>
+				<view class="name">立即购买</view>
 			</view>
-			<view class="right_buy" @click="confirmOrder(true)">
+			<!-- <view class="right_buy" @click="confirmOrder(true)">
 				<view class="top">￥{{productDetail.productItemModel.originalPrice}}</view>
 				<view class="big">全价购买</view>
 			</view>
 			<view class="right_buy bgr" @click="confirmOrder(false)">
 				<view class="top">￥{{productDetail.productItemModel.oneDiscountPrice}}</view>
 				<view class="big">一折抢购</view>
-			</view>
+			</view> -->
 		</view>
 	</view>
 </template>
 <script>
-	import api from '../../util/api.js';
+	import api from '@/util/api.js';
 	import {
 		mapState
 	} from 'vuex';
 	export default {
 		computed: {
-			...mapState({
-				productDetail: state => state.productDetail.productDetail
-			}),
 			banners() {
 				if (this.productDetail === null) return [];
-				return this.productDetail.productItemModel.productShowImageUrlList
+				return this.productDetail.productShowImageUrlList
 			}
 		},
 		methods: {
+			async buy() {
+				//生成订单
+				uni.navigateTo({
+					url:"/pages/me/vip/vipConfirmOrder"
+				})
+
+				// #ifdef APP-PLUS
+
+				// #endif
+
+
+				// #ifdef MP-WEIXIN
+
+				// #endif
+
+			},
 			changeIndex(ind) {
 				this.selectedIndex = ind
 			},
@@ -201,10 +214,11 @@
 				uni.navigateBack();
 			},
 			async fetchProductDetails(productId) {
-				const res = await api.productDetails({
-					discountGameId: productId
+				const res = await api.vipProductDetails({
+					vipProductId: productId
 				});
-				this.$store.commit('productDetail/setProductDetails', res)
+				this.productDetail = res;
+
 			},
 			confirmOrder(directBuy) {
 				uni.navigateTo({
@@ -219,6 +233,7 @@
 		},
 		data() {
 			return {
+				productDetail: null,
 				selectedIndex: 0,
 				commentModelList: [{
 						userName: "电视成金",

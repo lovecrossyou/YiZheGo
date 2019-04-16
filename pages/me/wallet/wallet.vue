@@ -23,6 +23,9 @@
 				const addr_id = e.detail.data[0];
 				this.$store.commit('confirmPay/setAddrId', addr_id);
 			}
+		},
+		onLoad() {
+			console.log('url ', this.url);
 		}
 	}
 </script>

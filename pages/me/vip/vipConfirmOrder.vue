@@ -79,14 +79,14 @@
 </template>
 
 <script>
-	import uniNumberBox from "../components/uni-number-box/uni-number-box.vue"
+	import uniNumberBox from "@/components/uni-number-box/uni-number-box.vue"
 	import {
 		mapState,
 		mapMutations,
 		mapGetters
 	} from 'vuex';
-	import api from '../../util/api.js';
-	import pay from '../../util/payUtil.js';
+	import api from '@/util/api.js';
+	import pay from '@/util/payUtil.js';
 
 	export default {
 		onLoad: function(option) {

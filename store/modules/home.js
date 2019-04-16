@@ -1,3 +1,5 @@
+import api from '@/util/api.js';
+
 const state = {
 	timeLimitList: [],
 	timeLimitChoiceList: [],
@@ -5,8 +7,21 @@ const state = {
 }
 
 const getters = {
-	timeLimit3(state, getters){
+	timeLimit3(state, getters) {
 		return state.timeLimitChoiceList.slice(0, 3)
+	}
+}
+
+const actions = {
+	async fetchNewsBenefitList({
+		commit,
+	}) {
+		const res = await api.newsBenefitList();
+		commit('setNewsBenefitList', res);
+	},
+	async fetchTimeLimitChoiceList({commit}){
+		const res = api.byTimeLimitChoiceList();
+		commit('setTimeLimitChoiceList',res)
 	}
 }
 
@@ -25,5 +40,6 @@ export default {
 	namespaced: true,
 	state,
 	mutations,
-	getters
+	getters,
+	actions
 }
