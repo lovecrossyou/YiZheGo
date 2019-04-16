@@ -28,14 +28,16 @@
 				<view>2.你的钻石好友购买会员中心商品你可获返现30%;你的黄金好友购买会员中心商品你可获返现10%。返现可任性提现！</view>
 			</view>
 		</view>
-		<view v-if="isShare" class="share_wx_friend">
-			<view class="share">
-				<view class="share_item" v-for="(item,i) in shareList" :key="i">
-					<image :src="item.img"></image>
-					<view>{{item.tit}}</view>
+		<view class="share_wx_friend_wrapper" v-if="isShare">
+			<view class="share_wx_friend">
+				<view class="share">
+					<view class="share_item" v-for="(item,i) in shareList" :key="i" @click="shareWxFriend(item.tit)">
+						<image :src="item.img"></image>
+						<view>{{item.tit}}</view>
+					</view>
 				</view>
+				<view class="cancel" @click="cancelBtn">取消</view>
 			</view>
-			<view class="cancel" @click="cancelBtn">取消</view>
 		</view>
 	</view>
 </template>
@@ -65,12 +67,20 @@
 		methods: {
 			inviteBtn() {
 				this.isShare = true;
-				// 				uni.navigateTo({
-				// 					url:"./shareFriend"
-				// 				})
 			},
 			cancelBtn() {
 				this.isShare = false
+			},
+			shareWxFriend(tit) {
+				if (tit == "微信好友") {
+					uni.navigateTo({
+						url: "./shareWxFriend"
+					})
+				} else {
+					uni.navigateTo({
+						url: "./shareFriend"
+					})
+				}
 			}
 		}
 	}
@@ -139,7 +149,7 @@
 				left: 50%;
 				transform: translate(-50%, 0);
 				top: 32upx;
-				z-index: 99;
+				z-index: 2;
 			}
 
 			.invite_btn {
@@ -157,7 +167,7 @@
 				left: 50%;
 				transform: translate(-50%, 0);
 				bottom: 50upx;
-				z-index: 99;
+				z-index: 2;
 			}
 		}
 
@@ -184,44 +194,54 @@
 			}
 		}
 
-		.share_wx_friend {
+		.share_wx_friend_wrapper {
 			width: 100%;
-			height: 326upx;
+			height: 100%;
 			position: fixed;
-			bottom: 0;
+			top: 0;
 			left: 0;
-			z-index: 99;
+			z-index: 10;
+			background: rgba(18, 18, 18, 0.6);
 
-			.share {
+			.share_wx_friend {
 				width: 100%;
-				height: 230upx;
-				background: #ECECEC;
-				display: flex;
-				justify-content: space-around;
-				align-items: center;
-				font-size: 24upx;
-				font-family: PingFang-SC-Regular;
-				font-weight: 400;
-				color: rgba(51, 51, 51, 1);
-				text-align: center;
+				height: 326upx;
+				position: fixed;
+				bottom: -2upx;
+				left: 0;
+				z-index: 99;
 
-				image {
-					width: 104upx;
-					height: 104upx;
-					margin-bottom: 4upx;
+				.share {
+					width: 100%;
+					height: 230upx;
+					background: #ECECEC;
+					display: flex;
+					justify-content: space-around;
+					align-items: center;
+					font-size: 24upx;
+					font-family: PingFang-SC-Regular;
+					font-weight: 400;
+					color: rgba(51, 51, 51, 1);
+					text-align: center;
+
+					image {
+						width: 104upx;
+						height: 104upx;
+						margin-bottom: 4upx;
+					}
+
 				}
 
-			}
-
-			.cancel {
-				height: 96upx;
-				background: #fff;
-				line-height: 96upx;
-				text-align: center;
-				font-size: 32upx;
-				font-family: PingFang-SC-Regular;
-				font-weight: 400;
-				color: rgba(51, 51, 51, 1);
+				.cancel {
+					height: 96upx;
+					background: #fff;
+					line-height: 96upx;
+					text-align: center;
+					font-size: 32upx;
+					font-family: PingFang-SC-Regular;
+					font-weight: 400;
+					color: rgba(51, 51, 51, 1);
+				}
 			}
 		}
 	}

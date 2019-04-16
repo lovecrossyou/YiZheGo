@@ -201,6 +201,13 @@
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
+		},{
+			"path": "pages/me/inviteFriend/shareWxFriend",
+			"style": {
+				"navigationBarTitleText": "邀请微信好友",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
 		},
 		{
 			"path": "pages/moments/components/recommend",
