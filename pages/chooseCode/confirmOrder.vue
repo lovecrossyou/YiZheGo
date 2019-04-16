@@ -174,7 +174,6 @@
 					provider: 'wxpay',
 					timeStamp: wexinSpec.timestamp,
 					nonceStr: wexinSpec.noncestr,
-					// "package": "prepay_id=" + data.wexinSpec.prepay_id,
 					package: wexinSpec.packageValue,
 					signType: 'MD5',
 					paySign: wexinSpec.sign,
