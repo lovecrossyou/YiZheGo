@@ -448,7 +448,7 @@
 		.winning_periods {
 			margin-top: 20upx;
 			background: #FFFFFF;
-
+			margin-bottom: 98upx;
 			.snapping_buy {
 				.snapping_buy_item {
 					display: flex;
