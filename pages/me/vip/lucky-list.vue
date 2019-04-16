@@ -6,8 +6,8 @@
 
 				<view class="lucky-item">
 					<view class="top-tag">
-						<view class="date">今天</view>
-						<view class="day-time"> {{item.week}} 22:00</view>
+						<!-- <view class="date">今天</view> -->
+						<view class="day-time">{{item.openResultTime}}</view>
 					</view>
 					<!-- <view class="lucky"  :style="{ background: 'linear-gradient(backColorA[index].color1,backColorA[index].color2)' }"> -->
 					<view class="lucky" :style='{background: backColorA[index%4].background}'>
@@ -19,20 +19,21 @@
 
 							<view class="lucky-No">
 								<view class="count-tag">第 {{item.welfareStage}} 期 中签号码</view>
-								<luckyBallItem></luckyBallItem>
+								<luckyBallItem :numbers="item.winCode"></luckyBallItem>
 							</view>
 
 							<view class="lucky-count-all">
-								<view class="title">本期中签(10)</view>
+								<view class="title">本期中签({{item.winUserInfoModelList===null?0:item.winUserInfoModelList.length}})</view>
 								<view class="show-all-tag">
-									<view class="tag-text" @click="turnToLuckyDetail(item.welfareStage)">查看全部</view>
+									<view class="tag-text" @click="turnToLuckyDetail(item,index)">查看全部</view>
 									<view class="right-row-img"></view>
 								</view>
 							</view>
 
 						</view>
 
-						<userPrizeItem :item="item" :backColor="backColorA[index%4].userPrizeColor"></userPrizeItem>
+						<userPrizeItem v-if="item.winUserInfoModelList!==null&&item.winUserInfoModelList.length!==0" :item="item.winUserInfoModelList[0]"
+						 :backColor="backColorA[index%4].userPrizeColor"></userPrizeItem>
 
 						<view class="sep-line"></view>
 
@@ -61,34 +62,68 @@
 			return {
 				luckyListA: [],
 				backColorA: [{
-						background:'linear-gradient(#60ECFF, #9890FF)',
-						userPrizeColor : 'rgba(74,81,227,0.1)',
+						background: 'linear-gradient(to right, #60ECFF, #9890FF)',
+						userPrizeColor: 'rgba(74,81,227,0.1)',
 					},
 					{
-						background: 'linear-gradient(#FDD34A, #FF5C58)',
-						userPrizeColor : 'rgba(255,133,74,0.1)',
+						background: 'linear-gradient(to right, #FDD34A, #FF5C58)',
+						userPrizeColor: 'rgba(255,133,74,0.1)',
 					},
 					{
-						background: 'linear-gradient(#FFB4AE, #FF5581)',
+						background: 'linear-gradient(to right, #FFB4AE, #FF5581)',
 						userPrizeColor: 'rgba(255,61,86,0.1)',
 					},
 					{
-						background: 'linear-gradient(#FFD443, #FF9144)',
+						background: 'linear-gradient(to right, #FFD443, #FF9144)',
 						userPrizeColor: 'rgba(245,86,61,0.1)',
 					},
 				],
 			};
 		},
+		computed: {
+
+		},
 		methods: {
 			async getLuckyList() {
-				let res = await api.luckyList({})
+				let res = await api.luckyList({
+					pageNo: 0,
+					size: 20
+				})
 				this.luckyListA = res.list;
 				console.log(res)
 			},
-			turnToLuckyDetail(lotteryStage) {
+			turnToLuckyDetail(item, index) {
+				let colorParam = this.backColorA[index % 4];
+				// console.log()
 				uni.navigateTo({
-					url: './lucky-detail'
+					url: './lucky-detail?lotteryStage=' + item.welfareStage + '&lotteryType=' + item.lotteryName + '&winCode=' +
+						item.winCode + '&backColor=' + colorParam.background + '&itemColor=' + colorParam.userPrizeColor,
 				})
+			},
+			judgeTime(date) {
+				console.log(date)
+				// 2019-03-14 09:11:18
+				let _this = this
+				let dateStr = new Date(date)
+				let today = new Date()
+				let hour = today.getHours()
+				let minute = today.getMinutes()
+				let second = today.getSeconds()
+				today.setHours(0)
+				today.setMinutes(0)
+				today.setSeconds(0)
+				today.setMilliseconds(0)
+				let otime = today.getTime()
+				// 给出时间 - 今天0点
+				let offset = dateStr.getTime() - otime
+				let isToday = offset / 1000 / 60 / 60
+				if (isToday > 0 && isToday <= 24) {
+					return '今天 ' + _this.add0(hour) + ':' + _this.add0(minute) + ':' + _this.add0(second)
+				} else if (isToday < 0 && isToday >= -24) {
+					return '昨天 ' + _this.add0(hour) + ':' + _this.add0(minute) + ':' + _this.add0(second)
+				} else {
+					return date
+				}
 			}
 		},
 		onLoad() {
@@ -107,6 +142,7 @@
 		background-color: #f4f8fb;
 
 		.lucky-list {
+
 			width: 100%;
 			height: 100%;
 			background-color: #f4f8fb;
@@ -138,6 +174,7 @@
 				.lucky {
 					margin: 20upx 40upx 40upx 40upx;
 					border-radius: 20upx;
+
 					// background: linear-gradient(#60ECFF, #9890FF);
 					.caty-No {
 						display: flex;
