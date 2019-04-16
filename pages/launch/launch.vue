@@ -24,8 +24,9 @@
 				this.$store.commit('home/setByTimeLimitList', res)
 			},
 			async fetchTimeLimitChoiceList() {
-				const res = await api.byTimeLimitChoiceList({})
-				this.$store.commit('home/setTimeLimitChoiceList', res)
+// 				const res = await api.byTimeLimitChoiceList({})
+// 				this.$store.commit('home/setTimeLimitChoiceList', res)
+				this.$store.dispatch('home/fetchTimeLimitChoiceList')
 			},
 			async fetchNewsBenefitList() {
 				this.$store.dispatch('home/fetchNewsBenefitList');

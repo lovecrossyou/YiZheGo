@@ -29,7 +29,7 @@
 	export default{
 		data(){
 			return {
-				yaoqing_bg: '../../../static/me/yaoqing_bg.png',
+				yaoqing_bg: 'http://qnimage.xiteng.com/yaoqing_bg.png',
 			}
 		}
 	}
