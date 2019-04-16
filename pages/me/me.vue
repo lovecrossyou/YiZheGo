@@ -51,7 +51,7 @@
 	export default {
 		data() {
 			return {
-				personalInfoList:{},
+				personalInfoList: {},
 			};
 		},
 
@@ -70,12 +70,12 @@
 					url: './vip/vip-center'
 				});
 			},
-			goInviteFriend(){
+			goInviteFriend() {
 				uni.navigateTo({
-					url:"./inviteFriend"
+					url: "./inviteFriend/inviteFriend"
 				})
 			},
-			async personalInfo(){
+			async personalInfo() {
 				let res = await api.userInfo({})
 				this.personalInfoList = res;
 				console.log(this.personalInfoList)

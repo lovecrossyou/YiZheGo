@@ -182,9 +182,16 @@
 			}
 		},
 		{
-			"path": "pages/me/inviteFriend",
+			"path": "pages/me/inviteFriend/inviteFriend",
 			"style": {
 				"navigationBarTitleText": "邀请好友",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		},{
+			"path": "pages/me/inviteFriend/shareFriend",
+			"style": {
+				"navigationBarTitleText": "邀请好友分享页面",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
