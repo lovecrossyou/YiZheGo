@@ -91,7 +91,7 @@
 		},
 		data() {
 			return {
-				home_huiyuan: '../../static/home/home_huiyuan.png',
+				home_huiyuan: 'http://qnimage.xiteng.com/home_huiyuan.png',
 				home_gengduo_icon: '../../static/home/home_gengduo_icon.png',
 				navBarListTit: ["精选", "销量", "价格"],
 				navList: [
