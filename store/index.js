@@ -104,6 +104,19 @@ const store = new Vuex.Store({
 			commit('setH5Url', urlParams());
 
 			uni.navigateBack();
+		},
+		async checkCodeLogin({
+			commit,
+			state
+		}, params) {
+			const token = await api.checkCodeLogin(params);
+			commit('saveToken', token);
+// 			commit('saveUserInfo', userInfo);
+// 			commit('saveOpenId', openid);
+			console.log('token ', token);
+			service.addToken(token);
+			// service.addOpenId(openid);
+			uni.navigateBack();
 		}
 	}
 })
