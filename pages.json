@@ -201,6 +201,14 @@
 				"navigationBarTextStyle": "black"
 			}
         }
+		 ,{
+		    "path" : "pages/me/myOrder/orderDetail",
+		    "style" : {
+				"navigationBarTitleText": "订单详情",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}
     ],
 	"tabBar": {
 		"color": "#7a7e83",
