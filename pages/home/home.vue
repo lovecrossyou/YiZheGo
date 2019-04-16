@@ -133,6 +133,7 @@
 			width: 100%;
 			background: #FFFFFF;
 			position: relative;
+			height: 427upx;
 		}
 
 		.nav {

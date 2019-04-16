@@ -51,8 +51,11 @@
 </script>
 
 <style scoped>
+	.swiper{
+		height: 427upx;
+	}
 	.swiper-item>image {
 		width: 100%;
-		height: 240upx;
+		height: 427upx;
 	}
 </style>

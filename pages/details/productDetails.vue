@@ -185,9 +185,7 @@
 	} from 'vuex';
 	export default {
 		computed: {
-			...mapState({
-				productDetail: state => state.productDetail.productDetail
-			}),
+			...mapState('productDetail',['productDetail']),
 			banners() {
 				if (this.productDetail === null) return [];
 				return this.productDetail.productItemModel.productShowImageUrlList
