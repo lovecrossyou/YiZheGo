@@ -1,6 +1,11 @@
 import request from './request'
+<<<<<<< HEAD
 const uploadBaseUrl = "http://www.xiteng.com/xitenggamenode/";
 // const uploadBaseUrl = 'http://123.57.161.212:9939/xitenggamenode/'
+=======
+// const uploadBaseUrl = "http://www.xiteng.com/xitenggamenode/";
+const uploadBaseUrl = "http://123.57.161.212:9939/xitenggamenode/";
+>>>>>>> f05a3a151c8d8d8f62950a297c3f57163c96f3af
 
 const api = {
 	// 新人福利
