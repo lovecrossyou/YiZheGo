@@ -132,7 +132,7 @@
 			}
 		},
 		{
-			"path": "pages/successfulPayment",
+			"path": "pages/gameGroup",
 			"style": {
 				"navigationBarTitleText": "参与成功"
 			}
@@ -188,9 +188,23 @@
 			}
 		},
 		{
-			"path": "pages/me/inviteFriend",
+			"path": "pages/me/inviteFriend/inviteFriend",
 			"style": {
 				"navigationBarTitleText": "邀请好友",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		},{
+			"path": "pages/me/inviteFriend/shareFriend",
+			"style": {
+				"navigationBarTitleText": "邀请好友分享页面",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		},{
+			"path": "pages/me/inviteFriend/shareWxFriend",
+			"style": {
+				"navigationBarTitleText": "邀请微信好友",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
