@@ -7,17 +7,21 @@
 				<view class="add_num">+86</view>
 				<image src="http://qnimage.xiteng.com/right_icon@2x.png" mode="aspectFit" class="next_icon"></image>
 			</view>
-			<input type="number" value="" @input="inputFn" placeholder="请输入手机号" />
+			<input type="number" value="" @input="inputFn" placeholder="请输入手机号" v-model="inputContent"/>
 		</view>
 		<button type="warn" class="next_btn" :disabled="judge?true:false" @click="goVerification">下一步</button>
 	</view>
 </template>
 
 <script>
+	import api from "@/util/api.js"
 export default {
 	data() {
 		return {
-			judge:true
+			judge:true,
+			authCode:{},
+			getInputContent:null,
+			inputContent:""
 		};
 	},
 	components: {},
@@ -31,8 +35,21 @@ export default {
 		goVerification(){
 			uni.navigateTo({
 				url:"./verificationCode"
+			});
+			this.getInputContent = this.inputContent;
+			console.log("getInputContent",this.getInputContent)
+			
+		},
+		async verification() {
+			let res = await api.getVerificationCode({
+				phoneNum:"getInputContent",
+				codeType:"Register"
 			})
-		}
+			this.authCode = res;
+		},
+	},
+	onLoad(){
+		this.verification()
 	}
 };
 </script>

@@ -11,7 +11,6 @@
 </template>
 
 <script>
-// 
 	export default {
 		data() {
 			return {};
@@ -22,7 +21,7 @@
 			},
 			goTelNumber() {
 				uni.navigateTo({
-					url: "./inputTelNumber"
+					url: "/pages/login/verifyCodeLogin/verifyCodeLogin"
 				})
 			},
 			oauth(value) {
