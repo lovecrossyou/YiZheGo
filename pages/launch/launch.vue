@@ -1,8 +1,5 @@
 <template>
 	<view class="mainBg" @click="enter">
-		<view class="time">
-			{{formatTime}}
-		</view>
 	</view>
 </template>
 

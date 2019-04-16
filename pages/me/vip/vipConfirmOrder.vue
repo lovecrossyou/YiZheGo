@@ -111,20 +111,23 @@
 				buyCount: state => state.chooseCode.codeCount,
 				orderInfo: state => state.confirmPay.orderInfo,
 				directBuy: state => state.confirmPay.buyType,
-				openid: state=>state.openid,
-				address:state => state.confirmPay.address,
+				openid: state => state.openid,
+				address: state => state.confirmPay.address,
 			}),
 			...mapGetters({
 				allCode: 'chooseCode/allCode',
-				allFinished:'chooseCode/allFinished'
+				allFinished: 'chooseCode/allFinished'
 			})
 
 		},
 		methods: {
-			async getAddressList(){
-				const res = await api.addressList({size:10,pageNo:0});
+			async getAddressList() {
+				const res = await api.addressList({
+					size: 10,
+					pageNo: 0
+				});
 				console.log("收货地址-----------" + JSON.stringify(res));
-				this.$store.commit('confirmPay/setAddressList',res.content)
+				this.$store.commit('confirmPay/setAddressList', res.content)
 			},
 			async getConfirmOrderInfo(discountGameId) {
 				const res = await api.confirmOrderInfo({
@@ -145,7 +148,7 @@
 				})
 			},
 			async commitOrder() {
-				if(!this.allFinished){
+				if (!this.allFinished) {
 					uni.showToast({
 						title: '请完成选号!',
 						mask: false,
@@ -153,7 +156,7 @@
 					});
 					return;
 				}
-				
+
 				const order = await this.getOrder();
 				console.log("提交订单-----------" + JSON.stringify(order));
 				// #ifdef APP-PLUS
@@ -178,7 +181,7 @@
 					payOrderNo: order.payOrderNo
 				});
 				const wexinSpec = orderInfo.wexinSpec;
-				wexinSpec.packageValue = 'prepay_id='+wexinSpec.prepay_id;
+				wexinSpec.packageValue = 'prepay_id=' + wexinSpec.prepay_id;
 				let that = this;
 				uni.requestPayment({
 					provider: 'wxpay',
@@ -204,7 +207,7 @@
 				console.log("修改数量-----------" + event);
 				this.changeCodeCount(event)
 			},
-			addressList(){
+			addressList() {
 				uni.navigateTo({
 					url: '../me/address/address'
 				})
@@ -271,18 +274,21 @@
 				right: 10upx;
 			}
 		}
-		.delivery-no-info{
+
+		.delivery-no-info {
 			display: flex;
 			flex-direction: row;
 			background: #FFFFFF;
 			height: 90upx;
 			align-items: center;
-			margin-left:20upx;
+			margin-left: 20upx;
+
 			.delivery-no-info-icon {
 				width: 27upx;
 				height: 31upx;
 			}
-			.delivery-no-info-msg{
+
+			.delivery-no-info-msg {
 				font-size: 30upx;
 				font-family: PingFangSC-Regular;
 				color: rgba(51, 51, 51, 1);
