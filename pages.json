@@ -214,6 +214,11 @@
 				"navigationBarTextStyle": "black"
 			}
         }
+        ,{
+            "path" : "pages/category/category",
+            "style" : {}
+        }
+
 		 ,{
 		    "path" : "pages/me/myOrder/orderDetail",
 		    "style" : {
