@@ -16,7 +16,7 @@
 			<view class="delivery-no-info-msg">选择收货地址</view>
 		</view>
 		<image v-bind:src="lineCai" class="delivery-userinfo-line"></image>
-		<view class="product-info">
+		<view v-if="orderInfo" class="product-info">
 			<view class="product-info-pro">
 				<image v-bind:src="orderInfo.relatedProductImageUrl" class="product-info-pro-img"></image>
 				<view class="product-info-pro-name">

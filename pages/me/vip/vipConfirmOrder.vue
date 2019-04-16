@@ -90,10 +90,12 @@
 
 	export default {
 		onLoad: function(option) {
-			console.log("确认订单商品-----------" + option.directBuy + '------------' + option.discountGameId);
-			this.$store.commit('confirmPay/setBuyType', option.directBuy)
-			this.getConfirmOrderInfo(option.discountGameId);
-			this.getAddressList();
+			const productId = option.productId;
+			
+// 			console.log("确认订单商品-----------" + option.directBuy + '------------' + option.discountGameId);
+// 			this.$store.commit('confirmPay/setBuyType', option.directBuy)
+// 			this.getConfirmOrderInfo(option.discountGameId);
+// 			this.getAddressList();
 		},
 		data() {
 			return {
