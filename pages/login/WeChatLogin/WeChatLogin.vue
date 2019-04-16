@@ -16,8 +16,6 @@
 		data() {
 			return {};
 		},
-		components: {},
-		computed: {},
 		methods: {
 			async wxlogin(params){
 				this.$store.dispatch('wxlogin',params);

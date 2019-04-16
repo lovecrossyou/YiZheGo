@@ -132,6 +132,12 @@
 			}
 		},
 		{
+			"path": "pages/successfulPayment",
+			"style": {
+				"navigationBarTitleText": "参与成功"
+			}
+		},
+		{
 			"path": "pages/me/vip/vip-center",
 			"style": {
 				"navigationBarTitleText": "会员中心"
@@ -208,6 +214,14 @@
 				"navigationBarTextStyle": "black"
 			}
         }
+		 ,{
+		    "path" : "pages/me/myOrder/orderDetail",
+		    "style" : {
+				"navigationBarTitleText": "订单详情",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}
     ],
 	"tabBar": {
 		"color": "#7a7e83",

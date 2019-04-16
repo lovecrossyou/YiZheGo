@@ -150,7 +150,7 @@
 			</view>
 			<view class="detail_imgurllist">
 				<block v-for="(item,i) in productDetail.productItemModel.productDetailImageUrlList" :key="i">
-					<image :src="item.productDetailImageUrl"></image>
+					<image :src="item.productDetailImageUrl" mode="widthFix"></image>
 				</block>
 			</view>
 		</view>
@@ -448,7 +448,7 @@
 		.winning_periods {
 			margin-top: 20upx;
 			background: #FFFFFF;
-
+			margin-bottom: 98upx;
 			.snapping_buy {
 				.snapping_buy_item {
 					display: flex;

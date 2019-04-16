@@ -44,9 +44,9 @@
 	export default {
 		data() {
 			return {
-				yaoqing_bg: '../../../static/me/yaoqing_bg.png',
-				yaoqing_icon_jinagli: '../../../static/me/yaoqing_icon_jinagli.png',
-				isShare: true,
+				yaoqing_bg: 'http://qnimage.xiteng.com/yaoqing_bg.png',
+				yaoqing_icon_jinagli: '../../static/me/yaoqing_icon_jinagli.png',
+				isShare: false,
 				shareList: [{
 					img: "../../../static/me/yaoqing_icon_weixin.png",
 					tit: "微信好友"
@@ -86,7 +86,8 @@
 			justify-content: space-around;
 			align-items: center;
 			text-align: center;
-			background: url('../../../static/me/yaoqing_top_bg.png') no-repeat;
+			background: url('http://qnimage.xiteng.com/yaoqing_top_bg.png') no-repeat;
+			background-size: 100%;
 
 			.banner_item {
 				padding: 60upx 0;
