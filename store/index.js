@@ -7,6 +7,14 @@ import service from "../service.js";
 import confirmPay from './modules/confirmPay.js';
 import payResult from './modules/payResult.js';
 import chooseCode from './modules/chooseCode.js'
+
+const urlParams = () => {
+	const accessInfo = createAccessInfo();
+	const urlParams = '?app_key=' + accessInfo.app_key + '&signature=' + accessInfo.signature + '&access_token=' +
+		accessInfo.access_token + '&wechat_redirect';
+	return urlParams;
+}
+
 import {
 	baseURL,
 	createAccessInfo
@@ -31,7 +39,7 @@ const store = new Vuex.Store({
 		userInfo: null,
 		token: null,
 		openid: null,
-		urlParams:'',
+		urlParams: '',
 		h5BaseUrl: 'https://www.xiteng.com/xitenggamenode/#/'
 	},
 	getters: {
@@ -58,7 +66,7 @@ const store = new Vuex.Store({
 		saveOpenId(state, openid) {
 			state.openid = openid;
 		},
-		setH5Url(state,data){
+		setH5Url(state, data) {
 			state.urlParams = data;
 		}
 	},
@@ -74,8 +82,7 @@ const store = new Vuex.Store({
 				commit('saveOpenId', openid);
 				//拼接h5参数
 				const accessInfo = createAccessInfo();
-				const urlParams = '?app_key='+accessInfo.app_key+'&signature='+accessInfo.signature+'&access_token='+accessInfo.access_token+'&wechat_redirect'
-				commit('setH5Url',urlParams);
+				commit('setH5Url', urlParams());
 			}
 		},
 		async wxlogin({
@@ -90,9 +97,12 @@ const store = new Vuex.Store({
 			commit('saveToken', token);
 			commit('saveUserInfo', userInfo);
 			commit('saveOpenId', openid);
-			console.log('token ', token);
+
 			service.addToken(token);
 			service.addOpenId(openid);
+
+			commit('setH5Url', urlParams());
+
 			uni.navigateBack();
 		},
 		async checkCodeLogin({

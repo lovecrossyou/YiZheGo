@@ -74,7 +74,7 @@
 			},
 			goInviteFriend() {
 				uni.navigateTo({
-					url: "./inviteFriend"
+					url: "./inviteFriend/inviteFriend"
 				})
 			},
 			async personalInfo() {
