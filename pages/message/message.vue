@@ -1,21 +1,26 @@
 <template>
-	<view @click="enter">
-		选号
+	<view>
+		<web-view @message="EventHandler" :src="url"></web-view>
 	</view>
 </template>
 
 <script>
+	import {
+		mapGetters
+	} from 'vuex'
 	export default {
 		data() {
-			return {
-				
-			};
+			return {};
 		},
-		methods:{
-			enter(){
-				uni.navigateTo({
-					url:'../chooseCode/confirmOrder'
-				})
+		computed: {
+			...mapGetters(['h5Page']),
+			url(){
+				return this.h5Page('ximessage/page')
+			}
+		},
+		methods: {
+			EventHandler: function(e) {
+				
 			}
 		}
 	}

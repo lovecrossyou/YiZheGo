@@ -81,25 +81,8 @@
 					url: item.page
 				})
 			},
-			async fetchByTimeLimitList() {
-				const res = await api.byTimeLimitList({})
-				this.$store.commit('home/setByTimeLimitList', res)
-			},
-			async fetchTimeLimitChoiceList() {
-				const res = await api.byTimeLimitChoiceList({})
-				this.$store.commit('home/setTimeLimitChoiceList', res)
-			},
-			async fetchNewsBenefitList() {
-				const res = await api.newsBenefitList({})
-				this.$store.commit('home/setNewsBenefitList', res)
-			},
-
 		},
 		onLoad() {
-			this.fetchByTimeLimitList()
-			this.fetchTimeLimitChoiceList()
-			this.fetchNewsBenefitList()
-
 			if (!this.hasLogin) {
 				uni.navigateTo({
 					url: "/pages/login/WeChatLogin/WeChatLogin"
@@ -127,7 +110,7 @@
 					}, {
 						img: '../../static/home/home_nav_fenlei.png',
 						name: "分类",
-						page: "/pages/ranklist/ranklist"
+						page: "/pages/category/category"
 					}
 				]
 			}

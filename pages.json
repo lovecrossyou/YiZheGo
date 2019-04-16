@@ -207,6 +207,10 @@
 				"navigationBarTextStyle": "black"
 			}
         }
+        ,{
+            "path" : "pages/category/category",
+            "style" : {}
+        }
     ],
 	"tabBar": {
 		"color": "#7a7e83",
