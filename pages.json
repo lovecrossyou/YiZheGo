@@ -198,29 +198,49 @@
 		{
 			"path": "pages/moments/components/recommend",
 			"style": {}
-		}
-	    ,{
-            "path" : "pages/me/myOrder/myOrder",
-            "style" : {
+		}, {
+			"path": "pages/me/myOrder/myOrder",
+			"style": {
 				"navigationBarTitleText": "一折购",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
-        }
-        ,{
-            "path" : "pages/category/category",
-            "style" : {}
-        }
+		}, {
+			"path": "pages/category/category",
+			"style": {}
+		}
 
-		 ,{
-		    "path" : "pages/me/myOrder/orderDetail",
-		    "style" : {
+		, {
+			"path": "pages/me/myOrder/orderDetail",
+			"style": {
 				"navigationBarTitleText": "订单详情",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
+		},
+		{
+			"path": "pages/me/vip/vipProductDetails",
+			"style": {
+				"navigationBarTitleText": "商品详情",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": {
+						"type": "transparent" //透明渐变导航栏,
+					}
+				}
+			}
+		},
+		{
+			"path": "pages/me/vip/vipConfirmOrder",
+			"style": {
+				"navigationBarTitleText": "确认订单",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
 		}
-    ],
+	],
 	"tabBar": {
 		"color": "#7a7e83",
 		"selectedColor": "#FE594B",

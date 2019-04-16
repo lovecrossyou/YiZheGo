@@ -1,5 +1,8 @@
 <template>
 	<view class="mainBg" @click="enter">
+		<view class="time">
+			{{formatTime}}
+		</view>
 	</view>
 </template>
 
@@ -8,6 +11,7 @@
 		mapState
 	} from "vuex";
 	import api from '@/util/api.js';
+	import timeUtil from '@/util/timeUtil.js'
 	export default {
 		methods: {
 			enter() {
@@ -29,8 +33,13 @@
 		},
 		data() {
 			return {
-
+				showTime: '2019-04-18 22:00:00'
 			};
+		},
+		computed: {
+			formatTime() {
+				return timeUtil.todayFormat(this.showTime);
+			}
 		},
 		onLoad() {
 			this.fetchByTimeLimitList()
@@ -41,7 +50,7 @@
 </script>
 
 <style>
-	.mainBg{
+	.mainBg {
 		width: 100%;
 		position: fixed;
 		top: 0;
