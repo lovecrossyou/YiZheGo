@@ -1,5 +1,5 @@
 <template>
-	<view class="personal_wrapper">
+	<view class="personal_wrapper" v-if="personalInfoList">
 		<view class="header_img_wrapper">
 			<view class="header_img_text">头像</view>
 			<view class="right_header_img" @click="changeIcon">
@@ -33,7 +33,7 @@ import selectItemList from './components/selectItemList.vue';
 export default {
 	data() {
 		return {
-			personalInfoList: {}
+			personalInfoList: null
 		};
 	},
 	components: {
@@ -42,48 +42,16 @@ export default {
 	computed: {},
 	methods: {
 		changeIcon() {
-// 			uni.chooseImage({
-// 				count: 1, //默认9
-// 				sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
-// 				success: function(res) {
-// 					const imagePath = res.tempFilePaths[0];
-// 					api.uploader(imagePath, res => {
-// 						console.log(JSON.stringify(res));
-// 					});
-// 				}
-// 			});
 			uni.chooseImage({
-				success: chooseImageRes => {
-					const tempFilePaths = chooseImageRes.tempFilePaths;
-					uni.uploadFile({
-						url: 'https://www.example.com/upload', //仅为示例，非真实的接口地址
-						filePath: tempFilePaths[0],
-						name: 'file',
-						formData: {
-							user: 'test'
-						},
-						success: uploadFileRes => {
-							console.log(uploadFileRes.data);
-						}
+				count: 1, //默认9
+				sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+				success: function(res) {
+					const imagePath = res.tempFilePaths[0];
+					api.uploader(imagePath, res => {
+						console.log(JSON.stringify(res));
 					});
 				}
 			});
-
-			// 				let that = this;
-			// 				uni.chooseImage({
-			// 					success: chooseImageRes => {
-			// 						const tempFilePaths = chooseImageRes.tempFilePaths;
-			// 						uni.uploadFile({
-			// 							url: 'http://192.168.1.235:8001/eus/v1/users/' + this.userInfo.user_id + '/avatar', //仅为示例，非真实的接口地址
-			// 							filePath: tempFilePaths[0],
-			// 							name: 'file',
-			// 							success: res => {
-			// 								const imgData = JSON.parse(res.data);
-			// 								that.userInfo.avatar = imgData.image_path;
-			// 							}
-			// 						});
-			// 					}
-			// 				});
 		},
 		async personalInfo() {
 			let res = await api.userInfo({});

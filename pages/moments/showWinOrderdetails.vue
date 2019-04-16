@@ -41,7 +41,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="wrapper">谁傻谁评论</view>
+		<view class="wrapper">评论</view>
 	</view>
 </template>
 
@@ -169,7 +169,7 @@
 				height: 177upx;
 				white-space: nowrap;
 				background: white;
-				padding: 14upx 30upx 36upx 30upx;
+				padding: 14upx 0upx 36upx 0upx;
 				box-sizing: border-box;
 
 				.moment_image_small {

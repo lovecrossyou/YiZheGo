@@ -39,6 +39,11 @@ const api = {
 	
 	//收货地址
 	addressList:params => request.post("/deliveryAddress/list",params),
+	//支付结果查询
+	queryResult:params => request.post("/client/discountGamePay/queryResult",params),
+	//订单详情
+	clientOrderDetail:params => request.post("/discountGameOrder/clientOrderDetail",params),
+
 	//上传
 	uploader: (file, callback) => {
 		uni.uploadFile({

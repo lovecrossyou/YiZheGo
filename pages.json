@@ -132,6 +132,12 @@
 			}
 		},
 		{
+			"path": "pages/successfulPayment",
+			"style": {
+				"navigationBarTitleText": "参与成功"
+			}
+		},
+		{
 			"path": "pages/me/vip/vip-center",
 			"style": {
 				"navigationBarTitleText": "会员中心"

@@ -5,8 +5,12 @@ import productDetail from './modules/productDetails.js';
 import api from '../util/api.js';
 import service from "../service.js";
 import confirmPay from './modules/confirmPay.js';
-
+import payResult from './modules/payResult.js';
 import chooseCode from './modules/chooseCode.js'
+import {
+	baseURL,
+	createAccessInfo
+} from "@/util/request.js"
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -14,7 +18,8 @@ const store = new Vuex.Store({
 		home,
 		chooseCode,
 		productDetail,
-		confirmPay
+		confirmPay,
+		payResult,
 	},
 
 	state: {
@@ -25,8 +30,16 @@ const store = new Vuex.Store({
 		hasLogin: true,
 		userInfo: null,
 		token: null,
-		openid: null
+		openid: null,
+		urlParams:'',
+		h5BaseUrl: 'https://www.xiteng.com/xitenggamenode/#/'
 	},
+	getters: {
+		h5Page: (state) => (page) => {
+			return state.h5BaseUrl + page + state.urlParams
+		}
+	},
+
 	mutations: {
 		login(state, userInfo) {
 			state.userInfo = userInfo;
@@ -44,6 +57,9 @@ const store = new Vuex.Store({
 		},
 		saveOpenId(state, openid) {
 			state.openid = openid;
+		},
+		setH5Url(state,data){
+			state.urlParams = data;
 		}
 	},
 	actions: {
@@ -56,7 +72,10 @@ const store = new Vuex.Store({
 			if (token) {
 				commit('saveToken', token);
 				commit('saveOpenId', openid);
-				console.log('openid ##',openid)
+				//拼接h5参数
+				const accessInfo = createAccessInfo();
+				const urlParams = '?app_key='+accessInfo.app_key+'&signature='+accessInfo.signature+'&access_token='+accessInfo.access_token+'&wechat_redirect'
+				commit('setH5Url',urlParams);
 			}
 		},
 		async wxlogin({

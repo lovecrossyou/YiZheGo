@@ -28,16 +28,24 @@
 <script>
 	import api from '../../util/api.js';
 	import pay from '../../util/payUtil.js';
+	import {
+		mapState,
+	} from 'vuex';
 	export default{
 		onLoad(option){
 			console.log("订单号----------"+option.payOrderNo+'------------'+option.totalPayRmb);
 			this.payOrderNo = option.payOrderNo;
 			this.totalPayRmb = option.totalPayRmb;
 		},
+		computed:{
+			...mapState({
+				openid: state=>state.openid,
+			}),
+		},
 		methods:{
 			async toPay(callback){
 				const orderInfo = await api.commitPay({
-					  openId: "string",
+					  openId: this.openid,
 					  payChannel: this.paychannels[this.selectIndex].payChannel,
 					  payOrderNo: this.payOrderNo
 				});
@@ -51,7 +59,8 @@
 			payResult(msg){
 				console.log('支付结果:' + JSON.stringify(msg));
 				uni.navigateTo({
-					//url: "/pages/order/order-pay-result"
+					url: "./payResult?payOrderNo="+this.payOrderNo+"&totalPayRmb="+this.totalPayRmb+"&payChannel="+
+					this.paychannels[this.selectIndex].payChannel+"&openId="+this.openid
 				})
 			}
 			
@@ -76,6 +85,13 @@
 				            unselIcon: '../../static/pay/pay_btn@2x.png',
 							payChannel:"AlipayClient",
 							provider:'alipay'
+				            },{
+				            icon: '../../static/login/logo@2x.png',
+				            selIcon: '../../static/pay/pay_btn_selected_weixin@2x.png',
+				            title: "钱包",
+				            unselIcon: '../../static/pay/pay_btn@2x.png',
+							payChannel:"",
+							provider:''
 				            }]
 			}
 		}
