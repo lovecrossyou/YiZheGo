@@ -7,14 +7,25 @@
 	import {
 		mapState
 	} from "vuex";
-
+	import api from '@/util/api.js';
 	export default {
 		methods: {
 			enter() {
 				uni.switchTab({
 					url: "/pages/home/home"
 				})
-			}
+			},
+			async fetchByTimeLimitList() {
+				const res = await api.byTimeLimitList({})
+				this.$store.commit('home/setByTimeLimitList', res)
+			},
+			async fetchTimeLimitChoiceList() {
+				const res = await api.byTimeLimitChoiceList({})
+				this.$store.commit('home/setTimeLimitChoiceList', res)
+			},
+			async fetchNewsBenefitList() {
+				this.$store.dispatch('home/fetchNewsBenefitList');
+			},
 		},
 		data() {
 			return {
@@ -22,7 +33,9 @@
 			};
 		},
 		onLoad() {
-
+			this.fetchByTimeLimitList()
+			this.fetchTimeLimitChoiceList()
+			this.fetchNewsBenefitList()
 		}
 	}
 </script>

@@ -188,9 +188,16 @@
 			}
 		},
 		{
-			"path": "pages/me/inviteFriend",
+			"path": "pages/me/inviteFriend/inviteFriend",
 			"style": {
 				"navigationBarTitleText": "邀请好友",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		},{
+			"path": "pages/me/inviteFriend/shareFriend",
+			"style": {
+				"navigationBarTitleText": "邀请好友分享页面",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
@@ -207,6 +214,19 @@
 				"navigationBarTextStyle": "black"
 			}
         }
+        ,{
+            "path" : "pages/category/category",
+            "style" : {}
+        }
+
+		 ,{
+		    "path" : "pages/me/myOrder/orderDetail",
+		    "style" : {
+				"navigationBarTitleText": "订单详情",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}
     ],
 	"tabBar": {
 		"color": "#7a7e83",

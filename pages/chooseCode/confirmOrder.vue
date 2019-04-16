@@ -168,6 +168,7 @@
 					payOrderNo: order.payOrderNo
 				});
 				const wexinSpec = orderInfo.wexinSpec;
+				wexinSpec.packageValue = 'prepay_id='+wexinSpec.prepay_id;
 				let that = this;
 				uni.requestPayment({
 					provider: 'wxpay',

@@ -15,13 +15,12 @@
 		computed: {
 			...mapGetters(['h5Page']),
 			url(){
-				return this.h5Page('address/page')
+				return this.h5Page('classify/page')
 			}
 		},
 		methods: {
 			EventHandler: function(e) {
-				const addr_id = e.detail.data[0];
-				this.$store.commit('confirmPay/setAddrId', addr_id);
+				
 			}
 		}
 	}

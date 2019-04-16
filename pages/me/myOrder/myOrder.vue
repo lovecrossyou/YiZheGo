@@ -1,6 +1,6 @@
 <template>
 	<view class="uni-tab-bar">
-		<scroll-view id="tab-bar" class="uni-swiper-tab" scroll-x :scroll-left="scrollLeft">
+		<view id="tab-bar" class="uni-swiper-tab">
 			<view
 				v-for="(tab, index) in tabBars"
 				:key="tab.id"
@@ -11,12 +11,32 @@
 			>
 				{{ tab.name }}
 			</view>
-		</scroll-view>
+		</view>
 		<swiper :current="tabIndex" class="swiper-box" duration="300" @change="changeTab">
 			<swiper-item v-for="(tab, index1) in newsitems" :key="index1">
 				<scroll-view class="list" scroll-y @scrolltolower="loadMore(index1)">
 					<block v-for="(newsitem, index2) in tab.data" :key="index2">
-						<media-list :data="newsitem" @close="close(index1, index2)" @click="goDetail(newsitem)"></media-list>
+						<view class="order-item" @click="goDetail">
+							<view class="top">
+								<text class="time">下单时间：2018-04-26</text>
+								<text class="state">待付款</text>
+							</view>
+							<view class="product">
+								
+									<image v-bind:src="icon" mode="center" class="product-image"></image>
+								
+								
+								<view class="product-info">
+									<view class="one-tips">一折购</view>
+									<text class="product-name">麒麟980芯片 魅海蓝 6GB+128GB全网通 4G全面屏手机</text>
+									<view class="product-prices">
+										<text class="current-price">￥299.90</text>
+										<text class="origin-price">市场价￥2999.00</text>
+									</view>
+								</view>
+							</view>
+							<view class="bottom"><text class="count">共10件 实付款：￥3005.00</text></view>
+						</view>
 					</block>
 					<view class="uni-tab-bar-loading"><uni-load-more :loadingType="tab.loadingType" :contentText="loadingText"></uni-load-more></view>
 				</scroll-view>
@@ -27,10 +47,11 @@
 <script>
 import mediaList from '../components/mediaList.vue';
 import uniLoadMore from '../components/uni-load-more.vue';
+
 export default {
 	components: {
 		mediaList,
-		uniLoadMore
+		uniLoadMore,
 	},
 	data() {
 		return {
@@ -39,7 +60,7 @@ export default {
 				contentrefresh: '正在加载...',
 				contentnomore: '没有更多数据了'
 			},
-			scrollLeft: 0,
+			icon:'../../../static/me/yaoqing.png',
 			isClickChange: false,
 			tabIndex: 0,
 			newsitems: [],
@@ -128,17 +149,7 @@ export default {
 	methods: {
 		goDetail(e) {
 			uni.navigateTo({
-				url: '/pages/template/tabbar/detail/detail?data=' + e.title
-			});
-		},
-		close(index1, index2) {
-			uni.showModal({
-				content: '是否删除本条信息？',
-				success: res => {
-					if (res.confirm) {
-						this.newsitems[index1].data.splice(index2, 1);
-					}
-				}
+				url: './orderDetail'
 			});
 		},
 		loadMore(e) {
@@ -164,51 +175,14 @@ export default {
 				this.isClickChange = false;
 				return;
 			}
-			let tabBar = await this.getElSize('tab-bar'),
-				tabBarScrollLeft = tabBar.scrollLeft;
-			let width = 0;
-
-			for (let i = 0; i < index; i++) {
-				let result = await this.getElSize(this.tabBars[i].id);
-				width += result.width;
-			}
-			let winWidth = uni.getSystemInfoSync().windowWidth,
-				nowElement = await this.getElSize(this.tabBars[index].id),
-				nowWidth = nowElement.width;
-			if (width + nowWidth - tabBarScrollLeft > winWidth) {
-				this.scrollLeft = width + nowWidth - winWidth;
-			}
-			if (width < tabBarScrollLeft) {
-				this.scrollLeft = width;
-			}
 			this.isClickChange = false;
 			this.tabIndex = index; //一旦访问data就会出问题
-		},
-		getElSize(id) {
-			//得到元素的size
-			return new Promise((res, rej) => {
-				uni.createSelectorQuery()
-					.select('#' + id)
-					.fields(
-						{
-							size: true,
-							scrollOffset: true
-						},
-						data => {
-							res(data);
-						}
-					)
-					.exec();
-			});
 		},
 		async tapTab(index) {
 			//点击tab-bar
 			if (this.tabIndex === index) {
 				return false;
 			} else {
-				let tabBar = await this.getElSize('tab-bar'),
-					tabBarScrollLeft = tabBar.scrollLeft; //点击的时候记录并设置scrollLeft
-				this.scrollLeft = tabBarScrollLeft;
 				this.isClickChange = true;
 				this.tabIndex = index;
 			}
@@ -238,7 +212,6 @@ export default {
 	flex: 1;
 	flex-direction: column;
 	height: 100%;
-	background-color: red;
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -246,30 +219,116 @@ export default {
 	bottom: 0;
 	.uni-swiper-tab {
 		width: 100%;
-		white-space: nowrap;
+		display: flex;
+		flex-direction: row;
 		line-height: 100upx;
 		height: 100upx;
-		border-bottom: 1px solid #c8c7cc;
-		background-color: green;
+		border-top: 1upx solid #c8c7cc;
+		justify-content: space-around;
+		align-items: center;
 		.swiper-tab-list {
 			font-size: 30upx;
-			width: 150upx;
-			display: inline-block;
+
 			text-align: center;
 			color: #555;
 		}
 		.active {
-			color: #007aff;
+			color: #cc2636;
+			border-bottom: 3upx solid #cc2636;
 		}
 	}
 
 	.swiper-box {
 		flex: 1;
 		width: 100%;
-		background-color: blue;
 		.list {
 			width: 750upx;
 			height: 100%;
+			background-color: #efeff4;
+			.order-item {
+				background-color: white;
+				display: flex;
+				margin-top: 25upx;
+				padding-left: 28upx;
+				padding-right: 28upx;
+				padding-top: 30upx;
+				padding-bottom: 30upx;
+				.top {
+					display: flex;
+					flex-direction: row;
+					.time {
+						flex: 1;
+						font-size: 26upx;
+						font-family: PingFangSC-Regular;
+						font-weight: 400;
+						color: rgba(119, 119, 119, 1);
+					}
+					.state {
+						font-size: 28upx;
+						font-family: PingFangSC-Regular;
+						font-weight: 400;
+						color: rgba(204, 38, 55, 1);
+					}
+				}
+				.product {
+					display: flex;
+					flex-direction: row;
+					margin-top: 34upx;
+					.product-image {
+						height: 140upx;
+						width: 240upx;
+						display: flex;
+						.product-info {
+							display: flex;
+							.one-tips{
+								background: rgba(204, 38, 55, 1);
+								
+								border-radius: 5upx;
+								font-size: 22upx;
+								font-family: PingFang-SC-Medium;
+								font-weight: 500;
+								color: rgba(255, 255, 255, 1);
+							}
+							.product-name {
+								font-size: 30upx;
+								font-family: PingFangSC-Regular;
+								font-weight: 400;
+								color: rgba(51, 51, 51, 1);
+							}
+							.product-prices {
+								display: flex;
+								flex-direction: row;
+
+								.current-price {
+									font-size: 24upx;
+									font-family: PingFangSC-Regular;
+									font-weight: 400;
+									color: rgba(204, 38, 55, 1);
+								}
+								.origin-price {
+									font-size: 22upx;
+									font-family: PingFangSC-Light;
+									font-weight: 300;
+									text-decoration: line-through;
+									color: rgba(119, 119, 119, 1);
+								}
+							}
+						}
+					}
+				}
+				.bottom {
+					display: flex;
+					flex-direction: row;
+					justify-content: flex-end;
+
+					.count {
+						font-size: 26upx;
+						font-family: PingFangSC-Regular;
+						font-weight: 400;
+						color: rgba(119, 119, 119, 1);
+					}
+				}
+			}
 
 			.uni-tab-bar-loading {
 				padding: 20upx 0;

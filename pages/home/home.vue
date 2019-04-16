@@ -22,7 +22,7 @@
 					</view>
 				</view>
 				<view class="tooopencom_product_list">
-					<view class="tooopencom_product_item" v-for="(item,i) in timeLimitChoiceList" :key="i">
+					<view class="tooopencom_product_item" v-for="(item,i) in timeLimit3" :key="i">
 						<view class="image">
 							<image :src="item.productImageUrl"></image>
 							<view class="tooopencom_product_price">￥{{item.oneDiscountPrice}}</view>
@@ -40,7 +40,7 @@
 				</view>
 			</view>
 			<view class="hot_sale_list">
-				<view class="hot_sale_product_item" v-for="(item,i) in timeLimitChoiceList" :key="i">
+				<view class="hot_sale_product_item" v-for="(item,i) in timeLimit3" :key="i">
 					<view class="image">
 						<image :src="item.productImageUrl "></image>
 					</view>
@@ -60,7 +60,8 @@
 
 <script>
 	import {
-		mapState
+		mapState,
+		mapGetters
 	} from "vuex";
 	import api from '../../util/api.js';
 	import banner from './components/banner';
@@ -71,12 +72,8 @@
 	export default {
 		computed: {
 			...mapState(['hasLogin']),
-			...mapState({
-				timeLimitChoices: state => state.home.timeLimitChoiceList,
-			}),
-			timeLimitChoiceList() {
-				return this.timeLimitChoices.slice(0, 3);
-			}
+			...mapState('home',['timeLimitChoices','timeLimitChoiceList']),
+			...mapGetters('home',['timeLimit3']),
 		},
 		methods: {
 			goNext(item) {
@@ -84,25 +81,8 @@
 					url: item.page
 				})
 			},
-			async fetchByTimeLimitList() {
-				const res = await api.byTimeLimitList({})
-				this.$store.commit('home/setByTimeLimitList', res)
-			},
-			async fetchTimeLimitChoiceList() {
-				const res = await api.byTimeLimitChoiceList({})
-				this.$store.commit('home/setTimeLimitChoiceList', res)
-			},
-			async fetchNewsBenefitList() {
-				const res = await api.newsBenefitList({})
-				this.$store.commit('home/setNewsBenefitList', res)
-			},
-
 		},
 		onLoad() {
-			this.fetchByTimeLimitList()
-			this.fetchTimeLimitChoiceList()
-			this.fetchNewsBenefitList()
-
 			if (!this.hasLogin) {
 				uni.navigateTo({
 					url: "/pages/login/WeChatLogin/WeChatLogin"
@@ -130,7 +110,7 @@
 					}, {
 						img: '../../static/home/home_nav_fenlei.png',
 						name: "分类",
-						page: "/pages/ranklist/ranklist"
+						page: "/pages/category/category"
 					}
 				]
 			}
