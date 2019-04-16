@@ -8,6 +8,7 @@ const state = {
 
 const getters = {
 	timeLimit3(state, getters) {
+		return [];
 		return state.timeLimitChoiceList.slice(0, 3)
 	}
 }

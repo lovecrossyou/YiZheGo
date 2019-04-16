@@ -22,7 +22,7 @@
 			<image :src="lineIcon" class="line-icon"></image>
 			<!-- 商品信息 -->
 			<view class="item-content">
-				<productIno>33</productIno>
+				<productIno></productIno>
 				<view class="title-content">
 					<text class="item-title">商品</text>
 					<text class="item-title">￥2999.00</text>
@@ -89,7 +89,8 @@ import uniIcon from '@/pages/components/uni-icon/uni-icon.vue';
 import productIno from '../components/productInfo.vue';
 export default {
 	components: {
-		uniIcon
+		uniIcon,
+		productIno
 	},
 	data() {
 		return {
