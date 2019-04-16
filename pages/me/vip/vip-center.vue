@@ -38,7 +38,7 @@
 
 						<view class="price-action">
 							<view class="price">¥{{p.price}}</view>
-							<view class="action" @click="goDetail(p)">立即购买1</view>
+							<view class="action" @click="goDetail(p)">立即购买</view>
 						</view>
 					</view>
 				</view>
@@ -66,7 +66,6 @@
 				})
 			},
 			goDetail(p) {
-				console.log('xxxx');
 				uni.navigateTo({
 					url: "/pages/me/vip/vipProductDetails?productId=" + p.vipProductId
 				})
