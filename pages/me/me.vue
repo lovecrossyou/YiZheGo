@@ -1,6 +1,6 @@
 <template>
 	<view class="user_wrapper">
-		<view class="user_info" @click="goPersonalData">
+		<view v-if="personalInfoList" class="user_info" @click="goPersonalData">
 			<image :src="personalInfoList.userInfo.icon" mode="aspectFill" class="header_img"></image>
 			<view class="user_content">
 				<view class="user_vip">
@@ -13,12 +13,14 @@
 		</view>
 		<!-- 订单 -->
 		<view class="order_area_wrapper">
-			<itemList img="../../static/me/me_icon%20_invite@2x.png" title="订单" all="全部"></itemList>
+			<itemList img="../../static/me/me_icon%20_invite@2x.png" title="订单" all="全部" page='./myOrder/myOrder'></itemList>
 			<view class="order_status">
 				<orderStatus img="../../static/me/me_order_btn_obligation@2x.png" statusText="待付款"></orderStatus>
 				<orderStatus img="../../static/me/me_order_btn_announce_tobe@2x.png" statusText="待揭晓"></orderStatus>
 				<orderStatus img="../../static/me/me_order_btn_announce_hasbeen@2x.png" statusText="已揭晓"></orderStatus>
-				<orderStatus img="../../static/me/me_order_btn_refund@2x.png" statusText="3D退款"></orderStatus>
+				<view class="border">
+					<orderStatus img="../../static/me/me_order_btn_refund@2x.png" statusText="中签/退款"></orderStatus>
+				</view>
 			</view>
 		</view>
 		<view class="other_unctions">
@@ -51,7 +53,7 @@
 	export default {
 		data() {
 			return {
-				personalInfoList:{},
+				personalInfoList: null,
 			};
 		},
 
@@ -60,9 +62,9 @@
 			orderStatus
 		},
 		methods: {
-			goPersonalData() {
+			goPersonalData(userId) {
 				uni.navigateTo({
-					url: "./personalData"
+					url: "/pages/me/personalData"
 				});
 			},
 			turnToVip() {
@@ -70,12 +72,12 @@
 					url: './vip/vip-center'
 				});
 			},
-			goInviteFriend(){
+			goInviteFriend() {
 				uni.navigateTo({
-					url:"./inviteFriend"
+					url: "./inviteFriend/inviteFriend"
 				})
 			},
-			async personalInfo(){
+			async personalInfo() {
 				let res = await api.userInfo({})
 				this.personalInfoList = res;
 				console.log(this.personalInfoList)
@@ -91,6 +93,11 @@
 	.user_wrapper {
 		width: 100%;
 		background-color: #f3f3f3;
+	}
+
+	.border {
+		width: 840upx;
+		border-left: 1px solid #e3e3e3;
 	}
 
 	.user_info {

@@ -3,10 +3,11 @@
 		<!-- 顶部导航 -->
 		<view class="header">
 			<view class="left-arrow" @click="goBack">
-				<image :src="nav_icon_back" ></image>
+				<image :src="nav_icon_back"></image>
 			</view>
 			<view class="product_title">
-				<view class="product_title_item" v-for="(item,i) in ['商品','详情']" :key='i' :class="[selectedIndex==i?'activeBd':'initialBd']" @click="changeIndex(i)" >
+				<view class="product_title_item" v-for="(item,i) in ['商品','详情']" :key='i' :class="[selectedIndex==i?'activeBd':'initialBd']"
+				 @click="changeIndex(i)">
 					{{item}}
 				</view>
 			</view>
@@ -37,7 +38,9 @@
 				</view>
 			</view>
 			<view class="price-section-item">
-				<view><image class="icon_fire" :src="icon_fire"></image>已抢{{productDetail.currentPurchaseCount}}件</view>
+				<view>
+					<image class="icon_fire" :src="icon_fire"></image>已抢{{productDetail.currentPurchaseCount}}件
+				</view>
 			</view>
 		</view>
 		<!-- 商品信息  -->
@@ -150,7 +153,7 @@
 			</view>
 			<view class="detail_imgurllist">
 				<block v-for="(item,i) in productDetail.productItemModel.productDetailImageUrlList" :key="i">
-					<image :src="item.productDetailImageUrl"></image>
+					<image :src="item.productDetailImageUrl" mode="widthFix"></image>
 				</block>
 			</view>
 		</view>
@@ -161,15 +164,15 @@
 				<view class="name">客服</view>
 			</view>
 			<view class="left_message">
-				<image class="top"  :src="btn_collection"></image>
+				<image class="top" :src="btn_collection"></image>
 				<view class="name">关注</view>
 			</view>
 			<view class="right_buy" @click="confirmOrder(true)">
-				<view class="top" >￥{{productDetail.productItemModel.originalPrice}}</view>
+				<view class="top">￥{{productDetail.productItemModel.originalPrice}}</view>
 				<view class="big">全价购买</view>
 			</view>
 			<view class="right_buy bgr" @click="confirmOrder(false)">
-				<view class="top" >￥{{productDetail.productItemModel.oneDiscountPrice}}</view>
+				<view class="top">￥{{productDetail.productItemModel.oneDiscountPrice}}</view>
 				<view class="big">一折抢购</view>
 			</view>
 		</view>
@@ -183,39 +186,40 @@
 	export default {
 		computed: {
 			...mapState({
-				productDetail:state=>state.productDetail.productDetail
+				productDetail: state => state.productDetail.productDetail
 			}),
-			banners(){
-				if(this.productDetail===null)return [];
+			banners() {
+				if (this.productDetail === null) return [];
 				return this.productDetail.productItemModel.productShowImageUrlList
 			}
 		},
 		methods: {
-			changeIndex(ind){
+			changeIndex(ind) {
 				this.selectedIndex = ind
 			},
-			goBack(){
+			goBack() {
 				uni.navigateBack();
 			},
-			async fetchProductDetails(productId){
+			async fetchProductDetails(productId) {
 				const res = await api.productDetails({
-					discountGameId:productId
+					discountGameId: productId
 				});
-				this.$store.commit('productDetail/setProductDetails',res)
+				this.$store.commit('productDetail/setProductDetails', res)
 			},
-			confirmOrder(directBuy){
+			confirmOrder(directBuy) {
 				uni.navigateTo({
-					url:'../chooseCode/confirmOrder?discountGameId='+ this.productDetail.discountGameId+'&directBuy='+directBuy
+					url: '../chooseCode/confirmOrder?discountGameId=' + this.productDetail.discountGameId + '&directBuy=' +
+						directBuy
 				})
 			}
 		},
-		onLoad(opt){
-			console.log('详情啊=========',opt.productId)
+		onLoad(opt) {
+			console.log('详情啊=========', opt.productId)
 			this.fetchProductDetails(opt.productId)
 		},
 		data() {
 			return {
-				selectedIndex:0,
+				selectedIndex: 0,
 				commentModelList: [{
 						userName: "电视成金",
 						time: 123,
@@ -259,46 +263,52 @@
 	.product_details_wrapper {
 		width: 100%;
 		background-color: #F3F3F3;
-		
+
 		.header {
-			width:100%;
+			width: 100%;
 			height: 96upx;
-			padding:0 30upx;
+			padding: 0 30upx;
 			box-sizing: border-box;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
 			background: #fff;
 			border-bottom: 1upx solid #E9E9E9;
-			position:fixed;
-			top:0;
-			left:0;
+			position: fixed;
+			top: 0;
+			left: 0;
 			z-index: 111;
+
 			.left-arrow {
 				width: 20upx;
 				height: 36upx;
+
 				image {
 					width: 20upx;
 					height: 36upx;
 				}
 			}
+
 			.product_title {
-				width:200upx;
+				width: 200upx;
 				height: 94upx;
-				background: #FFFFFF;			
+				background: #FFFFFF;
 				display: flex;
 				justify-content: space-around;
 				align-items: center;
 				box-sizing: border-box;
 				font-size: 32upx;
 				color: #333;
-					.activeBd{
-						border-bottom: 4upx solid #333333;
-					}
-					.initialBd{
-						border:none;
-					}
-				.product_title_item{
+
+				.activeBd {
+					border-bottom: 4upx solid #333333;
+				}
+
+				.initialBd {
+					border: none;
+				}
+
+				.product_title_item {
 					height: 94upx;
 					line-height: 94upx;
 				}
@@ -307,6 +317,7 @@
 			.share {
 				width: 36upx;
 				height: 30upx;
+
 				image {
 					width: 36upx;
 					height: 30upx;
@@ -341,40 +352,46 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
-			.price-section-item{
+
+			.price-section-item {
 				display: flex;
 				flex-direction: row;
 				align-items: center;
-				.icon_fire{
-					width:20upx;
-					height:32upx;
-					margin-right:6upx;
+
+				.icon_fire {
+					width: 20upx;
+					height: 32upx;
+					margin-right: 6upx;
 				}
-				.price{
-					font-size:32upx;
-					font-family:PingFangSC-Regular;
-					font-weight:400;
-					color:rgba(212,27,45,1);
-					line-height:42upx;
-					margin-right:14upx;
-					.big{
-						font-size:60upx;
+
+				.price {
+					font-size: 32upx;
+					font-family: PingFangSC-Regular;
+					font-weight: 400;
+					color: rgba(212, 27, 45, 1);
+					line-height: 42upx;
+					margin-right: 14upx;
+
+					.big {
+						font-size: 60upx;
 					}
 				}
-				.vip{
-					font-size:22upx;
-					font-family:PingFangSC-Light;
-					font-weight:300;
-					text-decoration:line-through;
-					color:rgba(255,255,255,1);
-					line-height:42upx;
-					image{
-						width:108upx;
-						height:32upx;
+
+				.vip {
+					font-size: 22upx;
+					font-family: PingFangSC-Light;
+					font-weight: 300;
+					text-decoration: line-through;
+					color: rgba(255, 255, 255, 1);
+					line-height: 42upx;
+
+					image {
+						width: 108upx;
+						height: 32upx;
 					}
 				}
 			}
-			
+
 		}
 
 		.product-info {
@@ -448,6 +465,7 @@
 		.winning_periods {
 			margin-top: 20upx;
 			background: #FFFFFF;
+			margin-bottom: 98upx;
 
 			.snapping_buy {
 				.snapping_buy_item {
@@ -608,14 +626,14 @@
 			}
 
 		}
-		
-		.detail_imgurllist{
-			image{
-				width:100%;
-				
+
+		.detail_imgurllist {
+			image {
+				width: 100%;
+
 			}
 		}
-		
+
 		.particulars_item {
 			display: flex;
 			align-items: center;
@@ -657,9 +675,9 @@
 			}
 
 		}
-		
+
 		.footer {
-			width:100%;
+			width: 100%;
 			height: 98upx;
 			background: #FFFFFF;
 			position: fixed;
@@ -668,41 +686,47 @@
 			right: 0;
 			display: flex;
 			align-items: center;
-			.left_message{
-				flex:1;
-				font-size:20upx;
-				font-family:HiraginoSansGB-W3;
-				font-weight:normal;
-				color:rgba(51,51,51,1);
-				image{
-					width:36upx;
-					height:36upx;
+
+			.left_message {
+				flex: 1;
+				font-size: 20upx;
+				font-family: HiraginoSansGB-W3;
+				font-weight: normal;
+				color: rgba(51, 51, 51, 1);
+
+				image {
+					width: 36upx;
+					height: 36upx;
 				}
 			}
-			.right_buy{
-				flex:3;
+
+			.right_buy {
+				flex: 3;
 				background: #F4A360;
-				font-size:26upx;
-				font-family:PingFangSC-Regular;
-				font-weight:400;
-				color:rgba(255,255,255,1);
-				.big{
-					font-size:28upx;
+				font-size: 26upx;
+				font-family: PingFangSC-Regular;
+				font-weight: 400;
+				color: rgba(255, 255, 255, 1);
+
+				.big {
+					font-size: 28upx;
 				}
 			}
-			.bgr{
-				background:#CC2636;
+
+			.bgr {
+				background: #CC2636;
 			}
-			
+
 			.left_message,
-			.right_buy{
+			.right_buy {
 				height: 98upx;
 				display: flex;
 				flex-direction: column;
 				align-items: center;
 				justify-content: center;
-				.top{
-					margin-bottom:10upx;
+
+				.top {
+					margin-bottom: 10upx;
 				}
 			}
 		}

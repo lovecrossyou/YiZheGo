@@ -69,13 +69,14 @@
 
 <style lang="less">
 	.showWinOrderwrapper{
-		width: 100%;
+		width: 100%; 
 		
 		.showWinOrderItem {
 			display: flex;
 			flex-direction: column;
 			width: 100%;
 			background: rgba(255, 255, 255, 1);
+			margin-bottom: 20upx;
 		
 			.user {
 				width: 100%;

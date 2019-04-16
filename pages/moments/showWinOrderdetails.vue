@@ -27,6 +27,21 @@
 				<view class="gameStage">期数: {{showWinOrderCommentModel.discountGameStage}}</view>
 			</view>
 		</view>
+		<view class="praise">
+			<view class="praisewrapper">
+				<image class="praise_img" src="/static/moments/icon_illume.png"></image>
+				<view class="praise_num">{{showWinOrderCommentModel.praiseCount}}</view>
+			</view>
+			<view class="praise_user" @click="gopraiseDetail(praiseDetailModelList)">
+				<block v-for="(item,index) in praise_user_list" :key="index">
+					<image class="praise_user_img" :src="item.userIconUrl"></image>
+				</block>
+				<view class="more_praise" v-if="praiseDetailModelList.length>12">
+					<view class="more_text">更多</view>
+				</view>
+			</view>
+		</view>
+		<view class="wrapper">评论</view>
 	</view>
 </template>
 
@@ -45,15 +60,29 @@
 		computed: {
 			image_small_list() {
 				return this.showWinOrderCommentModel.imageOrVideoUrl.slice(1)
+			},
+			praise_user_list() {
+				if (this.praiseDetailModelList.length > 12) {
+					return this.praiseDetailModelList.slice(0, 11);
+				} else {
+					return this.praiseDetailModelList;
+				}
 			}
 		},
 		async onLoad(options) {
 			const res = await api.showWinOrderDetail({
-				showOrderCommentId: 96
+				showOrderCommentId: options.id
 			});
 			this.commentShowWinOrderModelList = res.commentShowWinOrderModelList;
 			this.praiseDetailModelList = res.praiseDetailModelList;
 			this.showWinOrderCommentModel = res.showWinOrderCommentModel;
+		},
+		methods:{
+			gopraiseDetail(praiselist){
+				uni.navigateTo({
+					url:"praiseDetail?list="+praiselist
+				})
+			}
 		}
 	}
 </script>
@@ -140,7 +169,7 @@
 				height: 177upx;
 				white-space: nowrap;
 				background: white;
-				padding: 14upx 30upx 36upx 30upx;
+				padding: 14upx 0upx 36upx 0upx;
 				box-sizing: border-box;
 
 				.moment_image_small {
@@ -160,6 +189,7 @@
 			height: 124upx;
 			padding: 22upx 30upx;
 			box-sizing: border-box;
+			background: #FBFBFB;
 
 			.product_icon {
 				width: 80upx;
@@ -182,7 +212,7 @@
 					font-family: PingFangSC-Medium;
 					font-weight: 500;
 					color: rgba(51, 51, 51, 1);
-					padding: 9upx 18upx 0upx 18upx;
+					padding: 5upx 18upx 0upx 18upx;
 					box-sizing: border-box;
 				}
 
@@ -191,10 +221,80 @@
 					font-family: PingFangSC-Regular;
 					font-weight: 400;
 					color: rgba(153, 153, 153, 1);
-					padding: 15upx 18upx 8upx 18upx;
+					padding: 7upx 18upx 5upx 18upx;
 					box-sizing: border-box;
 				}
 			}
+		}
+
+		.praise {
+			display: flex;
+			flex-direction: row;
+			width: 100%;
+			border-top: solid 21upx rgba(234, 234, 234, 1);
+			border-bottom: solid 19upx rgba(234, 234, 234, 1);
+			padding-bottom: 20upx;
+
+			.praisewrapper {
+				display: flex;
+				flex-direction: column;
+				flex: 1;
+				align-items: center;
+				margin-top: 32upx;
+
+				.praise_img {
+					width: 43upx;
+					height: 39upx;
+				}
+
+				.praise_num {
+					font-size: 26upx;
+					font-family: PingFangSC-Regular;
+					font-weight: 400;
+					color: rgba(153, 153, 153, 1);
+					line-height: 41upx;
+					margin-top: 24upx;
+				}
+			}
+
+			.praise_user {
+				width: 570upx;
+				margin: 30upx 0upx 5upx;
+				box-sizing: border-box;
+
+				.praise_user_img {
+					width: 70upx;
+					height: 70upx;
+					display: inline-block;
+					margin-bottom: 25upx;
+					margin-right: 25upx;
+				}
+
+				.more_praise {
+					width: 70upx;
+					height: 70upx;
+					position: fixed;
+					right: 0upx;
+					display: inline-block;
+					margin-bottom: 25upx;
+					margin-right: 25upx;
+					background: #F5F5F5;
+
+					.more_text {
+						font-size: 22upx;
+						font-family: PingFangSC-Regular;
+						font-weight: 400;
+						color: rgba(51, 51, 51, 1);
+						margin: 20upx 13upx;
+						box-sizing: border-box;
+					}
+				}
+			}
+		}
+
+		.replywrapper {
+			width: 100%;
+			height: 60upx;
 		}
 	}
 </style>
