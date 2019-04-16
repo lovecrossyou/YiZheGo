@@ -116,6 +116,7 @@
 			}),
 			...mapGetters({
 				allCode: 'chooseCode/allCode',
+				allFinished:'chooseCode/allFinished'
 			})
 
 		},
@@ -144,6 +145,15 @@
 				})
 			},
 			async commitOrder() {
+				if(!this.allFinished){
+					uni.showToast({
+						title: '请完成选号!',
+						mask: false,
+						duration: 1500
+					});
+					return;
+				}
+				
 				const order = await this.getOrder();
 				console.log("提交订单-----------" + JSON.stringify(order));
 				// #ifdef APP-PLUS
