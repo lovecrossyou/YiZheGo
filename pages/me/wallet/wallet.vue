@@ -1,15 +1,28 @@
 <template>
-	 <view>
-        <web-view :webview-styles="webviewStyles" :src="url"></web-view>
-    </view>
+	<view>
+		<web-view @message="EventHandler" :src="url"></web-view>
+	</view>
 </template>
 
 <script>
+	import {
+		mapGetters
+	} from 'vuex'
 	export default {
 		data() {
-			return {
-				url:'https://www.xiteng.com/xitenggamenode/#/wallet/page?app_key=b5958b665e0b4d8cae77d28e1ad3f521&signature=99B3423B8F187025F01BBD01693CDB3A&access_token=7c6eaa31426d4b2a806fd4616a5d4250#wechat_redirect'
-			};
+			return {};
+		},
+		computed: {
+			...mapGetters(['h5Page']),
+			url(){
+				return this.h5Page('wallet/page')
+			}
+		},
+		methods: {
+			EventHandler: function(e) {
+				const addr_id = e.detail.data[0];
+				this.$store.commit('confirmPay/setAddrId', addr_id);
+			}
 		}
 	}
 </script>

@@ -150,7 +150,7 @@
 			</view>
 			<view class="detail_imgurllist">
 				<block v-for="(item,i) in productDetail.productItemModel.productDetailImageUrlList" :key="i">
-					<image :src="item.productDetailImageUrl"></image>
+					<image :src="item.productDetailImageUrl" mode="widthFix"></image>
 				</block>
 			</view>
 		</view>

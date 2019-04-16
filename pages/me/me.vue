@@ -53,7 +53,7 @@
 	export default {
 		data() {
 			return {
-				personalInfoList:null,
+				personalInfoList: null,
 			};
 		},
 
@@ -72,12 +72,12 @@
 					url: './vip/vip-center'
 				});
 			},
-			goInviteFriend(){
+			goInviteFriend() {
 				uni.navigateTo({
-					url:"./inviteFriend"
+					url: "./inviteFriend"
 				})
 			},
-			async personalInfo(){
+			async personalInfo() {
 				let res = await api.userInfo({})
 				this.personalInfoList = res;
 				console.log(this.personalInfoList)
@@ -94,9 +94,10 @@
 		width: 100%;
 		background-color: #f3f3f3;
 	}
-	.border{
+
+	.border {
 		width: 840upx;
-		border-left:1px solid #e3e3e3;
+		border-left: 1px solid #e3e3e3;
 	}
 
 	.user_info {
