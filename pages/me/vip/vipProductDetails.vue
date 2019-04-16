@@ -70,82 +70,9 @@
 					<view>2019</view>
 				</view>
 			</view>
-			<!-- <view class="particulars_item">
-				<view class="designation">往期中签</view>
-				<view class="view_more">
-					<view>123456</view>
-					<image :src="icon_right"></image>
-				</view>
-			</view> -->
+			
 		</view>
-		<!-- 正在抢购 -->
-		<!-- <view class="winning_periods">
-			<view class="particulars_item">
-				<view class="designation">正在抢购</view>
-				<view class="view_more">
-					<view>抢购详情</view>
-					<image :src="icon_right"></image>
-				</view>
-			</view>
-			<view class="snapping_buy">
-				<view class="snapping_buy_item" v-for="(commentUser,index) in commentModelList" :key='index'>
-					<view class="designation">
-						<image class="snapping_buy_user_icon" :src="commentUser.userIcoin"></image>
-						<view class="snapping_buy_user_name">{{commentUser.userName}}</view>
-						<image class="snapping_buy_user_sex" :src="icon_man"></image>
-					</view>
-					<view class="snapping_buy_time">
-						<view>一分钟前</view>
-						<view class="count">抢购199份</view>
-					</view>
-				</view>
-			</view>
-		</view> -->
-		<!-- 晒单 -->
-		<!-- <view class="winning_periods">
-			<view class="particulars_item">
-				<view class="designation">晒单 </view>
-				<view class="view_more">
-					<view>查看更多</view>
-					<image :src="icon_right"></image>
-				</view>
-			</view>
-			<view class="product-comment">
-				<view class="product-comment-item" v-for="(commentUser,index) in commentModelList" :key='index'>
-					<view class="user_icon">
-						<image :src="commentUser.userIcoin"></image>
-					</view>
-					<view class="product-comment-item-message">
-						<view class="product_comment_user_name">
-							<view>{{commentUser.userName}}</view>
-							<image :src="icon_man"></image>
-						</view>
-						<view class="add_time">
-							<span class="add_time_left">{{commentUser.time}}</span>
-						</view>
-						<view class="comment-content">{{commentUser.content}}</view>
-						<view class="comment-img">
-							<block v-for="(item,i) in commentUser.imageUrlList" :key="i">
-								<image :src="item"></image>
-							</block>
-						</view>
-						<view class="periods">
-							<view>期数: {{commentUser.qishu}}</view>
-							<view class="periods_commit">
-								<view class="periods_like">
-									<image :src="btn_like"></image>
-									<view>999</view>
-								</view>
-								<view>
-									<image :src="btn_message"></image>
-									<view>999</view>
-								</view>
-							</view>
-						</view>
-					</view>
-				</view>
-			</view>
-		</view> -->
+		
 		<!-- 商品详情 -->
 		<view class="winning_periods">
 			<view class="particulars_item">
@@ -194,18 +121,8 @@
 			async buy() {
 				//生成订单
 				uni.navigateTo({
-					url:"/pages/me/vip/vipConfirmOrder"
+					url:"/pages/me/vip/vipConfirmOrder?productId="+this.productDetail.vipProductId
 				})
-
-				// #ifdef APP-PLUS
-
-				// #endif
-
-
-				// #ifdef MP-WEIXIN
-
-				// #endif
-
 			},
 			changeIndex(ind) {
 				this.selectedIndex = ind
@@ -213,8 +130,8 @@
 			goBack() {
 				uni.navigateBack();
 			},
-			async fetchProductDetails(productId) {
-				const res = await api.vipProductDetails({
+			async fetchProductDetail(productId) {
+				const res = await api.vipProductDetail({
 					vipProductId: productId
 				});
 				this.productDetail = res;
@@ -228,8 +145,7 @@
 			}
 		},
 		onLoad(opt) {
-			console.log('详情啊=========', opt.productId)
-			this.fetchProductDetails(opt.productId)
+			this.fetchProductDetail(opt.productId)
 		},
 		data() {
 			return {

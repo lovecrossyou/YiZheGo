@@ -30,7 +30,7 @@
 				<uni-number-box @changes="onCountChanged"></uni-number-box>
 			</view>
 		</view>
-		<view class="price-info">
+		<view v-if="orderInfo" class="price-info">
 			<view class="price-info-product">
 				<view class="price-info-product-text">商品</view>
 				<view class="price-info-product-price" v-if="directBuy">¥{{orderInfo.originalPrice}}</view>
@@ -62,7 +62,7 @@
 				<image v-bind:src="rightArrow" class="refound-info-select-arrow"></image>
 			</view>
 		</view>
-		<view class="confirm-footer">
+		<view v-if="orderInfo" class="confirm-footer">
 			<view class="confirm-footer-price-info">
 				<view class="confirm-footer-price-amount">共1件</view>
 				<view class="confirm-footer-price-pay-info">

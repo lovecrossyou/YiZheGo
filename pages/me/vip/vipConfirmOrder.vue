@@ -1,5 +1,5 @@
 <template>
-	<view class="container">
+	<view v-if="orderInfo" class="container">
 		<view class="delivery-info" @click="addressList" v-if="address">
 			<view class="delivery-userinfo">
 				<view class="delivery-userinfo-name">收货人:{{address.recievName}}</view>
@@ -18,11 +18,11 @@
 		<image v-bind:src="lineCai" class="delivery-userinfo-line"></image>
 		<view class="product-info">
 			<view class="product-info-pro">
-				<image v-bind:src="orderInfo.relatedProductImageUrl" class="product-info-pro-img"></image>
+				<image v-bind:src="orderInfo.imageUrl" class="product-info-pro-img"></image>
 				<view class="product-info-pro-name">
-					<view class="product-info-pro-name-text">{{orderInfo.relatedProductName}}</view>
-					<view class="product-info-pro-name-price" v-if="directBuy">¥{{orderInfo.originalPrice}}</view>
-					<view class="product-info-pro-name-price" v-else>¥{{orderInfo.originalPrice}}</view>
+					<view class="product-info-pro-name-text">{{orderInfo.productName}}</view>
+					<view class="product-info-pro-name-price" v-if="directBuy">¥{{orderInfo.price}}</view>
+					<view class="product-info-pro-name-price" v-else>¥{{orderInfo.price}}</view>
 				</view>
 			</view>
 			<view class="product-info-pro-amount">
@@ -33,48 +33,25 @@
 		<view class="price-info">
 			<view class="price-info-product">
 				<view class="price-info-product-text">商品</view>
-				<view class="price-info-product-price" v-if="directBuy">¥{{orderInfo.originalPrice}}</view>
-				<view class="price-info-product-price" v-else>¥{{orderInfo.originalPrice}}</view>
+				<view class="price-info-product-price" v-if="directBuy">¥{{orderInfo.price}}</view>
+				<view class="price-info-product-price" v-else>¥{{orderInfo.price}}</view>
 			</view>
 			<view class="price-info-product">
 				<view class="price-info-product-text">运费</view>
-				<view class="price-info-product-price">+¥{{orderInfo.freight}}</view>
+				<view class="price-info-product-price">+¥0</view>
 			</view>
 		</view>
-		<view class="choose-code" @click="chooseCode" v-if="directBuy">
-			<view class="choose-code-msg">
-				<view class="choose-code-msg-red">选择号码</view>
-				<view class="choose-code-msg-time">0~9选3个号码 选中立享1折 不中全额退款</view>
-			</view>
-			<view class="choose-code-select">
-				<view class="choose-code-button" v-for="(code, arrayIndex) in codes" :key="arrayIndex">
-					<button class="code" :key="index" :style="{ opacity: code > -1 ? 1 : 0.5 }">
-						{{ code }}
-					</button>
-				</view>
-			</view>
 
-		</view>
-		<view class="refound-info">
-			<view class="refound-info-text">退款路径</view>
-			<view class="refound-info-select-info">
-				<view class="refound-info-select-msg">喜腾钱包</view>
-				<image v-bind:src="rightArrow" class="refound-info-select-arrow"></image>
-			</view>
-		</view>
 		<view class="confirm-footer">
 			<view class="confirm-footer-price-info">
-				<view class="confirm-footer-price-amount">共1件</view>
+				<view class="confirm-footer-price-amount">共{{buyCount}}件</view>
 				<view class="confirm-footer-price-pay-info">
 					<view class="confirm-footer-price-pay-text">实付款:</view>
-					<view class="confirm-footer-price-pay">¥{{orderInfo.totalPayRmbPrice}}</view>
+					<view class="confirm-footer-price-pay">¥{{totalPayRmb}}</view>
 				</view>
 			</view>
 			<view class="confirm-footer-commit" @click="commitOrder">提交订单</view>
 		</view>
-		<!-- <view class="choose-code" @click="chooseCode">
-		选择号码
-	</view> -->
 	</view>
 </template>
 
@@ -89,20 +66,20 @@
 	import pay from '@/util/payUtil.js';
 
 	export default {
-		onLoad: function(option) {
+		onLoad: async function(option) {
 			const productId = option.productId;
-			
-// 			console.log("确认订单商品-----------" + option.directBuy + '------------' + option.discountGameId);
-// 			this.$store.commit('confirmPay/setBuyType', option.directBuy)
-// 			this.getConfirmOrderInfo(option.discountGameId);
-// 			this.getAddressList();
+			const res = await api.vipProductDetail({
+				vipProductId: productId
+			})
+			this.orderInfo = res;
+			this.getAddressList();
 		},
 		data() {
 			return {
+				orderInfo: null,
 				addIcon: '../../static/pay/icon_location.png',
 				rightArrow: '../../static/pay/icon_arrow_right@2x.png',
-				lineCai: '../../static/pay/img_cai@2x.png',
-				codes: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
+				buyCount: 1
 			}
 		},
 		components: {
@@ -110,17 +87,12 @@
 		},
 		computed: {
 			...mapState({
-				buyCount: state => state.chooseCode.codeCount,
-				orderInfo: state => state.confirmPay.orderInfo,
-				directBuy: state => state.confirmPay.buyType,
-				openid: state => state.openid,
 				address: state => state.confirmPay.address,
 			}),
-			...mapGetters({
-				allCode: 'chooseCode/allCode',
-				allFinished: 'chooseCode/allFinished'
-			})
-
+			totalPayRmb() {
+				if (!this.orderInfo) return 0;
+				return this.buyCount * this.orderInfo.price;
+			}
 		},
 		methods: {
 			async getAddressList() {
@@ -141,24 +113,13 @@
 			},
 
 			async getOrder() {
-				return api.commitOrder({
-					codeList: this.allCode,
+				return api.updateToVipUser({
 					deliverAddressId: this.address.id,
-					directBuy: this.directBuy,
-					discountGameId: this.orderInfo.discountGameId,
+					vipProductId: this.orderInfo.vipProductId,
 					purchaseCount: this.buyCount,
 				})
 			},
 			async commitOrder() {
-				if (!this.allFinished) {
-					uni.showToast({
-						title: '请完成选号!',
-						mask: false,
-						duration: 1500
-					});
-					return;
-				}
-
 				const order = await this.getOrder();
 				console.log("提交订单-----------" + JSON.stringify(order));
 				// #ifdef APP-PLUS
@@ -206,8 +167,7 @@
 				})
 			},
 			onCountChanged(event) {
-				console.log("修改数量-----------" + event);
-				this.changeCodeCount(event)
+				this.buyCount = event;
 			},
 			addressList() {
 				uni.navigateTo({
