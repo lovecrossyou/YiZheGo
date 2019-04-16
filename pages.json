@@ -132,7 +132,7 @@
 			}
 		},
 		{
-			"path": "pages/successfulPayment",
+			"path": "pages/gameGroup",
 			"style": {
 				"navigationBarTitleText": "参与成功"
 			}
