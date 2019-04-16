@@ -1,6 +1,6 @@
 import request from './request'
-// const uploadBaseUrl = "http://www.xiteng.com/xitenggamenode/";
-const uploadBaseUrl = 'http://123.57.161.212:9939/xitenggamenode/'
+const uploadBaseUrl = "http://www.xiteng.com/xitenggamenode/";
+// const uploadBaseUrl = 'http://123.57.161.212:9939/xitenggamenode/'
 
 const api = {
 	// 新人福利
@@ -29,20 +29,14 @@ const api = {
 
 	discusRecommendList: params => request.post(' /discountGame/discusRecommendList', params),
 	//我
-<<<<<<< HEAD
 	userInfo:(params) => request.post("/user/info",params),
 	//中签列表
 	luckyList:(params) => request.post('/discountGame/winGameListByStage', params),
 	//中签详情
 	luckyDetail:(params) => request.post('/discountGame/winGameListByStageDetail', params),
-=======
-	userInfo: (params) => request.post("/user/info", params),
-	//中签列表
-	luckyList: (params) => request.post('/discountGame/winGameListByStage', params),
 
 	//确认订单
 	confirmOrderInfo: params => request.post("/discountGameOrder/immediateBuy", params),
->>>>>>> abda6dd0aaa57517d74224d18b5f663668b17e51
 
 	//提交订单
 	commitOrder: params => request.post("/discountGameOrder/commit", params),
