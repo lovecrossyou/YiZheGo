@@ -3,32 +3,49 @@
 		<image src="../../../static/login/logo@2x.png" class="logo_icon"></image>
 		<view class="input_tel_area">
 			<view class="add_front">+86</view>
-			<input type="number" value="" placeholder="请输入手机号" />
+			<input type="number" value="" placeholder="请输入手机号" v-model="formData.phoneNum" />
 		</view>
 		<view class="message_code_area">
-			<input type="number" value="" placeholder="请输入短信验证码" />
-			<button type="warn">获取验证码</button>
+			<input type="number" v-model="formData.checkCode" placeholder="请输入短信验证码"/>
+			<button type="warn" @click="send">获取验证码</button>
 		</view>
-		<button type="warn" class="login_btn">登录</button>
-		<view class="partition_line">
-			<view class="or_text">微信快捷登录</view>
-		</view>
+		<button type="warn" class="login_btn" @click="login">登录</button>
+		<view class="partition_line"><view class="or_text">微信快捷登录</view></view>
 		<image src="../../../static/login/wechat@2x.png" mode="" class="weixin" @click="goWeChat"></image>
 	</view>
 </template>
 
 <script>
+import api from '@/util/api.js';
 export default {
 	data() {
-		return {};
+		return {
+			authCode: {},
+			getInputContent: '',
+			formData: {
+				phoneNum: '',
+				checkCode: ''
+			}
+		};
 	},
 	components: {},
 	computed: {},
 	methods: {
-		goWeChat(){
+		goWeChat() {
 			uni.navigateTo({
-				url:"../WeChatLogin/WeChatLogin"
-			})
+				url: '../WeChatLogin/WeChatLogin'
+			});
+		},
+		async login() {
+// 			let res = await api.checkCodeLogin(this.formData);
+// 			this.authCode = res;
+			this.$store.dispatch('checkCodeLogin',this.formData);
+		},
+		async send() {
+			let res = await api.getVerificationCode({
+				phoneNum: this.formData.phoneNum,
+				codeType: 'login'
+			});
 		}
 	}
 };
@@ -85,17 +102,17 @@ export default {
 	padding-left: 0px;
 	padding-right: 0px;
 }
-.login_btn{
+.login_btn {
 	width: 100%;
 	margin-top: 183upx;
 }
-.partition_line{
+.partition_line {
 	width: 366upx;
-	border-bottom: 1upx solid #E3E3E3;
+	border-bottom: 1upx solid #e3e3e3;
 	margin-top: 300upx;
 	position: relative;
 }
-.or_text{
+.or_text {
 	width: 190upx;
 	color: #373737;
 	font-size: 24upx;
@@ -105,7 +122,7 @@ export default {
 	background-color: #fff;
 	text-align: center;
 }
-.weixin{
+.weixin {
 	width: 90upx;
 	height: 74upx;
 	margin-top: 50upx;

@@ -46,6 +46,12 @@ const api = {
 	//支付结果查询
 	queryResult: params => request.post("/client/discountGamePay/queryResult", params),
 	//订单详情
+	
+	//获取验证码
+	getVerificationCode:params => request.post("/reqcheckCode/getCode",params),
+	
+	checkCodeLogin:params => request.post("/checkCodeLogin",params),
+
 	clientOrderDetail: params => request.post("/discountGameOrder/clientOrderDetail", params),
 
 	//上传
