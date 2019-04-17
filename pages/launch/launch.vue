@@ -7,28 +7,48 @@
 	import {
 		mapState
 	} from "vuex";
-
+	import api from '@/util/api.js';
+	import timeUtil from '@/util/timeUtil.js'
 	export default {
 		methods: {
 			enter() {
 				uni.switchTab({
 					url: "/pages/home/home"
 				})
-			}
+			},
+			async fetchByTimeLimitList() {
+				const res = await api.byTimeLimitList({})
+				this.$store.commit('home/setByTimeLimitList', res)
+			},
+			async fetchTimeLimitChoiceList() {
+// 				const res = await api.byTimeLimitChoiceList({})
+// 				this.$store.commit('home/setTimeLimitChoiceList', res)
+				this.$store.dispatch('home/fetchTimeLimitChoiceList')
+			},
+			async fetchNewsBenefitList() {
+				this.$store.dispatch('home/fetchNewsBenefitList');
+			},
 		},
 		data() {
 			return {
-
+				showTime: '2019-04-18 22:00:00'
 			};
 		},
+		computed: {
+			formatTime() {
+				return timeUtil.todayFormat(this.showTime);
+			}
+		},
 		onLoad() {
-
+			this.fetchByTimeLimitList()
+			this.fetchTimeLimitChoiceList()
+			this.fetchNewsBenefitList()
 		}
 	}
 </script>
 
 <style>
-	.mainBg{
+	.mainBg {
 		width: 100%;
 		position: fixed;
 		top: 0;

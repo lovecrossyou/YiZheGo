@@ -1,12 +1,12 @@
 <template>
-	<view class="lucky-user-prize" :style="{background: 'rgba(74,81,227,0.1)'}">
-		<view class="lucky-user" v-if="item.winUserInfoModelList!==null&&item.winUserInfoModelList.length!==0">
+	<view class="lucky-user-prize" :style="{background: backColor}">
+		<view class="lucky-user">
 			<view class="img-name">
-				<view class="user-img"></view>
-				<view class="user-name">贝贝北</view>
+				<image class="user-img" :src="item.winUserIconUrl"></image>
+				<view class="user-name">{{item.winUserName}}</view>
 			</view>
-			<view class="add-phone-text">河北</view>
-			<view class="add-phone-text">136****7898</view>
+			<view class="add-phone-text">{{item.province}}</view>
+			<view class="add-phone-text">{{item.phoneNum}}</view>
 		</view>
 
 		<view class="prize">
@@ -30,7 +30,8 @@
 		},
 		props: {
 			backColor: '',
-			item: {}
+			item: {},
+			
 		},
 		onLoad() {
 			console.log((this.item.winUserInfoModelList!==null&&this.item.winUserInfoModelList.length!==0));

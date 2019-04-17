@@ -6,7 +6,7 @@
 		<view class="search_wrapper_center">
 			<view class="search_wrapper_center_input">
 				<image :src="home_search" alt="" />
-				<view>кякВилф╥</view>
+				<view>Ф░°Г╢╒Е∙├Е⌠│</view>
 			</view>
 		</view>
 		<view class="search_wrapper_item">

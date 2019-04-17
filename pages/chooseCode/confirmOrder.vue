@@ -16,7 +16,7 @@
 			<view class="delivery-no-info-msg">选择收货地址</view>
 		</view>
 		<image v-bind:src="lineCai" class="delivery-userinfo-line"></image>
-		<view class="product-info">
+		<view v-if="orderInfo" class="product-info">
 			<view class="product-info-pro">
 				<image v-bind:src="orderInfo.relatedProductImageUrl" class="product-info-pro-img"></image>
 				<view class="product-info-pro-name">
@@ -30,7 +30,7 @@
 				<uni-number-box @changes="onCountChanged"></uni-number-box>
 			</view>
 		</view>
-		<view class="price-info">
+		<view v-if="orderInfo" class="price-info">
 			<view class="price-info-product">
 				<view class="price-info-product-text">商品</view>
 				<view class="price-info-product-price" v-if="directBuy">¥{{orderInfo.originalPrice}}</view>
@@ -62,7 +62,7 @@
 				<image v-bind:src="rightArrow" class="refound-info-select-arrow"></image>
 			</view>
 		</view>
-		<view class="confirm-footer">
+		<view v-if="orderInfo" class="confirm-footer">
 			<view class="confirm-footer-price-info">
 				<view class="confirm-footer-price-amount">共1件</view>
 				<view class="confirm-footer-price-pay-info">
@@ -116,6 +116,7 @@
 			}),
 			...mapGetters({
 				allCode: 'chooseCode/allCode',
+				allFinished:'chooseCode/allFinished'
 			})
 
 		},
@@ -144,6 +145,15 @@
 				})
 			},
 			async commitOrder() {
+				if(!this.allFinished){
+					uni.showToast({
+						title: '请完成选号!',
+						mask: false,
+						duration: 1500
+					});
+					return;
+				}
+				
 				const order = await this.getOrder();
 				console.log("提交订单-----------" + JSON.stringify(order));
 				
@@ -169,6 +179,7 @@
 					payOrderNo: order.payOrderNo
 				});
 				const wexinSpec = orderInfo.wexinSpec;
+				wexinSpec.packageValue = 'prepay_id='+wexinSpec.prepay_id;
 				let that = this;
 				uni.requestPayment({
 					provider: 'wxpay',

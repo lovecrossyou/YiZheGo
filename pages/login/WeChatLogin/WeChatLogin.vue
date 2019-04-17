@@ -11,20 +11,17 @@
 </template>
 
 <script>
-// 
 	export default {
 		data() {
 			return {};
 		},
-		components: {},
-		computed: {},
 		methods: {
 			async wxlogin(params){
 				this.$store.dispatch('wxlogin',params);
 			},
 			goTelNumber() {
 				uni.navigateTo({
-					url: "./inputTelNumber"
+					url: "/pages/login/verifyCodeLogin/verifyCodeLogin"
 				})
 			},
 			oauth(value) {
