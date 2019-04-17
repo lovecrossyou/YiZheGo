@@ -253,6 +253,14 @@
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
+		},
+		{
+			"path": "pages/chooseCode/payPsw",
+			"style": {
+				"navigationBarTitleText": "设置密码",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
 		}
 	],
 	"tabBar": {

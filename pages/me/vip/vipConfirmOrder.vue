@@ -86,6 +86,7 @@
 			uniNumberBox
 		},
 		computed: {
+			...mapState(['openid']),
 			...mapState({
 				address: state => state.confirmPay.address,
 			}),

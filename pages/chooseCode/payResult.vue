@@ -27,7 +27,7 @@
 			<view class="pay-order-text">支付方式:{{orderDetails.payChannel}}</view>
 			<view class="pay-order-text">支付时间:{{orderDetails.lastPayTime}}</view>
 		</view>
-		<view class="pay-button-info">
+		<view class="pay-button-info" @click="done">
 			<view class="pay-button">完成</view>
 		</view>
 	</view>
@@ -83,6 +83,9 @@
 				})
 				console.log("订单详情----------"+JSON.stringify(orderDetail));
 				this.$store.commit('payResult/setOrderDetails', orderDetail);
+			},
+			done(){
+				uni.navigateBack();
 			}
 		}
 	}
