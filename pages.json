@@ -194,14 +194,14 @@
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
-		},{
+		}, {
 			"path": "pages/me/inviteFriend/shareFriend",
 			"style": {
 				"navigationBarTitleText": "邀请好友分享页面",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
-		},{
+		}, {
 			"path": "pages/me/inviteFriend/shareWxFriend",
 			"style": {
 				"navigationBarTitleText": "邀请微信好友",
@@ -269,12 +269,42 @@
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
+		}, {
+			"path": "pages/acceptGroup/acceptGroup",
+			"style": {}
+		} ,{
+			"path": "pages/me/common/paymentCode",
+			"style": {
+				"navigationBarTitleText": "支付密码",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		},
+		{
+			"path": "pages/me/common/setPaymentCode",
+			"style": {
+				"navigationBarTitleText": "设置支付密码",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		},
+		{
+			"path": "pages/me/common/changePaymentCode",
+			"style": {
+				"navigationBarTitleText": "修改支付密码",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		},
+		{
+			"path": "pages/me/common/forgetPassword",
+			"style": {
+				"navigationBarTitleText": "忘记密码",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
 		}
-	    ,{
-            "path" : "pages/acceptGroup/acceptGroup",
-            "style" : {}
-        }
-    ],
+	],
 	"tabBar": {
 		"color": "#7a7e83",
 		"selectedColor": "#FE594B",
