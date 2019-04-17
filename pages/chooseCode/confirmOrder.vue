@@ -146,18 +146,16 @@
 			async commitOrder() {
 				const order = await this.getOrder();
 				console.log("提交订单-----------" + JSON.stringify(order));
+				
+				// #ifdef APP-PLUS
 				uni.navigateTo({
-									url: './pay?payOrderNo=' + order.payOrderNo + '&totalPayRmb=' + order.totalPayRmb
-				 				})
-// 				// #ifdef APP-PLUS
-// 				uni.navigateTo({
-// 					url: './pay?payOrderNo=' + order.payOrderNo + '&totalPayRmb=' + order.totalPayRmb
-// 				})
-// 				// #endif
-// 
-// 				// #ifdef MP-WEIXIN
-// 				this.wxminiPay(order);
-// 				// #endif
+					url: './pay?payOrderNo=' + order.payOrderNo + '&totalPayRmb=' + order.totalPayRmb
+				})
+				// #endif
+
+				// #ifdef MP-WEIXIN
+				this.wxminiPay(order);
+				// #endif
 
 			},
 			...mapMutations({

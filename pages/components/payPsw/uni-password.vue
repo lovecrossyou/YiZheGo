@@ -62,6 +62,7 @@
 				}
 			},
 			hide() {
+				console.log('隐藏键盘----');
 				let args = {
 					cancel: false
 				};

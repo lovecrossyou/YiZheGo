@@ -46,7 +46,9 @@ const api = {
 	
 	//判断是否设置支付密码
 	checkSetPayPassword:params => request.post("/client/bankCard/checkSetPayPassword",params),
-
+    
+	//账户信息
+	accountInfo:params => request.post("/account/info",params),
 	//上传
 	uploader: (file, callback) => {
 		uni.uploadFile({

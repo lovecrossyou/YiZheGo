@@ -24,9 +24,11 @@
 	 	<view class="confirm_footer" @click="toPay(payResult)">立即支付</view>
 		<xy-dialog 
 			title="请输入支付密码"
-			content="操作成功,你懂得~"
 			ref="xyDialog"
 			@confirmButton="clickConfirm"
+			@showKeyboard="showKeyboard"
+			:payOrderNo="payOrderNo"
+			:totalPayRmb="totalPayRmb"
 		>
 		   
 		</xy-dialog>
@@ -37,7 +39,7 @@
 	import api from '../../util/api.js';
 	import pay from '../../util/payUtil.js';
 	import xyDialog from '../components/xy-dialog.vue';
-	import uniPassword from '../components/payPsw/uni-password.vue'
+
 	import {
 		mapState,
 	} from 'vuex';
@@ -86,6 +88,8 @@
 				console.log("是否设置支付密码----------"+JSON.stringify(res));
 				if(res){
 					this.handleActionShow();
+				}else{
+					this.toSetPsw();
 				}
 			},
 			toSetPsw(){
@@ -95,7 +99,8 @@
 			},
 			handleActionShow() {
 				this.$refs.xyDialog.show()
-			}
+			},
+			
 		},
 		data(){
 			return {
