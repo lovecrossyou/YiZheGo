@@ -6,12 +6,19 @@
 				<view class="product_name">{{OrderDetail.productName}}</view>
 				<view class="product_price">
 					<view class="product_onediscountprice">¥{{OrderDetail.oneDiscountPrice}}</view>
-					<view class="product_originalprice">商场价 ¥{{OrderDetail.originalPrice}}</view>
+					<view class="product_originalprice">市场价 ¥{{OrderDetail.originalPrice}}</view>
 				</view>
 			</view>
 		</view>
 		<view class="orderwrapper">
-			<view class="group_endtime">揭晓中签：22:00 还剩：{{OrderDetail.openResultTime}}</view>
+			<view class="group_endtime">
+				<view class="group_endtime_text">揭晓中签：22:00  还剩：</view>
+				<view class="counttime">11</view>
+				<view class="colon">:</view>
+				<view class="counttime">22</view>
+				<view class="colon">:</view>
+				<view class="counttime">33</view>
+			</view>
 			<view class="purchase_count">你的幸运号码：{{OrderDetail.purchaseCount}}组</view>
 			<view class="purchase_code">
 				<view class="purchase_code_row" v-for="(number,number_index) in stringToList" :key="number_index">
@@ -64,11 +71,10 @@
 		},
 		async onLoad(options) {
 			const res = await api.clientOrderDetail({
-				payOrderNo: options.payOrderNo
+				payOrderNo: "20190417150355035706"
 			});
 			this.OrderDetail = res;
 			this.GameGroup = res.discountGameGroupModel;
-			console.log(this.GameGroup.groupUserModelList)
 		},
 		computed: {
 			stringToList() {
@@ -76,7 +82,29 @@
 				for (var i = 0; i < this.OrderDetail.purchaseCode.length; i++)
 					list.push(this.OrderDetail.purchaseCode[i].split(','))
 				return list
-			}
+			},
+// 			countTime() {
+// 				var h=0;
+// 				var m=0;
+// 				var s=0;
+//                 //获取当前时间
+//                 var date = new Date();
+//                 var now = date.getTime();
+//                 //设置截止时间
+//                 var endDate = new Date(this.OrderDetail.openResultTime);
+//                 var end = endDate.getTime();
+//                 //时间差
+//                 var leftTime = end - now;
+//                 //定义变量 d,h,m,s保存倒计时的时间
+//                 if (leftTime >= 0) {
+//                     h = Math.floor(leftTime / 1000 / 60 / 60 % 24);
+//                     m = Math.floor(leftTime / 1000 / 60 % 60);
+//                     s = Math.floor(leftTime / 1000 % 60);
+//                 }
+//                 return {"h":h,"m":m,"s":s}
+//                 //递归每秒调用countTime方法，显示动态时间效果
+//                 setTimeout(this.countTime, 1000);
+//             }
 		},
 		methods: {
 			pack_up_btn() {
@@ -127,7 +155,8 @@
 				.product_price {
 					display: flex;
 					flex-direction: row;
-					padding-top: 18upx;
+					position: fixed;
+					top: 100upx;
 
 					.product_onediscountprice {
 						font-size: 24upx;
@@ -158,11 +187,36 @@
 			margin-top: 71upx;
 
 			.group_endtime {
-				font-size: 30upx;
-				font-family: PingFangSC-Medium;
-				font-weight: 500;
-				color: rgba(51, 51, 51, 1);
-				line-height: 36upx;
+				display: flex;
+				flex-direction: row;
+				
+				.group_endtime_text{
+					font-size: 30upx;
+					font-family: PingFangSC-Medium;
+					font-weight: 500;
+					color: rgba(51, 51, 51, 1);
+					line-height: 36upx;
+				}
+				
+				.counttime{
+					width: 44upx;
+					height: 44upx;
+					font-size:30upx;
+					font-family:PingFangSC-Medium;
+					font-weight:500;
+					color:#FFFFFF;
+					line-height:36upx;
+					background:#CC2637;
+					border-radius:6upx;
+					padding-top:5upx;
+					padding-left:5upx;
+				}
+				
+				.colon{
+					margin:-5upx 7upx 10upx 7upx;
+					box-sizing: border-box;
+					color: #CC2637;
+				}
 			}
 
 			.purchase_count {
@@ -191,7 +245,7 @@
 						margin-right: 12upx;
 						width: 60upx;
 						height: 60upx;
-						background: rgba(204, 38, 55, 1);
+						background: #cc2637;
 						border-radius: 50%;
 
 						.purchase_code_item_text {
