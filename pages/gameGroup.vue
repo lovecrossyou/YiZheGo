@@ -80,20 +80,21 @@
 			this.GameGroup = res.discountGameGroupModel;
 		},
 		onShareAppMessage(obj) {
-			let userInfo= this.userInfo;
+			let userInfo = this.userInfo;
 			const groupId = this.OrderDetail.discountGameGroupModel.groupId;
 			const productId = this.OrderDetail.productId;
 			const payOrderNo = this.OrderDetail.payOrderNo;
-
+			let path = ''
 			if(userInfo){
-				console.log('userInfo.userId ', userInfo.userId);	
+				path =  '/pages/home/home?inviteId=' + userInfo.userId + '&groupId=' + groupId + '&productId=' + productId +'&payOrderNo=' + payOrderNo;
+			}
+			else{
+				path =  '/pages/home/home?groupId=' + groupId + '&productId=' + productId +'&payOrderNo=' + payOrderNo;
 			}
 			return {
 				title: '邀请好友',
-				path: '/pages/home/home?inviteId=' + userInfo.userId + '&groupId=' + groupId + '&productId=' + productId +
-					'&payOrderNo=' + payOrderNo,
-				type: 1,
-				imageUrl: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/app/share-logo@3.png',
+				path: path,
+				type: 1
 			}
 		},
 		computed: {
