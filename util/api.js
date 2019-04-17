@@ -68,6 +68,8 @@ const api = {
     
 	//设置支付密码
 	setPayPassword:params => request.post("/client/bankCard/setPayPassword", params),
+	
+	acceptInvite : params =>request.post("/discountGame/acceptInvite",params),
 	//上传
 	uploader: (file, callback) => {
 		uni.uploadFile({

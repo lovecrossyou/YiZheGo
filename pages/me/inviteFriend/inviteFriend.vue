@@ -33,7 +33,7 @@
 				<view class="share">
 					<view class="share_item" v-for="(item,i) in shareList" :key="i" @click="shareWxFriend(item.tit)">
 						<image :src="item.img"></image>
-						<view>{{item.tit}}</view>
+						<button open-type="share">{{item.tit}} </button>
 					</view>
 				</view>
 				<view class="cancel" @click="cancelBtn">取消</view>
@@ -43,6 +43,9 @@
 </template>
 
 <script>
+	import {
+		mapState
+	} from 'vuex'
 	export default {
 		data() {
 			return {
@@ -63,6 +66,16 @@
 					tit: "微博"
 				}]
 			}
+		},
+		onShareAppMessage() {
+			console.log('userInfo.userId ',userInfo.userId);
+			return {
+				title: '邀请好友',
+				path: '/pages/home/home?inviteId='+userInfo.userId
+			}
+		},
+		computed: {
+			...mapState(['userInfo'])
 		},
 		methods: {
 			inviteBtn() {

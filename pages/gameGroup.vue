@@ -46,7 +46,7 @@
 				</block>
 			</view>
 		</view>
-		<button class="invite_btn">邀请拼团</button>
+		<button class="invite_btn" open-type="share">邀请拼团</button>
 	</view>
 </template>
 
