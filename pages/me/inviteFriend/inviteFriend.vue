@@ -3,15 +3,15 @@
 		<view class="banner">
 			<view class="banner_item">
 				<view class="tit">我的好友</view>
-				<view class="intro"><span class="count">20</span>人</view>
+				<view class="intro"><span class="count">{{userProfitInfo.userFriendAmount}}</span>人</view>
 			</view>
 			<view class="banner_item">
 				<view class="tit">邀请红包</view>
-				<view class="intro"><span class="count">200</span>喜币</view>
+				<view class="intro"><span class="count">{{userProfitInfo.inviteProfitXtbAmount}}</span>喜币</view>
 			</view>
 			<view class="banner_item">
 				<view class="tit">会员返现</view>
-				<view class="intro"><span class="count">20</span>元</view>
+				<view class="intro"><span class="count">{{userProfitInfo.shareSellProfitRmbAmount}}</span>元</view>
 			</view>
 		</view>
 		<view class="invite">
@@ -20,7 +20,7 @@
 			<view class="invite_btn" @click="inviteBtn">立即邀请</view>
 		</view>
 		<view class="footer">
-			<view class="img">
+			<view class="foot_tit">
 				<image :src="yaoqing_icon_jinagli"></image>
 			</view>
 			<view class="invite_intro">
@@ -43,11 +43,17 @@
 </template>
 
 <script>
+	import {
+		mapState
+	} from 'vuex';
 	export default {
+		computed: {
+			...mapState('inviteFriend', ['userProfitInfo'])
+		},
 		data() {
 			return {
 				yaoqing_bg: 'http://qnimage.xiteng.com/yaoqing_bg.png',
-				yaoqing_icon_jinagli: '../../static/me/yaoqing_icon_jinagli.png',
+				yaoqing_icon_jinagli: '../../../static/me/yaoqing_icon_jinagli.png',
 				isShare: false,
 				shareList: [{
 					img: "../../../static/me/yaoqing_icon_weixin.png",
@@ -77,11 +83,24 @@
 						url: "./shareWxFriend"
 					})
 				} else {
+					this.fetchInviteUser()
 					uni.navigateTo({
 						url: "./shareFriend"
 					})
 				}
-			}
+			},
+			fetchUserProfitInfo() {
+				this.$store.dispatch('inviteFriend/fetchUserProfitInfo')
+			},
+			fetchInviteUser(){
+				this.$store.dispatch('inviteFriend/fetchInviteUser')
+			},
+// 			fetchUserProfitAllFriendInfo(){
+// 				this.$store.dispatch('inviteFriend/fetchUserProfitAllFriendInfo')
+// 			},
+		},
+		onLoad() {
+			this.fetchUserProfitInfo()
 		}
 	}
 </script>
@@ -175,14 +194,15 @@
 			margin-top: 40upx;
 			font-size: 24upx;
 			color: rgba(153, 153, 153, 1);
-			font-size: 24upx;
-			color: rgba(153, 153, 153, 1);
 			line-height: 2;
 
-			.img {
+			.foot_tit {
+				width:100%;
+				height: 50upx;
+				line-height: 50upx;
 				text-align: center;
-
 				image {
+					display: inline-block;
 					width: 38upx;
 					height: 36upx;
 				}

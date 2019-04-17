@@ -25,7 +25,13 @@ const api = {
 	showWinOrderList: params => request.post('/discountGame/showWinOrderList', params),
 	//晒单讨论详情
 	showWinOrderDetail: params => request.post('/discountGame/showWinOrderDetail', params),
-
+	
+	// 邀请用户
+	inviteUser:params=>request.post('/discountGame/inviteUser',params),
+	// 用户所有好友信息
+	userProfitAllFriendInfo:params=>request.post('/profit/userProfitAllFriendInfo',params),
+	// 用户返利信息
+	userProfitInfo:params=>request.post('/profit/userProfitInfo',params),
 
 	discusRecommendList: params => request.post(' /discountGame/discusRecommendList', params),
 	//我
