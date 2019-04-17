@@ -58,6 +58,9 @@
 
 <script>
 	import api from '@/util/api.js';
+	import {
+		mapState
+	} from 'vuex';
 	export default {
 		data() {
 			return {
@@ -76,19 +79,25 @@
 			this.OrderDetail = res;
 			this.GameGroup = res.discountGameGroupModel;
 		},
-		onShareAppMessage(){
-			console.log('userInfo.userId ',userInfo.userId);
+		onShareAppMessage(obj) {
+			let userInfo= this.userInfo;
 			const groupId = this.OrderDetail.discountGameGroupModel.groupId;
 			const productId = this.OrderDetail.productId;
 			const payOrderNo = this.OrderDetail.payOrderNo;
-			
+
+			if(userInfo){
+				console.log('userInfo.userId ', userInfo.userId);	
+			}
 			return {
 				title: '邀请好友',
-				path: '/pages/home/home?inviteId='+userInfo.userId+'&groupId='+groupId+'&productId='+productId+'&payOrderNo='+payOrderNo,
-				type:1
+				path: '/pages/home/home?inviteId=' + userInfo.userId + '&groupId=' + groupId + '&productId=' + productId +
+					'&payOrderNo=' + payOrderNo,
+				type: 1,
+				imageUrl: 'https://img-cdn-qiniu.dcloud.net.cn/uniapp/app/share-logo@3.png',
 			}
 		},
 		computed: {
+			...mapState(['userInfo']),
 			stringToList() {
 				var list = [];
 				for (var i = 0; i < this.OrderDetail.purchaseCode.length; i++) list.push(this.OrderDetail.purchaseCode[i].split(','));
