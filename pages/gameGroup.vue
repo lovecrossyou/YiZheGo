@@ -54,298 +54,306 @@
 		</view>
 		<button class="invite_btn" open-type="share">邀请拼团</button>
 	</view>
-	</template>
+</template>
 
-	<script>
-		import api from "@/util/api.js"
-		export default {
-			data() {
-				return {
-					OrderDetail: {
-						purchaseCode: []
-					},
-					GameGroup: {},
-					visibility: true,
-					pack_up_icon: "/static/gameGroup/icon_up.png"
-				}
-			},
-			async onLoad(options) {
-				const res = await api.clientOrderDetail({
-					payOrderNo: "20190417150355035706"
-				});
-				this.OrderDetail = res;
-				this.GameGroup = res.discountGameGroupModel;
-			},
-			computed: {
-				stringToList() {
-					var list = [];
-					for (var i = 0; i < this.OrderDetail.purchaseCode.length; i++)
-						list.push(this.OrderDetail.purchaseCode[i].split(','))
-					return list
+<script>
+	import api from "@/util/api.js"
+	export default {
+		data() {
+			return {
+				OrderDetail: {
+					purchaseCode: []
 				},
-				// 			countTime() {
-				// 				var h=0;
-				// 				var m=0;
-				// 				var s=0;
-				//                 //获取当前时间
-				//                 var date = new Date();
-				//                 var now = date.getTime();
-				//                 //设置截止时间
-				//                 var endDate = new Date(this.OrderDetail.openResultTime);
-				//                 var end = endDate.getTime();
-				//                 //时间差
-				//                 var leftTime = end - now;
-				//                 //定义变量 d,h,m,s保存倒计时的时间
-				//                 if (leftTime >= 0) {
-				//                     h = Math.floor(leftTime / 1000 / 60 / 60 % 24);
-				//                     m = Math.floor(leftTime / 1000 / 60 % 60);
-				//                     s = Math.floor(leftTime / 1000 % 60);
-				//                 }
-				//                 return {"h":h,"m":m,"s":s}
-				//                 //递归每秒调用countTime方法，显示动态时间效果
-				//                 setTimeout(this.countTime, 1000);
-				//             }
+				GameGroup: {},
+				visibility: true,
+				pack_up_icon: "/static/gameGroup/icon_up.png"
+			}
+		},
+		onShareAppMessage() {
+			console.log('userInfo.userId ', userInfo.userId);
+			return {
+				title: '邀请好友',
+				path: '/pages/home/home?inviteId=' + userInfo.userId,
+				imageUrl:''
+			}
+		},
+		async onLoad(options) {
+			const res = await api.clientOrderDetail({
+				payOrderNo: "20190417150355035706"
+			});
+			this.OrderDetail = res;
+			this.GameGroup = res.discountGameGroupModel;
+		},
+		computed: {
+			stringToList() {
+				var list = [];
+				for (var i = 0; i < this.OrderDetail.purchaseCode.length; i++)
+					list.push(this.OrderDetail.purchaseCode[i].split(','))
+				return list
 			},
-			methods: {
-				pack_up_btn() {
-					this.visibility = !this.visibility;
-					this.pack_up_icon = this.visibility ? "/static/gameGroup/icon_up.png" : "/static/gameGroup/icon_down.png";
+			// 			countTime() {
+			// 				var h=0;
+			// 				var m=0;
+			// 				var s=0;
+			//                 //获取当前时间
+			//                 var date = new Date();
+			//                 var now = date.getTime();
+			//                 //设置截止时间
+			//                 var endDate = new Date(this.OrderDetail.openResultTime);
+			//                 var end = endDate.getTime();
+			//                 //时间差
+			//                 var leftTime = end - now;
+			//                 //定义变量 d,h,m,s保存倒计时的时间
+			//                 if (leftTime >= 0) {
+			//                     h = Math.floor(leftTime / 1000 / 60 / 60 % 24);
+			//                     m = Math.floor(leftTime / 1000 / 60 % 60);
+			//                     s = Math.floor(leftTime / 1000 % 60);
+			//                 }
+			//                 return {"h":h,"m":m,"s":s}
+			//                 //递归每秒调用countTime方法，显示动态时间效果
+			//                 setTimeout(this.countTime, 1000);
+			//             }
+		},
+		methods: {
+			pack_up_btn() {
+				this.visibility = !this.visibility;
+				this.pack_up_icon = this.visibility ? "/static/gameGroup/icon_up.png" : "/static/gameGroup/icon_down.png";
+			}
+		}
+	}
+</script>
+
+<style lang="less">
+	.gameGroupwrapper {
+		width: 100%;
+
+		.productwrapper {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+			height: 168upx;
+			padding: 24upx 29upx;
+			box-sizing: border-box;
+			border-top: solid 2upx rgba(234, 234, 234, 1);
+			border-bottom: solid 2upx rgba(234, 234, 234, 1);
+
+			.product_icon {
+				width: 100upx;
+				height: 100upx;
+				border: solid 1upx rgba(234, 234, 234, 1);
+			}
+
+			.product_icon_right {
+				display: flex;
+				flex: 1;
+				flex-direction: column;
+				padding-left: 20upx;
+				margin-top: -35upx;
+
+				.product_name {
+					font-size: 30upx;
+					font-family: PingFangSC-Regular;
+					font-weight: 400;
+					color: rgba(51, 51, 51, 1);
+					line-height: 36upx;
+					overflow: hidden;
+				}
+
+				.product_price {
+					display: flex;
+					flex-direction: row;
+					position: fixed;
+					top: 108upx;
+
+					.product_onediscountprice {
+						font-size: 24upx;
+						font-family: PingFangSC-Regular;
+						font-weight: 400;
+						color: rgba(204, 38, 55, 1);
+						padding-top: 2upx;
+					}
+
+					.product_originalprice {
+						font-size: 22upx;
+						font-family: PingFangSC-Light;
+						font-weight: 300;
+						text-decoration: line-through;
+						color: rgba(119, 119, 119, 1);
+						line-height: 42upx;
+						padding-left: 30upx;
+					}
 				}
 			}
 		}
-	</script>
 
-	<style lang="less">
-		.gameGroupwrapper {
+		.orderwrapper {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
 			width: 100%;
+			margin-top: 71upx;
 
-			.productwrapper {
+			.group_endtime {
 				display: flex;
 				flex-direction: row;
-				justify-content: center;
-				align-items: center;
-				width: 100%;
-				height: 168upx;
-				padding: 24upx 29upx;
-				box-sizing: border-box;
-				border-top: solid 2upx rgba(234, 234, 234, 1);
-				border-bottom: solid 2upx rgba(234, 234, 234, 1);
 
-				.product_icon {
-					width: 100upx;
-					height: 100upx;
-					border: solid 1upx rgba(234, 234, 234, 1);
+				.group_endtime_text {
+					font-size: 30upx;
+					font-family: PingFangSC-Medium;
+					font-weight: 500;
+					color: rgba(51, 51, 51, 1);
+					line-height: 36upx;
 				}
 
-				.product_icon_right {
+				.counttime {
+					width: 44upx;
+					height: 44upx;
+					font-size: 30upx;
+					font-family: PingFangSC-Medium;
+					font-weight: 500;
+					color: #FFFFFF;
+					line-height: 36upx;
+					background: #CC2637;
+					border-radius: 6upx;
+					padding-top: 5upx;
+					padding-left: 5upx;
+				}
+
+				.colon {
+					margin: -5upx 7upx 10upx 7upx;
+					box-sizing: border-box;
+					color: #CC2637;
+				}
+			}
+
+			.purchase_count {
+				font-size: 28upx;
+				font-family: PingFangSC-Regular;
+				font-weight: 400;
+				color: rgba(153, 153, 153, 1);
+				line-height: 46upx;
+				margin-top: 66upx;
+			}
+
+			.purchase_code {
+				margin: 68upx 290upx 47upx 290upx;
+
+				.purchase_code_row {
 					display: flex;
-					flex: 1;
-					flex-direction: column;
-					padding-left: 20upx;
-					margin-top: -35upx;
+					flex-direction: row;
+					justify-content: space-around;
+					margin-top: 10upx;
 
-					.product_name {
-						font-size: 30upx;
-						font-family: PingFangSC-Regular;
-						font-weight: 400;
-						color: rgba(51, 51, 51, 1);
-						line-height: 36upx;
-						overflow: hidden;
-					}
-
-					.product_price {
+					.purchase_code_item {
 						display: flex;
 						flex-direction: row;
-						position: fixed;
-						top: 108upx;
+						justify-content: center;
+						align-items: center;
+						margin-right: 12upx;
+						width: 60upx;
+						height: 60upx;
+						background: #cc2637;
+						border-radius: 50%;
 
-						.product_onediscountprice {
-							font-size: 24upx;
+						.purchase_code_item_text {
+							font-size: 28upx;
 							font-family: PingFangSC-Regular;
 							font-weight: 400;
-							color: rgba(204, 38, 55, 1);
-							padding-top: 2upx;
-						}
-
-						.product_originalprice {
-							font-size: 22upx;
-							font-family: PingFangSC-Light;
-							font-weight: 300;
-							text-decoration: line-through;
-							color: rgba(119, 119, 119, 1);
-							line-height: 42upx;
-							padding-left: 30upx;
+							color: rgba(255, 255, 255, 1);
+							line-height: 46upx;
 						}
 					}
 				}
 			}
 
-			.orderwrapper {
-				display: flex;
-				flex-direction: column;
-				align-items: center;
+			.order_detail {
 				width: 100%;
-				margin-top: 71upx;
 
-				.group_endtime {
-					display: flex;
-					flex-direction: row;
-
-					.group_endtime_text {
-						font-size: 30upx;
-						font-family: PingFangSC-Medium;
-						font-weight: 500;
-						color: rgba(51, 51, 51, 1);
-						line-height: 36upx;
-					}
-
-					.counttime {
-						width: 44upx;
-						height: 44upx;
-						font-size: 30upx;
-						font-family: PingFangSC-Medium;
-						font-weight: 500;
-						color: #FFFFFF;
-						line-height: 36upx;
-						background: #CC2637;
-						border-radius: 6upx;
-						padding-top: 5upx;
-						padding-left: 5upx;
-					}
-
-					.colon {
-						margin: -5upx 7upx 10upx 7upx;
-						box-sizing: border-box;
-						color: #CC2637;
-					}
-				}
-
-				.purchase_count {
+				.order_detail_text {
 					font-size: 28upx;
+					font-family: PingFangSC-Regular;
+					font-weight: 400;
+					color: rgba(119, 119, 119, 1);
+					margin-left: 43upx;
+					margin-top: 21upx;
+				}
+			}
+
+			.pack_up {
+				display: flex;
+				flex-direction: row;
+				padding: 62upx 330upx 34upx 330upx;
+				box-sizing: border-box;
+
+				.pack_up_text {
+					font-size: 24upx;
 					font-family: PingFangSC-Regular;
 					font-weight: 400;
 					color: rgba(153, 153, 153, 1);
 					line-height: 46upx;
-					margin-top: 66upx;
 				}
 
-				.purchase_code {
-					margin: 68upx 290upx 47upx 290upx;
-
-					.purchase_code_row {
-						display: flex;
-						flex-direction: row;
-						justify-content: space-around;
-						margin-top: 10upx;
-
-						.purchase_code_item {
-							display: flex;
-							flex-direction: row;
-							justify-content: center;
-							align-items: center;
-							margin-right: 12upx;
-							width: 60upx;
-							height: 60upx;
-							background: #cc2637;
-							border-radius: 50%;
-
-							.purchase_code_item_text {
-								font-size: 28upx;
-								font-family: PingFangSC-Regular;
-								font-weight: 400;
-								color: rgba(255, 255, 255, 1);
-								line-height: 46upx;
-							}
-						}
-					}
-				}
-
-				.order_detail {
-					width: 100%;
-
-					.order_detail_text {
-						font-size: 28upx;
-						font-family: PingFangSC-Regular;
-						font-weight: 400;
-						color: rgba(119, 119, 119, 1);
-						margin-left: 43upx;
-						margin-top: 21upx;
-					}
-				}
-
-				.pack_up {
-					display: flex;
-					flex-direction: row;
-					padding: 62upx 330upx 34upx 330upx;
-					box-sizing: border-box;
-
-					.pack_up_text {
-						font-size: 24upx;
-						font-family: PingFangSC-Regular;
-						font-weight: 400;
-						color: rgba(153, 153, 153, 1);
-						line-height: 46upx;
-					}
-
-					.pack_up_icon {
-						width: 27upx;
-						height: 16upx;
-						margin-left: 16upx;
-						margin-top: 15upx;
-					}
-				}
-
-			}
-
-			.groupwrapper {
-				width: 100%;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				border-top: solid 20upx rgba(234, 234, 234, 1);
-
-				.group_text {
-					font-size: 28upx;
-					font-family: PingFangSC-Regular;
-					font-weight: 400;
-					color: rgba(51, 51, 51, 1);
-					line-height: 38upx;
-					margin: 66upx 201upx;
-					box-sizing: border-box;
-
-					.group_text1 {
-						padding-left: 40upx;
-					}
-				}
-
-				.group_user {
-					width: 451upx;
-					display: flex;
-					flex-direction: row;
-					justify-content: space-between;
-					padding-top: 21upx;
-					padding-bottom: 178upx;
-
-					.user_icon {
-						width: 100upx;
-						height: 100upx;
-						border-radius: 50%;
-					}
+				.pack_up_icon {
+					width: 27upx;
+					height: 16upx;
+					margin-left: 16upx;
+					margin-top: 15upx;
 				}
 			}
 
-			.invite_btn {
-				width: 100%;
-				height: 100upx;
-				font-size: 36upx;
+		}
+
+		.groupwrapper {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			border-top: solid 20upx rgba(234, 234, 234, 1);
+
+			.group_text {
+				font-size: 28upx;
 				font-family: PingFangSC-Regular;
 				font-weight: 400;
-				color: rgba(255, 255, 255, 1);
+				color: rgba(51, 51, 51, 1);
 				line-height: 38upx;
-				background: rgba(204, 38, 55, 1);
-				padding-top: 37upx;
-				position: fixed;
-				bottom: 0upx;
+				margin: 66upx 201upx;
+				box-sizing: border-box;
+
+				.group_text1 {
+					padding-left: 40upx;
+				}
+			}
+
+			.group_user {
+				width: 451upx;
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				padding-top: 21upx;
+				padding-bottom: 178upx;
+
+				.user_icon {
+					width: 100upx;
+					height: 100upx;
+					border-radius: 50%;
+				}
 			}
 		}
-	</style>
+
+		.invite_btn {
+			width: 100%;
+			height: 100upx;
+			font-size: 36upx;
+			font-family: PingFangSC-Regular;
+			font-weight: 400;
+			color: rgba(255, 255, 255, 1);
+			line-height: 38upx;
+			background: rgba(204, 38, 55, 1);
+			padding-top: 37upx;
+			position: fixed;
+			bottom: 0upx;
+		}
+	}
+</style>

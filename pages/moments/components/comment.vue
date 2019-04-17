@@ -57,7 +57,7 @@
 				})
 			}
 		},
-		async onLoad() {
+		async onShow() {
 			const res = await api.discusCommentList({
 				
 			});
