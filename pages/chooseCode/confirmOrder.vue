@@ -91,12 +91,15 @@
 	export default {
 		onLoad: function(option) {
 			console.log("确认订单商品-----------" + option.directBuy + '------------' + option.discountGameId);
+			
+			this.groupId = option.groupId;
 			this.$store.commit('confirmPay/setBuyType', option.directBuy)
 			this.getConfirmOrderInfo(option.discountGameId);
 			this.getAddressList();
 		},
 		data() {
 			return {
+				groupId:null,
 				addIcon: '../../static/pay/icon_location.png',
 				rightArrow: '../../static/pay/icon_arrow_right@2x.png',
 				lineCai: '../../static/pay/img_cai@2x.png',
@@ -130,7 +133,8 @@
 			async getConfirmOrderInfo(discountGameId) {
 				const res = await api.confirmOrderInfo({
 					discountGameId: discountGameId,
-					purchaseAmount: 1
+					purchaseAmount: 1,
+					groupId:this.groupId
 				});
 				console.log("确认订单信息-----------" + JSON.stringify(res));
 				this.$store.commit('confirmPay/setOrderInfo', res)
