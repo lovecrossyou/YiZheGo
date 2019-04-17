@@ -68,12 +68,12 @@
 	import searchWrap from './components/searchWrap';
 	import tabFiltrate from './components/tabFiltrate';
 	import product from './components/product';
-
+	import service from "@/service.js"
 	export default {
 		computed: {
-			...mapState(['hasLogin']),
-			...mapState('home',['timeLimitChoices','timeLimitChoiceList']),
-			...mapGetters('home',['timeLimit3']),
+			...mapState(['hasLogin', 'userInfo']),
+			...mapState('home', ['timeLimitChoices', 'timeLimitChoiceList']),
+			...mapGetters('home', ['timeLimit3']),
 		},
 		methods: {
 			goNext(item) {
@@ -81,12 +81,50 @@
 					url: item.page
 				})
 			},
-		},
-		onLoad() {
-			if (!this.hasLogin) {
+			goDetail(productId, groupId) {
 				uni.navigateTo({
-					url: "/pages/login/WeChatLogin/WeChatLogin"
+					url: "/pages/details/productDetails?productId=" + productId + '&groupId=' + groupId
 				})
+			},
+		},
+		onLoad(option) {
+			console.log('inviteId ', option.inviteId);
+			let inviteId = option.inviteId;
+
+			// inviteId = 7;
+			if (inviteId) {
+				service.addInviteId(inviteId)
+			}
+			let userId;
+			if (this.userInfo) {
+				userId = this.userInfo.userId;
+			}
+			let groupId = option.groupId;
+			if(!groupId){
+				groupId=null;
+			}
+			let productId = option.productId;
+			if(!productId){
+				productId=null;
+			}
+			let payOrderNo = option.payOrderNo;
+			if(!payOrderNo){
+				payOrderNo=null;
+			}
+			
+			if (groupId && productId) {
+				if (!userId || userId != inviteId) {
+					console.log('groupId productId', groupId, productId);
+					this.goDetail(productId, groupId);
+				} else {
+					//到自己团(未登录)
+					if (this.hasLogin) {
+						//到自己团
+						uni.navigateTo({
+							url: "/pages/gameGroup?payOrderNo="+payOrderNo
+						})
+					}
+				}
 			}
 		},
 		data() {
@@ -94,25 +132,23 @@
 				home_huiyuan: 'http://qnimage.xiteng.com/home_huiyuan.png',
 				home_gengduo_icon: '../../static/home/home_gengduo_icon.png',
 				navBarListTit: ["精选", "销量", "价格"],
-				navList: [
-					{
-						img: '../../static/home/home_nav_zhongqian.png',
-						name: "中签",
-						page: "/pages/me/vip/lucky-list"
-					}, {
-						img: '../../static/home/home_nav_shaidan.png',
-						name: "晒单",
-						page: "/pages/ranklist/ranklist"
-					}, {
-						img: '../../static/home/home_nav_bangdan.png',
-						name: "榜单",
-						page: "/pages/ranklist/ranklist"
-					}, {
-						img: '../../static/home/home_nav_fenlei.png',
-						name: "分类",
-						page: "/pages/category/category"
-					}
-				]
+				navList: [{
+					img: '../../static/home/home_nav_zhongqian.png',
+					name: "中签",
+					page: "/pages/me/vip/lucky-list"
+				}, {
+					img: '../../static/home/home_nav_shaidan.png',
+					name: "晒单",
+					page: "/pages/ranklist/ranklist"
+				}, {
+					img: '../../static/home/home_nav_bangdan.png',
+					name: "榜单",
+					page: "/pages/ranklist/ranklist"
+				}, {
+					img: '../../static/home/home_nav_fenlei.png',
+					name: "分类",
+					page: "/pages/category/category"
+				}]
 			}
 		},
 		components: {

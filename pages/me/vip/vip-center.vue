@@ -21,12 +21,17 @@
 						</view>
 					</view>
 
-					<view class="price-action">
+					<view class="price-action" @click="inviteFriend">
 						<view class="price">¥0.00</view>
-						<view class="action">立即邀请</view>
+						<view class="action" 
+						:class="{
+							'action-unusable': vipInfo.hasPresentMonthVip,
+							'action-usable': !vipInfo.hasPresentMonthVip
+						}"
+						 @click="turnToInviteFriend">立即邀请</view>
 					</view>
 				</view>
-				<view class="free-exp-img"></view>
+				<view class="free-exp-img" v-if="vipInfo.hasPresentMonthVip"></view>
 			</view>
 
 			<block v-for="(p,index) in vipProducts" :key='index'>
@@ -65,16 +70,21 @@
 				vipProducts: [],
 				vipInfo: {
 					userIsVip: false,
+					hasPresentMonthVip: false,
+					
 				},
 				"inviteImg": "http://qnimage.xiteng.com/vip_exp.png"
 			}
 		},
 		methods: {
-			turnToLuckyList() {
-				console.log('xxxx');
-				uni.navigateTo({
-					url: './lucky-list'
-				})
+			turnToInviteFriend() {
+				if (this.vipInfo.hasPresentMonthVip) {
+					
+				} else {
+					uni.navigateTo({
+						url:"/pages/me/inviteFriend/inviteFriend"
+					})
+				}
 			},
 			goDetail(p) {
 				uni.navigateTo({
@@ -88,6 +98,8 @@
 			},
 			async getVipInfo() {
 				const res = await api.vipInfo({});
+				res.hasPresentMonthVip = true;
+				// res.hasPresentMonthVip = res.hasPresentMonthVip===null ? false : res.hasPresentMonthVip;
 				this.vipInfo = res;
 				console.log(res);
 			}
@@ -224,6 +236,12 @@
 							background-color: #E1CA9C;
 							font-size: 26upx;
 							color: white;
+						}
+						.action-unusable {
+							background-color: #D9D9D9;
+						}
+						.action-usable {
+							background-color: #E1CA9C;
 						}
 					}
 

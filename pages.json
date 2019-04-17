@@ -140,19 +140,25 @@
 		{
 			"path": "pages/me/vip/vip-center",
 			"style": {
-				"navigationBarTitleText": "会员中心"
+				"navigationBarTitleText": "会员中心",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
 			}
 		},
 		{
 			"path": "pages/me/vip/lucky-list",
 			"style": {
-				"navigationBarTitleText": "中签榜"
+				"navigationBarTitleText": "中签榜",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
 			}
 		},
 		{
 			"path": "pages/me/vip/lucky-detail",
 			"style": {
-				"navigationBarTitleText": "中签详情"
+				"navigationBarTitleText": "中签详情",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
 			}
 		}, {
 
@@ -194,14 +200,14 @@
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
-		},{
+		}, {
 			"path": "pages/me/inviteFriend/shareFriend",
 			"style": {
 				"navigationBarTitleText": "邀请好友分享页面",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
-		},{
+		}, {
 			"path": "pages/me/inviteFriend/shareWxFriend",
 			"style": {
 				"navigationBarTitleText": "邀请微信好友",
@@ -266,6 +272,40 @@
 			"path": "pages/chooseCode/refundRoute",
 			"style": {
 				"navigationBarTitleText": "退款路径",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/acceptGroup/acceptGroup",
+			"style": {}
+		} ,{
+			"path": "pages/me/common/paymentCode",
+			"style": {
+				"navigationBarTitleText": "支付密码",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		},
+		{
+			"path": "pages/me/common/setPaymentCode",
+			"style": {
+				"navigationBarTitleText": "设置支付密码",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		},
+		{
+			"path": "pages/me/common/changePaymentCode",
+			"style": {
+				"navigationBarTitleText": "修改支付密码",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		},
+		{
+			"path": "pages/me/common/forgetPassword",
+			"style": {
+				"navigationBarTitleText": "忘记密码",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
