@@ -21,7 +21,7 @@
 						</view>
 					</view>
 
-					<view class="price-action">
+					<view class="price-action" @click="inviteFriend">
 						<view class="price">¥0.00</view>
 						<view class="action">立即邀请</view>
 					</view>
@@ -70,6 +70,11 @@
 			}
 		},
 		methods: {
+			inviteFriend(){
+				uni.navigateTo({
+					url:"/pages/me/inviteFriend/inviteFriend"
+				})
+			},
 			turnToLuckyList() {
 				console.log('xxxx');
 				uni.navigateTo({

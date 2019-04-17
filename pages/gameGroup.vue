@@ -62,6 +62,7 @@
 				pack_up_icon: "/static/gameGroup/icon_up.png"
 			}
 		},
+		
 		async onLoad(options) {
 			const res = await api.clientOrderDetail({
 				payOrderNo: options.payOrderNo
@@ -70,6 +71,19 @@
 			this.GameGroup = res.discountGameGroupModel;
 			console.log(this.GameGroup.groupUserModelList)
 		},
+		
+		onShareAppMessage() {
+			console.log('userInfo.userId ',userInfo.userId);
+			
+			const userId = userInfo.userId;
+			const groupId = userInfo.groupId;
+			const productId = userInfo.productId;
+			return {
+				title: '邀请拼团',
+				path: '/pages/home/home?inviteId='+userInfo.userId+'&groupId='+groupId+'&productId='+productId
+			}
+		},
+		
 		computed: {
 			stringToList() {
 				var list = [];
