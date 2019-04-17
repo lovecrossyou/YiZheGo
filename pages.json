@@ -140,19 +140,25 @@
 		{
 			"path": "pages/me/vip/vip-center",
 			"style": {
-				"navigationBarTitleText": "会员中心"
+				"navigationBarTitleText": "会员中心",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
 			}
 		},
 		{
 			"path": "pages/me/vip/lucky-list",
 			"style": {
-				"navigationBarTitleText": "中签榜"
+				"navigationBarTitleText": "中签榜",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
 			}
 		},
 		{
 			"path": "pages/me/vip/lucky-detail",
 			"style": {
-				"navigationBarTitleText": "中签详情"
+				"navigationBarTitleText": "中签详情",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
 			}
 		}, {
 
