@@ -154,7 +154,7 @@
 			return {
 				payOrderNo: 0,
 				totalPayRmb: 0,
-				selectIndex: 2,
+				selectIndex: 0,
 				paychannels: [{
 						icon: '../../static/pay/pay_icon_weixin@2x.png',
 						selIcon: '../../static/pay/pay_btn_selected_weixin@2x.png',

@@ -251,6 +251,7 @@
 					color: #303133;
 					font-weight: bold;
 					font-size: 34upx;
+					margin-top: 10upx;
 				}
 					
 				.channel{
