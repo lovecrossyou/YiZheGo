@@ -11,12 +11,12 @@
 			</view>
 		</view>
 		<view class="orderwrapper">
-			<view class="group_endtime">揭晓中签：22:00  还剩：{{OrderDetail.openResultTime}}</view>
+			<view class="group_endtime">揭晓中签：22:00 还剩：{{OrderDetail.openResultTime}}</view>
 			<view class="purchase_count">你的幸运号码：{{OrderDetail.purchaseCount}}组</view>
-			<view class="purchase_code" >
+			<view class="purchase_code">
 				<view class="purchase_code_row" v-for="(number,number_index) in stringToList" :key="number_index">
 					<view class="purchase_code_item" v-for="(item,index) in number" :key="index">
-						{{item}}
+						<view class="purchase_code_item_text">{{item}}</view>
 					</view>
 				</view>
 			</view>
@@ -36,14 +36,13 @@
 		</view>
 		<view class="groupwrapper">
 			<view class="group_text">
-				<view class="group_text1">  邀请好友参与3D抢购</view>
+				<view class="group_text1"> 邀请好友参与3D抢购</view>
 				<view>成功发起拼团奖励喜币红包</view>
 			</view>
 			<view class="group_user">
-				<block v-for="(item,index) in groupUserList" :key="index">
-					<image class="user_icon" :src="item.iconUrl"></image>
-					<br v-if="item%3===0">
-				</block>
+				<image class="user_icon" :src="OrderDetail.userIconUrl"></image>
+				<image class="user_icon" src="/static/gameGroup/user_default_icon.png"></image>
+				<image class="user_icon" src="/static/gameGroup/user_default_icon.png"></image>
 			</view>
 		</view>
 		<button class="invite_btn" open-type="share">邀请拼团</button>
@@ -58,11 +57,9 @@
 				OrderDetail: {
 					purchaseCode: []
 				},
-				GameGroup: {
-					groupUserModelList: []
-				},
-				visibility:true,
-				pack_up_icon:"/static/gameGroup/icon_up.png"
+				GameGroup: {},
+				visibility: true,
+				pack_up_icon: "/static/gameGroup/icon_up.png"
 			}
 		},
 		async onLoad(options) {
@@ -71,35 +68,20 @@
 			});
 			this.OrderDetail = res;
 			this.GameGroup = res.discountGameGroupModel;
+			console.log(this.GameGroup.groupUserModelList)
 		},
 		computed: {
-// 			groupUserList() {
-// 				if (this.GameGroup.groupUserModelList % 3 == 0) {
-// 					return this.GameGroup.groupUserModelList
-// 				} else if (this.GameGroup.groupUserModelList % 3 == 1) {
-// 					return this.GameGroup.groupUserModelList.push({
-// 						iconUrl: "/static/gameGroup/user_default_icon.png"
-// 					}, {
-// 						iconUrl: "/static/gameGroup/user_default_icon.png"
-// 					})
-// 				} else if (this.GameGroup.groupUserModelList % 3 == 2) {
-// 					return this.GameGroup.groupUserModelList.push({
-// 						iconUrl: "/static/gameGroup/user_default_icon.png"
-// 					})
-// 				}
-// 			},
-			stringToList(){
-				var list=[];
-				for(var i=0;i<this.OrderDetail.purchaseCode.length;i++)
-					list.push(this.OrderDetail.purchaseCode[i].split(''))
-					console.log(list)
+			stringToList() {
+				var list = [];
+				for (var i = 0; i < this.OrderDetail.purchaseCode.length; i++)
+					list.push(this.OrderDetail.purchaseCode[i].split(','))
 				return list
 			}
 		},
-		methods:{
-			pack_up_btn(){
+		methods: {
+			pack_up_btn() {
 				this.visibility = !this.visibility;
-				this.pack_up_icon = this.visibility?"/static/gameGroup/icon_up.png":"/static/gameGroup/icon_down.png";
+				this.pack_up_icon = this.visibility ? "/static/gameGroup/icon_up.png" : "/static/gameGroup/icon_down.png";
 			}
 		}
 	}
@@ -118,13 +100,13 @@
 			height: 168upx;
 			padding: 24upx 29upx;
 			box-sizing: border-box;
-			border-top:solid 2upx rgba(234, 234, 234, 1); 
-			border-bottom:solid 2upx rgba(234, 234, 234, 1); 
+			border-top: solid 2upx rgba(234, 234, 234, 1);
+			border-bottom: solid 2upx rgba(234, 234, 234, 1);
 
 			.product_icon {
 				width: 100upx;
 				height: 100upx;
-				border: solid 1upx rgba(234, 234, 234, 1); 
+				border: solid 1upx rgba(234, 234, 234, 1);
 			}
 
 			.product_icon_right {
@@ -193,25 +175,40 @@
 			}
 
 			.purchase_code {
-				margin: 78upx 290upx 57upx 290upx;
-				
-				.purchase_code_row{
+				margin: 68upx 290upx 47upx 290upx;
+
+				.purchase_code_row {
 					display: flex;
 					flex-direction: row;
 					justify-content: space-around;
-					width: 60upx;
-					height: 60upx;
-					
-					.purchase_code_item{
+					margin-top: 10upx;
+
+					.purchase_code_item {
+						display: flex;
+						flex-direction: row;
+						justify-content: center;
+						align-items: center;
 						margin-right: 12upx;
+						width: 60upx;
+						height: 60upx;
+						background: rgba(204, 38, 55, 1);
+						border-radius: 50%;
+
+						.purchase_code_item_text {
+							font-size: 28upx;
+							font-family: PingFangSC-Regular;
+							font-weight: 400;
+							color: rgba(255, 255, 255, 1);
+							line-height: 46upx;
+						}
 					}
 				}
 			}
-			
+
 			.order_detail {
 				width: 100%;
-				
-				.order_detail_text{
+
+				.order_detail_text {
 					font-size: 28upx;
 					font-family: PingFangSC-Regular;
 					font-weight: 400;
@@ -220,25 +217,25 @@
 					margin-top: 21upx;
 				}
 			}
-			
-			.pack_up{
+
+			.pack_up {
 				display: flex;
-				flex-direction:row;
+				flex-direction: row;
 				padding: 62upx 330upx 34upx 330upx;
 				box-sizing: border-box;
-				
-				.pack_up_text{
-					font-size:24upx;
-					font-family:PingFangSC-Regular;
-					font-weight:400;
-					color:rgba(153,153,153,1);
-					line-height:46upx;
+
+				.pack_up_text {
+					font-size: 24upx;
+					font-family: PingFangSC-Regular;
+					font-weight: 400;
+					color: rgba(153, 153, 153, 1);
+					line-height: 46upx;
 				}
-				
-				.pack_up_icon{
-					width:27upx;
-					height:16upx;
-					margin-left:16upx; 
+
+				.pack_up_icon {
+					width: 27upx;
+					height: 16upx;
+					margin-left: 16upx;
 					margin-top: 15upx;
 				}
 			}
@@ -250,7 +247,7 @@
 			display: flex;
 			flex-direction: column;
 			align-items: center;
-			border-top:solid 20upx rgba(234, 234, 234, 1); 
+			border-top: solid 20upx rgba(234, 234, 234, 1);
 
 			.group_text {
 				font-size: 28upx;
@@ -260,18 +257,19 @@
 				line-height: 38upx;
 				margin: 66upx 201upx;
 				box-sizing: border-box;
-				
-				.group_text1{
+
+				.group_text1 {
 					padding-left: 40upx;
 				}
 			}
 
 			.group_user {
+				width: 451upx;
 				display: flex;
 				flex-direction: row;
-				justify-content: center;
-				padding: 21upx 150upx;
-				box-sizing: border-box;
+				justify-content: space-between;
+				padding-top: 21upx;
+				padding-bottom: 178upx;
 
 				.user_icon {
 					width: 100upx;
@@ -280,16 +278,16 @@
 				}
 			}
 		}
-		
-		.invite_btn{
-			width:100%;
-			height:100upx;
-			font-size:36upx;
-			font-family:PingFangSC-Regular;
-			font-weight:400;
-			color:rgba(255,255,255,1);
-			line-height:38upx;
-			background: rgba(204,38,55,1);
+
+		.invite_btn {
+			width: 100%;
+			height: 100upx;
+			font-size: 36upx;
+			font-family: PingFangSC-Regular;
+			font-weight: 400;
+			color: rgba(255, 255, 255, 1);
+			line-height: 38upx;
+			background: rgba(204, 38, 55, 1);
 			padding-top: 37upx;
 			position: fixed;
 			bottom: 0upx;

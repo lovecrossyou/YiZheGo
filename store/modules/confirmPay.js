@@ -10,7 +10,8 @@ const state = {
   "freight": 0},
 	buyType: null,
 	address: null,
-	addr_id: 0
+	addr_id: 0,
+	refundWay:{title:'喜币钱包',refundWay:'account'}
 }
 
 const mutations = {
@@ -27,6 +28,9 @@ const mutations = {
 	},
 	setAddrId(state, data) {
 		state.addr_id = data;
+	},
+	setRefundWay(state, data){
+		state.refundWay = data;
 	}
 }
 
