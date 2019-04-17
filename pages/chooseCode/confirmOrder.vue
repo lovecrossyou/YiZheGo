@@ -55,10 +55,10 @@
 			</view>
 
 		</view>
-		<view class="refound-info">
+		<view class="refound-info" @click="refundRoute">
 			<view class="refound-info-text">退款路径</view>
 			<view class="refound-info-select-info">
-				<view class="refound-info-select-msg">喜腾钱包</view>
+				<view class="refound-info-select-msg">{{refundWay.title}}</view>
 				<image v-bind:src="rightArrow" class="refound-info-select-arrow"></image>
 			</view>
 		</view>
@@ -113,6 +113,7 @@
 				directBuy: state => state.confirmPay.buyType,
 				openid: state=>state.openid,
 				address:state => state.confirmPay.address,
+				refundWay:state => state.confirmPay.refundWay,
 			}),
 			...mapGetters({
 				allCode: 'chooseCode/allCode',
@@ -142,6 +143,7 @@
 					directBuy: this.directBuy,
 					discountGameId: this.orderInfo.discountGameId,
 					purchaseCount: this.buyCount,
+					refundWay:this.refundWay.refundWay
 				})
 			},
 			async commitOrder() {
@@ -213,6 +215,11 @@
 			addressList(){
 				uni.navigateTo({
 					url: '../me/address/address'
+				})
+			},
+			refundRoute(){
+				uni.navigateTo({
+					url: './refundRoute'
 				})
 			}
 		}
