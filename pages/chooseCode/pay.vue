@@ -61,7 +61,7 @@
 				let orderInfo;
 				let payChannel;
 				// #ifdef MP-WEIXIN
-				payChannel = 'WeixinPay';
+				payChannel = 'WeixinMiniProgramPay';
 				orderInfo = await api.commitPay({
 					openId: this.openid,
 					payChannel: payChannel,
