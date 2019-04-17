@@ -279,7 +279,7 @@
 			font-family: PingFang-SC-Medium;
 			font-weight: 500;
 			color: rgba(255, 255, 255, 1);
-			line-height: 98upx;
+			line-height: 80upx;
 			text-align: center;
 		}
 	}
