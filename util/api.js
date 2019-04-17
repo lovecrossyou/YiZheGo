@@ -29,19 +29,12 @@ const api = {
 
 	discusRecommendList: params => request.post(' /discountGame/discusRecommendList', params),
 	//我
-<<<<<<< HEAD
 	userInfo:(params) => request.post("/user/info",params),
 	//会员信息
 	vipInfo:(params) => request.post('/vip/userVipInfo', params),
 	//中签列表
 	luckyList:(params) => request.post('/discountGame/winGameListByStage', params),
 	//中签详情
-=======
-	userInfo:(params) => request.post("/user/info",params),
-	//中签列表
-	luckyList:(params) => request.post('/discountGame/winGameListByStage', params),
-	//中签详情
->>>>>>> 900f6a4ff77c8e56e5a48509e2850da098301ab0
 	luckyDetail:(params) => request.post('/discountGame/winGameListByStageDetail', params),
 
 	//确认订单
