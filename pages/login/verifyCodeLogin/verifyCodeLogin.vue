@@ -32,13 +32,11 @@ export default {
 	computed: {},
 	methods: {
 		goWeChat() {
-			uni.navigateTo({
+			uni.redirectTo({
 				url: '../WeChatLogin/WeChatLogin'
 			});
 		},
 		async login() {
-// 			let res = await api.checkCodeLogin(this.formData);
-// 			this.authCode = res;
 			this.$store.dispatch('checkCodeLogin',this.formData);
 		},
 		async send() {

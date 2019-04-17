@@ -194,14 +194,14 @@
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
-		},{
+		}, {
 			"path": "pages/me/inviteFriend/shareFriend",
 			"style": {
 				"navigationBarTitleText": "邀请好友分享页面",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
-		},{
+		}, {
 			"path": "pages/me/inviteFriend/shareWxFriend",
 			"style": {
 				"navigationBarTitleText": "邀请微信好友",
@@ -263,6 +263,16 @@
 			}
 		},
 		{
+			"path": "pages/chooseCode/refundRoute",
+			"style": {
+				"navigationBarTitleText": "退款路径",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}, {
+			"path": "pages/acceptGroup/acceptGroup",
+			"style": {}
+		} ,{
 			"path": "pages/me/common/paymentCode",
 			"style": {
 				"navigationBarTitleText": "支付密码",
