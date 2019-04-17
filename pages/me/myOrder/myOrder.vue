@@ -21,21 +21,11 @@
 								<text class="time">下单时间：2018-04-26</text>
 								<text class="state">待付款</text>
 							</view>
-							<view class="product">
-								
-									<image v-bind:src="icon" mode="center" class="product-image"></image>
-								
-								
-								<view class="product-info">
-									<view class="one-tips">一折购</view>
-									<text class="product-name">{{'&#8195;&#8195;&#8195;麒麟980芯片 魅海蓝 6GB+128GB全网通 4G全面屏手机'}}</text>
-									<view class="product-prices">
-										<text class="current-price">￥299.90</text>
-										<text class="origin-price">市场价￥2999.00</text>
-									</view>
-								</view>
+							<productInfo></productInfo>
+							
+							<view class="bottom">
+								<text class="count">{{ '共10件&#8195;实付款：￥3005.00' }}</text>
 							</view>
-							<view class="bottom"><text class="count">{{'共10件&#8195;实付款：￥3005.00'}}</text></view>
 						</view>
 					</block>
 					<view class="uni-tab-bar-loading"><uni-load-more :loadingType="tab.loadingType" :contentText="loadingText"></uni-load-more></view>
@@ -47,11 +37,13 @@
 <script>
 import mediaList from '../components/mediaList.vue';
 import uniLoadMore from '../components/uni-load-more.vue';
-
+import productInfo from '../components/productInfo.vue';
+import {mapActions} from 'vuex';
 export default {
 	components: {
 		mediaList,
 		uniLoadMore,
+		productInfo
 	},
 	data() {
 		return {
@@ -60,7 +52,7 @@ export default {
 				contentrefresh: '正在加载...',
 				contentnomore: '没有更多数据了'
 			},
-			icon:'../../../static/me/yaoqing.png',
+			icon: '../../../static/me/yaoqing.png',
 			isClickChange: false,
 			tabIndex: 0,
 			newsitems: [],
@@ -145,8 +137,12 @@ export default {
 	},
 	onLoad: function() {
 		this.newsitems = this.randomfn();
+		this.getOrderData();
 	},
 	methods: {
+		...mapActions({
+			getOrderData: 'myOrder/getOrderData',
+		}),
 		goDetail(e) {
 			uni.navigateTo({
 				url: './orderDetail'
@@ -280,13 +276,12 @@ export default {
 						width: 140upx;
 						display: flex;
 						border: 1upx solid #efeff4;
-						
 					}
 					.product-info {
 						display: flex;
 						margin-left: 26upx;
-						
-						.one-tips{
+
+						.one-tips {
 							background: rgba(204, 38, 55, 1);
 							border-radius: 5upx;
 							font-size: 22upx;
@@ -294,7 +289,7 @@ export default {
 							font-weight: 500;
 							color: rgba(255, 255, 255, 1);
 							position: absolute;
-							line-height:38upx;
+							line-height: 38upx;
 							padding-left: 10upx;
 							padding-right: 10upx;
 						}
@@ -309,7 +304,7 @@ export default {
 							flex-direction: row;
 							align-items: center;
 							margin-top: 24upx;
-							
+
 							.current-price {
 								font-size: 34upx;
 								font-family: PingFangSC-Regular;
