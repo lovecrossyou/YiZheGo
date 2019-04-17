@@ -207,16 +207,18 @@
 			confirmOrder(directBuy) {
 				uni.navigateTo({
 					url: '../chooseCode/confirmOrder?discountGameId=' + this.productDetail.discountGameId + '&directBuy=' +
-						directBuy
+						directBuy+'&groupId='+this.groupId
 				})
 			}
 		},
 		onLoad(opt) {
 			console.log('详情啊=========', opt.productId)
-			this.fetchProductDetails(opt.productId)
+			this.fetchProductDetails(opt.productId);
+			this.groupId = opt.groupId;
 		},
 		data() {
 			return {
+				groupId:null,
 				selectedIndex: 0,
 				commentModelList: [{
 						userName: "电视成金",

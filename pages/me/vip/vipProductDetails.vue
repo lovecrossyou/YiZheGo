@@ -143,9 +143,7 @@
 		</view>
 		<!-- 底部菜单 -->
 		<view class="footer">
-			<view class="service_icon">
-				<image src="../../../static/me/icon_kefu@2x.png" mode="" ></image>
-			</view>
+			<view class="service_icon"><image src="../../../static/me/icon_kefu@2x.png" mode=""></image></view>
 			<view class="buy_now_area" @click="buy">立即购买</view>
 		</view>
 	</view>
@@ -337,7 +335,8 @@ export default {
 				.rob_num {
 					color: #fffa6d;
 					font-size: 32upx;
-					margin: 0 5upx;
+					margin:-3px 5rpx 0 5px;
+
 				}
 			}
 
@@ -751,24 +750,24 @@ export default {
 		position: fixed;
 		bottom: 0;
 		left: 0;
-		
-		.service_icon{
+
+		.service_icon {
 			width: 97upx;
 			height: 97upx;
 			padding: 30upx;
 			box-sizing: border-box;
-			
-			image{
+
+			image {
 				width: 36upx;
 				height: 35upx;
 			}
 		}
-		.buy_now_area{
+		.buy_now_area {
 			flex: 1;
-			background: linear-gradient(to right, #E5D0A3, #D2B482);
+			background: linear-gradient(to right, #e5d0a3, #d2b482);
 			line-height: 97upx;
 			text-align: center;
-			color: #FFFFFF;
+			color: #ffffff;
 			font-size: 24upx;
 		}
 	}

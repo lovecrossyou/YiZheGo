@@ -80,18 +80,25 @@
 
 				console.log("开始支付----------" + JSON.stringify(orderInfo));
 				pay.pay({
-					payChannel:payChannel,
+					payChannel: payChannel,
 					provider: this.paychannels[this.selectIndex].provider,
 					orderInfo: orderInfo
 				}, callback)
 
 			},
-			payResult(msg) {
-				console.log('支付结果:' + JSON.stringify(msg));
-				uni.navigateTo({
-					url: "./payResult?payOrderNo=" + this.payOrderNo + "&totalPayRmb=" + this.totalPayRmb + "&payChannel=" +
-						this.paychannels[this.selectIndex].payChannel + "&openId=" + this.openid
-				})
+			payResult(payStatus) {
+				if (payStatus) {
+					//支付成功
+					uni.redirectTo({
+						url: "/pages/gameGroup?payOrderNo="+this.payOrderNo
+					})
+				} else {
+					//支付失败
+					uni.redirectTo({
+						url: "./payResult?payOrderNo=" + this.payOrderNo + "&totalPayRmb=" + this.totalPayRmb + "&payChannel=" +
+							this.paychannels[this.selectIndex].payChannel + "&openId=" + this.openid
+					})
+				}
 			},
 			changePaychanel(index) {
 				this.selectIndex = index

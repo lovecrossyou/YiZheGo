@@ -1,9 +1,15 @@
 <template>
 	<view class="main">
-		<view class="top-img"></view>
+		<view class="top-img">
+			<view class="attention-text" v-if="!vipInfo.userIsVip">￥398/年</view>
+			<view class="attention-text" v-if="vipInfo.userIsVip">
+				已开通VIP会员，{{vipInfo.vipEndTime}}到期
+			</view>
+		</view>
 		<view class="list">
 			<view class="vip-item">
-				<view class="item-img"></view>
+				
+				<view class="invite-img"></view>
 				<view class="item-content">
 					<view class="title">
 						<view class="main-title">邀请好友20人</view>
@@ -15,16 +21,22 @@
 						</view>
 					</view>
 
-					<view class="price-action">
+					<view class="price-action" @click="inviteFriend">
 						<view class="price">¥0.00</view>
-						<view class="action">立即邀请</view>
+						<view class="action" 
+						:class="{
+							'action-unusable': vipInfo.hasPresentMonthVip,
+							'action-usable': !vipInfo.hasPresentMonthVip
+						}"
+						 @click="turnToInviteFriend">立即邀请</view>
 					</view>
 				</view>
+				<view class="free-exp-img" v-if="vipInfo.hasPresentMonthVip"></view>
 			</view>
 
 			<block v-for="(p,index) in vipProducts" :key='index'>
 				<view class="vip-item" @click="goDetail(p)">
-					<view class="item-img"></view>
+					<image class="item-img" :src="p.imageUrl"></image>
 					<view class="item-content">
 						<view class="title">
 							<view class="main-title">{{p.productName}}</view>
@@ -37,12 +49,12 @@
 						</view>
 
 						<view class="price-action">
-							<view class="price">¥{{p.price}}</view>
+							<view class="price">¥{{p.price/100}}</view>
 							<view class="action" @click="goDetail(p)">立即购买</view>
 						</view>
 					</view>
 				</view>
-		   </block>
+			</block>
 		</view>
 	</view>
 </template>
@@ -55,25 +67,46 @@
 	export default {
 		data() {
 			return {
-				vipProducts: []
+				vipProducts: [],
+				vipInfo: {
+					userIsVip: false,
+					hasPresentMonthVip: false,
+					
+				},
+				"inviteImg": "http://qnimage.xiteng.com/vip_exp.png"
 			}
 		},
 		methods: {
-			turnToLuckyList() {
-				console.log('xxxx');
-				uni.navigateTo({
-					url: './lucky-list'
-				})
+			turnToInviteFriend() {
+				if (this.vipInfo.hasPresentMonthVip) {
+					
+				} else {
+					uni.navigateTo({
+						url:"/pages/me/inviteFriend/inviteFriend"
+					})
+				}
 			},
 			goDetail(p) {
 				uni.navigateTo({
 					url: "/pages/me/vip/vipProductDetails?productId=" + p.vipProductId
 				})
+			},
+			async getVipProduct(){
+				const res = await api.vipProducts({});
+				this.vipProducts = res;
+				console.log(res);
+			},
+			async getVipInfo() {
+				const res = await api.vipInfo({});
+				res.hasPresentMonthVip = true;
+				// res.hasPresentMonthVip = res.hasPresentMonthVip===null ? false : res.hasPresentMonthVip;
+				this.vipInfo = res;
+				console.log(res);
 			}
 		},
-		async onLoad() {
-			const res = await api.vipProducts();
-			this.vipProducts = res;
+		onLoad() {
+			this.getVipInfo();
+			this.getVipProduct();
 		}
 	}
 </script>
@@ -85,11 +118,23 @@
 		background-color: #f4f8fb;
 
 		.top-img {
+			display: flex;
+			flex: 1;
+			justify-content: flex-end;
+			align-items: flex-end;
 			width: 100%;
 			height: 628upx;
-			display: block;
 			background: url("http://qnimage.xiteng.com/vip_top_img.png") no-repeat;
 			background-size: 100% 100%;
+			
+			.attention-text {
+				margin-right: 100upx;
+				margin-bottom: 271upx;
+				font-family: 'PingFang-SC-Medium';
+				font-weight: bold;
+				font-size:24upx;
+				color: #49342E;
+			}
 		}
 
 		.list {
@@ -105,7 +150,27 @@
 					width: 190upx;
 					height: 190upx;
 					margin-left: 30upx;
+					background-size: 100% 100%;
+					border-style: solid;
+					border-radius: 4upx;
+					border-width: 1upx;
+					border-color: #e5e5e5;
+				}
+				.invite-img {
+					width: 190upx;
+					height: 190upx;
+					margin-left: 30upx;
 					background: url("http://qnimage.xiteng.com/vip_exp.png") no-repeat;
+					background-size: 100% 100%;
+				}
+				
+				.free-exp-img {
+					z-index: 10;
+					width: 157upx;
+					height: 124upx;
+					margin-left: -190upx;
+					margin-right: 30upx;
+					background: url("http://qnimage.xiteng.com/vip_free_exped.png") no-repeat;
 					background-size: 100% 100%;
 				}
 
@@ -114,6 +179,7 @@
 					flex: 1;
 					flex-direction: column;
 					justify-content: space-between;
+					width: 100%;
 					height: 190upx;
 					margin-left: 35upx;
 
@@ -170,6 +236,12 @@
 							background-color: #E1CA9C;
 							font-size: 26upx;
 							color: white;
+						}
+						.action-unusable {
+							background-color: #D9D9D9;
+						}
+						.action-usable {
+							background-color: #E1CA9C;
 						}
 					}
 

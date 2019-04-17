@@ -13,11 +13,11 @@ const pay = function(param, callBack) {
 			orderInfo: JSON.stringify(param.orderInfo), //微信、支付宝订单数据
 			success: function(res) {
 				console.log('success:' + JSON.stringify(res));
-				callBack(res)
+				callBack(true)
 			},
 			fail: function(err) {
 				console.log('fail:' + JSON.stringify(err));
-				callBack(err)
+				callBack(false)
 			}
 		});
 		// #endif
@@ -34,10 +34,10 @@ const pay = function(param, callBack) {
 			signType: 'MD5',
 			paySign: wexinSpec.sign,
 			success: function(res) {
-				callBack(res)
+				callBack(true)
 			},
 			fail: function(err) {
-				callBack(err)
+				callBack(false)
 			}
 		});
 		// #endif
