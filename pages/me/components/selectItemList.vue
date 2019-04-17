@@ -34,7 +34,7 @@ export default {
 <style scoped>
 .wrapper {
 	width: 100%;
-	height: 100upx;
+	height: 90upx;
 	background-color: #fff;
 	display: flex;
 	flex-direction: row;
