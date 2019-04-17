@@ -1,18 +1,41 @@
 <template>
 	<view class="product">
-		<image v-bind:src="icon" mode="center" class="product-image"></image>
+		<image v-bind:src="productImg" mode="widthFix" class="product-image"></image>
 		<view class="product-info">
 			<view class="one-tips">一折购</view>
-			<text class="product-name">{{ '&#8195;&#8195;&#8195;麒麟980芯片 魅海蓝 6GB+128GB全网通 4G全面屏手机' }}</text>
+			<text class="product-name">{{ '&#8195;&#8195;&#8195;' }}{{ productName }}</text>
 			<view class="product-prices">
-				<text class="current-price">￥299.90</text>
-				<text class="origin-price">市场价￥2999.00</text>
+				<text class="current-price">￥{{currentPrice}}</text>
+				<text class="origin-price">市场价￥{{originPrice}}</text>
 			</view>
 		</view>
 	</view>
 </template>
 
-<script></script>
+<script>
+	
+	import numberUtil from '@/util/numberUtil.js';
+export default {
+	props: {
+		productImg: {
+			type: String,
+			default: ''
+		},
+		productName: {
+			type: String,
+			default: ''
+		},
+		currentPrice: {
+			type: Number,
+			default: 0
+		},
+		originPrice: {
+			type: Number,
+			default: 0
+		}
+	}
+};
+</script>
 
 <style lang="less">
 .product {
@@ -21,14 +44,14 @@
 	margin-top: 34upx;
 	.product-image {
 		height: 140upx;
-		width: 140upx;
+		width: 240upx;
 		display: flex;
 		border: 1upx solid #efeff4;
 	}
 	.product-info {
 		display: flex;
 		margin-left: 26upx;
-flex-direction: column;
+		flex-direction: column;
 		.one-tips {
 			background: rgba(204, 38, 55, 1);
 			border-radius: 5upx;

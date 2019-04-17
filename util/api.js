@@ -64,7 +64,7 @@ const api = {
 
 	clientOrderDetail: params => request.post("/discountGameOrder/clientOrderDetail", params),
 	//用户订单列表    
-	getMyOrder: params => request.post("/discountGameOrder/clientOrder", params),
+	getMyOrder: params => request.post("/discountGame/clientOrder", params),
 	//上传
 	uploader: (file, callback) => {
 		uni.uploadFile({

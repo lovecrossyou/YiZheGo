@@ -13,18 +13,22 @@
 			</view>
 		</view>
 		<swiper :current="tabIndex" class="swiper-box" duration="300" @change="changeTab">
-			<swiper-item v-for="(tab, index1) in newsitems" :key="index1">
+			<swiper-item v-for="(tab, index1) in orderData" :key="index1">
 				<scroll-view class="list" scroll-y @scrolltolower="loadMore(index1)">
-					<block v-for="(newsitem, index2) in tab.data" :key="index2">
+					<block v-for="(orderItem, index2) in tab.list" :key="index2">
 						<view class="order-item" @click="goDetail">
 							<view class="top">
-								<text class="time">下单时间：2018-04-26</text>
-								<text class="state">待付款</text>
+								<text class="time">下单时间：{{ orderItem.orderTime }}</text>
+								<text class="state">{{ orderItem.orderStatus }}</text>
 							</view>
-							<productInfo></productInfo>
-							
+							<productInfo :productImg="orderItem.productImageUrl" 
+							:productName="orderItem.productName" 
+							:currentPrice="(orderItem.oneDiscountPrice/100).toFixed(2)"
+							:originPrice="(orderItem.originalPrice/100).toFixed(2)"
+							></productInfo>
+
 							<view class="bottom">
-								<text class="count">{{ '共10件&#8195;实付款：￥3005.00' }}</text>
+								<text class="count">共{{ orderItem.purchaseCount }}件{{ '&#8195;' }}实付款：￥{{fen2yuan(orderItem.totalPayPrice)}}</text>
 							</view>
 						</view>
 					</block>
@@ -38,13 +42,20 @@
 import mediaList from '../components/mediaList.vue';
 import uniLoadMore from '../components/uni-load-more.vue';
 import productInfo from '../components/productInfo.vue';
-import {mapActions} from 'vuex';
+import { mapActions, mapState } from 'vuex';
 export default {
 	components: {
 		mediaList,
 		uniLoadMore,
 		productInfo
 	},
+
+	computed: {
+		...mapState({
+			orderData: state => state.myOrder.orderData
+		})
+	},
+
 	data() {
 		return {
 			loadingText: {
@@ -138,11 +149,19 @@ export default {
 	onLoad: function() {
 		this.newsitems = this.randomfn();
 		this.getOrderData();
+		this.addData(16);
 	},
 	methods: {
 		...mapActions({
 			getOrderData: 'myOrder/getOrderData',
+			addData: 'myOrder/addData',
 		}),
+		
+		fen2yuan(num){
+			return (
+				(num/100).toFixed(2)
+			);
+		},
 		goDetail(e) {
 			uni.navigateTo({
 				url: './orderDetail'
