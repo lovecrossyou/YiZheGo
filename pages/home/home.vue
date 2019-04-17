@@ -1,7 +1,7 @@
 <template>
 	<view class="home_page">
 		<view class="header">
-			<searchBox></searchBox>
+			<searchWrap></searchWrap>
 			<banner></banner>
 		</view>
 		<view class="nav">
@@ -65,7 +65,7 @@
 	} from "vuex";
 	import api from '../../util/api.js';
 	import banner from './components/banner';
-	import searchBox from './components/searchBox';
+	import searchWrap from './components/searchWrap';
 	import tabFiltrate from './components/tabFiltrate';
 	import product from './components/product';
 
@@ -117,9 +117,9 @@
 		},
 		components: {
 			banner,
-			searchBox,
 			tabFiltrate,
 			product,
+			searchWrap
 		}
 	}
 </script>
