@@ -68,7 +68,7 @@
 	import searchWrap from './components/searchWrap';
 	import tabFiltrate from './components/tabFiltrate';
 	import product from './components/product';
-
+	import service from "@/service.js"
 	export default {
 		computed: {
 			...mapState(['hasLogin']),
