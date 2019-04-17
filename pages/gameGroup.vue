@@ -222,7 +222,7 @@
 				}
 
 				.colon {
-					margin: -5upx 7upx 10upx 7upx;
+					margin: 5upx 7upx 10upx 7upx;
 					box-sizing: border-box;
 					color: #cc2637;
 				}
