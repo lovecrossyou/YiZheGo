@@ -78,8 +78,6 @@
 					cancel: false,
 					callback: undefined
 				};
-				console.log('s');
-				this.$emit('input', args);
 				if (!args.cancel){
 					if (this.password.length === this.items.length) {
 						//长度达6位，自动验证
@@ -89,6 +87,13 @@
 						args.callback.call(this);
 					}
 					this.password.push(item);
+					if (this.password.length == this.items.length){
+						this.$emit('confirm', {
+							target: this,
+							value: this.password.join('')
+						});
+					}
+					//this.$emit('input', args);
 				}
 			},
 			del() {
@@ -109,6 +114,9 @@
 					target: this,
 					value: this.password.join('')
 				});
+			},
+			clear(){
+				this.password = [];
 			}
 		},
 		watch: {
