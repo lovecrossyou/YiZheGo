@@ -134,7 +134,6 @@
 				const res = await api.confirmOrderInfo({
 					discountGameId: discountGameId,
 					purchaseAmount: 1,
-					groupId:this.groupId
 				});
 				console.log("确认订单信息-----------" + JSON.stringify(res));
 				this.$store.commit('confirmPay/setOrderInfo', res)
@@ -147,7 +146,9 @@
 					directBuy: this.directBuy,
 					discountGameId: this.orderInfo.discountGameId,
 					purchaseCount: this.buyCount,
-					refundWay:this.refundWay.refundWay
+					refundWay:this.refundWay.refundWay,
+					groupCount:3,
+					groupId:this.groupId
 				})
 			},
 			async commitOrder() {

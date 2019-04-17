@@ -76,6 +76,15 @@
 			this.OrderDetail = res;
 			this.GameGroup = res.discountGameGroupModel;
 		},
+		onShareAppMessage(){
+			console.log('userInfo.userId ',userInfo.userId);
+			const groupId = this.OrderDetail.discountGameGroupModel.groupId;
+			const productId = this.OrderDetail.productId;
+			return {
+				title: '邀请好友',
+				path: '/pages/home/home?inviteId='+userInfo.userId+'&groupId='+groupId+'&productId='+productId
+			}
+		},
 		computed: {
 			stringToList() {
 				var list = [];

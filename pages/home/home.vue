@@ -81,33 +81,36 @@
 					url: item.page
 				})
 			},
-			goDetail(productId,groupId){
+			goDetail(productId, groupId) {
 				uni.navigateTo({
-					url:"/pages/details/productDetails?productId="+productId+'&groupId='+groupId
+					url: "/pages/details/productDetails?productId=" + productId + '&groupId=' + groupId
 				})
 			},
 		},
 		onLoad(option) {
 			console.log('inviteId ', option.inviteId);
 			let inviteId = option.inviteId;
-			
+
 			inviteId = 6;
 			if (inviteId) {
 				service.addInviteId(inviteId)
 			}
-			
+
 			let groupId = option.groupId;
 			let productId = option.productId;
-			if(groupId&&productId){
-				console.log('groupId productId',groupId,productId);
-				this.goDetail(productId,groupId);
+
+			groupId=1305;
+			productId=1;
+			if (groupId && productId) {
+				console.log('groupId productId', groupId, productId);
+				this.goDetail(productId, groupId);
 			}
-			
-// 			if (!this.hasLogin) {
-// 				uni.navigateTo({
-// 					url: "/pages/login/WeChatLogin/WeChatLogin"
-// 				})
-// 			}
+
+			// 			if (!this.hasLogin) {
+			// 				uni.navigateTo({
+			// 					url: "/pages/login/WeChatLogin/WeChatLogin"
+			// 				})
+			// 			}
 		},
 		data() {
 			return {
