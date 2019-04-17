@@ -29,12 +29,19 @@ const api = {
 
 	discusRecommendList: params => request.post(' /discountGame/discusRecommendList', params),
 	//我
+<<<<<<< HEAD
 	userInfo:(params) => request.post("/user/info",params),
 	//会员信息
 	vipInfo:(params) => request.post('/vip/userVipInfo', params),
 	//中签列表
 	luckyList:(params) => request.post('/discountGame/winGameListByStage', params),
 	//中签详情
+=======
+	userInfo:(params) => request.post("/user/info",params),
+	//中签列表
+	luckyList:(params) => request.post('/discountGame/winGameListByStage', params),
+	//中签详情
+>>>>>>> 900f6a4ff77c8e56e5a48509e2850da098301ab0
 	luckyDetail:(params) => request.post('/discountGame/winGameListByStageDetail', params),
 
 	//确认订单
@@ -51,6 +58,13 @@ const api = {
 	//支付结果查询
 	queryResult: params => request.post("/client/discountGamePay/queryResult", params),
 	//订单详情
+	clientOrderDetail:params => request.post("/discountGameOrder/clientOrderDetail",params),
+	
+	//判断是否设置支付密码
+	checkSetPayPassword:params => request.post("/client/bankCard/checkSetPayPassword",params),
+    
+	//账户信息
+	accountInfo:params => request.post("/account/info",params),
 	
 	//获取验证码
 	getVerificationCode:params => request.post("/reqcheckCode/getCode",params),
@@ -58,7 +72,9 @@ const api = {
 	checkCodeLogin:params => request.post("/checkCodeLogin",params),
 
 	clientOrderDetail: params => request.post("/discountGameOrder/clientOrderDetail", params),
-
+    
+	//设置支付密码
+	setPayPassword:params => request.post("/client/bankCard/setPayPassword", params),
 	//上传
 	uploader: (file, callback) => {
 		uni.uploadFile({
@@ -79,3 +95,4 @@ const api = {
 	vipProducts: params => request.post('/discountGame/vipProduct', params),
 }
 export default api
+

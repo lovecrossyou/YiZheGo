@@ -1,22 +1,22 @@
 <template>
-	<view class="gameGroupwrapper">
+	<view v-if="OrderDetail" class="gameGroupwrapper">
 		<view class="productwrapper">
 			<image class="product_icon" :src="OrderDetail.productImageUrl"></image>
 			<view class="product_icon_right">
 				<view class="product_name">{{OrderDetail.productName}}</view>
 				<view class="product_price">
 					<view class="product_onediscountprice">¥{{OrderDetail.oneDiscountPrice}}</view>
-					<view class="product_originalprice">¥{{OrderDetail.originalPrice}}</view>
+					<view class="product_originalprice">商场价 ¥{{OrderDetail.originalPrice}}</view>
 				</view>
 			</view>
 		</view>
 		<view class="orderwrapper">
-			<view class="group_endtime">揭晓中签：{{OrderDetail.openResultTime}} 还剩：{{GameGroup.groupEndTime}}</view>
+			<view class="group_endtime">揭晓中签：22:00  还剩：{{OrderDetail.openResultTime}}</view>
 			<view class="purchase_count">你的幸运号码：{{OrderDetail.purchaseCount}}组</view>
 			<view class="purchase_code" >
-				<view class="purchase_code_text" v-for="(number,number_index) in stringToList" :key="number_index">
-					<view  v-for="(item,index) in number" :key="index">
-						<block>{{item}}</block>
+				<view class="purchase_code_row" v-for="(number,number_index) in stringToList" :key="number_index">
+					<view class="purchase_code_item" v-for="(item,index) in number" :key="index">
+						{{item}}
 					</view>
 				</view>
 			</view>
@@ -62,38 +62,36 @@
 					groupUserModelList: []
 				},
 				visibility:true,
-				pack_up_icon:"/static/gameGroup/icon_up.png",
-				purchaseCode:["555","111","312"]
+				pack_up_icon:"/static/gameGroup/icon_up.png"
 			}
 		},
 		async onLoad(options) {
 			const res = await api.clientOrderDetail({
-				payOrderNo: 20190416165520892850
+				payOrderNo: options.payOrderNo
 			});
-			this.OrderDetail = res.DiscountGameClientOrderDetailModel;
-			this.GameGroup = res.DiscountGameGroupModel;
-			console.log(this.OrderDetail)
+			this.OrderDetail = res;
+			this.GameGroup = res.discountGameGroupModel;
 		},
 		computed: {
-			groupUserList() {
-				if (this.GameGroup.groupUserModelList % 3 == 0) {
-					return this.GameGroup.groupUserModelList
-				} else if (this.GameGroup.groupUserModelList % 3 == 1) {
-					return this.GameGroup.groupUserModelList.push({
-						iconUrl: "/static/gameGroup/user_default_icon.png"
-					}, {
-						iconUrl: "/static/gameGroup/user_default_icon.png"
-					})
-				} else if (this.GameGroup.groupUserModelList % 3 == 2) {
-					return this.GameGroup.groupUserModelList.push({
-						iconUrl: "/static/gameGroup/user_default_icon.png"
-					})
-				}
-			},
+// 			groupUserList() {
+// 				if (this.GameGroup.groupUserModelList % 3 == 0) {
+// 					return this.GameGroup.groupUserModelList
+// 				} else if (this.GameGroup.groupUserModelList % 3 == 1) {
+// 					return this.GameGroup.groupUserModelList.push({
+// 						iconUrl: "/static/gameGroup/user_default_icon.png"
+// 					}, {
+// 						iconUrl: "/static/gameGroup/user_default_icon.png"
+// 					})
+// 				} else if (this.GameGroup.groupUserModelList % 3 == 2) {
+// 					return this.GameGroup.groupUserModelList.push({
+// 						iconUrl: "/static/gameGroup/user_default_icon.png"
+// 					})
+// 				}
+// 			},
 			stringToList(){
 				var list=[];
-				for(var i=0;i<this.purchaseCode.length;i++)
-					list.push(this.purchaseCode[i].split(''))
+				for(var i=0;i<this.OrderDetail.purchaseCode.length;i++)
+					list.push(this.OrderDetail.purchaseCode[i].split(''))
 					console.log(list)
 				return list
 			}
@@ -118,18 +116,22 @@
 			align-items: center;
 			width: 100%;
 			height: 168upx;
+			padding: 24upx 29upx;
+			box-sizing: border-box;
 			border-top:solid 2upx rgba(234, 234, 234, 1); 
 			border-bottom:solid 2upx rgba(234, 234, 234, 1); 
 
 			.product_icon {
-				width: 97upx;
+				width: 100upx;
 				height: 100upx;
+				border: solid 1upx rgba(234, 234, 234, 1); 
 			}
 
 			.product_icon_right {
 				display: flex;
-				flex-direction: column;
 				flex: 1;
+				flex-direction: column;
+				padding-left: 20upx;
 
 				.product_name {
 					font-size: 30upx;
@@ -137,17 +139,20 @@
 					font-weight: 400;
 					color: rgba(51, 51, 51, 1);
 					line-height: 36upx;
+					overflow: hidden;
 				}
 
 				.product_price {
 					display: flex;
 					flex-direction: row;
+					padding-top: 18upx;
 
 					.product_onediscountprice {
 						font-size: 24upx;
 						font-family: PingFangSC-Regular;
 						font-weight: 400;
 						color: rgba(204, 38, 55, 1);
+						padding-top: 2upx;
 					}
 
 					.product_originalprice {
@@ -157,6 +162,7 @@
 						text-decoration: line-through;
 						color: rgba(119, 119, 119, 1);
 						line-height: 42upx;
+						padding-left: 30upx;
 					}
 				}
 			}
@@ -187,11 +193,18 @@
 			}
 
 			.purchase_code {
-				margin-top: 78upx;
-				margin-bottom: 57upx;
+				margin: 78upx 290upx 57upx 290upx;
 				
-				.purchase_code_text{
+				.purchase_code_row{
 					display: flex;
+					flex-direction: row;
+					justify-content: space-around;
+					width: 60upx;
+					height: 60upx;
+					
+					.purchase_code_item{
+						margin-right: 12upx;
+					}
 				}
 			}
 			
