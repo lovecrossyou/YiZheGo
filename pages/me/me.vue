@@ -38,7 +38,7 @@
 				<itemList img="../../static/me/me_icon_vip@2x.png" title="会员中心"></itemList>
 			</view>
 		</view>
-		<view class="other_unctions end_item" @click="test">
+		<view class="other_unctions end_item" @click="paymentCode">
 			<itemList img="../../static/me/me_icon_currency@2x.png" title="通用"></itemList>
 		</view>
 	</view>
@@ -82,9 +82,9 @@
 				this.personalInfoList = res;
 				console.log(this.personalInfoList)
 			},
-			test(){
+			paymentCode(){
 				uni.navigateTo({
-					url: '../chooseCode/test'
+					url: '/pages/me/common/paymentCode'
 				})
 			}
 		},

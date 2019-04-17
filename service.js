@@ -4,6 +4,9 @@ const INFO_KEY = 'INFO_KEY';
 const OPENID = 'OPENID'
 
 
+const INVITEID = 'INVITEID'
+
+
 const getToken = function() {
 	let ret = '';
 	ret = uni.getStorageSync(TOKEN_KEY);
@@ -16,6 +19,20 @@ const getToken = function() {
 const addToken = function(token) {
 	uni.setStorageSync(TOKEN_KEY, JSON.stringify(token));
 }
+
+const addInviteId = function(id) {
+	uni.setStorageSync(INVITEID, id);
+}
+
+const getInviteId = function() {
+	let ret = '';
+	ret = uni.getStorageSync(INVITEID);
+	if (!ret) {
+		return null;
+	}
+	return ret;
+}
+
 
 const addOpenId = function(openid) {
 	uni.setStorageSync(OPENID, openid);
@@ -48,5 +65,7 @@ export default {
 	addToken,
 	addInfo,
 	getOpenId,
-	addOpenId
+	addOpenId,
+	addInviteId,
+	getInviteId
 }

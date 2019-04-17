@@ -55,10 +55,10 @@
 			</view>
 
 		</view>
-		<view class="refound-info">
+		<view class="refound-info" @click="refundRoute">
 			<view class="refound-info-text">退款路径</view>
 			<view class="refound-info-select-info">
-				<view class="refound-info-select-msg">喜腾钱包</view>
+				<view class="refound-info-select-msg">{{refundWay.title}}</view>
 				<image v-bind:src="rightArrow" class="refound-info-select-arrow"></image>
 			</view>
 		</view>
@@ -91,12 +91,15 @@
 	export default {
 		onLoad: function(option) {
 			console.log("确认订单商品-----------" + option.directBuy + '------------' + option.discountGameId);
+			
+			this.groupId = option.groupId;
 			this.$store.commit('confirmPay/setBuyType', option.directBuy)
 			this.getConfirmOrderInfo(option.discountGameId);
 			this.getAddressList();
 		},
 		data() {
 			return {
+				groupId:null,
 				addIcon: '../../static/pay/icon_location.png',
 				rightArrow: '../../static/pay/icon_arrow_right@2x.png',
 				lineCai: '../../static/pay/img_cai@2x.png',
@@ -113,6 +116,7 @@
 				directBuy: state => state.confirmPay.buyType,
 				openid: state=>state.openid,
 				address:state => state.confirmPay.address,
+				refundWay:state => state.confirmPay.refundWay,
 			}),
 			...mapGetters({
 				allCode: 'chooseCode/allCode',
@@ -129,7 +133,7 @@
 			async getConfirmOrderInfo(discountGameId) {
 				const res = await api.confirmOrderInfo({
 					discountGameId: discountGameId,
-					purchaseAmount: 1
+					purchaseAmount: 1,
 				});
 				console.log("确认订单信息-----------" + JSON.stringify(res));
 				this.$store.commit('confirmPay/setOrderInfo', res)
@@ -142,6 +146,9 @@
 					directBuy: this.directBuy,
 					discountGameId: this.orderInfo.discountGameId,
 					purchaseCount: this.buyCount,
+					refundWay:this.refundWay.refundWay,
+					groupCount:3,
+					groupId:this.groupId
 				})
 			},
 			async commitOrder() {
@@ -213,6 +220,11 @@
 			addressList(){
 				uni.navigateTo({
 					url: '../me/address/address'
+				})
+			},
+			refundRoute(){
+				uni.navigateTo({
+					url: './refundRoute'
 				})
 			}
 		}
