@@ -22,17 +22,17 @@
 			</block>
 		</view>
 		<view class="confirm_footer" @click="toPay(payResult)">立即支付</view>
-		<xy-dialog title="请输入支付密码" ref="xyDialog" @confirmButton="clickConfirm" @showKeyboard="showKeyboard" :payOrderNo="payOrderNo"
+		<pay-dialog title="请输入支付密码" ref="xyDialog" @confirmButton="clickConfirm" @showKeyboard="showKeyboard" :payOrderNo="payOrderNo"
 		 :totalPayRmb="totalPayRmb">
 
-		</xy-dialog>
+		</pay-dialog>
 	</view>
 </template>
 
 <script>
 	import api from '../../util/api.js';
 	import pay from '../../util/payUtil.js';
-	import xyDialog from '../components/xy-dialog.vue';
+	import payDialog from '../components/walletDialog.vue';
 
 	import {
 		mapState,
@@ -49,7 +49,7 @@
 			}),
 		},
 		components: {
-			xyDialog
+			payDialog
 		},
 		methods: {
 			async toPay(callback) {
@@ -154,7 +154,7 @@
 			return {
 				payOrderNo: 0,
 				totalPayRmb: 0,
-				selectIndex: 2,
+				selectIndex: 0,
 				paychannels: [{
 						icon: '../../static/pay/pay_icon_weixin@2x.png',
 						selIcon: '../../static/pay/pay_btn_selected_weixin@2x.png',
@@ -279,7 +279,7 @@
 			font-family: PingFang-SC-Medium;
 			font-weight: 500;
 			color: rgba(255, 255, 255, 1);
-			line-height: 98upx;
+			line-height: 80upx;
 			text-align: center;
 		}
 	}

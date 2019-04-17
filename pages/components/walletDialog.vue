@@ -50,7 +50,7 @@
 <script>
 	import keyboard from '../components/keyboard.vue';
 	import api from '../../util/api.js';
-
+    import {mapState} from 'vuex';
 	export default {
 		props: {
 			
@@ -115,6 +115,11 @@
 				this.isShow = val
 			}
 		},
+		computed: {
+			...mapState({
+				openid: state => state.openid,
+			}),
+		},
 		methods: {
 			// 禁止穿透
 			bindTouchmove() {},
@@ -151,7 +156,6 @@
 				this.$refs.keyboard.show()
 			},
 			input(item){
-				    console.log('输入11111-------'+item+'-------'+this.password.length);
 					if (this.password.length === this.items.length) {
 						//长度达6位，自动验证
 						return;
@@ -176,12 +180,20 @@
 					payPassword:this.password.join('')
 				})
 				console.log('钱包支付结果------'+JSON.stringify(orderInfo))
+				this.payResult(orderInfo)
 			},
 			async accountInfo(){
 				const account = await api.accountInfo({})
 				this.account = account;
 				console.log('账户信息------'+JSON.stringify(account))
-			}
+			},
+			payResult(msg) {
+				console.log('支付结果:' + JSON.stringify(msg));
+				uni.navigateTo({
+					url: "./payResult?payOrderNo=" + this.payOrderNo + "&totalPayRmb=" + this.totalPayRmb + "&payChannel=" +
+						this.paychannels[this.selectIndex].payChannel + "&openId=" + this.openid
+				})
+			},
 		}
 	}
 </script>
@@ -239,6 +251,7 @@
 					color: #303133;
 					font-weight: bold;
 					font-size: 34upx;
+					margin-top: 10upx;
 				}
 					
 				.channel{
