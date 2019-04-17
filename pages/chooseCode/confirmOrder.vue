@@ -159,13 +159,13 @@
 				const order = await this.getOrder();
 				console.log("提交订单-----------" + JSON.stringify(order));
 				
-				uni.navigateTo({
+				uni.redirectTo({
 					url: './pay?payOrderNo=' + order.payOrderNo + '&totalPayRmb=' + order.totalPayRmb
 				})
 				return;
 				
 				// #ifdef APP-PLUS
-				uni.navigateTo({
+				uni.redirectTo({
 					url: './pay?payOrderNo=' + order.payOrderNo + '&totalPayRmb=' + order.totalPayRmb
 				})
 				// #endif
