@@ -143,7 +143,7 @@
 				flex: 1;
 				flex-direction: column;
 				padding-left: 20upx;
-				margin-top: -35upx;
+				padding-top: 18upx;
 
 				.product_name {
 					font-size: 30upx;
@@ -157,8 +157,7 @@
 				.product_price {
 					display: flex;
 					flex-direction: row;
-					position: fixed;
-					top: 108upx;
+					margin-bottom: 10upx;
 
 					.product_onediscountprice {
 						font-size: 24upx;
@@ -210,8 +209,8 @@
 					line-height:36upx;
 					background:#CC2637;
 					border-radius:6upx;
-					padding-top:5upx;
-					padding-left:5upx;
+					padding-top:6upx;
+					padding-left:8upx;
 				}
 				
 				.colon{
