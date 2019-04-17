@@ -1,7 +1,9 @@
+import dataUtil from '../../util/dataUtil.js';
 const state = {
 	orderInfo: {"discountGameId": 0,
   "relatedProductName": "0",
   "originalPrice": 0,
+  "oneDiscountPrice":0,
   "relatedProductImageUrl": "http://123.57.161.212:8080/group1/M00/00/50/ezmh1FsgxniADKDvAADsY6Jg_mM780.jpg",
   "totalPrice": 0,
   "totalPayRmbPrice": 0,
@@ -33,9 +35,23 @@ const mutations = {
 		state.refundWay = data;
 	}
 }
-
+const getters = {
+	originalPrice(state){
+		return dataUtil.priceFix2(state.orderInfo.originalPrice)
+	},
+	fix2Price(state){
+		return {
+			originalPrice:dataUtil.priceFix2(state.orderInfo.originalPrice),
+			oneDiscountPrice:dataUtil.priceFix2(state.orderInfo.oneDiscountPrice),
+			totalPrice:dataUtil.priceFix2(state.orderInfo.totalPrice),
+			totalPayRmbPrice:dataUtil.priceFix2(state.orderInfo.totalPayRmbPrice),
+			freight:dataUtil.priceFix2(state.orderInfo.freight),
+		}
+	}
+}
 export default {
 	namespaced: true,
 	state,
-	mutations
+	mutations,
+	getters
 }
