@@ -172,7 +172,8 @@
 				const orderInfo = await api.commitPay({
 					openId: '',
 					payChannel: this.paychannels[this.selectIndex].payChannel,
-					payOrderNo: this.payOrderNo
+					payOrderNo: this.payOrderNo,
+					payPassword:this.password.join(',')
 				})
 				console.log('钱包支付结果------'+JSON.stringify(orderInfo))
 			},
