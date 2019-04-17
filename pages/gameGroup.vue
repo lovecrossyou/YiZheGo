@@ -16,7 +16,7 @@
 			<view class="purchase_code" >
 				<view class="purchase_code_text" v-for="(number,number_index) in stringToList" :key="number_index">
 					<view  v-for="(item,index) in number" :key="index">
-						<block>{{item}}</block>
+						{{item}}
 					</view>
 				</view>
 			</view>
@@ -187,11 +187,15 @@
 			}
 
 			.purchase_code {
-				margin-top: 78upx;
-				margin-bottom: 57upx;
+				margin: 78upx 290upx 57upx 290upx;
 				
 				.purchase_code_text{
 					display: flex;
+					flex-direction: row;
+					justify-content: space-around;
+					margin-right: 12upx;
+					width: 60upx;
+					height: 60upx;
 				}
 			}
 			
