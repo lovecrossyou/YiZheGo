@@ -5,7 +5,7 @@ const pay = function(param, callBack) {
 		provider,
 		orderInfo
 	} = param;
-	if (provider === 'wxpay') {
+	if (provider === 'wxpay'||provider === 'alipay') {
 		//微信小程序 微信app
 		// #ifdef APP-PLUS
 		uni.requestPayment({
@@ -37,14 +37,10 @@ const pay = function(param, callBack) {
 				callBack(res)
 			},
 			fail: function(err) {
-				callBack(res)
+				callBack(err)
 			}
 		});
 		// #endif
-	} else if (provider === 'alipay') {
-
-	} else if (provider === 'Wallet') {
-
 	}
 }
 
