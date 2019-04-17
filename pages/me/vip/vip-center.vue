@@ -77,7 +77,6 @@
 			}
 		},
 		methods: {
-<<<<<<< HEAD
 			turnToInviteFriend() {
 				if (this.vipInfo.hasPresentMonthVip) {
 					
@@ -86,18 +85,6 @@
 						url:"/pages/me/inviteFriend/inviteFriend"
 					})
 				}
-=======
-			inviteFriend(){
-				uni.navigateTo({
-					url:"/pages/me/inviteFriend/inviteFriend"
-				})
-			},
-			turnToLuckyList() {
-				console.log('xxxx');
-				uni.navigateTo({
-					url: './lucky-list'
-				})
->>>>>>> d898b3ad5f9b90fd39c5b8d31db90fcf0a334de5
 			},
 			goDetail(p) {
 				uni.navigateTo({
