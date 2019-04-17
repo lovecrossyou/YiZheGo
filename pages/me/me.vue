@@ -88,7 +88,7 @@
 				})
 			}
 		},
-		onLoad() {
+		onShow() {
 			this.personalInfo()
 		}
 	};

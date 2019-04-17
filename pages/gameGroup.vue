@@ -80,9 +80,12 @@
 			console.log('userInfo.userId ',userInfo.userId);
 			const groupId = this.OrderDetail.discountGameGroupModel.groupId;
 			const productId = this.OrderDetail.productId;
+			const payOrderNo = this.OrderDetail.payOrderNo;
+			
 			return {
 				title: '邀请好友',
-				path: '/pages/home/home?inviteId='+userInfo.userId+'&groupId='+groupId+'&productId='+productId
+				path: '/pages/home/home?inviteId='+userInfo.userId+'&groupId='+groupId+'&productId='+productId+'&payOrderNo='+payOrderNo,
+				type:1
 			}
 		},
 		computed: {

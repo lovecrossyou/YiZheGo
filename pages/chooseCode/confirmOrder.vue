@@ -91,7 +91,7 @@
 	export default {
 		onLoad: function(option) {
 			console.log("确认订单商品-----------" + option.directBuy + '------------' + option.discountGameId);
-			
+
 			this.groupId = option.groupId;
 			this.$store.commit('confirmPay/setBuyType', option.directBuy)
 			this.getConfirmOrderInfo(option.discountGameId);
@@ -99,7 +99,7 @@
 		},
 		data() {
 			return {
-				groupId:null,
+				groupId: null,
 				addIcon: '../../static/pay/icon_location.png',
 				rightArrow: '../../static/pay/icon_arrow_right@2x.png',
 				lineCai: '../../static/pay/img_cai@2x.png',
@@ -114,21 +114,24 @@
 				buyCount: state => state.chooseCode.codeCount,
 				orderInfo: state => state.confirmPay.orderInfo,
 				directBuy: state => state.confirmPay.buyType,
-				openid: state=>state.openid,
-				address:state => state.confirmPay.address,
-				refundWay:state => state.confirmPay.refundWay,
+				openid: state => state.openid,
+				address: state => state.confirmPay.address,
+				refundWay: state => state.confirmPay.refundWay,
 			}),
 			...mapGetters({
 				allCode: 'chooseCode/allCode',
-				allFinished:'chooseCode/allFinished'
+				allFinished: 'chooseCode/allFinished'
 			})
 
 		},
 		methods: {
-			async getAddressList(){
-				const res = await api.addressList({size:10,pageNo:0});
+			async getAddressList() {
+				const res = await api.addressList({
+					size: 10,
+					pageNo: 0
+				});
 				console.log("收货地址-----------" + JSON.stringify(res));
-				this.$store.commit('confirmPay/setAddressList',res.content)
+				this.$store.commit('confirmPay/setAddressList', res.content)
 			},
 			async getConfirmOrderInfo(discountGameId) {
 				const res = await api.confirmOrderInfo({
@@ -140,19 +143,24 @@
 			},
 
 			async getOrder() {
+				let groupId = this.groupId;
+				console.log('this.groupId ',this.groupId);
+				if (groupId==='undefined') {
+					groupId = null;
+				}
 				return api.commitOrder({
 					codeList: this.allCode,
 					deliverAddressId: this.address.id,
 					directBuy: this.directBuy,
 					discountGameId: this.orderInfo.discountGameId,
 					purchaseCount: this.buyCount,
-					refundWay:this.refundWay.refundWay,
-					groupCount:3,
-					groupId:this.groupId
+					refundWay: this.refundWay.refundWay,
+					groupCount: 3,
+					groupId: groupId
 				})
 			},
 			async commitOrder() {
-				if(!this.allFinished){
+				if (!this.allFinished) {
 					uni.showToast({
 						title: '请完成选号!',
 						mask: false,
@@ -160,15 +168,15 @@
 					});
 					return;
 				}
-				
+
 				const order = await this.getOrder();
 				console.log("提交订单-----------" + JSON.stringify(order));
-				
+
 				uni.redirectTo({
 					url: './pay?payOrderNo=' + order.payOrderNo + '&totalPayRmb=' + order.totalPayRmb
 				})
 				return;
-				
+
 				// #ifdef APP-PLUS
 				uni.redirectTo({
 					url: './pay?payOrderNo=' + order.payOrderNo + '&totalPayRmb=' + order.totalPayRmb
@@ -191,7 +199,7 @@
 					payOrderNo: order.payOrderNo
 				});
 				const wexinSpec = orderInfo.wexinSpec;
-				wexinSpec.packageValue = 'prepay_id='+wexinSpec.prepay_id;
+				wexinSpec.packageValue = 'prepay_id=' + wexinSpec.prepay_id;
 				let that = this;
 				uni.requestPayment({
 					provider: 'wxpay',
@@ -217,12 +225,12 @@
 				console.log("修改数量-----------" + event);
 				this.changeCodeCount(event)
 			},
-			addressList(){
+			addressList() {
 				uni.navigateTo({
 					url: '../me/address/address'
 				})
 			},
-			refundRoute(){
+			refundRoute() {
 				uni.navigateTo({
 					url: './refundRoute'
 				})
@@ -289,18 +297,21 @@
 				right: 10upx;
 			}
 		}
-		.delivery-no-info{
+
+		.delivery-no-info {
 			display: flex;
 			flex-direction: row;
 			background: #FFFFFF;
 			height: 90upx;
 			align-items: center;
-			margin-left:20upx;
+			margin-left: 20upx;
+
 			.delivery-no-info-icon {
 				width: 27upx;
 				height: 31upx;
 			}
-			.delivery-no-info-msg{
+
+			.delivery-no-info-msg {
 				font-size: 30upx;
 				font-family: PingFangSC-Regular;
 				color: rgba(51, 51, 51, 1);
