@@ -98,8 +98,8 @@
 			},
 			async getVipInfo() {
 				const res = await api.vipInfo({});
-				// res.hasPresentMonthVip = true;
-				res.hasPresentMonthVip = res.hasPresentMonthVip===null ? false : res.hasPresentMonthVip;
+				res.hasPresentMonthVip = true;
+				// res.hasPresentMonthVip = res.hasPresentMonthVip===null ? false : res.hasPresentMonthVip;
 				this.vipInfo = res;
 				console.log(res);
 			}
@@ -233,7 +233,7 @@
 							height: 45upx;
 							margin-right: 34upx;
 							border-radius: 23upx;
-							// background-color: #E1CA9C;
+							background-color: #E1CA9C;
 							font-size: 26upx;
 							color: white;
 						}
