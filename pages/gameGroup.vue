@@ -3,10 +3,10 @@
 		<view class="productwrapper">
 			<image class="product_icon" :src="OrderDetail.productImageUrl"></image>
 			<view class="product_icon_right">
-				<view class="product_name">{{OrderDetail.productName}}</view>
+				<view class="product_name">{{ OrderDetail.productName }}</view>
 				<view class="product_price">
-					<view class="product_onediscountprice">¥{{OrderDetail.oneDiscountPrice}}</view>
-					<view class="product_originalprice">市场价 ¥{{OrderDetail.originalPrice}}</view>
+					<view class="product_onediscountprice">¥{{ OrderDetail.oneDiscountPrice }}</view>
+					<view class="product_originalprice">市场价 ¥{{ OrderDetail.originalPrice }}</view>
 				</view>
 			</view>
 		</view>
@@ -19,22 +19,22 @@
 				<view class="colon">:</view>
 				<view class="counttime">33</view>
 			</view>
-			<view class="purchase_count">你的幸运号码：{{OrderDetail.purchaseCount}}组</view>
+			<view class="purchase_count">你的幸运号码：{{ OrderDetail.purchaseCount }}组</view>
 			<view class="purchase_code">
-				<view class="purchase_code_row" v-for="(number,number_index) in stringToList" :key="number_index">
-					<view class="purchase_code_item" v-for="(item,index) in number" :key="index">
-						<view class="purchase_code_item_text">{{item}}</view>
+				<view class="purchase_code_row" v-for="(number, number_index) in stringToList" :key="number_index">
+					<view class="purchase_code_item" v-for="(item, index) in number" :key="index">
+						<view class="purchase_code_item_text">{{ item }}</view>
 					</view>
 				</view>
 			</view>
 			<view class="order_detail" v-if="visibility">
-				<view class="order_detail_text">订单号：{{OrderDetail.payOrderNo}} </view>
-				<view class="order_detail_text">商品代码： {{OrderDetail.productId}}</view>
-				<view class="order_detail_text">期数： {{OrderDetail.discountGameStage}}</view>
-				<view class="order_detail_text">参与数量： {{OrderDetail.purchaseCount}}</view>
-				<view class="order_detail_text">金额： ¥{{OrderDetail.totalPayPrice}}</view>
-				<view class="order_detail_text">支付方式： {{OrderDetail.payChannel}}</view>
-				<view class="order_detail_text">下单时间： {{OrderDetail.clientOrderTime}}</view>
+				<view class="order_detail_text">订单号：{{ OrderDetail.payOrderNo }}</view>
+				<view class="order_detail_text">商品代码： {{ OrderDetail.productId }}</view>
+				<view class="order_detail_text">期数： {{ OrderDetail.discountGameStage }}</view>
+				<view class="order_detail_text">参与数量： {{ OrderDetail.purchaseCount }}</view>
+				<view class="order_detail_text">金额： ¥{{ OrderDetail.totalPayPrice }}</view>
+				<view class="order_detail_text">支付方式： {{ OrderDetail.payChannel }}</view>
+				<view class="order_detail_text">下单时间： {{ OrderDetail.clientOrderTime }}</view>
 			</view>
 			<view class="pack_up" @click="pack_up_btn">
 				<view class="pack_up_text">收起</view>
@@ -43,7 +43,7 @@
 		</view>
 		<view class="groupwrapper">
 			<view class="group_text">
-				<view class="group_text1"> 邀请好友参与3D抢购</view>
+				<view class="group_text1">邀请好友参与3D抢购</view>
 				<view>成功发起拼团奖励喜币红包</view>
 			</view>
 			<view class="group_user">
@@ -57,7 +57,7 @@
 </template>
 
 <script>
-	import api from "@/util/api.js"
+	import api from '@/util/api.js';
 	export default {
 		data() {
 			return {
@@ -66,20 +66,12 @@
 				},
 				GameGroup: {},
 				visibility: true,
-				pack_up_icon: "/static/gameGroup/icon_up.png"
-			}
-		},
-		onShareAppMessage() {
-			console.log('userInfo.userId ', userInfo.userId);
-			return {
-				title: '邀请好友',
-				path: '/pages/home/home?inviteId=' + userInfo.userId,
-				imageUrl:''
-			}
+				pack_up_icon: '/static/gameGroup/icon_up.png'
+			};
 		},
 		async onLoad(options) {
 			const res = await api.clientOrderDetail({
-				payOrderNo: "20190417150355035706"
+				payOrderNo: options.payOrderNo
 			});
 			this.OrderDetail = res;
 			this.GameGroup = res.discountGameGroupModel;
@@ -87,10 +79,9 @@
 		computed: {
 			stringToList() {
 				var list = [];
-				for (var i = 0; i < this.OrderDetail.purchaseCode.length; i++)
-					list.push(this.OrderDetail.purchaseCode[i].split(','))
-				return list
-			},
+				for (var i = 0; i < this.OrderDetail.purchaseCode.length; i++) list.push(this.OrderDetail.purchaseCode[i].split(','));
+				return list;
+			}
 			// 			countTime() {
 			// 				var h=0;
 			// 				var m=0;
@@ -117,10 +108,10 @@
 		methods: {
 			pack_up_btn() {
 				this.visibility = !this.visibility;
-				this.pack_up_icon = this.visibility ? "/static/gameGroup/icon_up.png" : "/static/gameGroup/icon_down.png";
+				this.pack_up_icon = this.visibility ? '/static/gameGroup/icon_up.png' : '/static/gameGroup/icon_down.png';
 			}
 		}
-	}
+	};
 </script>
 
 <style lang="less">
@@ -150,7 +141,7 @@
 				flex: 1;
 				flex-direction: column;
 				padding-left: 20upx;
-				margin-top: -35upx;
+				padding-top: 18upx;
 
 				.product_name {
 					font-size: 30upx;
@@ -164,8 +155,7 @@
 				.product_price {
 					display: flex;
 					flex-direction: row;
-					position: fixed;
-					top: 108upx;
+					margin-bottom: 10upx;
 
 					.product_onediscountprice {
 						font-size: 24upx;
@@ -188,6 +178,7 @@
 			}
 		}
 
+
 		.orderwrapper {
 			display: flex;
 			flex-direction: column;
@@ -198,6 +189,7 @@
 			.group_endtime {
 				display: flex;
 				flex-direction: row;
+				align-items: center;
 
 				.group_endtime_text {
 					font-size: 30upx;
@@ -213,18 +205,17 @@
 					font-size: 30upx;
 					font-family: PingFangSC-Medium;
 					font-weight: 500;
-					color: #FFFFFF;
-					line-height: 36upx;
-					background: #CC2637;
+					color: #ffffff;
+					line-height: 44upx;
+					background: #cc2637;
 					border-radius: 6upx;
-					padding-top: 5upx;
-					padding-left: 5upx;
+					text-align: center;
 				}
 
 				.colon {
 					margin: -5upx 7upx 10upx 7upx;
 					box-sizing: border-box;
-					color: #CC2637;
+					color: #cc2637;
 				}
 			}
 
@@ -302,7 +293,6 @@
 					margin-top: 15upx;
 				}
 			}
-
 		}
 
 		.groupwrapper {
