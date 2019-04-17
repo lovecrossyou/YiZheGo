@@ -135,7 +135,7 @@
 		</view>
 
 		<!-- 商品详情 -->
-		<view class="winning_periods" style="margin-bottom: 90upx;">
+		<view class="winning_periods" style="margin-bottom: 95upx;">
 			<view class="particulars_item"><view class="designation">商品详情</view></view>
 			<view class="detail_imgurllist">
 				<block v-for="(item, i) in productDetail.productDetailImageUrlList" :key="i"><image :src="item.productDetailImageUrl" mode="widthFix"></image></block>
@@ -146,7 +146,7 @@
 			<view class="service_icon">
 				<image src="../../../static/me/icon_kefu@2x.png" mode="" ></image>
 			</view>
-			<view class="buy_now_area">立即购买</view>
+			<view class="buy_now_area" @click="buy">立即购买</view>
 		</view>
 	</view>
 </template>
