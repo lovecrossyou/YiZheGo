@@ -14,8 +14,8 @@
 			<view class="group_endtime">揭晓中签：{{OrderDetail.openResultTime}} 还剩：{{GameGroup.groupEndTime}}</view>
 			<view class="purchase_count">你的幸运号码：{{OrderDetail.purchaseCount}}组</view>
 			<view class="purchase_code" >
-				<view class="purchase_code_text" v-for="(number,number_index) in stringToList" :key="number_index">
-					<view  v-for="(item,index) in number" :key="index">
+				<view class="purchase_code_row" v-for="(number,number_index) in stringToList" :key="number_index">
+					<view class="purchase_code_item" v-for="(item,index) in number" :key="index">
 						{{item}}
 					</view>
 				</view>
@@ -189,13 +189,16 @@
 			.purchase_code {
 				margin: 78upx 290upx 57upx 290upx;
 				
-				.purchase_code_text{
+				.purchase_code_row{
 					display: flex;
 					flex-direction: row;
 					justify-content: space-around;
-					margin-right: 12upx;
 					width: 60upx;
 					height: 60upx;
+					
+					.purchase_code_item{
+						margin-right: 12upx;
+					}
 				}
 			}
 			
