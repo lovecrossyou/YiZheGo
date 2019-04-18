@@ -77,6 +77,11 @@ const api = {
 	setPayPassword:params => request.post("/client/bankCard/setPayPassword", params),
 	
 	acceptInvite : params =>request.post("/discountGame/acceptInvite",params),
+	
+	//红包弹窗
+	redPacket:params =>request.post("/discountGame/getRewardRecord",params),
+	//领取红包
+	getRedPacket:params => request.post("/discountGame/readRewardRecord",params),
 
 	//上传
 	uploader: (file, callback) => {

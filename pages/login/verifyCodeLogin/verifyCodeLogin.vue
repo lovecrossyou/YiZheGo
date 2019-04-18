@@ -3,11 +3,11 @@
 		<image src="../../../static/login/logo@2x.png" class="logo_icon"></image>
 		<view class="input_tel_area">
 			<view class="add_front">+86</view>
-			<input type="number" value="" placeholder="请输入手机号" v-model="formData.phoneNum" />
+			<input type="number" @input="inputFn" placeholder="请输入手机号" v-model="formData.phoneNum" />
 		</view>
 		<view class="message_code_area">
 			<input type="number" v-model="formData.checkCode" placeholder="请输入短信验证码" />
-			<button type="warn" @click="send">获取验证码</button>
+			<button type="warn" @click="send" :disabled="judge?true:false">获取验证码</button>
 		</view>
 
 		<!-- #ifdef MP-WEIXIN -->
@@ -31,6 +31,7 @@
 		data() {
 			return {
 				authCode: {},
+				judge: true,
 				getInputContent: '',
 				formData: {
 					phoneNum: '',
@@ -45,6 +46,11 @@
 				uni.redirectTo({
 					url: '../WeChatLogin/WeChatLogin'
 				});
+			},
+			inputFn(e){
+				if(e.target.value.length == 11){
+					this.judge = false
+				}
 			},
 			async wxlogin(params){
 				this.$store.dispatch('wxlogin',params);
