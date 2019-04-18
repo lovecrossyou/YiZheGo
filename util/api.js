@@ -70,8 +70,6 @@ const api = {
 	
 	checkCodeLogin:params => request.post("/checkCodeLogin",params),
 
-	clientOrderDetail: params => request.post("/discountGameOrder/clientOrderDetail", params),
-
 	//用户订单列表    
 	getMyOrder: params => request.post("/discountGame/clientOrder", params),
 
