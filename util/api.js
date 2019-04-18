@@ -71,11 +71,15 @@ const api = {
 	checkCodeLogin:params => request.post("/checkCodeLogin",params),
 
 	clientOrderDetail: params => request.post("/discountGameOrder/clientOrderDetail", params),
-    
+
+	//用户订单列表    
+	getMyOrder: params => request.post("/discountGame/clientOrder", params),
+
 	//设置支付密码
 	setPayPassword:params => request.post("/client/bankCard/setPayPassword", params),
 	
 	acceptInvite : params =>request.post("/discountGame/acceptInvite",params),
+
 	//上传
 	uploader: (file, callback) => {
 		uni.uploadFile({

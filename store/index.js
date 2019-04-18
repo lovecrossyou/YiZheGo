@@ -6,8 +6,10 @@ import api from '../util/api.js';
 import service from "../service.js";
 import confirmPay from './modules/confirmPay.js';
 import payResult from './modules/payResult.js';
-import chooseCode from './modules/chooseCode.js';
+import chooseCode from './modules/chooseCode.js'
+import myOrder from './modules/myOrder.js'
 import inviteFriend from './modules/inviteFriend.js';
+
 
 const urlParams = () => {
 	const accessInfo = createAccessInfo();
@@ -41,7 +43,8 @@ const store = new Vuex.Store({
 		productDetail,
 		confirmPay,
 		payResult,
-		inviteFriend
+		myOrder,
+		inviteFriend,
 	},
 
 	state: {
