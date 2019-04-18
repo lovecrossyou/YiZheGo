@@ -12,7 +12,7 @@ const state = {
   "freight": 0},
 	buyType: null,
 	address: null,
-	addr_id: 0,
+	addrId: 0,
 	refundWay:{title:'喜币钱包',refundWay:'account'}
 }
 
@@ -26,10 +26,15 @@ const mutations = {
 	setAddressList(state, data) {
 		if (data != null & data.length > 0) {
 			state.address = data[0];
+			data.forEach((address)=>{
+				if(address.id==state.addrId){
+					state.address=address
+				}
+			})
 		}
 	},
 	setAddrId(state, data) {
-		state.addr_id = data;
+		state.addrId = data;
 	},
 	setRefundWay(state, data){
 		state.refundWay = data;

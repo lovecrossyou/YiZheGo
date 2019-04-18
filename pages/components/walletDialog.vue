@@ -21,6 +21,7 @@
 							   <image v-bind:src="channel.selIcon" class="channel_info_select_icon" v-if="selectIndex==index"></image>
 							   <image v-else v-bind:src="channel.unselIcon" class="channel_info_select_icon"></image>
 							   <view class="channel_info_select_title">{{channel.title}}</view>
+							   <view class="balance_notEnough" v-if="!isPayEnough[index].amountEnough">余额不足</view>
 						   </view>
 						   <view class="balance_info">
 							   <view class="balance_msg" v-if="paychannels[index].title=='零钱'">余额 ¥{{fix2Price.fix2RmbAmount}}</view>
@@ -71,18 +72,7 @@
 			},
 			// 内容
 			content: String,
-			
-			// 对齐方式
-			textalign: {
-				type: String,
-				default: 'center'
-			},
-			// 是否显示取消按钮
-			isShowCancel: {
-				type: Boolean,
-				default: true
-			},
-			
+			 
 			// 是否显示弹出框
 			show: {
 				type: Boolean,
@@ -96,7 +86,7 @@
 		data() {
 			return {
 				isShow: false,
-				selectIndex:0,
+				selectIndex:-1,
 				paychannels:[{ selIcon: '../../static/pay/pay_btn_selected_weixin@2x.png',
 				            title: "零钱",
 				            unselIcon: '../../static/pay/pay_btn@2x.png',
@@ -126,12 +116,16 @@
 					fix2TotalPayRmb:dataUtil.priceFix2(this.totalPayRmb),
 					fix2RmbAmount:dataUtil.priceFix2(this.account.rmbAmount),
 				}
-			}
+			},
+			isPayEnough:function(){
+				return [{amountEnough:this.account.rmbAmount>this.totalPayRmb},{amountEnough:this.account.xtbTotalAmount*10>this.totalPayRmb}]
+			},
 		},
 		methods: {
 			// 禁止穿透
 			bindTouchmove() {},
 			changePaychanel(index){
+				if(this.isPayEnough[index].amountEnough)
 				this.selectIndex = index;
 			},
 			show() {
@@ -193,7 +187,14 @@
 			async accountInfo(){
 				const account = await api.accountInfo({})
 				this.account = account;
-				console.log('账户信息------'+JSON.stringify(account))
+				console.log('账户信息------'+JSON.stringify(account));
+				//设置可选择的支付项
+				for(var i=0;i<this.isPayEnough.length;i++){
+					if(this.isPayEnough[i].amountEnough){
+						this.selectIndex=i;
+						break;
+					}
+				}
 			},
 			payResult(msg) {
 				console.log('支付结果:' + JSON.stringify(msg));
@@ -316,6 +317,14 @@
 							color:rgba(51,51,51,1);
 							margin-left: 10upx
 						}
+						.balance_notEnough{
+							font-size:22upx;
+							font-family:PingFangSC-Regular;
+							font-weight:400;
+							color:rgba(212,78,93,1);
+							line-height:42upx;
+							margin-left: 10upx;
+						}
 					}
 					.balance_info{
 						display: flex;
@@ -325,7 +334,7 @@
 							font-size:26upx;
 							font-family:PingFangSC-Regular;
 							font-weight:400;
-							color:rgba(51,51,51,1);
+							color:#999999;
 						}
 					}
 

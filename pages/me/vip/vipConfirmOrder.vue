@@ -77,8 +77,8 @@
 		data() {
 			return {
 				orderInfo: null,
-				addIcon: '../../static/pay/icon_location.png',
-				rightArrow: '../../static/pay/icon_arrow_right@2x.png',
+				addIcon: '@/static/pay/icon_location.png',
+				rightArrow: '@/static/pay/icon_arrow_right@2x.png',
 				buyCount: 1
 			}
 		},
@@ -122,16 +122,20 @@
 			},
 			async commitOrder() {
 				const order = await this.getOrder();
-				console.log("提交订单-----------" + JSON.stringify(order));
-				// #ifdef APP-PLUS
-				uni.navigateTo({
-					url: './pay?payOrderNo=' + order.payOrderNo + '&totalPayRmb=' + order.totalPayRmb
+				uni.redirectTo({
+					url: '/pages/chooseCode/pay?payOrderNo=' + order.payOrderNo + '&totalPayRmb=' + order.totalPayRmb
 				})
-				// #endif
-
-				// #ifdef MP-WEIXIN
-				this.wxminiPay(order);
-				// #endif
+// 				return;
+// 				console.log("提交订单-----------" + JSON.stringify(order));
+// 				// #ifdef APP-PLUS
+// 				uni.navigateTo({
+// 					url: './pay?payOrderNo=' + order.payOrderNo + '&totalPayRmb=' + order.totalPayRmb
+// 				})
+// 				// #endif
+// 
+// 				// #ifdef MP-WEIXIN
+// 				this.wxminiPay(order);
+// 				// #endif
 
 			},
 			...mapMutations({
@@ -172,7 +176,7 @@
 			},
 			addressList() {
 				uni.navigateTo({
-					url: '../me/address/address'
+					url: '/pages/me/address/address'
 				})
 			}
 		}
