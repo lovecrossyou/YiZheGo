@@ -2,10 +2,30 @@ import api from '../../util/api'
 const orderTypes = ['allClientOrder', 'waitPayClientOrder', 'waitOpenResultClientOrder', 'waitCommentClientOrder',
 	'refundClientOrder'
 ];
+
+const hasShowed = 'waitingShowOrder';
+const waitShow = '';
+const waitPay = '';
 export default {
 	namespaced: true,
 	state: {
 		orderData: [],
+		orderDetail:{},
+	},
+	getters:{
+		// 待付款：0，待揭晓：1,已揭晓：2
+		orderDealState(state){
+				let status = state.orderDetail.orderRealStatus;
+				if(waitPay.indexOf(status)>-1){
+					return 0;
+				}
+				if(waitShow.indexOf(status)>-1){
+					return 1;
+				}
+				if(hasShowed.indexOf(status)>-1){
+					return 2;
+				}
+		}
 	},
 	mutations: {
 		setOrderData(state, data) {
@@ -32,6 +52,9 @@ export default {
 			} = payload;
 			state.orderData[pageNo].loadingType = loadingType;
 		},
+		setOrderDetail(state,data){
+			state.orderDetail = data;
+		}
 	},
 	actions: {
 		getOrderData({
@@ -91,6 +114,11 @@ export default {
 					orderData: res
 				});
 
+			})
+		},
+		getOrderDetail({commit},orderNo){
+			api.clientOrderDetail({platformOrderNo:orderNo}).then(res=>{
+				commit('setOrderDetail',res)
 			})
 		}
 

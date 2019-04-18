@@ -9,7 +9,7 @@
 		</view>
 		<view class="p_option_info">
 			<view class="p_text">请选择支付方式</view>
-			<block v-for="(channel,index) in paychannels" :key="index">
+			<block v-for="(channel,index) in mapPaychannels" :key="index">
 				<view class="p_option" @click="changePaychanel(index)">
 					<view class="p_option_left">
 						<image v-bind:src="channel.icon" class="pay_icon">
@@ -39,9 +39,10 @@
 	} from 'vuex';
 	export default {
 		onLoad(option) {
-			console.log("订单号----------" + option.payOrderNo + '------------' + option.totalPayRmb);
+			console.log("订单号----------" + option.payOrderNo + '-----金额-------' + option.totalPayRmb+'-----类型-----'+option.productType);
 			this.payOrderNo = option.payOrderNo;
 			this.totalPayRmb = option.totalPayRmb;
+			this.productType = option.productType;
 		},
 		computed: {
 			...mapState({
@@ -50,6 +51,13 @@
 			fix2TotalPayRmb:function(){
 				return dataUtil.priceFix2(this.totalPayRmb)
 			},
+			mapPaychannels:function(){
+				if(this.productType=='vipProduct'){
+					this.paychannels.pop();
+					return this.paychannels;
+				}
+				return this.paychannels;
+			}
 		},
 		components: {
 			payDialog
@@ -128,6 +136,7 @@
 		// #ifdef APP-PLUS
 		data() {
 			return {
+				productType:null,
 				payOrderNo: 0,
 				totalPayRmb: 0,
 				selectIndex: 0,

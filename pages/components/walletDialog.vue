@@ -72,18 +72,7 @@
 			},
 			// 内容
 			content: String,
-			
-			// 对齐方式
-			textalign: {
-				type: String,
-				default: 'center'
-			},
-			// 是否显示取消按钮
-			isShowCancel: {
-				type: Boolean,
-				default: true
-			},
-			
+			 
 			// 是否显示弹出框
 			show: {
 				type: Boolean,
@@ -209,7 +198,7 @@
 			},
 			payResult(msg) {
 				console.log('支付结果:' + JSON.stringify(msg));
-				uni.navigateTo({
+				uni.redirectTo({
 					url: "./payResult?payOrderNo=" + this.payOrderNo + "&totalPayRmb=" + this.totalPayRmb + "&payChannel=" +
 						this.paychannels[this.selectIndex].payChannel + "&openId=" + this.openid
 				})

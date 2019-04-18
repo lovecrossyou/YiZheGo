@@ -97,6 +97,14 @@ export default {
 			return state.codeList.map((element) => {
 				return element.code.join();
 			})
+		},
+		codeListForShow(state){
+			let size = state.codeList.length > 3 ? 3 : state.codeList.length;
+			let codeListShow = [];
+			for(let i = 0;i<size;i++){
+			codeListShow.push(state.codeList[i].code)	
+			}
+			return codeListShow;
 		}
 	},
 	mutations: {

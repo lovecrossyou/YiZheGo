@@ -306,7 +306,7 @@
 		{
 			"path": "pages/me/common/forgetPassword",
 			"style": {
-				"navigationBarTitleText": "忘记密码",
+				"navigationBarTitleText": "忘记支付密码",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
