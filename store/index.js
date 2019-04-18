@@ -15,6 +15,18 @@ const urlParams = () => {
 	return urlParams;
 }
 
+/**
+ * 接受邀请
+ */
+const acceptInvite = async () => {
+	const inviteId = service.getInviteId();
+	if (inviteId) {
+		const res = await api.acceptInvite({
+			inviteId
+		});
+	}
+}
+
 import {
 	baseURL,
 	createAccessInfo
@@ -101,22 +113,20 @@ const store = new Vuex.Store({
 
 			service.addToken(token);
 			service.addOpenId(openid);
-
 			commit('setH5Url', urlParams());
 
+			acceptInvite();
 			uni.navigateBack();
 		},
+
 		async checkCodeLogin({
 			commit,
 			state
 		}, params) {
 			const token = await api.checkCodeLogin(params);
 			commit('saveToken', token);
-// 			commit('saveUserInfo', userInfo);
-// 			commit('saveOpenId', openid);
-			console.log('token ', token);
 			service.addToken(token);
-			// service.addOpenId(openid);
+			acceptInvite();
 			uni.navigateBack();
 		}
 	}

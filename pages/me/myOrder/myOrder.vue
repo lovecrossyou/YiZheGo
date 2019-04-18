@@ -14,7 +14,7 @@
 		</view>
 		<swiper :current="tabIndex" class="swiper-box" duration="300" @change="changeTab">
 			<swiper-item v-for="(tab, index1) in orderData" :key="index1">
-				<scroll-view class="list" scroll-y @scrolltolower="loadMore(index1)">
+				<scroll-view class="list" scroll-y @scrolltolower="getMoreOrder(index1)">
 					<block v-for="(orderItem, index2) in tab.list" :key="index2">
 						<view class="order-item" @click="goDetail">
 							<view class="top">
@@ -28,7 +28,7 @@
 							></productInfo>
 
 							<view class="bottom">
-								<text class="count">共{{ orderItem.purchaseCount }}件{{ '&#8195;' }}实付款：￥{{fen2yuan(orderItem.totalPayPrice)}}</text>
+								<text class="count">共{{ orderItem.purchaseCount }}件{{ '&#8195;' }}实付款：￥{{orderItem.totalPayPrice}}</text>
 							</view>
 						</view>
 					</block>
@@ -149,12 +149,12 @@ export default {
 	onLoad: function() {
 		this.newsitems = this.randomfn();
 		this.getOrderData();
-		this.addData(16);
+		//this.addDataes(16);
 	},
 	methods: {
 		...mapActions({
 			getOrderData: 'myOrder/getOrderData',
-			addData: 'myOrder/addData',
+			getMoreOrder: 'myOrder/addData',
 		}),
 		
 		fen2yuan(num){

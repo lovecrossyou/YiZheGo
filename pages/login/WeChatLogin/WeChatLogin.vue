@@ -18,9 +18,10 @@
 		methods: {
 			async wxlogin(params){
 				this.$store.dispatch('wxlogin',params);
+				
 			},
 			goTelNumber() {
-				uni.navigateTo({
+				uni.redirectTo({
 					url: "/pages/login/verifyCodeLogin/verifyCodeLogin"
 				})
 			},

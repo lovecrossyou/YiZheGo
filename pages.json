@@ -261,8 +261,20 @@
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
+		},
+		{
+			"path": "pages/chooseCode/refundRoute",
+			"style": {
+				"navigationBarTitleText": "退款路径",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
 		}
-	],
+	    ,{
+            "path" : "pages/acceptGroup/acceptGroup",
+            "style" : {}
+        }
+    ],
 	"tabBar": {
 		"color": "#7a7e83",
 		"selectedColor": "#FE594B",

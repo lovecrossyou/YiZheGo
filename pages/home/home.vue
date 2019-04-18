@@ -1,7 +1,7 @@
 <template>
 	<view class="home_page">
 		<view class="header">
-			<searchBox></searchBox>
+			<searchWrap></searchWrap>
 			<banner></banner>
 		</view>
 		<view class="nav">
@@ -65,15 +65,15 @@
 	} from "vuex";
 	import api from '../../util/api.js';
 	import banner from './components/banner';
-	import searchBox from './components/searchBox';
+	import searchWrap from './components/searchWrap';
 	import tabFiltrate from './components/tabFiltrate';
 	import product from './components/product';
 
 	export default {
 		computed: {
 			...mapState(['hasLogin']),
-			...mapState('home',['timeLimitChoices','timeLimitChoiceList']),
-			...mapGetters('home',['timeLimit3']),
+			...mapState('home', ['timeLimitChoices', 'timeLimitChoiceList']),
+			...mapGetters('home', ['timeLimit3']),
 		},
 		methods: {
 			goNext(item) {
@@ -81,45 +81,63 @@
 					url: item.page
 				})
 			},
-		},
-		onLoad() {
-			if (!this.hasLogin) {
+			goDetail(productId,groupId){
 				uni.navigateTo({
-					url: "/pages/login/WeChatLogin/WeChatLogin"
+					url:"/pages/details/productDetails?productId="+productId+'&groupId='+groupId
 				})
+			},
+		},
+		onLoad(option) {
+			console.log('inviteId ', option.inviteId);
+			let inviteId = option.inviteId;
+			
+			inviteId = 6;
+			if (inviteId) {
+				service.addInviteId(inviteId)
 			}
+			
+			let groupId = option.groupId;
+			let productId = option.productId;
+			if(groupId&&productId){
+				console.log('groupId productId',groupId,productId);
+				this.goDetail(productId,groupId);
+			}
+			
+// 			if (!this.hasLogin) {
+// 				uni.navigateTo({
+// 					url: "/pages/login/WeChatLogin/WeChatLogin"
+// 				})
+// 			}
 		},
 		data() {
 			return {
 				home_huiyuan: 'http://qnimage.xiteng.com/home_huiyuan.png',
 				home_gengduo_icon: '../../static/home/home_gengduo_icon.png',
 				navBarListTit: ["精选", "销量", "价格"],
-				navList: [
-					{
-						img: '../../static/home/home_nav_zhongqian.png',
-						name: "中签",
-						page: "/pages/me/vip/lucky-list"
-					}, {
-						img: '../../static/home/home_nav_shaidan.png',
-						name: "晒单",
-						page: "/pages/ranklist/ranklist"
-					}, {
-						img: '../../static/home/home_nav_bangdan.png',
-						name: "榜单",
-						page: "/pages/ranklist/ranklist"
-					}, {
-						img: '../../static/home/home_nav_fenlei.png',
-						name: "分类",
-						page: "/pages/category/category"
-					}
-				]
+				navList: [{
+					img: '../../static/home/home_nav_zhongqian.png',
+					name: "中签",
+					page: "/pages/me/vip/lucky-list"
+				}, {
+					img: '../../static/home/home_nav_shaidan.png',
+					name: "晒单",
+					page: "/pages/ranklist/ranklist"
+				}, {
+					img: '../../static/home/home_nav_bangdan.png',
+					name: "榜单",
+					page: "/pages/ranklist/ranklist"
+				}, {
+					img: '../../static/home/home_nav_fenlei.png',
+					name: "分类",
+					page: "/pages/category/category"
+				}]
 			}
 		},
 		components: {
 			banner,
-			searchBox,
 			tabFiltrate,
 			product,
+			searchWrap
 		}
 	}
 </script>

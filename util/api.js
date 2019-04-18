@@ -30,6 +30,8 @@ const api = {
 	discusRecommendList: params => request.post(' /discountGame/discusRecommendList', params),
 	//我
 	userInfo:(params) => request.post("/user/info",params),
+	//会员信息
+	vipInfo:(params) => request.post('/vip/userVipInfo', params),
 	//中签列表
 	luckyList:(params) => request.post('/discountGame/winGameListByStage', params),
 	//中签详情
@@ -63,8 +65,15 @@ const api = {
 	checkCodeLogin:params => request.post("/checkCodeLogin",params),
 
 	clientOrderDetail: params => request.post("/discountGameOrder/clientOrderDetail", params),
+
 	//用户订单列表    
 	getMyOrder: params => request.post("/discountGame/clientOrder", params),
+
+	//设置支付密码
+	setPayPassword:params => request.post("/client/bankCard/setPayPassword", params),
+	
+	acceptInvite : params =>request.post("/discountGame/acceptInvite",params),
+
 	//上传
 	uploader: (file, callback) => {
 		uni.uploadFile({
