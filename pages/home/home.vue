@@ -16,7 +16,7 @@
 		<view class="tooopencom">
 			<view class="tooopencom_content">
 				<view class="tooopencom_title" @click="goNewsWelfare">
-					<view>新人福利</view>
+					<view>喜腾好物</view>
 					<view class="tooopencom_title_right">
 						<image :src="home_gengduo_icon"></image>
 					</view>
@@ -57,7 +57,7 @@
 		</view>
 
 		<!-- 恭喜您注册成功！ -->
-		<view class="registe_success_modal">
+		<view class="registe_success_modal" v-if="showModal">
 
 		</view>
 
@@ -145,6 +145,7 @@
 		},
 		data() {
 			return {
+				showModal:false,
 				home_huiyuan: 'http://qnimage.xiteng.com/home_huiyuan.png',
 				home_gengduo_icon: '../../static/home/home_gengduo_icon.png',
 				navBarListTit: ["精选", "销量", "价格"],
