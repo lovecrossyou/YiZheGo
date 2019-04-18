@@ -82,28 +82,6 @@
 				for (var i = 0; i < this.OrderDetail.purchaseCode.length; i++) list.push(this.OrderDetail.purchaseCode[i].split(','));
 				return list;
 			}
-			// 			countTime() {
-			// 				var h=0;
-			// 				var m=0;
-			// 				var s=0;
-			//                 //获取当前时间
-			//                 var date = new Date();
-			//                 var now = date.getTime();
-			//                 //设置截止时间
-			//                 var endDate = new Date(this.OrderDetail.openResultTime);
-			//                 var end = endDate.getTime();
-			//                 //时间差
-			//                 var leftTime = end - now;
-			//                 //定义变量 d,h,m,s保存倒计时的时间
-			//                 if (leftTime >= 0) {
-			//                     h = Math.floor(leftTime / 1000 / 60 / 60 % 24);
-			//                     m = Math.floor(leftTime / 1000 / 60 % 60);
-			//                     s = Math.floor(leftTime / 1000 % 60);
-			//                 }
-			//                 return {"h":h,"m":m,"s":s}
-			//                 //递归每秒调用countTime方法，显示动态时间效果
-			//                 setTimeout(this.countTime, 1000);
-			//             }
 		},
 		methods: {
 			pack_up_btn() {
@@ -213,7 +191,7 @@
 				}
 
 				.colon {
-					margin: 5upx 7upx 10upx 7upx;
+					margin: -5upx 7upx 10upx 7upx;
 					box-sizing: border-box;
 					color: #cc2637;
 				}
