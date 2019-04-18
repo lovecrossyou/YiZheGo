@@ -25,7 +25,13 @@ const api = {
 	showWinOrderList: params => request.post('/discountGame/showWinOrderList', params),
 	//晒单讨论详情
 	showWinOrderDetail: params => request.post('/discountGame/showWinOrderDetail', params),
-
+	
+	// 邀请用户
+	inviteUser:params=>request.post('/discountGame/inviteUser',params),
+	// 用户所有好友信息
+	userProfitAllFriendInfo:params=>request.post('/profit/userProfitAllFriendInfo',params),
+	// 用户返利信息
+	userProfitInfo:params=>request.post('/profit/userProfitInfo',params),
 
 	discusRecommendList: params => request.post(' /discountGame/discusRecommendList', params),
 	//我
@@ -65,11 +71,15 @@ const api = {
 	checkCodeLogin:params => request.post("/checkCodeLogin",params),
 
 	clientOrderDetail: params => request.post("/discountGameOrder/clientOrderDetail", params),
-    
+
+	//用户订单列表    
+	getMyOrder: params => request.post("/discountGame/clientOrder", params),
+
 	//设置支付密码
 	setPayPassword:params => request.post("/client/bankCard/setPayPassword", params),
 	
 	acceptInvite : params =>request.post("/discountGame/acceptInvite",params),
+
 	//上传
 	uploader: (file, callback) => {
 		uni.uploadFile({

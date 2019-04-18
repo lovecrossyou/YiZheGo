@@ -98,6 +98,8 @@
 			this.groupId = option.groupId;
 			this.$store.commit('confirmPay/setBuyType', option.directBuy)
 			this.getConfirmOrderInfo(option.discountGameId);
+		},
+		onShow() {
 			this.getAddressList();
 		},
 		data() {
@@ -123,10 +125,11 @@
 			}),
 			...mapGetters({
 				allCode: 'chooseCode/allCode',
+				allFinished: 'chooseCode/allFinished',
 				originalPrice: 'confirmPay/originalPrice',
-				fix2Price: 'confirmPay/fix2Price',
-				allFinished:'chooseCode/allFinished'
+				fix2Price: 'confirmPay/fix2Price'
 			})
+
 
 		},
 		methods: {

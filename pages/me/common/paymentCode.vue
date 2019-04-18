@@ -26,4 +26,7 @@
 	.wrapper{
 		width: 100%;
 	}
+	.border_line{
+		border-top: 1upx solid #DEDEDE;
+	}
 </style>
