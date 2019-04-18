@@ -8,6 +8,9 @@ import confirmPay from './modules/confirmPay.js';
 import payResult from './modules/payResult.js';
 import chooseCode from './modules/chooseCode.js'
 import myOrder from './modules/myOrder.js'
+import inviteFriend from './modules/inviteFriend.js';
+
+
 const urlParams = () => {
 	const accessInfo = createAccessInfo();
 	const urlParams = '?app_key=' + accessInfo.app_key + '&signature=' + accessInfo.signature + '&access_token=' +
@@ -41,6 +44,7 @@ const store = new Vuex.Store({
 		confirmPay,
 		payResult,
 		myOrder,
+		inviteFriend,
 	},
 
 	state: {

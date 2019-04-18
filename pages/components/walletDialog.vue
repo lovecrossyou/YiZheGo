@@ -11,7 +11,7 @@
 					<view class="header" v-if="title.length > 0">{{ title }}</view>
 					<view class="line"></view>
 					<view class="msg">钱包支付</view>
-					<view class="price">¥{{totalPayRmb}}</view>
+					<view class="price">¥{{fix2Price.fix2TotalPayRmb}}</view>
 				</view>
 				<view class="channel_container">
 					<view class="line"></view>
@@ -23,7 +23,7 @@
 							   <view class="channel_info_select_title">{{channel.title}}</view>
 						   </view>
 						   <view class="balance_info">
-							   <view class="balance_msg" v-if="paychannels[index].title=='零钱'">余额 ¥{{account.rmbAmount}}</view>
+							   <view class="balance_msg" v-if="paychannels[index].title=='零钱'">余额 ¥{{fix2Price.fix2RmbAmount}}</view>
 							   <view class="balance_msg" v-else>余额 ${{account.xtbTotalAmount}}</view>
 						   </view>
 						</view>
@@ -51,6 +51,8 @@
 	import keyboard from '../components/keyboard.vue';
 	import api from '../../util/api.js';
     import {mapState} from 'vuex';
+	import dataUtil from '../../util/dataUtil.js';
+
 	export default {
 		props: {
 			
@@ -119,6 +121,12 @@
 			...mapState({
 				openid: state => state.openid,
 			}),
+			fix2Price:function(){
+				return {
+					fix2TotalPayRmb:dataUtil.priceFix2(this.totalPayRmb),
+					fix2RmbAmount:dataUtil.priceFix2(this.account.rmbAmount),
+				}
+			}
 		},
 		methods: {
 			// 禁止穿透

@@ -2,7 +2,7 @@
 	<view class="container">
 		<view class="order_content">
 			<view class="order_pay_top">
-				<view class="order_pay_top_amount">¥{{totalPayRmb}}</view>
+				<view class="order_pay_top_amount">¥{{fix2TotalPayRmb}}</view>
 				<view class="order_pay_top_msg">支付金额</view>
 			</view>
 
@@ -33,7 +33,7 @@
 	import api from '../../util/api.js';
 	import pay from '../../util/payUtil.js';
 	import payDialog from '../components/walletDialog.vue';
-
+    import dataUtil from '../../util/dataUtil.js';
 	import {
 		mapState,
 	} from 'vuex';
@@ -47,6 +47,9 @@
 			...mapState({
 				openid: state => state.openid,
 			}),
+			fix2TotalPayRmb:function(){
+				return dataUtil.priceFix2(this.totalPayRmb)
+			},
 		},
 		components: {
 			payDialog

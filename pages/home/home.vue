@@ -68,10 +68,10 @@
 	import searchWrap from './components/searchWrap';
 	import tabFiltrate from './components/tabFiltrate';
 	import product from './components/product';
-
+	import service from "@/service.js"
 	export default {
 		computed: {
-			...mapState(['hasLogin']),
+			...mapState(['hasLogin', 'userInfo']),
 			...mapState('home', ['timeLimitChoices', 'timeLimitChoiceList']),
 			...mapGetters('home', ['timeLimit3']),
 		},
@@ -81,33 +81,51 @@
 					url: item.page
 				})
 			},
-			goDetail(productId,groupId){
+			goDetail(productId, groupId) {
 				uni.navigateTo({
-					url:"/pages/details/productDetails?productId="+productId+'&groupId='+groupId
+					url: "/pages/details/productDetails?productId=" + productId + '&groupId=' + groupId
 				})
 			},
 		},
 		onLoad(option) {
 			console.log('inviteId ', option.inviteId);
 			let inviteId = option.inviteId;
-			
-			inviteId = 6;
+
+			// inviteId = 7;
 			if (inviteId) {
 				service.addInviteId(inviteId)
 			}
-			
+			let userId;
+			if (this.userInfo) {
+				userId = this.userInfo.userId;
+			}
 			let groupId = option.groupId;
+			if(!groupId){
+				groupId=null;
+			}
 			let productId = option.productId;
-			if(groupId&&productId){
-				console.log('groupId productId',groupId,productId);
-				this.goDetail(productId,groupId);
+			if(!productId){
+				productId=null;
+			}
+			let payOrderNo = option.payOrderNo;
+			if(!payOrderNo){
+				payOrderNo=null;
 			}
 			
-// 			if (!this.hasLogin) {
-// 				uni.navigateTo({
-// 					url: "/pages/login/WeChatLogin/WeChatLogin"
-// 				})
-// 			}
+			if (groupId && productId) {
+				if (!userId || userId != inviteId) {
+					console.log('groupId productId', groupId, productId);
+					this.goDetail(productId, groupId);
+				} else {
+					//到自己团(未登录)
+					if (this.hasLogin) {
+						//到自己团
+						uni.navigateTo({
+							url: "/pages/gameGroup?payOrderNo="+payOrderNo
+						})
+					}
+				}
+			}
 		},
 		data() {
 			return {
