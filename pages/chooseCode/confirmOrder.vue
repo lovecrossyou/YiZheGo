@@ -2,12 +2,12 @@
 	<view class="container">
 		<view class="delivery-info" @click="addressList" v-if="address">
 			<view class="delivery-userinfo">
-				<view class="delivery-userinfo-name">收货人:{{address.recievName}}</view>
-				<view class="delivery-userinfo-name">{{address.phoneNum}}</view>
+				<view class="delivery-userinfo-name">收货人:{{ address.recievName }}</view>
+				<view class="delivery-userinfo-name">{{ address.phoneNum }}</view>
 			</view>
 			<view class="delivery-userinfo-addInfo">
 				<image v-bind:src="addIcon" class="delivery-userinfo-addInfo-icon"></image>
-				<view class="delivery-userinfo-addInfo-add">收货地址:{{address.fullAddress}}</view>
+				<view class="delivery-userinfo-addInfo-add">收货地址:{{ address.fullAddress }}</view>
 			</view>
 			<image v-bind:src="rightArrow" class="delivery-userinfo-arrow"></image>
 		</view>
@@ -20,11 +20,11 @@
 			<view class="product-info-pro">
 				<image v-bind:src="orderInfo.relatedProductImageUrl" class="product-info-pro-img"></image>
 				<view class="product-info-pro-name">
-					<view class="product-info-pro-name-text">{{orderInfo.relatedProductName}}</view>
+					<view class="product-info-pro-name-text">{{ orderInfo.relatedProductName }}</view>
 					<view class="product-info-pro-price-info">
-						<view class="product-info-pro-name-price">¥{{fix2Price.oneDiscountPrice}}</view>
+						<view class="product-info-pro-name-price">¥{{ fix2Price.oneDiscountPrice }}</view>
 
-						<view class="product-info-pro-name-price-discount">市场价:{{fix2Price.originalPrice}}</view>
+						<view class="product-info-pro-name-price-discount">市场价:{{ fix2Price.originalPrice }}</view>
 					</view>
 				</view>
 			</view>
@@ -36,32 +36,46 @@
 		<view v-if="orderInfo" class="price-info">
 			<view class="price-info-product">
 				<view class="price-info-product-text">商品</view>
-				<view class="price-info-product-price" v-if="directBuy==true">¥{{fix2Price.originalPrice}}</view>
-				<view class="price-info-product-price" v-else>¥{{fix2Price.oneDiscountPrice}}</view>
+				<view class="price-info-product-price" v-if="directBuy == true">¥{{ fix2Price.originalPrice }}</view>
+				<view class="price-info-product-price" v-else>¥{{ fix2Price.oneDiscountPrice }}</view>
 			</view>
 			<view class="price-info-product">
 				<view class="price-info-product-text">运费</view>
-				<view class="price-info-product-price">+¥{{fix2Price.freight}}</view>
+				<view class="price-info-product-price">+¥{{ fix2Price.freight }}</view>
 			</view>
 		</view>
 		<view class="choose-code" @click="chooseCode" v-if="directBuy">
-			<view class="choose-code-msg">
-				<view class="choose-code-msg-red">选择号码</view>
+			<view class="choose-code-msg" v-if="allFinished">
+				<view class="choose-code-msg-red">我的幸运号码（{{ buyCount }}组）</view>
+			</view>
+			<view class="choose-code-msg" v-else>
+				<view class="choose-code-msg-red">选择幸运号码</view>
 				<view class="choose-code-msg-time">0~9选3个号码 选中立享1折 不中全额退款</view>
 			</view>
-			<view class="choose-code-select">
-				<view class="choose-code-button" v-for="(code, arrayIndex) in codes" :key="arrayIndex">
-					<button class="code" :key="index" :style="{ opacity: code > -1 ? 1 : 0.5 }">
-						{{ code }}
-					</button>
-				</view>
-			</view>
+			<view class="choose-code-select" v-if="allFinished">
+				<view class="choose-code-button">
+					<view class="code-show-array" v-for="(codeArray,index) in codeListForShow" :key="index">
 
+						<view class="code" v-for="(code, arrayIndex) in codeArray" :key="arrayIndex">{{ code }}</view>
+
+					</view>
+				</view>
+
+				<text class="choose-tips">查看/重选</text>
+				<uni-icon type="arrowright" color="#bbb" size="20"></uni-icon>
+			</view>
+			<view class="choose-code-select" v-else>
+				<view class="choose-code-button">
+					<view class="code" v-for="(code, arrayIndex) in codes" :key="arrayIndex">{{ code }}</view>
+				</view>
+				<text class="choose-tips">去选号</text>
+				<uni-icon type="arrowright" color="#bbb" size="20"></uni-icon>
+			</view>
 		</view>
 		<view class="refound-info" @click="refundRoute">
 			<view class="refound-info-text">退款路径</view>
 			<view class="refound-info-select-info">
-				<view class="refound-info-select-msg">{{refundWay.title}}</view>
+				<view class="refound-info-select-msg">{{ refundWay.title }}</view>
 				<image v-bind:src="rightArrow" class="refound-info-select-arrow"></image>
 			</view>
 		</view>
@@ -70,7 +84,7 @@
 				<view class="confirm-footer-price-amount">共1件</view>
 				<view class="confirm-footer-price-pay-info">
 					<view class="confirm-footer-price-pay-text">实付款:</view>
-					<view class="confirm-footer-price-pay">¥{{fix2Price.totalPayRmbPrice}}</view>
+					<view class="confirm-footer-price-pay">¥{{ fix2Price.totalPayRmbPrice }}</view>
 				</view>
 			</view>
 			<view class="confirm-footer-commit" @click="commitOrder">提交订单</view>
@@ -78,15 +92,15 @@
 		<!-- <view class="choose-code" @click="chooseCode">
 		选择号码
 	</view> -->
-	
-	<view class="showUpgradeModal" v-if="showUpgradeModal">
-		<!-- xx -->
-	</view>
+
+		<view class="showUpgradeModal" v-if="showUpgradeModal">
+			<!-- xx -->
+		</view>
 	</view>
 </template>
 
 <script>
-	import uniNumberBox from "../components/uni-number-box/uni-number-box.vue"
+	import uniNumberBox from '../components/uni-number-box/uni-number-box.vue';
 	import {
 		mapState,
 		mapMutations,
@@ -94,35 +108,36 @@
 	} from 'vuex';
 	import api from '../../util/api.js';
 	import pay from '../../util/payUtil.js';
-
+	import uniIcon from '@/pages/components/uni-icon/uni-icon.vue';
 	export default {
 		onLoad: function(option) {
-			console.log("确认订单商品-----------" + option.directBuy + '------------' + option.discountGameId);
+			console.log('确认订单商品-----------' + option.directBuy + '------------' + option.discountGameId);
 
 			this.groupId = option.groupId;
 			this.discountGameId = option.discountGameId;
-			this.$store.commit('confirmPay/setBuyType', option.directBuy)
+			this.$store.commit('confirmPay/setBuyType', option.directBuy);
 			this.getConfirmOrderInfo(option.discountGameId);
 		},
 		onShow() {
 			this.getAddressList();
 		},
-		onUnload(){
+		onUnload() {
 			this.$store.commit('confirmPay/resetPurchaseAmount');
 		},
 		data() {
 			return {
-				showUpgradeModal:false,
+				showUpgradeModal: false,
 				groupId: null,
-				discountGameId:0,
+				discountGameId: 0,
 				addIcon: '../../static/pay/icon_location.png',
 				rightArrow: '../../static/pay/icon_arrow_right@2x.png',
 				lineCai: '../../static/pay/img_cai@2x.png',
-				codes: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"],
-			}
+				codes: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+			};
 		},
 		components: {
-			uniNumberBox
+			uniNumberBox,
+			uniIcon
 		},
 		computed: {
 			...mapState({
@@ -132,16 +147,15 @@
 				openid: state => state.openid,
 				address: state => state.confirmPay.address,
 				refundWay: state => state.confirmPay.refundWay,
-				purchaseAmount:state => state.confirmPay.purchaseAmount,
+				purchaseAmount: state => state.confirmPay.purchaseAmount
 			}),
 			...mapGetters({
 				allCode: 'chooseCode/allCode',
 				allFinished: 'chooseCode/allFinished',
 				originalPrice: 'confirmPay/originalPrice',
-				fix2Price: 'confirmPay/fix2Price'
+				fix2Price: 'confirmPay/fix2Price',
+				codeListForShow: 'chooseCode/codeListForShow',
 			})
-
-
 		},
 		methods: {
 			async getAddressList() {
@@ -149,18 +163,17 @@
 					size: 10,
 					pageNo: 0
 				});
-				console.log("收货地址-----------" + JSON.stringify(res));
-				this.$store.commit('confirmPay/setAddressList', res.content)
+				console.log('收货地址-----------' + JSON.stringify(res));
+				this.$store.commit('confirmPay/setAddressList', res.content);
 			},
 			async getConfirmOrderInfo(discountGameId) {
 				const res = await api.confirmOrderInfo({
 					discountGameId: discountGameId,
-					purchaseAmount: this.purchaseAmount,
+					purchaseAmount: this.purchaseAmount
 				});
-				console.log("确认订单信息-----------" + JSON.stringify(res));
-				this.$store.commit('confirmPay/setOrderInfo', res)
+				console.log('确认订单信息-----------' + JSON.stringify(res));
+				this.$store.commit('confirmPay/setOrderInfo', res);
 			},
-
 			async getOrder() {
 				let groupId = this.groupId;
 				console.log('this.groupId ', this.groupId);
@@ -176,12 +189,10 @@
 					refundWay: this.refundWay.refundWay,
 					groupCount: 3,
 					groupId: groupId
-				})
+				});
 			},
 			async commitOrder() {
 				if (!this.allFinished) {
-
-
 					console.log('allCode ', this.allCode);
 					uni.showToast({
 						title: '请完成选号!',
@@ -191,28 +202,14 @@
 					return;
 				}
 
+
 				const order = await this.getOrder();
 				console.log("提交订单-----------" + JSON.stringify(order));
-// 				if(order.status == '请您升级会员'){
-// 					this.showUpgradeModal = true;
-// 					return;
-// 				}
-				
+
 
 				uni.redirectTo({
 					url: './pay?payOrderNo=' + order.payOrderNo + '&totalPayRmb=' + order.totalPayRmb
-				})
-				return;
-
-				// #ifdef APP-PLUS
-				uni.redirectTo({
-					url: './pay?payOrderNo=' + order.payOrderNo + '&totalPayRmb=' + order.totalPayRmb
-				})
-				// #endif
-
-				// #ifdef MP-WEIXIN
-				this.wxminiPay(order);
-				// #endif
+				});
 
 			},
 			...mapMutations({
@@ -235,21 +232,17 @@
 					package: wexinSpec.packageValue,
 					signType: 'MD5',
 					paySign: wexinSpec.sign,
-					success: function(res) {
-
-					},
-					fail: function(err) {
-
-					}
+					success: function(res) {},
+					fail: function(err) {}
 				});
 			},
 			chooseCode() {
 				uni.navigateTo({
 					url: './chooseCode'
-				})
+				});
 			},
 			onCountChanged(event) {
-				console.log("修改数量-----------" + event);
+				console.log('修改数量-----------' + event);
 				this.changeCodeCount(event);
 				this.$store.commit('confirmPay/setPurchaseAmount', event);
 				this.getConfirmOrderInfo(this.discountGameId);
@@ -257,29 +250,29 @@
 			addressList() {
 				uni.navigateTo({
 					url: '../me/address/address'
-				})
+				});
 			},
 			refundRoute() {
 				uni.navigateTo({
 					url: './refundRoute'
-				})
+				});
 			}
 		}
-	}
+	};
 </script>
 
 <style lang="scss">
 	.container {
 		width: 100%;
 		height: 100%;
-		background: #F7F7F7;
+		background: #f7f7f7;
 		display: flex;
 		flex-direction: column;
 
 		.delivery-info {
 			display: flex;
 			flex-direction: column;
-			background: #FFFFFF;
+			background: #ffffff;
 			height: 182upx;
 			padding: 20upx;
 			justify-content: center;
@@ -330,7 +323,7 @@
 		.delivery-no-info {
 			display: flex;
 			flex-direction: row;
-			background: #FFFFFF;
+			background: #ffffff;
 			height: 90upx;
 			align-items: center;
 			margin-left: 20upx;
@@ -352,7 +345,7 @@
 			display: flex;
 			flex-direction: column;
 			height: 170upx+108upx;
-			background: #FFFFFF;
+			background: #ffffff;
 			margin-top: 20upx;
 			padding: 20upx;
 
@@ -403,9 +396,7 @@
 							line-height: 42upx;
 						}
 					}
-
 				}
-
 			}
 
 			.product-info-pro-amount {
@@ -427,7 +418,7 @@
 			display: flex;
 			flex-direction: column;
 			height: 178upx;
-			background: #FFFFFF;
+			background: #ffffff;
 			margin-top: 20upx;
 			padding: 20upx;
 			justify-content: center;
@@ -441,7 +432,7 @@
 					font-size: 30upx;
 					font-family: PingFangSC-Regular;
 					font-weight: 400;
-					color: rgba(153, 153, 153, 1);
+					color: #333333;
 				}
 
 				.choose-code-msg-time {
@@ -462,25 +453,40 @@
 				.choose-code-button {
 					display: flex;
 					align-items: center;
+					flex: 1;
+
+					.code-show-array {
+						display: flex;
+						flex-direction: row;
+						align-items: center;
+						margin-right: 16upx;
+
+					}
 
 					.code {
-						width: 26upx;
-						height: 57upx;
-						background-color: #d22222;
-						border-radius: 40upx;
+						width: 46upx;
+						height: 46upx;
+						background-color: #f5cccc;
+						border-radius: 50%;
 						margin-right: 10upx;
-
 						display: flex;
 						align-items: center;
 						justify-content: center;
 						font-size: 25upx;
 						font-family: PingFang-SC-Medium;
 						font-weight: 500;
-						color: rgba(255, 255, 255, 1);
+						color: #cc2636;
 					}
 				}
-			}
 
+				.choose-tips {
+					font-size: 24upx;
+					font-family: PingFang-SC-Medium;
+					font-weight: 500;
+					color: rgba(119, 119, 119, 1);
+					line-height: 30upx;
+				}
+			}
 		}
 
 		.price-info {
@@ -488,7 +494,7 @@
 			height: 152upx;
 			display: flex;
 			flex-direction: column;
-			background: #FFFFFF;
+			background: #ffffff;
 			margin-top: 2upx;
 
 			.price-info-product {
@@ -509,7 +515,7 @@
 					font-size: 30upx;
 					font-family: PingFang-SC-Medium;
 					font-weight: 500;
-					color: #CC2636;
+					color: #cc2636;
 				}
 			}
 		}
@@ -520,7 +526,7 @@
 			flex-direction: row;
 			justify-content: space-between;
 			align-items: center;
-			background: #FFFFFF;
+			background: #ffffff;
 			margin-top: 20upx;
 			padding: 20upx;
 
@@ -563,7 +569,7 @@
 			.confirm-footer-price-info {
 				height: 98upx;
 				flex: 3;
-				background: #FFFFFF;
+				background: #ffffff;
 				display: flex;
 				flex-direction: row;
 				align-items: center;
@@ -625,7 +631,6 @@
 		.reduce {}
 
 		.input-num {
-
 			display: flex;
 			justify-content: center;
 			text-align: center;
