@@ -29,7 +29,6 @@
 					phoneNum: this.phoneNum,
 					codeType: "findBackPayPassword"
 				})
-				this.goNext(res);
 			},
 			
 			goNext(code) {
