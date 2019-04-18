@@ -4,8 +4,8 @@
 			<searchWrap></searchWrap>
 			<banner></banner>
 		</view>
-		<view class="nav"> 
-			<view class="nav_list" >
+		<view class="nav">
+			<view class="nav_list">
 				<view class="nav_list_item" v-for="(item,i) in navList" :key="i" @click="goNext(item)">
 					<image :src="item.img"></image>
 					<view>{{item.name}}</view>
@@ -55,6 +55,12 @@
 			<product></product>
 
 		</view>
+
+		<!-- 恭喜您注册成功！ -->
+		<view class="registe_success_modal">
+
+		</view>
+
 	</view>
 </template>
 
@@ -76,9 +82,9 @@
 			...mapGetters('home', ['timeLimit3']),
 		},
 		methods: {
-			goVIP(){
+			goVIP() {
 				uni.navigateTo({
-					url:'/pages/me/vip/vip-center'
+					url: '/pages/me/vip/vip-center'
 				})
 			},
 			goNext(item) {
@@ -105,18 +111,18 @@
 				userId = this.userInfo.userId;
 			}
 			let groupId = option.groupId;
-			if(!groupId){
-				groupId=null;
+			if (!groupId) {
+				groupId = null;
 			}
 			let productId = option.productId;
-			if(!productId){
-				productId=null;
+			if (!productId) {
+				productId = null;
 			}
 			let payOrderNo = option.payOrderNo;
-			if(!payOrderNo){
-				payOrderNo=null;
+			if (!payOrderNo) {
+				payOrderNo = null;
 			}
-			
+
 			if (groupId && productId) {
 				if (!userId || userId != inviteId) {
 					console.log('groupId productId', groupId, productId);
@@ -126,7 +132,7 @@
 					if (this.hasLogin) {
 						//到自己团
 						uni.navigateTo({
-							url: "/pages/gameGroup?payOrderNo="+payOrderNo
+							url: "/pages/gameGroup?payOrderNo=" + payOrderNo
 						})
 					}
 				}
@@ -369,6 +375,16 @@
 			width: 100%;
 			margin-top: 20upx;
 
+		}
+
+		.registe_success_modal {
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			background: rgba(0, 0, 0, 1);
+			opacity: 0.8;
 		}
 
 	}
