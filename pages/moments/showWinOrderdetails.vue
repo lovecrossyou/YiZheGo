@@ -28,8 +28,9 @@
 			</view>
 		</view>
 		<view class="praise">
-			<view class="praisewrapper">
-				<image class="praise_img" src="/static/moments/icon_illume.png"></image>
+			<view class="praisewrapper" @click="change_praise">
+				<image class="praise_img" v-if="showWinOrderCommentModel.praise" src="/static/moments/btn_like_red.png"></image>
+				<image class="praise_img" v-else src="/static/moments/icon_illume.png"></image>
 				<view class="praise_num">{{showWinOrderCommentModel.praiseCount}}</view>
 			</view>
 			<view class="praise_user" @click="gopraiseDetail">
@@ -75,18 +76,24 @@
 				showOrderCommentId: options.id
 			});
 			this.showOrderCommentId=options.id;
-			console.log(res)
 			this.commentShowWinOrderModelList = res.commentShowWinOrderModelList;
 			this.praiseDetailModelList = res.praiseDetailModelList;
 			this.showWinOrderCommentModel = res.showWinOrderCommentModel;
 		},
 		methods:{
 			gopraiseDetail(){
-				if(this.praiseDetailModelList){
+				if(this.praiseDetailModelList.length!==0){
 					uni.navigateTo({
 						url:"praiseDetail?id="+this.showOrderCommentId
 					})
 				}
+			},
+			async change_praise(){
+				const res = await api.praiseShowWinOrder({
+					showWinOrderId:this.showOrderCommentId,
+				});
+				this.showWinOrderCommentModel.praise=res.praise;
+				this.showWinOrderCommentModel.praiseCount=res.praiseCount;
 			}
 		}
 	}
@@ -191,10 +198,11 @@
 			display: flex;
 			flex-direction: row;
 			width: 100%;
-			height: 124upx;
+			height: 125upx;
 			padding: 22upx 30upx;
 			box-sizing: border-box;
 			background: #FBFBFB;
+			border-top: solid 1upx rgba(234, 234, 234, 1);
 
 			.product_icon {
 				width: 80upx;
@@ -226,7 +234,7 @@
 					font-family: PingFangSC-Regular;
 					font-weight: 400;
 					color: rgba(153, 153, 153, 1);
-					padding: 7upx 18upx 5upx 18upx;
+					padding: 5upx 18upx 5upx 18upx;
 					box-sizing: border-box;
 				}
 			}
