@@ -25,6 +25,8 @@ const api = {
 	showWinOrderList: params => request.post('/discountGame/showWinOrderList', params),
 	//晒单讨论详情
 	showWinOrderDetail: params => request.post('/discountGame/showWinOrderDetail', params),
+	//点赞或取消
+	praiseShowWinOrder: params => request.post('/discountGame/praiseShowWinOrder', params),
 	
 	// 邀请用户
 	inviteUser:params=>request.post('/discountGame/inviteUser',params),

@@ -8,8 +8,6 @@
 		<view class="contentlist">
 			<recommend v-if="isOnclick===0"></recommend>
 			<comment v-if="isOnclick===1"></comment>
-			<showWinOrder v-if="isOnclick===2"></showWinOrder>
-			<view v-if="isOnclick===3">待开发</view>
 		</view>
 	</view>
 </template>
@@ -18,13 +16,12 @@
 	import api from "@/util/api.js";
 	import recommend from './components/recommend';
 	import comment from './components/comment';
-	import showWinOrder from './components/showWinOrder';
 	
 	export default {
 		data() {
 			return {
 				isOnclick: 0,
-				navigationlist: ["推荐", "讨论", "晒单", "中签"],
+				navigationlist: ["推荐", "讨论"],
 			}
 		},
 		methods: {
@@ -34,8 +31,7 @@
 		},
 		components:{
 			recommend,
-			comment,
-			showWinOrder
+			comment
 		}
 	}
 </script>
@@ -51,9 +47,7 @@
 			display: flex;
 			flex-direction: row;
 			justify-content: space-around;
-			align-items: center;
 			background:white;
-			border-top: solid 1upx rgba(234,234,234,1);
 			position: fixed;
 			top: 0upx;
 			z-index: 10;

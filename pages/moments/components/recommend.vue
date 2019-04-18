@@ -27,8 +27,9 @@
 					<view class="gamestage" v-if="item.discountGameStage">期数: {{item.discountGameStage}}</view>
 					<view class="gamestage" v-else></view>
 					<view class="moment_num">
-						<view class="praise">
-							<image class="praise_img" src="/static/moments/icon_illume.png"></image>
+						<view class="praise" @click="change_praise(item)">
+							<image class="praise_img" v-if="item.praise" src="/static/moments/btn_like_red.png"></image>
+							<image class="praise_img" v-else src="/static/moments/icon_illume.png"></image>
 							<view class="praise_num">{{item.praiseCount}}</view>
 						</view>
 						<view class="comment" @click="godetails(index)">
@@ -43,11 +44,10 @@
 </template>
 
 <script>
-	import api from "@/util/api.js"
+	import api from "@/util/api.js";
 	export default{
 		data(){
 			return{
-				id:0,
 				list:[]
 			}
 		},
@@ -56,9 +56,16 @@
 					uni.navigateTo({
 						url:"/pages/moments/showWinOrderdetails?id="+this.list[index].showWinOrderCommentId
 					})
+			},
+			async change_praise(item){
+				const res = await api.praiseShowWinOrder({
+					showWinOrderId:item.showWinOrderCommentId,
+				});
+				item.praise=res.praise;
+				item.praiseCount=res.praiseCount;
 			}
 		},
-		async onShow() {
+		async onLoad() {
 			const res = await api.discusRecommendList({
 				
 			});

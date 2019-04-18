@@ -42,9 +42,10 @@
 		{
 			"path": "pages/moments/moments",
 			"style": {
-				"navigationBarTitleText": "动态",
+				"navigationBarTitleText": "  ",
 				"navigationBarTextStyle": "black",
 				"navigationBarBackgroundColor": "rgba(255,255,255,1)"
+				
 			}
 		},
 		{
