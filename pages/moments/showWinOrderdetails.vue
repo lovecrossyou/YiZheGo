@@ -37,9 +37,7 @@
 				<block v-for="(item,index) in praise_user_list" :key="index">
 					<image class="praise_user_img" :src="item.userIconUrl"></image>
 				</block>
-				<view class="more_praise" v-if="praiseDetailModelList.length>12">
-					<view class="more_text">更多</view>
-				</view>
+				<view class="more_praise" v-if="praiseDetailModelList.length>12">更多</view>
 			</view>
 		</view>
 		<view class="commentwrapper">
@@ -47,20 +45,20 @@
 				<view class="commenttitle">评论</view>
 				<view class="comment_num">({{showWinOrderCommentModel.commentCount}})</view>
 			</view>
-			<view class="commentitem">
+			<view class="comment">
 				<block v-for="(item,index) in commentShowWinOrderModelList" :key="index">
-					<view class="comment_user">
-							<image class="comment_user_icon" :src="item.commentUserIconUrl"></image>
-							<view class="comment_user_icon_right">
-								<view class="comment_user_wrapper">
-									<view class="comment_user_name">{{item.commentUserName}}</view>
-									<image class="comment_user_sex" v-if="item.commentUserSex==='男'" src="/static/moments/icon_man.png"></image>
-									<image class="comment_user_sex" v-else src="/static/moments/icon_woman.png"></image>
-									<view class="comment_time">{{item.commentTime}}</view>
-								</view>
+					<view class="commentitem">
+						<image class="comment_user_icon" :src="item.commentUserIconUrl"></image>
+						<view class="comment_user_icon_right">
+							<view class="comment_user_wrapper">
+								<view class="comment_user_name">{{item.commentUserName}}</view>
+								<image class="comment_user_sex" v-if="item.commentUserSex==='男'" src="/static/moments/icon_man.png"></image>
+								<image class="comment_user_sex" v-else src="/static/moments/icon_woman.png"></image>
 							</view>
+							<view class="comment_time">{{item.commentTime}}</view>
+							<view class="commentcontent">{{item.commentContent}}</view>
+						</view>
 					</view>
-					<view class="commentcontent">{{item.commentContent}}</view>
 				</block>
 			</view>
 		</view>
@@ -298,6 +296,7 @@
 				width: 570upx;
 				margin: 30upx 0upx 5upx;
 				box-sizing: border-box;
+				position: relative;
 
 				.praise_user_img {
 					width: 70upx;
@@ -310,27 +309,25 @@
 				.more_praise {
 					width: 70upx;
 					height: 70upx;
-					position: fixed;
-					right: 0upx;
 					display: inline-block;
-					margin-bottom: 25upx;
-					margin-right: 25upx;
 					background: #F5F5F5;
+					font-size: 22upx;
+					font-family: PingFangSC-Regular;
+					font-weight: 400;
+					text-align: center;
+					color: rgba(51, 51, 51, 1);
+					position: absolute;
+					top:105upx;
+					line-height:35px;
 
-					.more_text {
-						font-size: 22upx;
-						font-family: PingFangSC-Regular;
-						font-weight: 400;
-						color: rgba(51, 51, 51, 1);
-						margin: 20upx 13upx;
-						box-sizing: border-box;
-					}
 				}
 			}
 		}
 
 		.commentwrapper {
 			width: 100%;
+			display: flex;
+			flex-direction: column;
 
 			.commentcount {
 				display: flex;
@@ -357,49 +354,46 @@
 				}
 			}
 			
-			.commentitem{
+			.comment{
 				width: 100%;
-				display: flex;
-				flex-direction: column;
 				
-				.comment_user {
+				.commentitem{
 					width: 100%;
-					height: 120upx;
 					display: flex;
 					flex-direction: row;
-					align-items: center;
-				
-					.comment_user_icon {
+					margin-left: 31upx;
+					margin-top: 32upx;
+					
+					.comment_user_icon{
 						width: 70upx;
 						height: 70upx;
-						margin-left: 29upx;
 					}
-				
-					.comment_user_icon_right {
+					
+					.comment_user_icon_right{
+						width: 100%;
 						display: flex;
-						flex-direction: column;
-						height: 120upx;
 						flex: 1;
-						margin-left: 18upx;
-						border-bottom:solid 1upx rgba(234, 234, 234, 1);
-				
-						.comment_user_wrapper {
+						flex-direction: column;
+						
+						.comment_user_wrapper{
 							display: flex;
 							flex-direction: row;
-							align-items: center;
-							margin-top: 15upx;
-				
+							padding-left: 18upx;
+							padding-top: 15upx;
+							
 							.comment_user_name {
 								font-size: 30upx;
 								font-family: PingFangSC-Regular;
 								font-weight: 400;
 								color: rgba(51, 51, 51, 1);
+								margin-top: -15upx;
 							}
 				
 							.comment_user_sex {
 								width: 27upx;
 								height: 27upx;
 								margin-left: 9upx;
+								margin-top: -9upx;
 							}
 						}
 						
@@ -409,18 +403,19 @@
 							font-weight: 400;
 							color: rgba(153, 153, 153, 1);
 							line-height: 40upx;
-							margin-bottom: 3upx;
+							padding-left: 18upx;
+						}
+						
+						.commentcontent{
+							font-size:28upx;
+							font-family:PingFangSC-Regular;
+							font-weight:400;
+							color:rgba(51,51,51,1);
+							line-height:46upx;
+							border-bottom:solid 1upx rgba(234, 234, 234, 1);
+							padding:31upx 18upx ;
 						}
 					}
-				
-				}
-				
-				.commentcontent{
-					font-size:28upx;
-					font-family:PingFangSC-Regular;
-					font-weight:400;
-					color:rgba(51,51,51,1);
-					line-height:46upx;
 				}
 			}
 		}
