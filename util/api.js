@@ -70,8 +70,6 @@ const api = {
 	
 	checkCodeLogin:params => request.post("/checkCodeLogin",params),
 
-	clientOrderDetail: params => request.post("/discountGameOrder/clientOrderDetail", params),
-
 	//用户订单列表    
 	getMyOrder: params => request.post("/discountGame/clientOrder", params),
 
@@ -98,6 +96,9 @@ const api = {
 	wxlogin: params => request.post('/login/weChatMiniPrograms', params),
 
 	vipProducts: params => request.post('/discountGame/vipProduct', params),
+	
+	bindPhone:params =>request.post('/bindPhone',params),
+	findPayPassword: params=>request.post('/client/bankCard/findPayPassword',params)
 }
 export default api
 

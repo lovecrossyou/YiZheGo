@@ -4,14 +4,14 @@
 			<searchWrap></searchWrap>
 			<banner></banner>
 		</view>
-		<view class="nav">
-			<view class="nav_list">
+		<view class="nav"> 
+			<view class="nav_list" >
 				<view class="nav_list_item" v-for="(item,i) in navList" :key="i" @click="goNext(item)">
 					<image :src="item.img"></image>
 					<view>{{item.name}}</view>
 				</view>
 			</view>
-			<image :src="home_huiyuan"></image>
+			<image :src="home_huiyuan" @click="goVIP"></image>
 		</view>
 		<view class="tooopencom">
 			<view class="tooopencom_content">
@@ -76,6 +76,11 @@
 			...mapGetters('home', ['timeLimit3']),
 		},
 		methods: {
+			goVIP(){
+				uni.navigateTo({
+					url:'/pages/me/vip/vip-center'
+				})
+			},
 			goNext(item) {
 				uni.navigateTo({
 					url: item.page
