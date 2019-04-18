@@ -23,7 +23,7 @@
 			<!-- 商品信息 -->
 			<view class="item-content">
 				<productIno></productIno>
-				<view class="title-content">
+				<view class="title-content price-content">
 					<text class="item-title">商品</text>
 					<text class="item-title">￥2999.00</text>
 				</view>
@@ -204,7 +204,9 @@ export default {
 					
 				}
 			}
-
+			.price-content{
+				margin-top: 80upx;
+			}
 			.title-content {
 				display: flex;
 				justify-content: space-between;

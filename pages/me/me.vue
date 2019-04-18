@@ -28,10 +28,11 @@
 		</view>
 		<view class="other_unctions">
 			<itemList img="../../static/me/me_icon_collect@2x.png" title="我的关注"></itemList>
+			<view class="border_line"></view>
 			<itemList img="../../static/me/me_icon_dynamic@2x.png" title="我的动态"></itemList>
 		</view>
 		<view class="other_unctions">
-			<view @click="goInviteFriend">
+			<view @click="goInviteFriend" class="border_line">
 				<itemList img="../../static/me/yaoqing.png" title="邀请好友"></itemList>
 			</view>
 			<view @click="turnToVip">
@@ -98,6 +99,11 @@
 	.user_wrapper {
 		width: 100%;
 		background-color: #f3f3f3;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
 	}
 
 	.border {
@@ -115,6 +121,9 @@
 		padding: 20upx;
 		box-sizing: border-box;
 		background-color: #fff;
+	}
+	.border_line{
+		border-bottom: 1upx solid #ddd;
 	}
 
 	.header_img {
@@ -173,6 +182,8 @@
 
 	.other_unctions {
 		margin-top: 20upx;
+		border-top: 1upx solid #dedede;
+		border-bottom: 1upx solid #dedede;
 	}
 
 	.user_vip {
