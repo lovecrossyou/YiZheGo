@@ -36,8 +36,8 @@
 		<view v-if="orderInfo" class="price-info">
 			<view class="price-info-product">
 				<view class="price-info-product-text">商品</view>
-				<view class="price-info-product-price" v-if="directBuy == true">¥{{ fix2Price.originalPrice }}</view>
-				<view class="price-info-product-price" v-else>¥{{ fix2Price.oneDiscountPrice }}</view>
+				<view class="price-info-product-price" v-if="directBuy == true">¥{{ fix2Price.originalPrice*purchaseAmount }}</view>
+				<view class="price-info-product-price" v-else>¥{{ fix2Price.oneDiscountPrice*purchaseAmount}}</view>
 			</view>
 			<view class="price-info-product">
 				<view class="price-info-product-text">运费</view>
@@ -81,7 +81,7 @@
 		</view>
 		<view v-if="orderInfo" class="confirm-footer">
 			<view class="confirm-footer-price-info">
-				<view class="confirm-footer-price-amount">共1件</view>
+				<view class="confirm-footer-price-amount">共{{purchaseAmount}}件</view>
 				<view class="confirm-footer-price-pay-info">
 					<view class="confirm-footer-price-pay-text">实付款:</view>
 					<view class="confirm-footer-price-pay">¥{{ fix2Price.totalPayRmbPrice }}</view>
@@ -208,34 +208,14 @@
 
 
 				uni.redirectTo({
-					url: './pay?payOrderNo=' + order.payOrderNo + '&totalPayRmb=' + order.totalPayRmb
+					url: './pay?payOrderNo=' + order.payOrderNo + '&totalPayRmb=' + order.totalPayRmb + '&productType='+'normalProduct'
 				});
 
 			},
 			...mapMutations({
 				changeCodeCount: 'chooseCode/changeCodeCount'
 			}),
-			// 小程序支付
-			async wxminiPay(order) {
-				const orderInfo = await api.commitPay({
-					openId: this.openid,
-					payChannel: 'WeixinMiniProgramPay',
-					payOrderNo: order.payOrderNo
-				});
-				const wexinSpec = orderInfo.wexinSpec;
-				wexinSpec.packageValue = 'prepay_id=' + wexinSpec.prepay_id;
-				let that = this;
-				uni.requestPayment({
-					provider: 'wxpay',
-					timeStamp: wexinSpec.timestamp,
-					nonceStr: wexinSpec.noncestr,
-					package: wexinSpec.packageValue,
-					signType: 'MD5',
-					paySign: wexinSpec.sign,
-					success: function(res) {},
-					fail: function(err) {}
-				});
-			},
+			 
 			chooseCode() {
 				uni.navigateTo({
 					url: './chooseCode'
