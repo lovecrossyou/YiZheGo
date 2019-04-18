@@ -32,7 +32,7 @@
 				<image class="praise_img" src="/static/moments/icon_illume.png"></image>
 				<view class="praise_num">{{showWinOrderCommentModel.praiseCount}}</view>
 			</view>
-			<view class="praise_user" @click="gopraiseDetail(praiseDetailModelList)">
+			<view class="praise_user" @click="gopraiseDetail">
 				<block v-for="(item,index) in praise_user_list" :key="index">
 					<image class="praise_user_img" :src="item.userIconUrl"></image>
 				</block>
@@ -54,7 +54,8 @@
 				praiseDetailModelList: [],
 				showWinOrderCommentModel: {
 					imageOrVideoUrl: []
-				}
+				},
+				showOrderCommentId:0
 			}
 		},
 		computed: {
@@ -73,15 +74,19 @@
 			const res = await api.showWinOrderDetail({
 				showOrderCommentId: options.id
 			});
+			this.showOrderCommentId=options.id;
+			console.log(res)
 			this.commentShowWinOrderModelList = res.commentShowWinOrderModelList;
 			this.praiseDetailModelList = res.praiseDetailModelList;
 			this.showWinOrderCommentModel = res.showWinOrderCommentModel;
 		},
 		methods:{
-			gopraiseDetail(praiselist){
-				uni.navigateTo({
-					url:"praiseDetail?list="+praiselist
-				})
+			gopraiseDetail(){
+				if(this.praiseDetailModelList){
+					uni.navigateTo({
+						url:"praiseDetail?id="+this.showOrderCommentId
+					})
+				}
 			}
 		}
 	}
