@@ -58,6 +58,7 @@
 
 <script>
 	import api from '@/util/api.js';
+<<<<<<< HEAD
 	export default {
 		data() {
 			return {
@@ -76,19 +77,177 @@
 			this.OrderDetail = res;
 			this.GameGroup = res.discountGameGroupModel;
 		},
-		onShareAppMessage(){
-			console.log('userInfo.userId ',userInfo.userId);
+		computed: {
+			stringToList() {
+				var list = [];
+				for (var i = 0; i < this.OrderDetail.purchaseCode.length; i++) list.push(this.OrderDetail.purchaseCode[i].split(','));
+				return list;
+			}
+		},
+		methods: {
+			pack_up_btn() {
+				this.visibility = !this.visibility;
+				this.pack_up_icon = this.visibility ? '/static/gameGroup/icon_up.png' : '/static/gameGroup/icon_down.png';
+			}
+		}
+	};
+</script>
+
+<style lang="less">
+	.gameGroupwrapper {
+		width: 100%;
+
+		.productwrapper {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+			width: 100%;
+			height: 168upx;
+			padding: 24upx 29upx;
+			box-sizing: border-box;
+			border-top: solid 2upx rgba(234, 234, 234, 1);
+			border-bottom: solid 2upx rgba(234, 234, 234, 1);
+
+			.product_icon {
+				width: 100upx;
+				height: 100upx;
+				border: solid 1upx rgba(234, 234, 234, 1);
+			}
+
+			.product_icon_right {
+				display: flex;
+				flex: 1;
+				flex-direction: column;
+				padding-left: 20upx;
+				padding-top: 18upx;
+
+				.product_name {
+					font-size: 30upx;
+					font-family: PingFangSC-Regular;
+					font-weight: 400;
+					color: rgba(51, 51, 51, 1);
+					line-height: 36upx;
+					overflow: hidden;
+				}
+
+				.product_price {
+					display: flex;
+					flex-direction: row;
+					margin-bottom: 10upx;
+
+					.product_onediscountprice {
+						font-size: 24upx;
+						font-family: PingFangSC-Regular;
+						font-weight: 400;
+						color: rgba(204, 38, 55, 1);
+						padding-top: 2upx;
+					}
+
+					.product_originalprice {
+						font-size: 22upx;
+						font-family: PingFangSC-Light;
+						font-weight: 300;
+						text-decoration: line-through;
+						color: rgba(119, 119, 119, 1);
+						line-height: 42upx;
+						padding-left: 30upx;
+					}
+				}
+			}
+		}
+
+
+		.orderwrapper {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			width: 100%;
+			margin-top: 71upx;
+
+			.group_endtime {
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+
+				.group_endtime_text {
+					font-size: 30upx;
+					font-family: PingFangSC-Medium;
+					font-weight: 500;
+					color: rgba(51, 51, 51, 1);
+					line-height: 36upx;
+				}
+
+				.counttime {
+					width: 44upx;
+					height: 44upx;
+					font-size: 30upx;
+					font-family: PingFangSC-Medium;
+					font-weight: 500;
+					color: #ffffff;
+					line-height: 44upx;
+					background: #cc2637;
+					border-radius: 6upx;
+					text-align: center;
+				}
+
+				.colon {
+					margin: -5upx 7upx 10upx 7upx;
+					box-sizing: border-box;
+					color: #cc2637;
+				}
+			}
+
+			.purchase_count {
+				font-size: 28upx;
+				font-family: PingFangSC-Regular;
+				font-weight: 400;
+				color: rgba(153, 153, 153, 1);
+				line-height: 46upx;
+				margin-top: 66upx;
+=======
+	import {
+		mapState
+	} from 'vuex';
+	export default {
+		data() {
+			return {
+				OrderDetail: {
+					purchaseCode: []
+				},
+				GameGroup: {},
+				visibility: true,
+				pack_up_icon: '/static/gameGroup/icon_up.png'
+			};
+		},
+		async onLoad(options) {
+			const res = await api.clientOrderDetail({
+				payOrderNo: options.payOrderNo
+			});
+			this.OrderDetail = res;
+			this.GameGroup = res.discountGameGroupModel;
+		},
+		onShareAppMessage(obj) {
+			let userInfo = this.userInfo;
 			const groupId = this.OrderDetail.discountGameGroupModel.groupId;
 			const productId = this.OrderDetail.productId;
 			const payOrderNo = this.OrderDetail.payOrderNo;
-			
+			let path = ''
+			if(userInfo){
+				path =  '/pages/home/home?inviteId=' + userInfo.userId + '&groupId=' + groupId + '&productId=' + productId +'&payOrderNo=' + payOrderNo;
+>>>>>>> 63d15b48c18e2b78cfc42ff629eefea2273753f1
+			}
+			else{
+				path =  '/pages/home/home?groupId=' + groupId + '&productId=' + productId +'&payOrderNo=' + payOrderNo;
+			}
 			return {
 				title: '邀请好友',
-				path: '/pages/home/home?inviteId='+userInfo.userId+'&groupId='+groupId+'&productId='+productId+'&payOrderNo='+payOrderNo,
-				type:1
+				path: path,
+				type: 1
 			}
 		},
 		computed: {
+			...mapState(['userInfo']),
 			stringToList() {
 				var list = [];
 				for (var i = 0; i < this.OrderDetail.purchaseCode.length; i++) list.push(this.OrderDetail.purchaseCode[i].split(','));

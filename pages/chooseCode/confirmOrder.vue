@@ -21,8 +21,11 @@
 				<image v-bind:src="orderInfo.relatedProductImageUrl" class="product-info-pro-img"></image>
 				<view class="product-info-pro-name">
 					<view class="product-info-pro-name-text">{{orderInfo.relatedProductName}}</view>
-					<view class="product-info-pro-name-price" v-if="directBuy">¥{{orderInfo.originalPrice}}</view>
-					<view class="product-info-pro-name-price" v-else>¥{{orderInfo.originalPrice}}</view>
+					<view class="product-info-pro-price-info">
+						<view class="product-info-pro-name-price">¥{{fix2Price.oneDiscountPrice}}</view>
+						
+						<view class="product-info-pro-name-price-discount">市场价:{{fix2Price.originalPrice}}</view>
+					</view>
 				</view>
 			</view>
 			<view class="product-info-pro-amount">
@@ -33,12 +36,12 @@
 		<view v-if="orderInfo" class="price-info">
 			<view class="price-info-product">
 				<view class="price-info-product-text">商品</view>
-				<view class="price-info-product-price" v-if="directBuy">¥{{orderInfo.originalPrice}}</view>
-				<view class="price-info-product-price" v-else>¥{{orderInfo.originalPrice}}</view>
+				<view class="price-info-product-price" v-if="directBuy==true">¥{{fix2Price.originalPrice}}</view>
+				<view class="price-info-product-price" v-else>¥{{fix2Price.oneDiscountPrice}}</view>
 			</view>
 			<view class="price-info-product">
 				<view class="price-info-product-text">运费</view>
-				<view class="price-info-product-price">+¥{{orderInfo.freight}}</view>
+				<view class="price-info-product-price">+¥{{fix2Price.freight}}</view>
 			</view>
 		</view>
 		<view class="choose-code" @click="chooseCode" v-if="directBuy">
@@ -67,7 +70,7 @@
 				<view class="confirm-footer-price-amount">共1件</view>
 				<view class="confirm-footer-price-pay-info">
 					<view class="confirm-footer-price-pay-text">实付款:</view>
-					<view class="confirm-footer-price-pay">¥{{orderInfo.totalPayRmbPrice}}</view>
+					<view class="confirm-footer-price-pay">¥{{fix2Price.totalPayRmbPrice}}</view>
 				</view>
 			</view>
 			<view class="confirm-footer-commit" @click="commitOrder">提交订单</view>
@@ -120,8 +123,9 @@
 			}),
 			...mapGetters({
 				allCode: 'chooseCode/allCode',
-				allFinished: 'chooseCode/allFinished'
-			})
+				allFinished: 'chooseCode/allFinished',
+                originalPrice:'confirmPay/originalPrice',
+				fix2Price:'confirmPay/fix2Price'			})
 
 		},
 		methods: {
@@ -350,14 +354,28 @@
 						font-weight: 500;
 						color: rgba(51, 51, 51, 1);
 					}
-
-					.product-info-pro-name-price {
-						font-size: 26upx;
-						font-family: PingFangSC-Regular;
-						font-weight: 400;
-						color: rgba(204, 38, 54, 1);
+                    .product-info-pro-price-info{
+						display: flex;
+						flex-direction: row;
+						align-items: center;
 						margin-top: 10upx;
+						.product-info-pro-name-price {
+							font-size: 26upx;
+							font-family: PingFangSC-Regular;
+							font-weight: 400;
+							color: rgba(204, 38, 54, 1);
+							margin-right: 10upx;
+						}
+						.product-info-pro-name-price-discount{
+							font-size:22upx;
+							font-family:PingFangSC-Light;
+							font-weight:300;
+							text-decoration:line-through;
+							color:rgba(119,119,119,1);
+							line-height:42upx;
+						}
 					}
+					
 				}
 
 			}
