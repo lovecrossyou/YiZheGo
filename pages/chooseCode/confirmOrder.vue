@@ -78,6 +78,10 @@
 		<!-- <view class="choose-code" @click="chooseCode">
 		选择号码
 	</view> -->
+	
+	<view class="showUpgradeModal" v-if="showUpgradeModal">
+		<!-- xx -->
+	</view>
 	</view>
 </template>
 
@@ -108,6 +112,7 @@
 		},
 		data() {
 			return {
+				showUpgradeModal:false,
 				groupId: null,
 				discountGameId:0,
 				addIcon: '../../static/pay/icon_location.png',
@@ -188,6 +193,11 @@
 
 				const order = await this.getOrder();
 				console.log("提交订单-----------" + JSON.stringify(order));
+// 				if(order.status == '请您升级会员'){
+// 					this.showUpgradeModal = true;
+// 					return;
+// 				}
+				
 
 				uni.redirectTo({
 					url: './pay?payOrderNo=' + order.payOrderNo + '&totalPayRmb=' + order.totalPayRmb
