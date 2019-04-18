@@ -56,7 +56,6 @@ const getInfo = function() {
 const addInfo = function(info) {
 	if (!info) return;
 	uni.setStorageSync(INFO_KEY, JSON.stringify(info));
-	addToken(info.accessToken);
 }
 
 export default {

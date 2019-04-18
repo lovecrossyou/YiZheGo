@@ -88,6 +88,9 @@ const api = {
 	wxlogin: params => request.post('/login/weChatMiniPrograms', params),
 
 	vipProducts: params => request.post('/discountGame/vipProduct', params),
+	
+	bindPhone:params =>request.post('/bindPhone',params),
+	findPayPassword: params=>request.post('/client/bankCard/findPayPassword',params)
 }
 export default api
 

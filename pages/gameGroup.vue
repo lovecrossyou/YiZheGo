@@ -84,13 +84,9 @@
 			const groupId = this.OrderDetail.discountGameGroupModel.groupId;
 			const productId = this.OrderDetail.productId;
 			const payOrderNo = this.OrderDetail.payOrderNo;
-			let path = ''
-			if(userInfo){
-				path =  '/pages/home/home?inviteId=' + userInfo.userId + '&groupId=' + groupId + '&productId=' + productId +'&payOrderNo=' + payOrderNo;
-			}
-			else{
-				path =  '/pages/home/home?groupId=' + groupId + '&productId=' + productId +'&payOrderNo=' + payOrderNo;
-			}
+			console.log('userInfo ',userInfo)
+		
+			const path =  '/pages/home/home?inviteId=' + userInfo.userId + '&groupId=' + groupId + '&productId=' + productId +'&payOrderNo=' + payOrderNo;
 			return {
 				title: '邀请好友',
 				path: path,

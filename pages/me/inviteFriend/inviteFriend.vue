@@ -68,10 +68,11 @@
 			}
 		},
 		onShareAppMessage() {
-			console.log('userInfo.userId ',userInfo.userId);
+			const userInfo = this.userInfo;
 			return {
-				title: '邀请好友',
-				path: '/pages/home/home?inviteId='+userInfo.userId
+				title: '亲,请你2个红包,专享1折抢购!优质名品,全场1折!',
+				path: '/pages/home/home?inviteId=' + userInfo.userId,
+				imageUrl: 'http://qnimage.xiteng.com/yaoqing_bg.png'
 			}
 		},
 		computed: {
