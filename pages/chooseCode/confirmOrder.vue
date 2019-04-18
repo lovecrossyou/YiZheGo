@@ -98,6 +98,8 @@
 			this.groupId = option.groupId;
 			this.$store.commit('confirmPay/setBuyType', option.directBuy)
 			this.getConfirmOrderInfo(option.discountGameId);
+		},
+		onShow (){
 			this.getAddressList();
 		},
 		data() {
