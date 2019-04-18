@@ -14,26 +14,32 @@
 		</view>
 		<swiper :current="tabIndex" class="swiper-box" duration="300" @change="changeTab">
 			<swiper-item v-for="(tab, index1) in orderData" :key="index1">
-				<scroll-view class="list" scroll-y @scrolltolower="getMoreOrder(index1)">
+				<scroll-view class="list" scroll-y @scrolltolower="getMoreOrder(index1)" v-if="tab.list.length > 0">
 					<block v-for="(orderItem, index2) in tab.list" :key="index2">
-						<view class="order-item" @click="goDetail">
+						<view class="order-item" @click="goDetail(orderItem.platformOrderNo)">
 							<view class="top">
 								<text class="time">下单时间：{{ orderItem.orderTime }}</text>
 								<text class="state">{{ orderItem.orderStatus }}</text>
 							</view>
-							<productInfo :productImg="orderItem.productImageUrl" 
-							:productName="orderItem.productName" 
-							:currentPrice="(orderItem.oneDiscountPrice/100).toFixed(2)"
-							:originPrice="(orderItem.originalPrice/100).toFixed(2)"
+							<productInfo
+								:productImg="orderItem.productImageUrl"
+								:productName="orderItem.productName"
+								:currentPrice="(orderItem.oneDiscountPrice / 100).toFixed(2)"
+								:originPrice="(orderItem.originalPrice / 100).toFixed(2)"
 							></productInfo>
 
 							<view class="bottom">
-								<text class="count">共{{ orderItem.purchaseCount }}件{{ '&#8195;' }}实付款：￥{{orderItem.totalPayPrice}}</text>
+								<text class="count">共{{ orderItem.purchaseCount }}件{{ '&#8195;' }}实付款：￥{{ orderItem.totalPayPrice / 100 }}</text>
 							</view>
 						</view>
 					</block>
+
 					<view class="uni-tab-bar-loading"><uni-load-more :loadingType="tab.loadingType" :contentText="loadingText"></uni-load-more></view>
 				</scroll-view>
+				<view class="empty-content" v-else>
+					<image class="empty-img" :src="emptyIcon"></image>
+					<text class="empty-tips">您还没有相关的订单</text>
+				</view>
 			</swiper-item>
 		</swiper>
 	</view>
@@ -53,7 +59,8 @@ export default {
 	computed: {
 		...mapState({
 			orderData: state => state.myOrder.orderData
-		})
+		}),
+		
 	},
 
 	data() {
@@ -64,6 +71,7 @@ export default {
 				contentnomore: '没有更多数据了'
 			},
 			icon: '../../../static/me/yaoqing.png',
+			emptyIcon: '../../../static/me/icon_order.png',
 			isClickChange: false,
 			tabIndex: 0,
 			newsitems: [],
@@ -154,17 +162,15 @@ export default {
 	methods: {
 		...mapActions({
 			getOrderData: 'myOrder/getOrderData',
-			getMoreOrder: 'myOrder/addData',
+			getMoreOrder: 'myOrder/addData'
 		}),
-		
-		fen2yuan(num){
-			return (
-				(num/100).toFixed(2)
-			);
+
+		fen2yuan(num) {
+			return (num / 100).toFixed(2);
 		},
-		goDetail(e) {
+		goDetail(platformOrderNo) {
 			uni.navigateTo({
-				url: './orderDetail'
+				url: './orderDetail?platformOrderNo=' + platformOrderNo
 			});
 		},
 		loadMore(e) {
@@ -357,6 +363,27 @@ export default {
 
 			.uni-tab-bar-loading {
 				padding: 20upx 0;
+			}
+		}
+		.empty-content {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			background-color: #efeff4;
+			flex: 1;
+			width: 100%;
+			height: 100%;
+			.empty-img {
+				width: 134upx;
+				height: 148upx;
+				margin-top: 357upx;
+			}
+			.empty-tips {
+				font-size: 24upx;
+				font-family: PingFangSC-Regular;
+				font-weight: 400;
+				color: rgba(119, 119, 119, 1);
+				margin-top: 29upx;
 			}
 		}
 	}

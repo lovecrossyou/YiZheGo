@@ -3,9 +3,13 @@
 		<view class="info-content">
 			<!-- 订单状态 -->
 			<view class="state-content">
-				<text class="state">待付款</text>
-				<text class="time">剩23：59：35自动关闭</text>
+				<view class="state-text">
+					<text class="state">{{ orderDealState === 0 ? '待付款' : orderDealState === 1 ? '待揭晓' : '已揭晓' }}</text>
+					<text class="time">剩23：59：35自动关闭</text>
+				</view>
+				<view class="state-img">中签0件</view>
 			</view>
+
 			<!-- 收货信息 -->
 			<view class="item-content line-content">
 				<view class="person">
@@ -16,7 +20,7 @@
 					<image :src="positionIcon" class="position-icon"></image>
 					<text class="address-title">收货地址：</text>
 					<view class="default">默认</view>
-					<text class="address"> {{'&#8195;&#8195;北京市西城区 百万庄大街11号粮科大厦三层华瑞富达'}}  </text>
+					<text class="address">{{ '&#8195;&#8195;北京市西城区 百万庄大街11号粮科大厦三层华瑞富达' }}</text>
 				</view>
 			</view>
 			<image :src="lineIcon" class="line-icon"></image>
@@ -87,6 +91,7 @@
 <script>
 import uniIcon from '@/pages/components/uni-icon/uni-icon.vue';
 import productIno from '../components/productInfo.vue';
+import { mapActions, mapState, mapGetters } from 'vuex';
 export default {
 	components: {
 		uniIcon,
@@ -98,6 +103,20 @@ export default {
 			positionIcon: '../../../static/me/position.png',
 			lineIcon: '../../../static/pay/img_cai@2x.png'
 		};
+	},
+	onLoad(params) {
+		let { platformOrderNo } = params;
+		this.getOrderDetail(platformOrderNo);
+	},
+	methods: {
+		...mapActions({
+			getOrderDetail: 'myOrder/getOrderDetail'
+		})
+	},
+	computed: {
+		...mapGetters({
+			orderDealState: 'myOrder/orderDealState'
+		})
 	}
 };
 </script>
@@ -115,30 +134,32 @@ export default {
 		margin-bottom: 110upx;
 
 		.state-content {
-			background-color: #cc2636;
-			padding-top: 48upx;
-			padding-bottom: 40upx;
+			.state-text {
+				background-color: #cc2636;
+				padding-top: 48upx;
+				padding-bottom: 40upx;
+				padding-left: 30upx;
+				padding-right: 30upx;
+				display: flex;
+				flex-direction: column;
 
-			padding-left: 30upx;
-			padding-right: 30upx;
-
-			display: flex;
-			flex-direction: column;
-
-			.state {
-				font-size: 32upx;
-				font-family: PingFangSC-Regular;
-				font-weight: 400;
-				color: rgba(255, 255, 255, 1);
+				.state {
+					font-size: 32upx;
+					font-family: PingFangSC-Regular;
+					font-weight: 400;
+					color: rgba(255, 255, 255, 1);
+				}
+				.time {
+					font-size: 32upx;
+					font-family: PingFangSC-Regular;
+					font-weight: 400;
+					color: rgba(255, 255, 255, 1);
+				}
 			}
-			.time {
-				font-size: 32upx;
-				font-family: PingFangSC-Regular;
-				font-weight: 400;
-				color: rgba(255, 255, 255, 1);
+			.state-img {
+				 background-image: url('~@/static/me/state_img.png');
 			}
 		}
-
 		.item-content {
 			padding-left: 30upx;
 			padding-right: 30upx;
@@ -160,13 +181,12 @@ export default {
 					font-family: PingFangSC-Regular;
 					font-weight: 400;
 					color: rgba(51, 51, 51, 1);
-					line-height:46upx;
-					
+					line-height: 46upx;
 				}
 			}
 			.address-content {
 				display: flex;
-				
+
 				.position-icon {
 					width: 26upx;
 					height: 31upx;
@@ -177,8 +197,7 @@ export default {
 					font-family: PingFangSC-Regular;
 					font-weight: 400;
 					color: rgba(51, 51, 51, 1);
-					line-height:46upx;
-					
+					line-height: 46upx;
 				}
 				.default {
 					border: 1upx solid rgba(255, 0, 0, 1);
@@ -189,10 +208,9 @@ export default {
 					color: rgba(255, 41, 41, 1);
 					position: absolute;
 					left: 220upx;
-					line-height:36upx;
+					line-height: 36upx;
 					padding-left: 6upx;
-					padding-right:6upx;
-					
+					padding-right: 6upx;
 				}
 				.address {
 					font-size: 30upx;
@@ -200,11 +218,10 @@ export default {
 					font-weight: 400;
 					color: rgba(51, 51, 51, 1);
 					flex: 1;
-					line-height:46upx;
-					
+					line-height: 46upx;
 				}
 			}
-			.price-content{
+			.price-content {
 				margin-top: 80upx;
 			}
 			.title-content {
@@ -215,8 +232,7 @@ export default {
 					font-family: PingFangSC-Regular;
 					font-weight: 400;
 					color: rgba(51, 51, 51, 1);
-					line-height:46upx;
-
+					line-height: 46upx;
 				}
 			}
 			.zongji {
@@ -234,7 +250,7 @@ export default {
 					color: #cc2636;
 				}
 			}
-			.code-content{
+			.code-content {
 				display: flex;
 				margin-top: 40upx;
 				justify-content: space-around;
@@ -276,7 +292,6 @@ export default {
 					align-items: center;
 					font-size: 30upx;
 				}
-				
 			}
 			.order-info {
 				font-size: 26upx;
@@ -323,7 +338,7 @@ export default {
 			color: rgba(119, 119, 119, 1);
 		}
 		.pay-now {
-			border: 1px solid #CC2636;
+			border: 1px solid #cc2636;
 			color: rgba(204, 38, 54, 1);
 		}
 	}
