@@ -123,6 +123,7 @@
 			}),
 			...mapGetters({
 				allCode: 'chooseCode/allCode',
+				allFinished: 'chooseCode/allFinished',
                 originalPrice:'confirmPay/originalPrice',
 				fix2Price:'confirmPay/fix2Price'			})
 
