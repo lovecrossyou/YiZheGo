@@ -1,6 +1,6 @@
 <template>
 	<view class="wrapper">
-		<selectItemList title="修改支付密码" page="/pages/me/common/changePaymentCode"></selectItemList>
+		<!-- <selectItemList title="修改支付密码" page="/pages/me/common/changePaymentCode"></selectItemList> -->
 		<selectItemList title="忘记支付密码" page="/pages/me/common/forgetPassword"></selectItemList>
 	</view>
 </template>
@@ -25,5 +25,8 @@
 <style scoped>
 	.wrapper{
 		width: 100%;
+	}
+	.border_line{
+		border-top: 1upx solid #DEDEDE;
 	}
 </style>

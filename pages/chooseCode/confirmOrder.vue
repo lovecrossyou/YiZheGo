@@ -23,7 +23,7 @@
 					<view class="product-info-pro-name-text">{{orderInfo.relatedProductName}}</view>
 					<view class="product-info-pro-price-info">
 						<view class="product-info-pro-name-price">¥{{fix2Price.oneDiscountPrice}}</view>
-						
+
 						<view class="product-info-pro-name-price-discount">市场价:{{fix2Price.originalPrice}}</view>
 					</view>
 				</view>
@@ -96,13 +96,20 @@
 			console.log("确认订单商品-----------" + option.directBuy + '------------' + option.discountGameId);
 
 			this.groupId = option.groupId;
+			this.discountGameId = option.discountGameId;
 			this.$store.commit('confirmPay/setBuyType', option.directBuy)
 			this.getConfirmOrderInfo(option.discountGameId);
+		},
+		onShow() {
 			this.getAddressList();
+		},
+		onUnload(){
+			this.$store.commit('confirmPay/resetPurchaseAmount');
 		},
 		data() {
 			return {
 				groupId: null,
+				discountGameId:0,
 				addIcon: '../../static/pay/icon_location.png',
 				rightArrow: '../../static/pay/icon_arrow_right@2x.png',
 				lineCai: '../../static/pay/img_cai@2x.png',
@@ -120,12 +127,15 @@
 				openid: state => state.openid,
 				address: state => state.confirmPay.address,
 				refundWay: state => state.confirmPay.refundWay,
+				purchaseAmount:state => state.confirmPay.purchaseAmount,
 			}),
 			...mapGetters({
 				allCode: 'chooseCode/allCode',
 				allFinished: 'chooseCode/allFinished',
-                originalPrice:'confirmPay/originalPrice',
-				fix2Price:'confirmPay/fix2Price'			})
+				originalPrice: 'confirmPay/originalPrice',
+				fix2Price: 'confirmPay/fix2Price'
+			})
+
 
 		},
 		methods: {
@@ -140,7 +150,7 @@
 			async getConfirmOrderInfo(discountGameId) {
 				const res = await api.confirmOrderInfo({
 					discountGameId: discountGameId,
-					purchaseAmount: 1,
+					purchaseAmount: this.purchaseAmount,
 				});
 				console.log("确认订单信息-----------" + JSON.stringify(res));
 				this.$store.commit('confirmPay/setOrderInfo', res)
@@ -148,8 +158,8 @@
 
 			async getOrder() {
 				let groupId = this.groupId;
-				console.log('this.groupId ',this.groupId);
-				if (groupId==='undefined') {
+				console.log('this.groupId ', this.groupId);
+				if (groupId === 'undefined') {
 					groupId = null;
 				}
 				return api.commitOrder({
@@ -165,6 +175,9 @@
 			},
 			async commitOrder() {
 				if (!this.allFinished) {
+
+
+					console.log('allCode ', this.allCode);
 					uni.showToast({
 						title: '请完成选号!',
 						mask: false,
@@ -227,7 +240,9 @@
 			},
 			onCountChanged(event) {
 				console.log("修改数量-----------" + event);
-				this.changeCodeCount(event)
+				this.changeCodeCount(event);
+				this.$store.commit('confirmPay/setPurchaseAmount', event);
+				this.getConfirmOrderInfo(this.discountGameId);
 			},
 			addressList() {
 				uni.navigateTo({
@@ -354,11 +369,13 @@
 						font-weight: 500;
 						color: rgba(51, 51, 51, 1);
 					}
-                    .product-info-pro-price-info{
+
+					.product-info-pro-price-info {
 						display: flex;
 						flex-direction: row;
 						align-items: center;
 						margin-top: 10upx;
+
 						.product-info-pro-name-price {
 							font-size: 26upx;
 							font-family: PingFangSC-Regular;
@@ -366,16 +383,17 @@
 							color: rgba(204, 38, 54, 1);
 							margin-right: 10upx;
 						}
-						.product-info-pro-name-price-discount{
-							font-size:22upx;
-							font-family:PingFangSC-Light;
-							font-weight:300;
-							text-decoration:line-through;
-							color:rgba(119,119,119,1);
-							line-height:42upx;
+
+						.product-info-pro-name-price-discount {
+							font-size: 22upx;
+							font-family: PingFangSC-Light;
+							font-weight: 300;
+							text-decoration: line-through;
+							color: rgba(119, 119, 119, 1);
+							line-height: 42upx;
 						}
 					}
-					
+
 				}
 
 			}

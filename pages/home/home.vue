@@ -11,11 +11,11 @@
 					<view>{{item.name}}</view>
 				</view>
 			</view>
-			<image :src="home_huiyuan"></image>
+			<image :src="home_huiyuan" @click="goVIP"></image>
 		</view>
 		<view class="tooopencom">
 			<view class="tooopencom_content">
-				<view class="tooopencom_title">
+				<view class="tooopencom_title" @click="goNewsWelfare">
 					<view>新人福利</view>
 					<view class="tooopencom_title_right">
 						<image :src="home_gengduo_icon"></image>
@@ -55,6 +55,12 @@
 			<product></product>
 
 		</view>
+
+		<!-- 恭喜您注册成功！ -->
+		<view class="registe_success_modal">
+
+		</view>
+
 	</view>
 </template>
 
@@ -76,6 +82,11 @@
 			...mapGetters('home', ['timeLimit3']),
 		},
 		methods: {
+			goVIP() {
+				uni.navigateTo({
+					url: '/pages/me/vip/vip-center'
+				})
+			},
 			goNext(item) {
 				uni.navigateTo({
 					url: item.page
@@ -86,6 +97,11 @@
 					url: "/pages/details/productDetails?productId=" + productId + '&groupId=' + groupId
 				})
 			},
+			goNewsWelfare(){
+				uni.navigateTo({
+					url:"./newsWelfare"
+				})
+			}
 		},
 		onLoad(option) {
 			console.log('inviteId ', option.inviteId);
@@ -100,18 +116,18 @@
 				userId = this.userInfo.userId;
 			}
 			let groupId = option.groupId;
-			if(!groupId){
-				groupId=null;
+			if (!groupId) {
+				groupId = null;
 			}
 			let productId = option.productId;
-			if(!productId){
-				productId=null;
+			if (!productId) {
+				productId = null;
 			}
 			let payOrderNo = option.payOrderNo;
-			if(!payOrderNo){
-				payOrderNo=null;
+			if (!payOrderNo) {
+				payOrderNo = null;
 			}
-			
+
 			if (groupId && productId) {
 				if (!userId || userId != inviteId) {
 					console.log('groupId productId', groupId, productId);
@@ -121,7 +137,7 @@
 					if (this.hasLogin) {
 						//到自己团
 						uni.navigateTo({
-							url: "/pages/gameGroup?payOrderNo="+payOrderNo
+							url: "/pages/gameGroup?payOrderNo=" + payOrderNo
 						})
 					}
 				}
@@ -364,6 +380,16 @@
 			width: 100%;
 			margin-top: 20upx;
 
+		}
+
+		.registe_success_modal {
+			position: absolute;
+			left: 0;
+			right: 0;
+			top: 0;
+			bottom: 0;
+			background: rgba(0, 0, 0, 1);
+			opacity: 0.8;
 		}
 
 	}
