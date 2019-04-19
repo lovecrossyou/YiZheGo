@@ -6,6 +6,9 @@ const orderTypes = ['allClientOrder', 'waitPayClientOrder', 'waitOpenResultClien
 const hasShowed = 'waitingShowOrder';
 const waitShow = '';
 const waitPay = '';
+const hasCancel = 'cancelOrder';
+
+
 export default {
 	namespaced: true,
 	state: {
@@ -13,7 +16,7 @@ export default {
 		orderDetail:{},
 	},
 	getters:{
-		// 待付款：0，待揭晓：1,已揭晓：2
+		// 待付款：0，待揭晓：1,已揭晓：2,已取消：3
 		orderDealState(state){
 				let status = state.orderDetail.orderRealStatus;
 				if(waitPay.indexOf(status)>-1){
@@ -25,21 +28,31 @@ export default {
 				if(hasShowed.indexOf(status)>-1){
 					return 2;
 				}
+				if(hasCancel.indexOf(status)>-1){
+					return 3;
+				}
 		},
 		todayCode(state){
 			let lotteryCode = state.orderDetail.lotteryCode;
+			if(lotteryCode == null || lotteryCode == undefined){
+				lotteryCode = '-1,-1,-1';
+			}
 			return  lotteryCode.split(',');
 			
 		},
 		myCodeList(state){
+			if(state.orderDetail.purchaseCode == null || state.orderDetail.purchaseCode == undefined){
+				return ['0,0,0']
+			}
 			let length = state.orderDetail.purchaseCode.length;
 			length = length > 3 ? 3 : length;
+			let codeList =  state.orderDetail.purchaseCode.slice(0,length);
+			return codeList.map((cur,index)=>{
+				return cur.split(',');
+			});
 			
-			return state.orderDetail.purchaseCode.slice(0,3);
-		},
-		myCodeListLength(state){
-			return state.orderDetail.purchaseCode.length;
-		},
+		}
+		
 	},
 	mutations: {
 		setOrderData(state, data) {
