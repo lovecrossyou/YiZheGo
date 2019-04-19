@@ -3,13 +3,15 @@
 		<slot></slot>
 		<footer class="load-more">
 			<slot name="load-more">
-				<div class="loading-tip" v-if="pullUpState==1">
+				<LoadingDiv v-if="pullUpState==1" :loadingText="pullUpStateText.moreDataTxt"></LoadingDiv>
+				<LoadingDiv v-if="pullUpState==2" :loadingText="pullUpStateText.loadingMoreDataTxt"></LoadingDiv>
+				<!-- <div class="loading-tip" v-if="pullUpState==1">
 					<span class="loading-tip-text">{{pullUpStateText.moreDataTxt}}</span>
-				</div>
-				<div class="loading-tip" v-if="pullUpState==2">
+				</div> -->
+				<!-- <div class="loading-tip" v-if="pullUpState==2">
 					<span class="icon-loading"></span>
 					<span class="loading-tip-text">{{pullUpStateText.loadingMoreDataTxt}}</span>
-				</div>
+				</div> -->
 				<div class="loading-tip" v-if="pullUpState==3">
 					<span class="connectingLine"></span>
 					<span class="noMoreData-tip-text">{{pullUpStateText.noMoreDataTxt}}</span>
@@ -21,7 +23,11 @@
 </template>
 
 <script>
+	import LoadingDiv from './LoadingDiv.vue'
 	export default {
+		components: {
+			LoadingDiv
+		},
 		props: {
 			parentPullUpState: {
 				default: 0
