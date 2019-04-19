@@ -25,7 +25,21 @@ export default {
 				if(hasShowed.indexOf(status)>-1){
 					return 2;
 				}
-		}
+		},
+		todayCode(state){
+			let lotteryCode = state.orderDetail.lotteryCode;
+			return  lotteryCode.split(',');
+			
+		},
+		myCodeList(state){
+			let length = state.orderDetail.purchaseCode.length;
+			length = length > 3 ? 3 : length;
+			
+			return state.orderDetail.purchaseCode.slice(0,3);
+		},
+		myCodeListLength(state){
+			return state.orderDetail.purchaseCode.length;
+		},
 	},
 	mutations: {
 		setOrderData(state, data) {

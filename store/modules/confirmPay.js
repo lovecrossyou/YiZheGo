@@ -55,6 +55,8 @@ const getters = {
 		return {
 			originalPrice:dataUtil.priceFix2(state.orderInfo.originalPrice),
 			oneDiscountPrice:dataUtil.priceFix2(state.orderInfo.oneDiscountPrice),
+			originalTotlePrice:dataUtil.priceFix2(state.orderInfo.originalPrice*state.purchaseAmount),
+			oneDiscountTotlePrice:dataUtil.priceFix2(state.orderInfo.oneDiscountPrice*state.purchaseAmount),
 			totalPrice:dataUtil.priceFix2(state.orderInfo.totalPrice),
 			totalPayRmbPrice:dataUtil.priceFix2(state.orderInfo.totalPayRmbPrice),
 			freight:dataUtil.priceFix2(state.orderInfo.freight),

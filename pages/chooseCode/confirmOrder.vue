@@ -21,11 +21,12 @@
 				<image v-bind:src="orderInfo.relatedProductImageUrl" class="product-info-pro-img"></image>
 				<view class="product-info-pro-name">
 					<view class="product-info-pro-name-text">{{ orderInfo.relatedProductName }}</view>
-					<view class="product-info-pro-price-info">
+					<view class="product-info-pro-price-info" v-if="directBuy=='false'">
 						<view class="product-info-pro-name-price">¥{{ fix2Price.oneDiscountPrice }}</view>
 
 						<view class="product-info-pro-name-price-discount">市场价:{{ fix2Price.originalPrice }}</view>
 					</view>
+					<view class="product-info-price-original" v-else>¥{{fix2Price.originalPrice}}</view>
 				</view>
 			</view>
 			<view class="product-info-pro-amount">
@@ -36,15 +37,15 @@
 		<view v-if="orderInfo" class="price-info">
 			<view class="price-info-product">
 				<view class="price-info-product-text">商品</view>
-				<view class="price-info-product-price" v-if="directBuy == true">¥{{ fix2Price.originalPrice*purchaseAmount }}</view>
-				<view class="price-info-product-price" v-else>¥{{ fix2Price.oneDiscountPrice*purchaseAmount}}</view>
+				<view class="price-info-product-price" v-if="directBuy == 'true'">¥{{ fix2Price.originalTotlePrice }}</view>
+				<view class="price-info-product-price" v-else>¥{{ fix2Price.oneDiscountTotlePrice}}</view>
 			</view>
 			<view class="price-info-product">
 				<view class="price-info-product-text">运费</view>
 				<view class="price-info-product-price">+¥{{ fix2Price.freight }}</view>
 			</view>
 		</view>
-		<view class="choose-code" @click="chooseCode" v-if="directBuy">
+		<view class="choose-code" @click="chooseCode" v-if="directBuy=='false'">
 			<view class="choose-code-msg" v-if="allFinished">
 				<view class="choose-code-msg-red">我的幸运号码（{{ buyCount }}组）</view>
 			</view>
@@ -72,7 +73,7 @@
 				<uni-icon type="arrowright" color="#bbb" size="20"></uni-icon>
 			</view>
 		</view>
-		<view class="refound-info" @click="refundRoute">
+		<view class="refound-info" @click="refundRoute" v-if="directBuy == 'false'">
 			<view class="refound-info-text">退款路径</view>
 			<view class="refound-info-select-info">
 				<view class="refound-info-select-msg">{{ refundWay.title }}</view>
@@ -111,12 +112,11 @@
 	import uniIcon from '@/pages/components/uni-icon/uni-icon.vue';
 	export default {
 		onLoad: function(option) {
-			console.log('确认订单商品-----------' + option.directBuy + '------------' + option.discountGameId);
-
 			this.groupId = option.groupId;
 			this.discountGameId = option.discountGameId;
 			this.$store.commit('confirmPay/setBuyType', option.directBuy);
 			this.getConfirmOrderInfo(option.discountGameId);
+			this.initCode();
 		},
 		onShow() {
 			this.getAddressList();
@@ -126,7 +126,7 @@
 		},
 		data() {
 			return {
-				showUpgradeModal: false,
+				gradeModal: false,
 				groupId: null,
 				discountGameId: 0,
 				addIcon: '../../static/pay/icon_location.png',
@@ -192,7 +192,7 @@
 				});
 			},
 			async commitOrder() {
-				if (!this.allFinished) {
+				if (!this.allFinished&&this.directBuy=='false') {
 					console.log('allCode ', this.allCode);
 					uni.showToast({
 						title: '请完成选号!',
@@ -213,7 +213,8 @@
 
 			},
 			...mapMutations({
-				changeCodeCount: 'chooseCode/changeCodeCount'
+				changeCodeCount: 'chooseCode/changeCodeCount',
+				initCode: 'chooseCode/initCode',
 			}),
 			 
 			chooseCode() {
@@ -376,6 +377,13 @@
 							line-height: 42upx;
 						}
 					}
+					.product-info-price-original {
+							font-size: 26upx;
+							font-family: PingFangSC-Regular;
+							font-weight: 400;
+							color: rgba(204, 38, 54, 1);
+							margin-right: 10upx;
+						}
 				}
 			}
 
