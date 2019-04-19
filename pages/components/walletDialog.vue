@@ -238,7 +238,7 @@
 			transform: translate(-50%, -50%);
 			transition: transform 0.3s;
 			width: 100%;
-			height: 640upx+480upx+30upx;
+			height: 100%;
 			overflow: hidden;
 			opacity: 0;
 			transition: opacity 200ms ease-in;
@@ -249,7 +249,7 @@
 			  width: 80%;
 			  height: 640upx;	
 			  background-color: #fff;
-			  margin-bottom: 30upx;
+			  margin-top: 30upx;
 			  border-radius: 10upx;
 			.container_top{
 				display: flex;
@@ -273,7 +273,7 @@
 				.channel{
 					position: absolute;
 					left: 12%;
-					top: 20upx;
+					top: 50upx;
 					width:23upx;
 					height:23upx;
 				}
