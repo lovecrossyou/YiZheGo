@@ -57,7 +57,7 @@
 		</view>
 		<!-- 红包模态！ -->
 		<view class="registe_success_modal" v-if="modalArea">
-			<!-- <view class="content_wrapper" v-if="modalStatus">
+			<view class="content_wrapper" v-if="modalStatus">
 				<image src="../../static/home/quxiao.png" class="cancel_icon" @click="hiddenImg"></image>
 				<image src="../../static/home/no_open.png" class="no_open_img" @click="openPacket"></image>
 				<view class="no_oppen_title_area">
@@ -76,7 +76,7 @@
 						喜币
 					</view>
 				</view>
-			</view> -->
+			</view>
 		</view>
 
 		<!-- 获得会员弹框 -->
@@ -165,6 +165,7 @@
 				let res = await api.vipModal({});
 				if (res.pushPresentVip = true){
 					this.showVIPModal = true;
+					console.log("pushPresentVip",res.pushPresentVip)
 				}
 			}
 		},
@@ -214,7 +215,7 @@
 		},
 		data() {
 			return {
-				showVIPModal: true,
+				showVIPModal: false,
 				showModal: false,
 				home_huiyuan: 'http://qnimage.xiteng.com/home_huiyuan.png',
 				home_gengduo_icon: '../../static/home/home_gengduo_icon.png',

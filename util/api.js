@@ -86,9 +86,9 @@ const api = {
 	redPacket:params =>request.post("/discountGame/getRewardRecord",params),
 	//领取红包
 	getRedPacket:params => request.post("/discountGame/readRewardRecord",params),
-	//show 领取会员
+	//领取会员弹窗
 	vipModal:params =>request.post("/vip/pushPresentVipInfo",params),
-	// 
+	// 领取会员
 	getPresentVip:params =>request.post("/vip/getPresentVip",params),
 
 	//上传
