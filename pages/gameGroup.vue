@@ -81,7 +81,7 @@
 		},
 		async onLoad(options) {
 			const res = await api.clientOrderDetail({
-				payOrderNo: options.id
+				payOrderNo: options.payOrderNo
 			});
 			this.OrderDetail = res;
 			this.GameGroup = res.discountGameGroupModel;
