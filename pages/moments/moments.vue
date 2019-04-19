@@ -8,7 +8,6 @@
 		<view class="contentlist">
 			<recommend v-if="isOnclick===0"></recommend>
 			<comment v-if="isOnclick===1"></comment>
-			<showWinOrder v-if="isOnclick===2"></showWinOrder>
 		</view>
 	</view>
 </template>
@@ -23,7 +22,7 @@
 		data() {
 			return {
 				isOnclick: 0,
-				navigationlist: ["推荐", "讨论","晒单"],
+				navigationlist: ["推荐", "讨论"],
 			}
 		},
 		methods: {

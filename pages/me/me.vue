@@ -5,7 +5,7 @@
 			<view class="user_content">
 				<view class="user_vip">
 					<view class="user_name">{{ personalInfoList.userInfo.cnName }}</view>
-					<image src="../../static/me/vip.png" mode="" class="vip_icon"></image>
+					<image src="../../static/me/vip.png" v-if="vipIdentity" class="vip_icon"></image>
 				</view>
 				<view class="xt_num">喜腾号：{{ personalInfoList.userInfo.xtNumber }}</view>
 			</view>
@@ -49,7 +49,9 @@ import orderStatus from './components/orderStatus.vue';
 export default {
 	data() {
 		return {
-			personalInfoList: null
+			personalInfoList: null,
+			vipUserStatus:false,
+			vipIdentity:false
 		};
 	},
 
@@ -82,10 +84,19 @@ export default {
 			uni.navigateTo({
 				url: '/pages/me/common/paymentCode'
 			});
-		}
+		},
+		async vipUser() {
+			let res = await api.vipInfo({});
+			this.vipUserStatus = res;
+			
+			if(res.userIsVip == true){
+				this.vipIdentity = true
+			}
+		},
 	},
 	onShow() {
 		this.personalInfo();
+		this.vipUser()
 	}
 };
 </script>

@@ -61,7 +61,7 @@
 			</view>
 			<!-- 红包模态！ -->
 			<view class="registe_success_modal" v-if="modalArea">
-				<!-- <view class="content_wrapper" v-if="modalStatus">
+				<view class="content_wrapper" v-if="modalStatus">
 				<image src="../../static/home/quxiao.png" class="cancel_icon" @click="hiddenImg"></image>
 				<image src="../../static/home/no_open.png" class="no_open_img" @click="openPacket"></image>
 				<view class="no_oppen_title_area">
@@ -80,7 +80,7 @@
 						喜币
 					</view>
 				</view>
-			</view> -->
+			</view>
 			</view>
 
 			<!-- 获得会员弹框 -->
@@ -251,7 +251,7 @@
 					{
 						img: '../../static/home/home_nav_shaidan.png',
 						name: '晒单',
-						page: '/pages/ranklist/ranklist'
+						page: '/pages/moments/components/showWinOrder'
 					},
 					{
 						img: '../../static/home/home_nav_bangdan.png',

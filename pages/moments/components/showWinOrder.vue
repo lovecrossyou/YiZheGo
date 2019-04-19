@@ -152,11 +152,14 @@
 					width: 100%;
 					height: 400upx;
 					position: relative;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
 						
 					.moment_image {
 						width: 630upx;
 						height: 100%;
-						margin-left: 30upx;
 						position: absolute;
 						
 					}
