@@ -165,7 +165,6 @@
 				let res = await api.vipModal({});
 				if (res.pushPresentVip == true){
 					this.showVIPModal = true;
-					console.log("pushPresentVip",res.pushPresentVip)
 				}
 			}
 		},
