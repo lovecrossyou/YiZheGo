@@ -27,6 +27,8 @@ const api = {
 	showWinOrderDetail: params => request.post('/discountGame/showWinOrderDetail', params),
 	//点赞或取消
 	praiseShowWinOrder: params => request.post('/discountGame/praiseShowWinOrder', params),
+	//评论晒单
+	commentShowWinOrder: params => request.post('/discountGame/commentShowWinOrder', params),
 	
 	// 邀请用户
 	inviteUser:params=>request.post('/discountGame/inviteUser',params),
@@ -84,6 +86,10 @@ const api = {
 	redPacket:params =>request.post("/discountGame/getRewardRecord",params),
 	//领取红包
 	getRedPacket:params => request.post("/discountGame/readRewardRecord",params),
+	//领取会员弹窗
+	vipModal:params =>request.post("/vip/pushPresentVipInfo",params),
+	// 领取会员
+	getPresentVip:params =>request.post("/vip/getPresentVip",params),
 
 	//上传
 	uploader: (file, callback) => {

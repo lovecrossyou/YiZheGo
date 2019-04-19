@@ -40,6 +40,8 @@ function getOneCode(allCodes) {
 	}
 }
 
+
+
 function getAllCode(codeCount) {
 	
 	let codeArray = [];
@@ -71,6 +73,28 @@ function getAllCode(codeCount) {
 	return codeArray;
 }
 
+
+
+function setCodeCount(state,count) {
+
+	let blankList = [];
+	for(let i=0;i<count;i++){
+		
+		let codeItem = {};
+		codeItem.code = [-1, -1, -1];
+		codeItem.state = 'other';
+		codeItem.showReset = false;
+		if(i===0){
+			codeItem.state = 'modify';
+		}
+		blankList.push(codeItem);
+	}
+	
+	state.codeList = blankList;
+	state.modifyIndex = 0;
+	state.codeCount = count;
+	state.tempIndex = [];
+}
 
 export default {
 	namespaced: true,
@@ -177,25 +201,10 @@ export default {
 			uni.hideLoading();
 		},
 		changeCodeCount(state,count){
-			let blankList = [];
-			for(let i=0;i<count;i++){
-				
-				let codeItem = {};
-				codeItem.code = [-1, -1, -1];
-				codeItem.state = 'other';
-				codeItem.showReset = false;
-				if(i===0){
-					codeItem.state = 'modify';
-				}
-				blankList.push(codeItem);
-				
-				
-			}
-			
-			state.codeList = blankList;
-			state.modifyIndex = 0;
-			state.codeCount = count;
-			state.tempIndex = [];
+			setCodeCount(state,count);
+		},
+		initCode(state){
+			setCodeCount(state,1);
 		}
 
 	},

@@ -79,7 +79,7 @@
 			</view>
 		</view>
 		<!-- 正在抢购 -->
-		<view class="winning_periods">
+		<view class="winning_periods" @click="goBuying">
 			<view class="particulars_item">
 				<view class="designation">正在抢购</view>
 				<view class="view_more">
@@ -192,6 +192,11 @@
 			}
 		},
 		methods: {
+			goBuying(){
+				uni.navigateTo({
+					url:"/pages/buying/buying"
+				})
+			},
 			changeIndex(ind) {
 				this.selectedIndex = ind
 			},

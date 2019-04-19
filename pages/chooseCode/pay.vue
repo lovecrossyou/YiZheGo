@@ -33,13 +33,13 @@
 	import api from '../../util/api.js';
 	import pay from '../../util/payUtil.js';
 	import payDialog from '../components/walletDialog.vue';
-    import dataUtil from '../../util/dataUtil.js';
+	import dataUtil from '../../util/dataUtil.js';
 	import {
 		mapState,
 	} from 'vuex';
 	export default {
 		onLoad(option) {
-			console.log("订单号----------" + option.payOrderNo + '-----金额-------' + option.totalPayRmb+'-----类型-----'+option.productType);
+			console.log("订单号----------" + option.payOrderNo + '-----金额-------' + option.totalPayRmb + '-----类型-----' + option.productType);
 			this.payOrderNo = option.payOrderNo;
 			this.totalPayRmb = option.totalPayRmb;
 			this.productType = option.productType;
@@ -47,12 +47,13 @@
 		computed: {
 			...mapState({
 				openid: state => state.openid,
+				directBuy: state => state.confirmPay.buyType,
 			}),
-			fix2TotalPayRmb:function(){
+			fix2TotalPayRmb: function() {
 				return dataUtil.priceFix2(this.totalPayRmb)
 			},
-			mapPaychannels:function(){
-				if(this.productType=='vipProduct'){
+			mapPaychannels: function() {
+				if (this.productType == 'vipProduct') {
 					this.paychannels.pop();
 					return this.paychannels;
 				}
@@ -98,11 +99,22 @@
 
 			},
 			payResult(payStatus) {
+				console.log('this.directBuy############## ',this.directBuy);
+				console.log('this.payStatus############## ',payStatus);
+				// 
 				if (payStatus) {
 					//支付成功
-					uni.redirectTo({
-						url: "/pages/gameGroup?payOrderNo="+this.payOrderNo
-					})
+					if (this.directBuy !== 'false') {
+						uni.redirectTo({
+							url: "./payResult?payOrderNo=" + this.payOrderNo + "&totalPayRmb=" + this.totalPayRmb + "&payChannel=" +
+								this.paychannels[this.selectIndex].payChannel + "&openId=" + this.openid
+						})
+					} else {
+						uni.redirectTo({
+							url: "/pages/gameGroup?payOrderNo=" + this.payOrderNo
+						})
+					}
+
 				} else {
 					//支付失败
 					uni.redirectTo({
@@ -136,7 +148,7 @@
 		// #ifdef APP-PLUS
 		data() {
 			return {
-				productType:null,
+				productType: null,
 				payOrderNo: 0,
 				totalPayRmb: 0,
 				selectIndex: 0,
