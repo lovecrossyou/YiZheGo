@@ -36,8 +36,8 @@
 		<view v-if="orderInfo" class="price-info">
 			<view class="price-info-product">
 				<view class="price-info-product-text">商品</view>
-				<view class="price-info-product-price" v-if="directBuy == 'true'">¥{{ fix2Price.originalPrice*purchaseAmount }}</view>
-				<view class="price-info-product-price" v-else>¥{{ fix2Price.oneDiscountPrice*purchaseAmount}}</view>
+				<view class="price-info-product-price" v-if="directBuy == 'true'">¥{{ fix2Price.originalTotlePrice }}</view>
+				<view class="price-info-product-price" v-else>¥{{ fix2Price.oneDiscountTotlePrice}}</view>
 			</view>
 			<view class="price-info-product">
 				<view class="price-info-product-text">运费</view>
