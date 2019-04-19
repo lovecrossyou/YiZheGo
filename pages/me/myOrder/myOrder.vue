@@ -106,9 +106,12 @@ export default {
 			]
 		};
 	},
-	onLoad: function() {
+	onLoad: function(obj) {
 		//this.getOrderData();
 		//this.addDataes(16);
+		this.tabIndex =  +obj.pageNo;
+		//console.log(obj);
+	//	this.tapTab(+obj.pageNo)
 	},
 	onShow() {
 		this.getOrderData();

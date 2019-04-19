@@ -248,8 +248,8 @@ export default {
 
 	.header {
 		width: 100%;
-		height: 126upx;
-		padding: 0 30upx;
+		height: 180upx;
+		padding:77rpx 30rpx 0 30rpx;
 		box-sizing: border-box;
 		display: flex;
 		flex-direction: row;
@@ -301,6 +301,7 @@ export default {
 	.scroll-wrapper {
 		height: 700upx;
 		width: 100%;
+		margin-top: 180upx;
 
 		.swiper {
 			width: 100%;

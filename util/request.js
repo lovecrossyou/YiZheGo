@@ -3,8 +3,11 @@ import hex_md5 from "../util/md.js"
 import service from "../service.js"
 
 const request = new Fly()
-// export const baseURL = 'http://123.57.161.212:9939/xitenggamejar/'
+
 export const baseURL = 'https://www.xiteng.com/xitenggamejar/'
+
+// export const baseURL = 'http://123.57.161.212:9939/xitenggamejar/'
+
 
 const APP_SECRET = '71838ae252714085bc0fb2fc3f420110'
 const APP_KEY = 'b5958b665e0b4d8cae77d28e1ad3f521'

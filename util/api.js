@@ -12,6 +12,8 @@ const api = {
 	byTimeLimitList: params => request.post('/discountGameList/byTimeLimit', params),
 	// 详情
 	productDetails: params => request.post('/discountGame/detail', params),
+	// 收藏
+	collectProduct:params=>request.post('/discountProduct/collect',params),
 	vipProductDetail: params => request.post('/discountGame/vipProductDetail', params),
 	buyVipProduct: params => request.post('/discountGame/vipProductPurchaseInfo', params),
 	updateToVipUser: params => request.post('/vip/updateToVipUser', params),
