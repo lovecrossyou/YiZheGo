@@ -3,7 +3,7 @@
 		<image v-bind:src="productImg" mode="widthFix" class="product-image"></image>
 		<view class="product-info">
 			<view class="one-tips">一折购</view>
-			<text class="product-name">{{ '&#8195;&#8195;&#8195;' }}{{ productName }}</text>
+			<text class="product-name">{{ '&#8195;&#8195;&#8195;&#8194;' }}{{ productName }}</text>
 			<view class="product-prices">
 				<text class="current-price">￥{{currentPrice}}</text>
 				<text class="origin-price">市场价￥{{originPrice}}</text>

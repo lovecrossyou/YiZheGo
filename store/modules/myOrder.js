@@ -4,8 +4,8 @@ const orderTypes = ['allClientOrder', 'waitPayClientOrder', 'waitOpenResultClien
 ];
 
 const hasShowed = 'waitingShowOrder';
-const waitShow = '';
-const waitPay = '';
+const waitShow = 'waitingOpenResult';
+const waitPay = 'waitingPay';
 const hasCancel = 'cancelOrder';
 
 
@@ -51,7 +51,8 @@ export default {
 				return cur.split(',');
 			});
 			
-		}
+		},
+		
 		
 	},
 	mutations: {
@@ -80,6 +81,7 @@ export default {
 			state.orderData[pageNo].loadingType = loadingType;
 		},
 		setOrderDetail(state,data){
+			console.log(data);
 			state.orderDetail = data;
 		}
 	},
@@ -147,7 +149,9 @@ export default {
 			api.clientOrderDetail({platformOrderNo:orderNo}).then(res=>{
 				commit('setOrderDetail',res)
 			})
-		}
+		},
+		
+		
 
 	}
 
