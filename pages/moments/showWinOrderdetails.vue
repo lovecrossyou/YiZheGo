@@ -61,6 +61,14 @@
 					</view>
 				</block>
 			</view>
+			<view class="comment_bottom">
+				<input class="comment_input" type="text" placeholder="    恭喜你中签了！" v-model="content" v-on:confirm="send"/>
+				<view class="comment_praisewrapper" @click="change_praise">
+					<image class="comment_praise_img" v-if="showWinOrderCommentModel.praise" src="/static/moments/btn_like_red.png"></image>
+					<image class="comment_praise_img" v-else src="/static/moments/icon_illume.png"></image>
+					<view class="comment_praise_num">{{showWinOrderCommentModel.praiseCount}}</view>
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -77,7 +85,8 @@
 				showWinOrderCommentModel: {
 					imageOrVideoUrl: []
 				},
-				showOrderCommentId: 0
+				showOrderCommentId: 0,
+				content:""
 			}
 		},
 		computed: {
@@ -116,6 +125,12 @@
 				});
 				this.showWinOrderCommentModel.praise = res.praise;
 				this.showWinOrderCommentModel.praiseCount = res.praiseCount;
+			},
+			async send(event){
+				const res = await api.commentShowWinOrder({
+					showWinOrderId: this.showOrderCommentId,
+					commentContent:event.detail.value
+				});
 			}
 		}
 	}
@@ -372,7 +387,7 @@
 					.comment_user_icon_right{
 						width: 100%;
 						display: flex;
-						flex: 1;
+						overflow: hidden;
 						flex-direction: column;
 						
 						.comment_user_wrapper{
@@ -413,9 +428,53 @@
 							color:rgba(51,51,51,1);
 							line-height:46upx;
 							border-bottom:solid 1upx rgba(234, 234, 234, 1);
-							padding:31upx 18upx ;
+							margin:31upx 100upx 0upx 18upx;
+							box-sizing: border-box;
+							padding-bottom:31upx; 
+							overflow-wrap: break-word;
 						}
 					}
+				}
+			}
+		}
+		
+		.comment_bottom{
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			width: 100%;
+			height: 98upx;
+			
+			.comment_input{
+				width: 530upx;
+				height: 60upx;
+				margin-left: 36upx;
+				background:rgba(243,243,243,1);
+				border-radius:10upx;
+				font-size:28upx;
+				font-family:PingFangSC-Regular;
+				font-weight:400;
+				color:rgba(153,153,153,1);
+				line-height:36upx;
+			}
+			
+			.comment_praisewrapper{
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				margin-left: 46upx;
+				
+				.comment_praise_img{
+					width: 38upx;
+					height: 35upx;
+				}
+				
+				.comment_praise_num{
+					font-size:24upx;
+					font-family:PingFangSC-Regular;
+					font-weight:400;
+					color:rgba(102,102,102,1);
+					margin-left: 11upx;
 				}
 			}
 		}
