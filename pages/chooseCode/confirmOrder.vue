@@ -192,7 +192,7 @@
 				});
 			},
 			async commitOrder() {
-				if (!this.allFinished) {
+				if (!this.allFinished&&this.directBuy=='false') {
 					console.log('allCode ', this.allCode);
 					uni.showToast({
 						title: '请完成选号!',
