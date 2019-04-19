@@ -5,41 +5,58 @@
 			<view class="state-content">
 				<view class="state-text">
 					<text class="state">{{ orderDealState === 0 ? '待付款' : orderDealState === 1 ? '待揭晓' : '已揭晓' }}</text>
-					<text class="time">剩23：59：35自动关闭</text>
+					<text class="time">{{orderDealState === 0 ? '剩23：59：35自动关闭' : orderDealState === 1 ? '剩23：59：35自动关闭' : '中签立享1折，未中签全额退款'}}</text>
 				</view>
-				<view class="state-img">中签0件</view>
+				<text class="count">中签{{orderDetail.winCodeCount}}件</text>
+				<image class="state-img" :src="stateIcon"></image>
 			</view>
 
 			<!-- 收货信息 -->
-			<view class="item-content line-content">
+			<view class="item-content line-content" v-if="orderDealState === 0">
 				<view class="person">
-					<text class="name phone">收&#8194;货&#8194;人：乐一</text>
-					<text class="phone">1589712668</text>
+					<text class="name phone">收&#8194;货&#8194;人：{{orderDetail.deliveryAddressModel.recievName}}</text>
+					<text class="phone">{{orderDetail.deliveryAddressModel.phoneNum}}</text>
 				</view>
 				<view class="address-content">
 					<image :src="positionIcon" class="position-icon"></image>
 					<text class="address-title">收货地址：</text>
 					<view class="default">默认</view>
-					<text class="address">{{ '&#8195;&#8195;北京市西城区 百万庄大街11号粮科大厦三层华瑞富达' }}</text>
+					<text class="address">{{ '&#8195;&#8195;'}}{{orderDetail.deliveryAddressModel.districtAddress}} {{'&#8194;'}}{{orderDetail.deliveryAddressModel.detailAddress}}</text>
 				</view>
 			</view>
-			<image :src="lineIcon" class="line-icon"></image>
+			<image :src="lineIcon" class="line-icon" v-if="orderDealState === 0"></image>
 			<!-- 商品信息 -->
 			<view class="item-content">
-				<productIno></productIno>
+				<productInfo 
+				:productImg="orderDetail.productImageUrl"
+				:productName="orderDetail.productName"
+				:currentPrice="(orderDetail.oneDiscountPrice / 100).toFixed(2)"
+				:originPrice="(orderDetail.originalPrice / 100).toFixed(2)"
+				></productInfo>
 				<view class="title-content price-content">
 					<text class="item-title">商品</text>
-					<text class="item-title">￥2999.00</text>
+					<view class="item-title">
+						￥
+						<priceText :price="(orderDetail.totalPrice / 100).toFixed(2)"></priceText>
+					</view>
+					
 				</view>
 				<view class="title-content">
 					<text class="item-title">运费</text>
-					<text class="item-title">￥6.00</text>
+					<view class="item-title">
+						￥
+						<priceText :price="(orderDetail.freight / 100).toFixed(2)"></priceText>
+					</view>
 				</view>
 				<view class="zongji">
 					共
 					<text class="color">10</text>
 					件 实付款：
-					<text class="color">￥3005.00</text>
+					
+					<view class="color">
+						￥
+						<priceText :price="(orderDetail.totalPayPrice / 100).toFixed(2)"></priceText>
+					</view>
 				</view>
 			</view>
 			<!-- 本期中签号码 -->
@@ -90,18 +107,22 @@
 
 <script>
 import uniIcon from '@/pages/components/uni-icon/uni-icon.vue';
-import productIno from '../components/productInfo.vue';
+import productInfo from '../components/productInfo.vue';
+import priceText from '../components/priceText.vue';
 import { mapActions, mapState, mapGetters } from 'vuex';
 export default {
 	components: {
 		uniIcon,
-		productIno
+		productInfo,
+		priceText
 	},
 	data() {
 		return {
 			codeList: [[1, 2, 3], [4, 5, 6], [7, 8, 9]],
 			positionIcon: '../../../static/me/position.png',
-			lineIcon: '../../../static/pay/img_cai@2x.png'
+			lineIcon: '../../../static/pay/img_cai@2x.png',
+			stateIcon: '../../../static/me/image_gray.png',
+			stateIconGold: '../../../static/me/image_orange.png'
 		};
 	},
 	onLoad(params) {
@@ -116,6 +137,9 @@ export default {
 	computed: {
 		...mapGetters({
 			orderDealState: 'myOrder/orderDealState'
+		}),
+		...mapState({
+			orderDetail:state=>state.myOrder.orderDetail,
 		})
 	}
 };
@@ -134,30 +158,50 @@ export default {
 		margin-bottom: 110upx;
 
 		.state-content {
+			background-color: #cc2636;
+			display: flex;
+			flex-direction: row;
+			padding-top: 22upx;
+			padding-bottom: 22upx;
+			padding-right: 43upx;
+			padding-left: 30upx;
+			align-items: center;
+			height: 198upx;
 			.state-text {
-				background-color: #cc2636;
-				padding-top: 48upx;
-				padding-bottom: 40upx;
-				padding-left: 30upx;
-				padding-right: 30upx;
+				flex: 1;
 				display: flex;
 				flex-direction: column;
 
 				.state {
-					font-size: 32upx;
+					font-size: 42upx;
 					font-family: PingFangSC-Regular;
 					font-weight: 400;
 					color: rgba(255, 255, 255, 1);
 				}
 				.time {
-					font-size: 32upx;
+					font-size: 28upx;
+					margin-top: 20upx;
 					font-family: PingFangSC-Regular;
 					font-weight: 400;
 					color: rgba(255, 255, 255, 1);
 				}
 			}
 			.state-img {
-				 background-image: url('~@/static/me/state_img.png');
+				width: 196upx;
+				height: 154upx;
+			}
+			.count {
+				width: 196upx;
+				font-size: 26upx;
+				font-family: PingFangSC-Regular;
+				font-weight: 400;
+				color: rgba(255, 254, 254, 1);
+				text-align: center;
+				position: absolute;
+				left: 511upx;
+				top: 156upx;
+				
+				
 			}
 		}
 		.item-content {
@@ -233,6 +277,8 @@ export default {
 					font-weight: 400;
 					color: rgba(51, 51, 51, 1);
 					line-height: 46upx;
+					display: flex;
+					
 				}
 			}
 			.zongji {
@@ -248,6 +294,7 @@ export default {
 					font-family: PingFangSC-Regular;
 					font-weight: 400;
 					color: #cc2636;
+					display: flex;
 				}
 			}
 			.code-content {
