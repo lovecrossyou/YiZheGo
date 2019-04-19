@@ -198,7 +198,7 @@
 			},
 			payResult(msg) {
 				console.log('支付结果:' + JSON.stringify(msg));
-				uni.navigateTo({
+				uni.redirectTo({
 					url: "./payResult?payOrderNo=" + this.payOrderNo + "&totalPayRmb=" + this.totalPayRmb + "&payChannel=" +
 						this.paychannels[this.selectIndex].payChannel + "&openId=" + this.openid
 				})

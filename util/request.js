@@ -30,17 +30,38 @@ export const createAccessInfo = () => {
 	return accessInfo;
 }
 
-
 request.config.baseURL = baseURL
 
 const errorPrompt = (err) => {
-	if(err.data.message === '用户不存在'){
+	if (err.data.message === '用户不存在') {
 		uni.navigateTo({
 			url: "/pages/login/WeChatLogin/WeChatLogin"
 		})
 		return;
 	}
-	
+
+	var message = err.data.message;
+	if (message && message.indexOf('升级会员') != -1) {
+		uni.showModal({
+			cancelText: '暂不升级',
+			confirmText: '立即升级',
+			cancelColor: '#999999',
+			confirmColor: '#cc2636',
+			title: '升级会员',
+			content: '您当前还不是会员，每月仅可参与一期，升级会员可参与每期的抽签抢活动',
+			success(res) {
+				if (res.confirm) {
+					uni.navigateTo({
+						url: '/pages/me/vip/vip-center',
+					})
+				} else if (res.cancel) {
+					console.log('用户点击取消')
+				}
+			}
+		})
+		return;
+	}
+
 	uni.showToast({
 		title: err.data.message || 'fetch data error.',
 		icon: 'none'
@@ -71,7 +92,7 @@ request.interceptors.response.use((response, promise) => {
 	}
 	return promise.resolve(response.data)
 }, (err, promise) => {
-	uni.hideLoading()	
+	uni.hideLoading()
 	errorPrompt(err.response)
 	return promise.reject(err)
 })

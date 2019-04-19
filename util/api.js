@@ -25,6 +25,8 @@ const api = {
 	showWinOrderList: params => request.post('/discountGame/showWinOrderList', params),
 	//晒单讨论详情
 	showWinOrderDetail: params => request.post('/discountGame/showWinOrderDetail', params),
+	//点赞或取消
+	praiseShowWinOrder: params => request.post('/discountGame/praiseShowWinOrder', params),
 	
 	// 邀请用户
 	inviteUser:params=>request.post('/discountGame/inviteUser',params),
@@ -77,6 +79,11 @@ const api = {
 	setPayPassword:params => request.post("/client/bankCard/setPayPassword", params),
 	
 	acceptInvite : params =>request.post("/discountGame/acceptInvite",params),
+	
+	//红包弹窗
+	redPacket:params =>request.post("/discountGame/getRewardRecord",params),
+	//领取红包
+	getRedPacket:params => request.post("/discountGame/readRewardRecord",params),
 
 	//上传
 	uploader: (file, callback) => {
