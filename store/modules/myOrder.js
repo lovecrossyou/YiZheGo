@@ -13,47 +13,91 @@ export default {
 	namespaced: true,
 	state: {
 		orderData: [],
-		orderDetail:{},
+		orderDetail: {},
 	},
-	getters:{
+	getters: {
 		// 待付款：0，待揭晓：1,已揭晓：2,已取消：3
-		orderDealState(state){
-				let status = state.orderDetail.orderRealStatus;
-				if(waitPay.indexOf(status)>-1){
-					return 0;
-				}
-				if(waitShow.indexOf(status)>-1){
-					return 1;
-				}
-				if(hasShowed.indexOf(status)>-1){
-					return 2;
-				}
-				if(hasCancel.indexOf(status)>-1){
-					return 3;
-				}
+		orderDealState(state) {
+			let status = state.orderDetail.orderRealStatus;
+			if (waitPay.indexOf(status) > -1) {
+				return 0;
+			}
+			if (waitShow.indexOf(status) > -1) {
+				return 1;
+			}
+			if (hasShowed.indexOf(status) > -1) {
+				return 2;
+			}
+			if (hasCancel.indexOf(status) > -1) {
+				return 3;
+			}
 		},
-		todayCode(state){
+		todayCode(state) {
 			let lotteryCode = state.orderDetail.lotteryCode;
-			if(lotteryCode == null || lotteryCode == undefined){
+			if (lotteryCode == null || lotteryCode == undefined) {
 				lotteryCode = '-1,-1,-1';
 			}
-			return  lotteryCode.split(',');
-			
+			return lotteryCode.split(',');
+
 		},
-		myCodeList(state){
-			if(state.orderDetail.purchaseCode == null || state.orderDetail.purchaseCode == undefined){
+		myCodeList(state) {
+			if (state.orderDetail.purchaseCode == null || state.orderDetail.purchaseCode == undefined) {
 				return ['0,0,0']
 			}
 			let length = state.orderDetail.purchaseCode.length;
 			length = length > 3 ? 3 : length;
-			let codeList =  state.orderDetail.purchaseCode.slice(0,length);
-			return codeList.map((cur,index)=>{
+			let codeList = state.orderDetail.purchaseCode.slice(0, length);
+			return codeList.map((cur, index) => {
 				return cur.split(',');
 			});
-			
+
 		},
-		
-		
+		groupListData(state) {
+
+			if (state.orderDetail == undefined || state.orderDetail == null || state.orderDetail.discountGameGroupModel == undefined || state.orderDetail.discountGameGroupModel == null) {
+				return [{
+					group: [{
+						iconUrl: ''
+					},{
+						iconUrl: ''
+					},{
+						iconUrl: ''
+					}],
+					state: 'ing'
+				}]
+			}
+
+			let emptyMember = (state.orderDetail.discountGameGroupModel.groupUserModelList.length - 1) % 2;
+			let groupCount = Math.ceil((state.orderDetail.discountGameGroupModel.groupUserModelList.length - 1) / 2);
+
+			if (emptyMember < 1) {
+				groupCount++;
+				emptyMember = 2;
+			}
+			let memberList = state.orderDetail.discountGameGroupModel.groupUserModelList.slice(0, state.orderDetail.discountGameGroupModel
+				.groupUserModelList.length);
+			for (let m = 0; m < emptyMember; m++) {
+				memberList.push({
+					iconUrl: ''
+				})
+			}
+			let groupListData = [];
+			for (let i = 0; i < groupCount; i++) {
+				let group = memberList.slice(2 * i + 1, 2 * i + 3);
+				group.unshift(memberList[0]);
+				let groupData = {
+					group: group,
+					state: 'done'
+				}
+				if (i === groupCount - 1) {
+					groupData.state = 'ing'
+				}
+				groupListData.push(groupData);
+			}
+			return groupListData;
+		}
+
+
 	},
 	mutations: {
 		setOrderData(state, data) {
@@ -80,7 +124,7 @@ export default {
 			} = payload;
 			state.orderData[pageNo].loadingType = loadingType;
 		},
-		setOrderDetail(state,data){
+		setOrderDetail(state, data) {
 			console.log(data);
 			state.orderDetail = data;
 		}
@@ -120,11 +164,11 @@ export default {
 				pageNo: pageNo,
 				loadingType: 1
 			});
-			
-			
-			
-			
-			if(state.orderData[pageNo].pageNo*10 >= state.orderData[pageNo].totalCount){
+
+
+
+
+			if (state.orderData[pageNo].pageNo * 10 >= state.orderData[pageNo].totalCount) {
 				commit('changeBottomLoading', {
 					pageNo: pageNo,
 					loadingType: 2
@@ -145,13 +189,17 @@ export default {
 
 			})
 		},
-		getOrderDetail({commit},orderNo){
-			api.clientOrderDetail({platformOrderNo:orderNo}).then(res=>{
-				commit('setOrderDetail',res)
+		getOrderDetail({
+			commit
+		}, orderNo) {
+			api.clientOrderDetail({
+				platformOrderNo: orderNo
+			}).then(res => {
+				commit('setOrderDetail', res)
 			})
 		},
-		
-		
+
+
 
 	}
 

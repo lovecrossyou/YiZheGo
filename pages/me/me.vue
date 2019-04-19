@@ -13,15 +13,15 @@
 		</view>
 		<!-- 订单 -->
 		<view class="order_area_wrapper">
-			<itemList img="../../static/me/me_icon_invite@2x.png" title="订单" all="全部" page="./myOrder/myOrder"></itemList>
+			<itemList img="../../static/me/me_icon_invite@2x.png" title="订单" all="全部" page="./myOrder/myOrder?pageNo=0"></itemList>
 			<view class="order_status_wrapper">
 				<view class="order_status">
-					<orderStatus img="../../static/me/me_order_btn_obligation@2x.png" statusText="待付款"></orderStatus>
-					<orderStatus img="../../static/me/me_order_btn_announce_tobe@2x.png" statusText="待揭晓"></orderStatus>
-					<orderStatus img="../../static/me/me_order_btn_announce_hasbeen@2x.png" statusText="已揭晓"></orderStatus>
+					<orderStatus img="../../static/me/me_order_btn_obligation@2x.png" statusText="待付款" pageNo=1></orderStatus>
+					<orderStatus img="../../static/me/me_order_btn_announce_tobe@2x.png" statusText="待揭晓" pageNo=2></orderStatus>
+					<orderStatus img="../../static/me/me_order_btn_announce_hasbeen@2x.png" statusText="已揭晓" pageNo=3></orderStatus>
 				</view>
 				<view class="right_item">
-					<orderStatus img="../../static/me/me_order_btn_refund@2x.png" statusText="中签/退款"></orderStatus>
+					<orderStatus img="../../static/me/me_order_btn_refund@2x.png" statusText="中签/退款" pageNo=4></orderStatus>
 				</view>
 			</view>
 			
