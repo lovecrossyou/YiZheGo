@@ -36,7 +36,7 @@
 		<view v-if="orderInfo" class="price-info">
 			<view class="price-info-product">
 				<view class="price-info-product-text">商品</view>
-				<view class="price-info-product-price" v-if="directBuy == true">¥{{ fix2Price.originalPrice*purchaseAmount }}</view>
+				<view class="price-info-product-price" v-if="directBuy == 'true'">¥{{ fix2Price.originalPrice*purchaseAmount }}</view>
 				<view class="price-info-product-price" v-else>¥{{ fix2Price.oneDiscountPrice*purchaseAmount}}</view>
 			</view>
 			<view class="price-info-product">
@@ -44,7 +44,7 @@
 				<view class="price-info-product-price">+¥{{ fix2Price.freight }}</view>
 			</view>
 		</view>
-		<view class="choose-code" @click="chooseCode" v-if="directBuy">
+		<view class="choose-code" @click="chooseCode" v-if="directBuy=='false'">
 			<view class="choose-code-msg" v-if="allFinished">
 				<view class="choose-code-msg-red">我的幸运号码（{{ buyCount }}组）</view>
 			</view>
@@ -72,7 +72,7 @@
 				<uni-icon type="arrowright" color="#bbb" size="20"></uni-icon>
 			</view>
 		</view>
-		<view class="refound-info" @click="refundRoute">
+		<view class="refound-info" @click="refundRoute" v-if="directBuy == 'false'">
 			<view class="refound-info-text">退款路径</view>
 			<view class="refound-info-select-info">
 				<view class="refound-info-select-msg">{{ refundWay.title }}</view>
