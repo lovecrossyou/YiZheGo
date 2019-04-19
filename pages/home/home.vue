@@ -330,7 +330,7 @@
 
 			.tooopencom_content {
 				background: #fee4e4;
-				border-radius: 20upx;
+				border-radius: 8upx;
 				.tooopencom_product_list {
 					display: flex;
 					justify-content: space-around;
