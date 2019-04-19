@@ -36,7 +36,7 @@
 					</view>
 				</view>
 			</view>
-			<view class="hot_sale">
+			<view class="hot_sale" @click="hotsales">
 				<view class="tooopencom_title">
 					<view>热销榜单</view>
 					<view class="tooopencom_title_right">
@@ -117,6 +117,11 @@
 			...mapGetters('home', ['timeLimit3'])
 		},
 		methods: {
+			hotsales(){
+				uni.navigateTo({
+					url: '/pages/xtgoods/xtgoods'
+				});
+			},
 			goVIP() {
 				uni.navigateTo({
 					url: '/pages/me/vip/vip-center'
@@ -325,7 +330,7 @@
 
 			.tooopencom_content {
 				background: #fee4e4;
-
+				border-radius: 8upx;
 				.tooopencom_product_list {
 					display: flex;
 					justify-content: space-around;
