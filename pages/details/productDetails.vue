@@ -105,7 +105,7 @@
 		<view class="winning_periods">
 			<view class="particulars_item">
 				<view class="designation">晒单 </view>
-				<view class="view_more">
+				<view class="view_more" @click="goshowWinOrder">
 					<view>查看更多</view>
 					<image :src="icon_right"></image>
 				</view>
@@ -195,6 +195,11 @@
 			goBuying(){
 				uni.navigateTo({
 					url:"/pages/buying/buying"
+				})
+			},
+			goshowWinOrder(){
+				uni.navigateTo({
+					url:"/pages/moments/components/showWinOrder"
 				})
 			},
 			changeIndex(ind) {

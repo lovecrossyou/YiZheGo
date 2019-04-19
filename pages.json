@@ -57,6 +57,14 @@
 			}
 		},
 		{
+			"path": "pages/moments/components/showWinOrder",
+			"style": {
+				"navigationBarTitleText": "  ",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "rgba(255,255,255,1)"
+			}
+		},
+		{
 			"path": "pages/moments/praiseDetail",
 			"style": {
 				"navigationBarTitleText": "点赞详情",

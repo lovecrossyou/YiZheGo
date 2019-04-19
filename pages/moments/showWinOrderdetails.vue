@@ -103,13 +103,12 @@
 		},
 		async onLoad(options) {
 			const res = await api.showWinOrderDetail({
-				showOrderCommentId: 96
+				showOrderCommentId: options.id
 			});
-			this.showOrderCommentId = 96;
+			this.showOrderCommentId = options.id;
 			this.commentShowWinOrderModelList = res.commentShowWinOrderModelList;
 			this.praiseDetailModelList = res.praiseDetailModelList;
 			this.showWinOrderCommentModel = res.showWinOrderCommentModel;
-			console.log("111111111"+this.commentShowWinOrderModelList)
 		},
 		methods: {
 			gopraiseDetail() {
@@ -378,6 +377,7 @@
 					flex-direction: row;
 					margin-left: 31upx;
 					margin-top: 32upx;
+					margin-bottom: 100upx;
 					
 					.comment_user_icon{
 						width: 70upx;
@@ -444,6 +444,9 @@
 			align-items: center;
 			width: 100%;
 			height: 98upx;
+			position: fixed;
+			bottom: 0upx;
+			background: white;
 			
 			.comment_input{
 				width: 530upx;
