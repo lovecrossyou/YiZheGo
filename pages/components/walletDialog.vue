@@ -249,7 +249,7 @@
 			  width: 80%;
 			  height: 640upx;	
 			  background-color: #fff;
-			  margin-top: 30upx;
+			  margin-top: 50upx;
 			  border-radius: 10upx;
 			.container_top{
 				display: flex;
@@ -273,7 +273,7 @@
 				.channel{
 					position: absolute;
 					left: 12%;
-					top: 50upx;
+					top: 70upx;
 					width:23upx;
 					height:23upx;
 				}
