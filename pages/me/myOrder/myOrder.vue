@@ -29,7 +29,12 @@
 							></productInfo>
 
 							<view class="bottom">
-								<text class="count">共{{ orderItem.purchaseCount }}件{{ '&#8195;' }}实付款：￥{{ orderItem.totalPayPrice / 100 }}</text>
+								
+								<view class="count">共{{ orderItem.purchaseCount }}件{{ '&#8195;' }}实付款：￥
+								<priceText
+								:price="(orderItem.totalPayPrice / 100).toFixed(2)"
+								></priceText>
+								</view>
 							</view>
 						</view>
 					</block>
@@ -48,12 +53,15 @@
 import mediaList from '../components/mediaList.vue';
 import uniLoadMore from '../components/uni-load-more.vue';
 import productInfo from '../components/productInfo.vue';
+import priceText from '../components/priceText.vue';
 import { mapActions, mapState } from 'vuex';
 export default {
 	components: {
 		mediaList,
 		uniLoadMore,
-		productInfo
+		productInfo,
+		priceText
+		
 	},
 
 	computed: {
@@ -353,6 +361,8 @@ export default {
 					justify-content: flex-end;
 					margin-top: 57upx;
 					.count {
+						display: flex;
+						flex-direction: row;
 						font-size: 26upx;
 						font-family: PingFangSC-Regular;
 						font-weight: 400;
