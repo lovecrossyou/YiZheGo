@@ -111,12 +111,11 @@
 	import uniIcon from '@/pages/components/uni-icon/uni-icon.vue';
 	export default {
 		onLoad: function(option) {
-			console.log('确认订单商品-----------' + option.directBuy + '------------' + option.discountGameId);
-
 			this.groupId = option.groupId;
 			this.discountGameId = option.discountGameId;
 			this.$store.commit('confirmPay/setBuyType', option.directBuy);
 			this.getConfirmOrderInfo(option.discountGameId);
+			this.initCode();
 		},
 		onShow() {
 			this.getAddressList();
@@ -126,7 +125,7 @@
 		},
 		data() {
 			return {
-				showUpgradeModal: false,
+				gradeModal: false,
 				groupId: null,
 				discountGameId: 0,
 				addIcon: '../../static/pay/icon_location.png',
@@ -213,7 +212,8 @@
 
 			},
 			...mapMutations({
-				changeCodeCount: 'chooseCode/changeCodeCount'
+				changeCodeCount: 'chooseCode/changeCodeCount',
+				initCode: 'chooseCode/initCode',
 			}),
 			 
 			chooseCode() {
