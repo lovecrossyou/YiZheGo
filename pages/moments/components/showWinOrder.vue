@@ -1,7 +1,7 @@
 <template>
-	<view class="commentwrapper">
+	<view class="showWinOrderwrapper">
 		<block v-for="(item,index) in list" :key="index">
-			<view class="commentItem">
+			<view class="showWinOrderItem">
 				<view class="user">
 					<image class="user_icon" :src="item.userIconUrl"></image>
 					<view class="user_icon_right">
@@ -22,16 +22,17 @@
 							<view class="moment_image_num">{{item.imageOrVideoUrl.length}}</view>
 						</view>
 					</view>
-				</view> 
+				</view>
 				<view class="moment_data">
-					<view class="gamestage"></view>
+					<view class="gamestage" v-if="item.discountGameStage">期数: {{item.discountGameStage}}</view>
+					<view class="gamestage" v-else></view>
 					<view class="moment_num">
 						<view class="praise" @click="change_praise(item)">
 							<image class="praise_img" v-if="item.praise" src="/static/moments/btn_like_red.png"></image>
 							<image class="praise_img" v-else src="/static/moments/icon_illume.png"></image>
 							<view class="praise_num">{{item.praiseCount}}</view>
 						</view>
-						<view class="comment" @click="godetails(index)">
+						<view class="comment"  @click="godetails(index)">
 							<image class="comment_img" src="/static/moments/icon_comment.png"></image>
 							<view class="comment_num">{{item.commentCount}}</view>
 						</view>
@@ -54,19 +55,20 @@
 		methods:{
 			godetails(index){
 				uni.navigateTo({
-					url:"/pages/moments/showWinOrderdetails?id="+this.list[index].discussCommentId
+					url:"/pages/moments/showWinOrderdetails?id="+this.list[index].showWinOrderCommentId
 				})
 			},
 			async change_praise(item){
 				const res = await api.praiseShowWinOrder({
-					showWinOrderId:item.discussCommentId,
+					showWinOrderId:item.showWinOrderCommentId,
 				});
 				item.praise=res.praise;
 				item.praiseCount=res.praiseCount;
 			}
 		},
 		async onLoad() {
-			const res = await api.discusCommentList({
+			const res = await api.showWinOrderList({
+				
 			});
 			this.list = res;
 		}
@@ -74,10 +76,10 @@
 </script>
 
 <style lang="less">
-	.commentwrapper{
-		width: 100%;
+	.showWinOrderwrapper{
+		width: 100%; 
 		
-		.commentItem {
+		.showWinOrderItem {
 			display: flex;
 			flex-direction: column;
 			width: 100%;
