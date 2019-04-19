@@ -91,7 +91,7 @@
 				flex-wrap: wrap;
 				margin-top:12upx;
 				.recommend_item {
-					flex-basis: 49%;
+					flex-basis: 49.5%;
 					background: rgba(255, 255, 255, 1);
 					overflow: hidden;
 					margin-bottom: 4upx;
