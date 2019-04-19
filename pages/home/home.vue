@@ -15,7 +15,7 @@
 		</view>
 		<view class="tooopencom">
 			<view class="tooopencom_content">
-				<view class="tooopencom_title">
+				<view class="tooopencom_title" @click="goNewsWelfare">
 					<view>喜腾好物</view>
 					<view class="tooopencom_title_right">
 						<image :src="home_gengduo_icon"></image>
@@ -36,7 +36,7 @@
 			<view class="tooopencom_title">
 				<view>热销榜单</view>
 				<view class="tooopencom_title_right">
-					抢更多精选好物
+					<view>抢更多精选好物</view>
 					<image :src="home_gengduo_icon"></image>
 				</view>
 			</view>
@@ -135,6 +135,11 @@
 					this.modalStatus = true;
 				}
 
+			},
+			goNewsWelfare(){
+				uni.navigateTo({
+					url:"./newsWelfare"
+				})
 			},
 			closeImg() {
 				this.openPacketStatus = false;
@@ -339,7 +344,8 @@
 			.tooopencom_title_right {
 				color: #e22537;
 				font-size: 26upx;
-
+				display: flex;
+				align-items: center;
 				image {
 					width: 28upx;
 					height: 28upx;
@@ -388,13 +394,12 @@
 
 					.hot_sale_product_name {
 						width: 80%;
-						padding: 4upx 20upx;
 						height: 34upx;
-						box-sizing: border-box;
+						background: rgba(250, 224, 181, 1);
+						line-height: 34upx;
+						text-align: center;
 						overflow: hidden;
 						text-overflow: ellipsis;
-						text-align: center;
-						background: rgba(250, 224, 181, 1);
 						border-radius: 16upx;
 						font-size: 24upx;
 						font-family: PingFang-SC-Medium;
@@ -402,6 +407,9 @@
 						color: rgba(101, 69, 48, 1);
 						margin-top: 16upx;
 						margin-bottom: 10upx;
+						padding-left:10upx;
+						padding-right:10upx;
+						box-sizing: border-box;
 					}
 
 					.already_sale {
