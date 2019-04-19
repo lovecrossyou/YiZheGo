@@ -32,7 +32,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="hot_sale">
+		<view class="hot_sale" @click="goGoods">
 			<view class="tooopencom_title">
 				<view>热销榜单</view>
 				<view class="tooopencom_title_right">
@@ -102,6 +102,11 @@
 			...mapGetters('home', ['timeLimit3'])
 		},
 		methods: {
+			goGoods(){
+				uni.navigateTo({
+					url:"/pages/xtgoods/xtgoods"
+				})
+			},
 			goVIP() {
 				uni.navigateTo({
 					url: '/pages/me/vip/vip-center'
