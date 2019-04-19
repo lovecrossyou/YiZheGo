@@ -111,6 +111,7 @@
 		computed: {
 			...mapState({
 				openid: state => state.openid,
+				directBuy: state => state.confirmPay.buyType,
 			}),
 			fix2Price:function(){
 				return {
@@ -198,11 +199,16 @@
 				}
 			},
 			payResult(msg) {
-				console.log('支付结果:' + JSON.stringify(msg));
-				uni.redirectTo({
-					url: "./payResult?payOrderNo=" + this.payOrderNo + "&totalPayRmb=" + this.totalPayRmb + "&payChannel=" +
-						this.paychannels[this.selectIndex].payChannel + "&openId=" + this.openid
-				})
+				if (this.directBuy !== 'false') {
+						uni.redirectTo({
+							url: "./payResult?payOrderNo=" + this.payOrderNo + "&totalPayRmb=" + this.totalPayRmb + "&payChannel=" +
+								this.paychannels[this.selectIndex].payChannel + "&openId=" + this.openid
+						})
+					} else {
+						uni.redirectTo({
+							url: "/pages/gameGroup?payOrderNo=" + this.payOrderNo
+						})
+					}
 			},
 		}
 	}

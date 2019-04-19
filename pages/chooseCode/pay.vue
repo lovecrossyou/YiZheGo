@@ -99,11 +99,12 @@
 
 			},
 			payResult(payStatus) {
-				
-				console.log('this.directBuy ',this.directBuy);
+				console.log('this.directBuy############## ',this.directBuy);
+				console.log('this.payStatus############## ',payStatus);
+				// 
 				if (payStatus) {
 					//支付成功
-					if (this.directBuy) {
+					if (this.directBuy !== 'false') {
 						uni.redirectTo({
 							url: "./payResult?payOrderNo=" + this.payOrderNo + "&totalPayRmb=" + this.totalPayRmb + "&payChannel=" +
 								this.paychannels[this.selectIndex].payChannel + "&openId=" + this.openid
