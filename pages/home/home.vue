@@ -51,7 +51,6 @@
 			<tabFiltrate :data="navBarListTit"></tabFiltrate>
 			<product></product>
 		</view>
-
 		<!-- 红包模态！ -->
 		<view class="registe_success_modal" v-if="modalArea">
 			<view class="content_wrapper" v-if="modalStatus">
