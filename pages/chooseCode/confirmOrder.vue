@@ -21,11 +21,12 @@
 				<image v-bind:src="orderInfo.relatedProductImageUrl" class="product-info-pro-img"></image>
 				<view class="product-info-pro-name">
 					<view class="product-info-pro-name-text">{{ orderInfo.relatedProductName }}</view>
-					<view class="product-info-pro-price-info">
+					<view class="product-info-pro-price-info" v-if="directBuy=='false'">
 						<view class="product-info-pro-name-price">¥{{ fix2Price.oneDiscountPrice }}</view>
 
 						<view class="product-info-pro-name-price-discount">市场价:{{ fix2Price.originalPrice }}</view>
 					</view>
+					<view class="product-info-price-original" v-else>¥{{fix2Price.originalPrice}}</view>
 				</view>
 			</view>
 			<view class="product-info-pro-amount">
@@ -36,8 +37,8 @@
 		<view v-if="orderInfo" class="price-info">
 			<view class="price-info-product">
 				<view class="price-info-product-text">商品</view>
-				<view class="price-info-product-price" v-if="directBuy == 'true'">¥{{ fix2Price.originalPrice*purchaseAmount }}</view>
-				<view class="price-info-product-price" v-else>¥{{ fix2Price.oneDiscountPrice*purchaseAmount}}</view>
+				<view class="price-info-product-price" v-if="directBuy == 'true'">¥{{ fix2Price.originalTotlePrice }}</view>
+				<view class="price-info-product-price" v-else>¥{{ fix2Price.oneDiscountTotlePrice}}</view>
 			</view>
 			<view class="price-info-product">
 				<view class="price-info-product-text">运费</view>
@@ -191,7 +192,7 @@
 				});
 			},
 			async commitOrder() {
-				if (!this.allFinished) {
+				if (!this.allFinished&&this.directBuy=='false') {
 					console.log('allCode ', this.allCode);
 					uni.showToast({
 						title: '请完成选号!',
@@ -376,6 +377,13 @@
 							line-height: 42upx;
 						}
 					}
+					.product-info-price-original {
+							font-size: 26upx;
+							font-family: PingFangSC-Regular;
+							font-weight: 400;
+							color: rgba(204, 38, 54, 1);
+							margin-right: 10upx;
+						}
 				}
 			}
 
