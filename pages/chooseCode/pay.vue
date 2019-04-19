@@ -153,7 +153,7 @@
 				selectIndex: 0,
 				paychannels: [{
 						icon: '../../static/pay/pay_icon_weixin@2x.png',
-						selIcon: '../../static/pay/pay_btn_selected_weixin@2x.png',
+						selIcon: '../../static/pay/pay_choose@2x.png',
 						title: "微信支付",
 						unselIcon: '../../static/pay/pay_btn@2x.png',
 						payChannel: "WeixinPay",
@@ -161,14 +161,14 @@
 					},
 					{
 						icon: '../../static/pay/pay_icon_zhifubao@2x.png',
-						selIcon: '../../static/pay/pay_btn_selected_weixin@2x.png',
+						selIcon: '../../static/pay/pay_choose@2x.png',
 						title: "支付宝付款",
 						unselIcon: '../../static/pay/pay_btn@2x.png',
 						payChannel: "AlipayClient",
 						provider: 'alipay'
 					}, {
 						icon: '../../static/login/logo@2x.png',
-						selIcon: '../../static/pay/pay_btn_selected_weixin@2x.png',
+						selIcon: '../../static/pay/pay_choose@2x.png',
 						title: "钱包",
 						unselIcon: '../../static/pay/pay_btn@2x.png',
 						payChannel: "Wallet",
@@ -187,7 +187,7 @@
 				selectIndex: 0,
 				paychannels: [{
 						icon: '../../static/pay/pay_icon_weixin@2x.png',
-						selIcon: '../../static/pay/pay_btn_selected_weixin@2x.png',
+						selIcon: '../../static/pay/pay_choose@2x.png',
 						title: "微信支付",
 						unselIcon: '../../static/pay/pay_btn@2x.png',
 						payChannel: "WeixinMiniProgramPay",
@@ -195,7 +195,7 @@
 					},
 					{
 						icon: '../../static/login/logo@2x.png',
-						selIcon: '../../static/pay/pay_btn_selected_weixin@2x.png',
+						selIcon: '../../static/pay/pay_choose@2x.png',
 						title: "钱包",
 						unselIcon: '../../static/pay/pay_btn@2x.png',
 						payChannel: "Wallet",
