@@ -236,7 +236,7 @@
 					{
 						img: '../../static/home/home_nav_shaidan.png',
 						name: '晒单',
-						page: '/pages/ranklist/ranklist'
+						page: '/pages/moments/components/showWinOrder'
 					},
 					{
 						img: '../../static/home/home_nav_bangdan.png',

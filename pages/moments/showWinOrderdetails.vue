@@ -103,13 +103,12 @@
 		},
 		async onLoad(options) {
 			const res = await api.showWinOrderDetail({
-				showOrderCommentId: 96
+				showOrderCommentId: options.id
 			});
-			this.showOrderCommentId = 96;
+			this.showOrderCommentId = options.id;
 			this.commentShowWinOrderModelList = res.commentShowWinOrderModelList;
 			this.praiseDetailModelList = res.praiseDetailModelList;
 			this.showWinOrderCommentModel = res.showWinOrderCommentModel;
-			console.log("111111111"+this.commentShowWinOrderModelList)
 		},
 		methods: {
 			gopraiseDetail() {
