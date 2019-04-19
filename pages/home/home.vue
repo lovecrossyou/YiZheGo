@@ -51,6 +51,7 @@
 			<tabFiltrate :data="navBarListTit"></tabFiltrate>
 			<product></product>
 		</view>
+
 		<!-- 红包模态！ -->
 		<view class="registe_success_modal" v-if="modalArea">
 			<view class="content_wrapper" v-if="modalStatus">
@@ -78,7 +79,7 @@
 			<view class="vip_modal_wrapper">
 				<image src="http://qnimage.xiteng.com/huiyuan_photo_lingqu@2x.png" v-if="vipImg" class="vip_img" @click="getVIP"></image>
 				<image src="../../static/home/quxiao.png" class="cancel_icon" v-if="hiddenCancel" @click="cancelVip"></image>
-				<!-- 领取成功 -->
+				<!-- 领取成功哈哈哈 -->
 				<image src="../../static/home/huiyuan_icon_chenggong@2x.png" v-if="getSucceed" class="get_succeed"></image>
 			</view>
 		</view>
