@@ -61,19 +61,17 @@
 			</view>
 			<!-- 本期中签号码 -->
 			<view class="item-content">
-				<view class="title-content"><text class="item-title">本期中签号码(第2019114期)</text></view>
+				<view class="title-content"><text class="item-title">本期中签号码(第{{orderDetail.discountGameStage}}期)</text></view>
 
 				<view class="code-list">
-					<view class="ball">待</view>
-					<view class="ball">揭</view>
-					<view class="ball">晓</view>
+					<view class="ball" v-for="(code,index) in todayCode" :key="index">{{code}}</view>
 				</view>
 			</view>
 			<!-- 我的幸运号码 -->
 			<view class="item-content">
 				<view class="title-content">
-					<text class="item-title">我的幸运号码（10组）</text>
-					<uni-icon type="arrowright" color="#bbb" size="20"></uni-icon>
+					<text class="item-title">我的幸运号码（{{myCodeListLength}}组）</text>
+					<uni-icon type="arrowright" color="#bbb" size="20" v-if="myCodeListLength >3 "></uni-icon>
 				</view>
 				<view class="code-content">
 					<view class="code-array" v-for="(codeArray, index) in codeList" :key="index">
@@ -136,7 +134,10 @@ export default {
 	},
 	computed: {
 		...mapGetters({
-			orderDealState: 'myOrder/orderDealState'
+			orderDealState: 'myOrder/orderDealState',
+			todayCode: 'myOrder/todayCode',
+			myCodeList: 'myOrder/myCodeList',
+			myCodeListLength: 'myOrder/myCodeListLength'
 		}),
 		...mapState({
 			orderDetail:state=>state.myOrder.orderDetail,

@@ -262,19 +262,21 @@ export default {
 	width: 100%;
 	background: #f7f7f7;
 
-	.header {
-		width: 100%;
-		background: #ffffff;
-		position: relative;
-		height: 427upx;
-	}
-
 	.nav {
 		background: #ffffff;
 		text-align: center;
 		padding-top: 36upx;
 		padding-bottom: 32upx;
 		box-sizing: border-box;
+
+		.header {
+			width: 100%;
+			background: #ffffff;
+			position: relative;
+			height: 427upx;
+			position: relative;
+		}
+
 
 		image {
 			width: 704upx;
