@@ -1,66 +1,78 @@
 <template>
-	<view class="main">
-		<view class="lucky-list">
-
-			<block v-for="(item,index) in luckyListA" :key="index">
-
-				<view class="lucky-item">
-					<view class="top-tag">
-						<!-- <view class="date">今天</view> -->
-						<view class="day-time">{{item.openResultTime}}</view>
-					</view>
-					<!-- <view class="lucky"  :style="{ background: 'linear-gradient(backColorA[index].color1,backColorA[index].color2)' }"> -->
-					<view class="lucky" :style='{background: backColorA[index%4].background}'>
-						<view class="caty-No">
-							<view class="catygory-tag">
-								<view class="tag-img"></view>
-								<view class="tag-title">每日22:00揭晓</view>
-							</view>
-
-							<view class="lucky-No">
-								<view class="count-tag">第 {{item.welfareStage}} 期 中签号码</view>
-								<luckyBallItem :numbers="item.winCode"></luckyBallItem>
-							</view>
-
-							<view class="lucky-count-all">
-								<view class="title">本期中签({{item.winUserInfoModelList===null?0:item.winUserInfoModelList.length}})</view>
-								<view class="show-all-tag">
-									<view class="tag-text" @click="turnToLuckyDetail(item,index)">查看全部</view>
-									<view class="right-row-img"></view>
+	<section class="main">
+		<PullUpReload :on-infinite-load="onInfiniteLoad" :parent-pull-up-state="infiniteLoadData.pullUpState">
+			<div class="lucky-list">
+				<block v-for="(item,index) in luckyListA" :key="index">
+					<view class="lucky-item">
+						<view class="top-tag">
+							<!-- <view class="date">今天</view> -->
+							<view class="day-time">{{item.openResultTime}}</view>
+						</view>
+						<!-- <view class="lucky"  :style="{ background: 'linear-gradient(backColorA[index].color1,backColorA[index].color2)' }"> -->
+						<view class="lucky" :style='{background: backColorA[index%4].background}'>
+							<view class="caty-No">
+								<view class="catygory-tag">
+									<view class="tag-img"></view>
+									<view class="tag-title">每日22:00揭晓</view>
 								</view>
+
+								<view class="lucky-No">
+									<view class="count-tag">第 {{item.welfareStage}} 期 中签号码</view>
+									<luckyBallItem :numbers="item.winCode"></luckyBallItem>
+								</view>
+
+								<view class="lucky-count-all">
+									<view class="title">本期中签({{item.winUserInfoModelList===null?0:item.winUserInfoModelList.length}})</view>
+									<view class="show-all-tag">
+										<view class="tag-text" @click="turnToLuckyDetail(item,index)">查看全部</view>
+										<view class="right-row-img"></view>
+									</view>
+								</view>
+
+							</view>
+
+							<userPrizeItem v-if="item.winUserInfoModelList!==null&&item.winUserInfoModelList.length!==0" :item="item.winUserInfoModelList[0]"
+							 :backColor="backColorA[index%4].userPrizeColor"></userPrizeItem>
+
+							<view class="sep-line"></view>
+
+							<view class="attention">
+								注：本期中签号码与福彩3D第2019186期一等奖号码相同，即选 中3个红球，详情请查询“中国福利彩票开奖公告”。
 							</view>
 
 						</view>
-
-						<userPrizeItem v-if="item.winUserInfoModelList!==null&&item.winUserInfoModelList.length!==0" :item="item.winUserInfoModelList[0]"
-						 :backColor="backColorA[index%4].userPrizeColor"></userPrizeItem>
-
-						<view class="sep-line"></view>
-
-						<view class="attention">
-							注：本期中签号码与福彩3D第2019186期一等奖号码相同，即选 中3个红球，详情请查询“中国福利彩票开奖公告”。
-						</view>
-
 					</view>
-				</view>
-			</block>
+				</block>
 
-		</view>
-	</view>
+			</div>
+		</PullUpReload>
+	</section>
 </template>
 
 <script>
 	import api from "@/util/api.js"
 	import luckyBallItem from '../components/luckyBallItem.vue'
 	import userPrizeItem from '../components/userPrizeItem.vue'
+	import PullUpReload from '../components/PullUpReload.vue'
 	export default {
 		components: {
 			luckyBallItem,
-			userPrizeItem
+			userPrizeItem,
+			PullUpReload
 		},
 		data() {
 			return {
 				luckyListA: [],
+				totalCount: 0,
+				pageNo: 0,
+				infiniteLoadData: {
+					initial: 10, // 初始显示多少条
+					size: 10, // 每次加载的个数
+					pageNo: 0, //页数
+					pullUpState: 0, // 子组件的pullUpState状态
+					pullUpList: [], // 上拉加载更多数据的数组
+					showPullUpListLength: this.initial // 上拉加载后所展示的个数
+				},
 				backColorA: [{
 						background: 'linear-gradient(to right, #60ECFF, #9890FF)',
 						userPrizeColor: 'rgba(74,81,227,0.1)',
@@ -80,21 +92,39 @@
 				],
 			};
 		},
-		computed: {
-
+		mounted() {
+			this.getLuckyList();
 		},
 		methods: {
+			onInfiniteLoad(done) {
+				if (this.infiniteLoadData.pullUpState === 0) {
+					this.getLuckyList();
+				}
+				done()
+			},
+
 			async getLuckyList() {
-				let res = await api.luckyList({
-					pageNo: 0,
-					size: 20
-				})
-				this.luckyListA = res.list;
-				console.log(res)
+				let params = {
+					pageNo: this.pageNo,
+					size: 10
+				}
+				console.log(params);
+				let res = await api.luckyList(params);
+				if (res.pageNo === 0) {
+					this.luckyListA = res.list;
+				} else {
+					this.luckyListA = this.luckyListA.concat(res.list);
+				}
+				this.pageNo = res.pageNo + 1;
+				this.totalCount = res.totalCount;
+				if (this.luckyListA.length === this.totalCount) {
+					this.infiniteLoadData.pullUpState = 3;
+				} else {
+					this.infiniteLoadData.pullUpState = 0;
+				}
 			},
 			turnToLuckyDetail(item, index) {
 				let colorParam = this.backColorA[index % 4];
-				// console.log()
 				uni.navigateTo({
 					url: './lucky-detail?lotteryStage=' + item.welfareStage + '&lotteryType=' + item.lotteryName + '&winCode=' +
 						item.winCode + '&backColor=' + colorParam.background + '&itemColor=' + colorParam.userPrizeColor,
@@ -127,7 +157,7 @@
 			}
 		},
 		onLoad() {
-			this.getLuckyList()
+			// this.getLuckyList();
 		}
 	}
 </script>
