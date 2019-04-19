@@ -9,6 +9,9 @@ const state = {
 const getters = {
 	timeLimit3(state, getters) {
 		return state.timeLimitChoiceList.slice(0, 3)
+	},
+	newsBenefitList3(state,getters) {
+		return state.newsBenefitList.slice(0,3)
 	}
 }
 

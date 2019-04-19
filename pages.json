@@ -1,6 +1,5 @@
 {
 	"pages": [
-		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages ranklist
 		{
 			"path": "pages/launch/launch",
 			"style": {
@@ -8,7 +7,7 @@
 				"navigationStyle": "custom",
 				"app-plus": {
 					"titleNView": {
-						"type": "transparent" //透明渐变导航栏,
+						"type": "transparent"
 					}
 				}
 			}
@@ -16,13 +15,8 @@
 		{
 			"path": "pages/home/home",
 			"style": {
-				"navigationStyle": "custom",
-				"navigationBarTitleText": "首页",
-				"app-plus": {
-					"titleNView": {
-						"type": "transparent" //透明渐变导航栏,
-					}
-				}
+				"navigationBarTitleText": "首页"
+				
 			}
 		},{
 			"path": "pages/home/newsWelfare",
@@ -49,7 +43,7 @@
 			"style": {
 				"navigationBarTitleText": "  ",
 				"navigationBarTextStyle": "black",
-				"navigationBarBackgroundColor": "rgba(255,255,255,1)"
+				"navigationBarBackgroundColor": "#ffffff"
 				
 			}
 		},
@@ -58,7 +52,7 @@
 			"style": {
 				"navigationBarTitleText": "详情",
 				"navigationBarTextStyle": "black",
-				"navigationBarBackgroundColor": "rgba(255,255,255,1)"
+				"navigationBarBackgroundColor": "#ffffff"
 			}
 		},
 		{
@@ -66,7 +60,7 @@
 			"style": {
 				"navigationBarTitleText": "  ",
 				"navigationBarTextStyle": "black",
-				"navigationBarBackgroundColor": "rgba(255,255,255,1)"
+				"navigationBarBackgroundColor": "#ffffff"
 			}
 		},
 		{
@@ -74,7 +68,7 @@
 			"style": {
 				"navigationBarTitleText": "点赞详情",
 				"navigationBarTextStyle": "black",
-				"navigationBarBackgroundColor": "rgba(255,255,255,1)"
+				"navigationBarBackgroundColor": "#ffffff"
 			}
 		},
 		{
@@ -88,7 +82,6 @@
 		{
 			"path": "pages/login/WeChatLogin/inputTelNumber",
 			"style": {
-				// "navigationBarTitleText": "手机号验证",
 				"navigationBarBackgroundColor": "#fff",
 				"navigationBarTextStyle": "black"
 			}
@@ -96,7 +89,6 @@
 		{
 			"path": "pages/login/WeChatLogin/verificationCode",
 			"style": {
-				// "navigationBarTitleText": "验证码",
 				"navigationBarBackgroundColor": "#fff",
 				"navigationBarTextStyle": "black"
 			}
@@ -114,7 +106,7 @@
 				"navigationStyle": "custom",
 				"app-plus": {
 					"titleNView": {
-						"type": "transparent" //透明渐变导航栏,
+						"type": "transparent"
 					}
 				}
 			}
@@ -261,7 +253,7 @@
 				"navigationStyle": "custom",
 				"app-plus": {
 					"titleNView": {
-						"type": "transparent" //透明渐变导航栏,
+						"type": "transparent"
 					}
 				}
 			}
@@ -364,17 +356,16 @@
 		]
 	},
 	"globalStyle": {
-		"navigationBarTextStyle": "white",
-		"navigationBarBackgroundColor": "#FF594B",
+		"navigationBarTextStyle": "black",
+		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#FFFFFF"
 	},
 	"condition": {
-		//模式配置，仅开发期间生效
-		"current": 0, //当前激活的模式(list 的索引项)
+		"current": 0, 
 		"list": [{
-			"name": "", //模式名称
-			"path": "", //启动页面，必选
-			"query": "" //启动参数，在页面的onLoad函数里面得到
+			"name": "",
+			"path": "", 
+			"query": "" 
 		}]
 	}
 }

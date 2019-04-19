@@ -4,14 +4,16 @@ import request from './request'
 const uploadBaseUrl = "http://123.57.161.212:9939/xitenggamenode/";
 
 const api = {
-	// 新人福利
-	newsBenefitList: params => request.post('/discountGameList/byCommonUser', params),
+	// 喜腾好物
+	newsBenefitList: params => request.post('/discountGameList/goodProduct', params),
 	// 热销榜单
 	byTimeLimitChoiceList: params => request.post('/discountGameList/byTimeLimitChoice', params),
 	// 全部抢购活动
 	byTimeLimitList: params => request.post('/discountGameList/byTimeLimit', params),
 	// 详情
 	productDetails: params => request.post('/discountGame/detail', params),
+	// 收藏
+	collectProduct:params=>request.post('/discountProduct/collect',params),
 	vipProductDetail: params => request.post('/discountGame/vipProductDetail', params),
 	buyVipProduct: params => request.post('/discountGame/vipProductPurchaseInfo', params),
 	updateToVipUser: params => request.post('/vip/updateToVipUser', params),

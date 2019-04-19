@@ -26,10 +26,10 @@
 						</view>
 					</view>
 					<view class="tooopencom_product_list">
-						<view class="tooopencom_product_item" v-for="(item, i) in timeLimit3" :key="i">
+						<view class="tooopencom_product_item" v-for="(item, i) in newsBenefitList3" :key="i">
 							<view class="image">
 								<image :src="item.productImageUrl"></image>
-								<view class="tooopencom_product_price">￥{{ item.oneDiscountPrice }}</view>
+								<view class="tooopencom_product_price">￥{{ item.oneDiscountPrice/100 }}</view>
 							</view>
 							<view class="tooopencom_product_name">{{ item.productName }}</view>
 						</view>
@@ -49,7 +49,7 @@
 						<view class="image">
 							<image :src="item.productImageUrl"></image>
 						</view>
-						<view class="hot_sale_product_price">￥{{ item.oneDiscountPrice }}</view>
+						<view class="hot_sale_product_price">￥{{ item.oneDiscountPrice/100 }}</view>
 						<view class="hot_sale_product_name">{{ item.productName }}</view>
 						<view class="already_sale">已抢{{ item.currentPurchaseCount }}</view>
 					</view>
@@ -113,8 +113,8 @@
 	export default {
 		computed: {
 			...mapState(['hasLogin', 'userInfo']),
-			...mapState('home', ['timeLimitChoices', 'timeLimitChoiceList','timeLimitList']),
-			...mapGetters('home', ['timeLimit3'])
+			...mapState('home', ['timeLimitChoiceList','timeLimitList']),
+			...mapGetters('home', ['timeLimit3','newsBenefitList3'])
 		},
 		methods: {
 			hotsales(){
@@ -142,7 +142,10 @@
 				this.modalArea = false;
 			},
 			async openPacket() {
-				let res = await api.getRedPacket({});
+				const id = this.openRedPacket.pushMassageId;
+				let res = await api.getRedPacket({
+					pushMassageId:id
+				});
 				this.keepRedPacket = res;
 				this.modalStatus = false;
 				this.openPacketStatus = true;
@@ -150,7 +153,7 @@
 			async packets() {
 				let res = await api.redPacket({});
 				if (res.length != 0) {
-					this.openRedPacket = res;
+					this.openRedPacket = res[0];
 					this.modalArea = true;
 					this.modalStatus = true;
 				}
@@ -229,6 +232,7 @@
 		},
 		data() {
 			return {
+				popMessage:[],//弹出 收到红包  会员奖励
 				showVIPModal: false,
 				showModal: false,
 				loading: true,
@@ -236,8 +240,8 @@
 				home_gengduo_icon: '../../static/home/home_gengduo_icon.png',
 				navBarListTit: ['精选', '销量', '价格'],
 				modalStatus: true,
-				openRedPacket: {},
-				keepRedPacket: {},
+				openRedPacket: null,
+				keepRedPacket: null,
 				modalArea: false,
 				openPacketStatus: false,
 				vipImg: true,
@@ -469,7 +473,6 @@
 					.image {
 						width: 136upx;
 						height: 178upx;
-						margin-top: 28upx;
 
 						image {
 							width: 136upx;

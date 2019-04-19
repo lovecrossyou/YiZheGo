@@ -31,12 +31,18 @@
 		<view class="share_wx_friend_wrapper" v-if="isShare">
 			<view class="share_wx_friend">
 				 <view class="share">
-					<button open-type="share" class="share_item" v-for="(item,i) in shareList" :key="i" @click="shareWxFriend(item.tit)">
+					 <view class="share_item">
+						<button open-type="share" class="share_weixin">
+							<image :src="yaoqing_icon_weixin"></image>
+							<view>微信</view>
+						</button>
+					 </view>
+					<view class="share_item" v-for="(item,i) in shareList" :key="i" @click="shareWxFriend(item.tit)">
 						<image :src="item.img"></image>
 						<view>{{item.tit}}</view>
-					</button>
+					</view> 
 				</view> 
-				<view class="cancel" @click="cancelBtn">取消</view>
+				<view class="cancel" @click.stop="cancelBtn">取消</view>
 			</view>
 		</view>
 	</view>
@@ -50,11 +56,10 @@
 		data() {
 			return {
 				yaoqing_bg: 'http://qnimage.xiteng.com/yaoqing_bg.png',
+				yaoqing_icon_weixin:"../../../static/me/yaoqing_icon_weixin.png",
 				isShare: false,
-				shareList: [{
-					img: "../../../static/me/yaoqing_icon_weixin.png",
-					tit: "微信好友"
-				}, {
+				shareList: [
+					{
 					img: "../../../static/me/yaoqing_icon_pengyouquan.png",
 					tit: "朋友圈"
 				}, {
@@ -242,18 +247,31 @@
 					align-items: center;
 					text-align: center;
 					.share_item{
-						position:inherit; 
-						border:none;
-						outline: 0;
-						margin:0;
-						padding:0;
 						line-height:1.5;
 						background: #ECECEC;
 						font-size: 24upx;
 						font-family: PingFang-SC-Regular;
 						font-weight: 400;
 						color: rgba(51, 51, 51, 1);
+						.share_weixin{
+							width:140upx;
+							height: 230upx;
+							line-height:1.5;
+							background: #ECECEC;
+							font-size: 24upx;
+							font-family: PingFang-SC-Regular;
+							font-weight: 400;
+							color: rgba(51, 51, 51, 1);
+							display:flex;
+							flex-direction:column;
+							align-items:center;
+							justify-content:center;
+						}
+						button::after{
+							border:none;
+						}
 					}
+					
 					image {
 						width: 104upx;
 						height: 104upx;
