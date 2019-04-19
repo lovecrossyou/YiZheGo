@@ -11,7 +11,7 @@
 		</view> -->
 		<view class="tab_filtrate_wrapper">
 			<tabFiltrate :data="navBarListTit"></tabFiltrate>
-			<product :data='navBarListTit'></product>
+			<!-- <product></product> -->
 		
 		</view>
 	</view>

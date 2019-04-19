@@ -10,7 +10,7 @@
 </template>
 
 <script>
-	// import api from '../../../util/api.js';
+	import api from '../../../util/api.js';
 	
 	export default {
 		props: {
