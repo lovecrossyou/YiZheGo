@@ -89,8 +89,14 @@ export default {
 	width: 100%;
 	display: flex;
 	flex-direction: column;
+	height: 100%;
+	flex: 1;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 	background-color: #f2f2f2;
-
 	.choose-content {
 		display: flex;
 		flex-direction: column;
