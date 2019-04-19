@@ -41,7 +41,6 @@
 <style lang="scss">
 	.moments {
 		width: 100%;
-		background: #eeeeee;
 
 		.navigation {
 			width: 100%;
@@ -73,8 +72,6 @@
 		
 		.contentlist{
 			width: 100%;
-			padding: 20upx 30upx;
-			box-sizing: border-box;
 			margin-top: 101upx;
 		}
 	}
