@@ -26,10 +26,10 @@
 						</view>
 					</view>
 					<view class="tooopencom_product_list">
-						<view class="tooopencom_product_item" v-for="(item, i) in timeLimit3" :key="i">
+						<view class="tooopencom_product_item" v-for="(item, i) in newsBenefitList3" :key="i">
 							<view class="image">
 								<image :src="item.productImageUrl"></image>
-								<view class="tooopencom_product_price">￥{{ item.oneDiscountPrice }}</view>
+								<view class="tooopencom_product_price">￥{{ item.oneDiscountPrice/100 }}</view>
 							</view>
 							<view class="tooopencom_product_name">{{ item.productName }}</view>
 						</view>
@@ -49,7 +49,7 @@
 						<view class="image">
 							<image :src="item.productImageUrl"></image>
 						</view>
-						<view class="hot_sale_product_price">￥{{ item.oneDiscountPrice }}</view>
+						<view class="hot_sale_product_price">￥{{ item.oneDiscountPrice/100 }}</view>
 						<view class="hot_sale_product_name">{{ item.productName }}</view>
 						<view class="already_sale">已抢{{ item.currentPurchaseCount }}</view>
 					</view>
