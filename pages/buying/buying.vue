@@ -13,17 +13,17 @@
 	export default {
 		data() {
 			return {
-				productId:1
+				discountGameId:1
 			};
 		},
 		computed: {
 			...mapGetters(['h5Page']),
 			url(){
-				return this.h5Page('buyDetail/page?'+'&id='+this.productId)
+				return this.h5Page('buyDetail/page?'+'&id='+this.discountGameId)
 			}
 		},
 		onLoad(opt) {
-			this.productId = opt.productId;
+			this.discountGameId = opt.discountGameId;
 		}
 	}
 </script>

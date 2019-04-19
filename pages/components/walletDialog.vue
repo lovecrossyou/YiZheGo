@@ -7,7 +7,7 @@
 		<view class="xy-dialog__container">
 			<view class="xy-dialog__container_pay_info">
 				<view class="container_top">
-					<view class="channel" @click="closeDialog">X</view>
+					<image v-bind:src="closeIcon" class="channel" @click="closeDialog"></image>
 					<view class="header" v-if="title.length > 0">{{ title }}</view>
 					<view class="line"></view>
 					<view class="msg">钱包支付</view>
@@ -25,7 +25,12 @@
 						   </view>
 						   <view class="balance_info">
 							   <view class="balance_msg" v-if="paychannels[index].title=='零钱'">余额 ¥{{fix2Price.fix2RmbAmount}}</view>
-							   <view class="balance_msg" v-else>余额 ${{account.xtbTotalAmount}}</view>
+							    <view class="balance_xibi_info" v-else>
+									<view class="balance_xibi_msg">余额</view>
+									<image v-bind:src="xibiIcon" class="balance_xibi_icon"></image>
+									<view class="balance_xibi_msg_price">{{account.xtbTotalAmount}}</view>
+								</view>
+							   
 						   </view>
 						</view>
 					</block>
@@ -87,12 +92,12 @@
 			return {
 				isShow: false,
 				selectIndex:-1,
-				paychannels:[{ selIcon: '../../static/pay/pay_btn_selected_weixin@2x.png',
+				paychannels:[{ selIcon: '../../static/pay/pay_choose@2x.png',
 				            title: "零钱",
 				            unselIcon: '../../static/pay/pay_btn@2x.png',
 							payChannel:'payByRmbAccount'
 							 },
-							{ selIcon: '../../static/pay/pay_btn_selected_weixin@2x.png',
+							{ selIcon: '../../static/pay/pay_choose@2x.png',
 				            title: "喜币",
 				            unselIcon: '../../static/pay/pay_btn@2x.png',
 							payChannel:'payByXtbAccount'
@@ -100,6 +105,8 @@
 				items: [0, 1, 2, 3, 4, 5],
 				password: [],
 				account:{},
+				closeIcon:'../../static/pay/zhifu_mima_icon_guanbi@2x.png',
+				xibiIcon:'../../static/pay/assets_icon_xibi@2x.png'
 			}
 		},
 		watch: {
@@ -223,7 +230,7 @@
 		right: 0;
 		bottom: 0;
 		left: 0;
-		z-index: 1500;
+		z-index: 1;
 		transition: visibility 200ms ease-in;
 		&.xy-dialog__show {
 			visibility: visible;
@@ -237,7 +244,7 @@
 			transform: translate(-50%, -50%);
 			transition: transform 0.3s;
 			width: 100%;
-			height: 640upx+480upx+30upx;
+			height: 100%;
 			overflow: hidden;
 			opacity: 0;
 			transition: opacity 200ms ease-in;
@@ -248,7 +255,7 @@
 			  width: 80%;
 			  height: 640upx;	
 			  background-color: #fff;
-			  margin-bottom: 30upx;
+			  margin-top: 50upx;
 			  border-radius: 10upx;
 			.container_top{
 				display: flex;
@@ -272,7 +279,7 @@
 				.channel{
 					position: absolute;
 					left: 12%;
-					top: 10upx;
+					top: 70upx;
 					width:23upx;
 					height:23upx;
 				}
@@ -342,6 +349,28 @@
 							font-weight:400;
 							color:#999999;
 						}
+						.balance_xibi_info{
+							display: flex;
+							flex-direction: row;
+							align-items: center;
+							.balance_xibi_msg{
+								font-size:26upx;
+								font-family:PingFangSC-Regular;
+								font-weight:400;
+								color:#999999;
+								margin-right: 6upx;
+							}
+							.balance_xibi_icon{
+								width:17upx;
+								height:18upx;
+							}
+							.balance_xibi_msg_price{
+								font-size:26upx;
+								font-family:PingFangSC-Regular;
+								font-weight:400;
+								color:#999999;
+							}
+						}
 					}
 
 				}
@@ -358,11 +387,9 @@
 					box-sizing: border-box;
 					.password-item {
 						height: 100%;
-						border: 1px solid #00c456;
-						border-radius: 15upx;
+						border: 1upx solid rgba(159,159,159,1);
 						width: 480upx;
 						margin: 0 auto;
-						box-shadow: 0 0 3px rgba(0, 196, 86, .6);
 						display: flex;
 						flex-direction: row;
 						align-items: center;
@@ -370,7 +397,7 @@
 						&-char {
 							width: 16.66666666%;
 							height: 84upx;
-							border-right: 1px solid #ddd;
+							border-right: 1upx solid rgba(159,159,159,1);
 							line-height: 84upx;
 							text-align: center;
 							&:last-child {
@@ -399,7 +426,7 @@
 			bottom: 0;
 			width: 100%;
 			height: 100%;
-			background: rgba(0,0,0,.2);
+			background: rgba(0,0,0,.6);
 			opacity: 0;
 			transition: opacity 200ms ease-in;
 		}

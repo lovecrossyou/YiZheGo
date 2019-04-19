@@ -57,8 +57,8 @@ const store = new Vuex.Store({
 		token: null,
 		openid: null,
 		urlParams: '',
-		h5BaseUrl: 'http://192.168.1.235:8000/#/'
-		// h5BaseUrl: 'https://www.xiteng.com/xitenggamenode/#/' 
+		// h5BaseUrl: 'http://192.168.1.235:8000/#/'
+		h5BaseUrl: 'https://www.xiteng.com/xitenggamenode/#/' 
 	},
 	getters: {
 		h5Page: (state) => (page) => {

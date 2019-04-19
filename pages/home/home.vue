@@ -1,63 +1,67 @@
 <template>
 	<view class="home_page">
-		<view class="header">
-			<searchWrap></searchWrap>
-			<banner></banner>
-		</view>
-		<view class="nav">
-			<view class="nav_list">
-				<view class="nav_list_item" v-for="(item, i) in navList" :key="i" @click="goNext(item)">
-					<image :src="item.img"></image>
-					<view>{{ item.name }}</view>
+		<block v-if="loading">
+			<loading></loading>
+		</block>
+		<block v-else>
+			<view class="header">
+				<searchWrap></searchWrap>
+				<banner></banner>
+			</view>
+			<view class="nav">
+				<view class="nav_list">
+					<view class="nav_list_item" v-for="(item, i) in navList" :key="i" @click="goNext(item)">
+						<image :src="item.img"></image>
+						<view>{{ item.name }}</view>
+					</view>
+				</view>
+				<image :src="home_huiyuan" @click="goVIP"></image>
+			</view>
+			<view class="tooopencom">
+				<view class="tooopencom_content">
+					<view class="tooopencom_title" @click="goNewsWelfare">
+						<view>喜腾好物</view>
+						<view class="tooopencom_title_right">
+							<image :src="home_gengduo_icon"></image>
+						</view>
+					</view>
+					<view class="tooopencom_product_list">
+						<view class="tooopencom_product_item" v-for="(item, i) in timeLimit3" :key="i">
+							<view class="image">
+								<image :src="item.productImageUrl"></image>
+								<view class="tooopencom_product_price">￥{{ item.oneDiscountPrice }}</view>
+							</view>
+							<view class="tooopencom_product_name">{{ item.productName }}</view>
+						</view>
+					</view>
 				</view>
 			</view>
-			<image :src="home_huiyuan" @click="goVIP"></image>
-		</view>
-		<view class="tooopencom">
-			<view class="tooopencom_content">
-				<view class="tooopencom_title" @click="goNewsWelfare">
-					<view>喜腾好物</view>
+			<view class="hot_sale" @click="hotsales">
+				<view class="tooopencom_title">
+					<view>热销榜单</view>
 					<view class="tooopencom_title_right">
+						<view>抢更多精选好物</view>
 						<image :src="home_gengduo_icon"></image>
 					</view>
 				</view>
-				<view class="tooopencom_product_list">
-					<view class="tooopencom_product_item" v-for="(item, i) in timeLimit3" :key="i">
+				<view class="hot_sale_list">
+					<view class="hot_sale_product_item" v-for="(item, i) in timeLimit3" :key="i">
 						<view class="image">
 							<image :src="item.productImageUrl"></image>
-							<view class="tooopencom_product_price">￥{{ item.oneDiscountPrice }}</view>
 						</view>
-						<view class="tooopencom_product_name">{{ item.productName }}</view>
+						<view class="hot_sale_product_price">￥{{ item.oneDiscountPrice }}</view>
+						<view class="hot_sale_product_name">{{ item.productName }}</view>
+						<view class="already_sale">已抢{{ item.currentPurchaseCount }}</view>
 					</view>
 				</view>
 			</view>
-		</view>
-		<view class="hot_sale">
-			<view class="tooopencom_title">
-				<view>热销榜单</view>
-				<view class="tooopencom_title_right">
-					<view>抢更多精选好物</view>
-					<image :src="home_gengduo_icon"></image>
-				</view>
+			<view class="tab_filtrate_wrapper">
+				<tabFiltrate :data="navBarListTit"></tabFiltrate>
+				<product></product>
 			</view>
-			<view class="hot_sale_list">
-				<view class="hot_sale_product_item" v-for="(item, i) in timeLimit3" :key="i">
-					<view class="image">
-						<image :src="item.productImageUrl"></image>
-					</view>
-					<view class="hot_sale_product_price">￥{{ item.oneDiscountPrice }}</view>
-					<view class="hot_sale_product_name">{{ item.productName }}</view>
-					<view class="already_sale">已抢{{ item.currentPurchaseCount }}</view>
-				</view>
-			</view>
-		</view>
-		<view class="tab_filtrate_wrapper">
-			<tabFiltrate :data="navBarListTit"></tabFiltrate>
-			<product></product>
-		</view>
-		<!-- 红包模态！ -->
-		<view class="registe_success_modal" v-if="modalArea">
-			<view class="content_wrapper" v-if="modalStatus">
+			<!-- 红包模态！ -->
+			<view class="registe_success_modal" v-if="modalArea">
+				<view class="content_wrapper" v-if="modalStatus">
 				<image src="../../static/home/quxiao.png" class="cancel_icon" @click="hiddenImg"></image>
 				<image src="../../static/home/no_open.png" class="no_open_img" @click="openPacket"></image>
 				<view class="no_oppen_title_area">
@@ -77,17 +81,19 @@
 					</view>
 				</view>
 			</view>
-		</view>
-
-		<!-- 获得会员弹框 -->
-		<view class="registe_success_modal" v-if="showVIPModal">
-			<view class="vip_modal_wrapper" >
-				<image src="http://qnimage.xiteng.com/huiyuan_photo_lingqu@2x.png" v-if="vipImg" class="vip_img" @click="getVIP"></image>
-				<image src="../../static/home/quxiao.png" class="cancel_icon" v-if="hiddenCancel" @click="cancelVip"></image>
-				<!-- 领取成功 -->
-				<image src="../../static/home/huiyuan_icon_chenggong@2x.png" v-if="getSucceed" class="get_succeed"></image>
 			</view>
-		</view>
+
+			<!-- 获得会员弹框 -->
+			<view class="registe_success_modal" v-if="showVIPModal">
+				<view class="vip_modal_wrapper">
+					<image src="http://qnimage.xiteng.com/huiyuan_photo_lingqu@2x.png" v-if="vipImg" class="vip_img" @click="getVIP"></image>
+					<image src="../../static/home/quxiao.png" class="cancel_icon" v-if="hiddenCancel" @click="cancelVip"></image>
+					<!-- 领取成功 -->
+					<image src="../../static/home/huiyuan_icon_chenggong@2x.png" v-if="getSucceed" class="get_succeed"></image>
+				</view>
+			</view>
+
+		</block>
 	</view>
 </template>
 
@@ -102,13 +108,20 @@
 	import tabFiltrate from './components/tabFiltrate';
 	import product from './components/product';
 	import service from '@/service.js';
+	import loading from "./components/loading"
+
 	export default {
 		computed: {
 			...mapState(['hasLogin', 'userInfo']),
-			...mapState('home', ['timeLimitChoices', 'timeLimitChoiceList']),
+			...mapState('home', ['timeLimitChoices', 'timeLimitChoiceList','timeLimitList']),
 			...mapGetters('home', ['timeLimit3'])
 		},
 		methods: {
+			hotsales(){
+				uni.navigateTo({
+					url: '/pages/xtgoods/xtgoods'
+				});
+			},
 			goVIP() {
 				uni.navigateTo({
 					url: '/pages/me/vip/vip-center'
@@ -157,21 +170,22 @@
 			async getVIP() {
 				this.vipImg = false;
 				this.getSucceed = true;
-				this.hiddenCancel = false;				
+				this.hiddenCancel = false;
 				const res = await api.getPresentVip();
 				this.showVIPModal = false;
 			},
 			async getVipModal() {
 				let res = await api.vipModal({});
-				if (res.pushPresentVip == true){
+				console.log('getVipModal ', res);
+				if (res.pushPresentVip) {
 					this.showVIPModal = true;
-					console.log("pushPresentVip",res.pushPresentVip)
 				}
 			}
 		},
 		onShow() {
 			this.packets();
 			this.getVipModal();
+			this.loading = false;
 		},
 		onLoad(option) {
 			console.log('inviteId ', option.inviteId);
@@ -217,6 +231,7 @@
 			return {
 				showVIPModal: false,
 				showModal: false,
+				loading: true,
 				home_huiyuan: 'http://qnimage.xiteng.com/home_huiyuan.png',
 				home_gengduo_icon: '../../static/home/home_gengduo_icon.png',
 				navBarListTit: ['精选', '销量', '价格'],
@@ -236,7 +251,7 @@
 					{
 						img: '../../static/home/home_nav_shaidan.png',
 						name: '晒单',
-						page: '/pages/ranklist/ranklist'
+						page: '/pages/moments/components/showWinOrder'
 					},
 					{
 						img: '../../static/home/home_nav_bangdan.png',
@@ -255,7 +270,8 @@
 			banner,
 			tabFiltrate,
 			product,
-			searchWrap
+			searchWrap,
+			loading
 		}
 	};
 </script>
@@ -314,7 +330,7 @@
 
 			.tooopencom_content {
 				background: #fee4e4;
-
+				border-radius: 8upx;
 				.tooopencom_product_list {
 					display: flex;
 					justify-content: space-around;

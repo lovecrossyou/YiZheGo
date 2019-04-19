@@ -169,7 +169,8 @@
 			async getConfirmOrderInfo(discountGameId) {
 				const res = await api.confirmOrderInfo({
 					discountGameId: discountGameId,
-					purchaseAmount: this.purchaseAmount
+					purchaseAmount: this.purchaseAmount,
+					originalPriceBuy:this.directBuy
 				});
 				console.log('确认订单信息-----------' + JSON.stringify(res));
 				this.$store.commit('confirmPay/setOrderInfo', res);
@@ -183,7 +184,7 @@
 				return api.commitOrder({
 					codeList: this.allCode,
 					deliverAddressId: this.address.id,
-					directBuy: this.directBuy,
+					originalPriceBuy: this.directBuy,
 					discountGameId: this.orderInfo.discountGameId,
 					purchaseCount: this.buyCount,
 					refundWay: this.refundWay.refundWay,
@@ -383,6 +384,7 @@
 							font-weight: 400;
 							color: rgba(204, 38, 54, 1);
 							margin-right: 10upx;
+							margin-top: 10upx;
 						}
 				}
 			}
