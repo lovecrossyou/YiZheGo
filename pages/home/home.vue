@@ -142,7 +142,10 @@
 				this.modalArea = false;
 			},
 			async openPacket() {
-				let res = await api.getRedPacket({});
+				const id = this.openRedPacket.pushMassageId;
+				let res = await api.getRedPacket({
+					pushMassageId:id
+				});
 				this.keepRedPacket = res;
 				this.modalStatus = false;
 				this.openPacketStatus = true;
@@ -150,7 +153,7 @@
 			async packets() {
 				let res = await api.redPacket({});
 				if (res.length != 0) {
-					this.openRedPacket = res;
+					this.openRedPacket = res[0];
 					this.modalArea = true;
 					this.modalStatus = true;
 				}
@@ -229,6 +232,7 @@
 		},
 		data() {
 			return {
+				popMessage:[],//弹出 收到红包  会员奖励
 				showVIPModal: false,
 				showModal: false,
 				loading: true,
@@ -236,8 +240,8 @@
 				home_gengduo_icon: '../../static/home/home_gengduo_icon.png',
 				navBarListTit: ['精选', '销量', '价格'],
 				modalStatus: true,
-				openRedPacket: {},
-				keepRedPacket: {},
+				openRedPacket: null,
+				keepRedPacket: null,
 				modalArea: false,
 				openPacketStatus: false,
 				vipImg: true,

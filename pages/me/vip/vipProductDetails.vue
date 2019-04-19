@@ -19,12 +19,13 @@
 			</swiper>
 		</view>
 
-		<!-- 价格 倒计时 -->
+		<!-- 价格-->
 		<view class="price-section">
 			<view class="price-section-item">
 				<view class="price">
 					<view class="rmb_symbol">￥</view>
-					<span class="big">{{ productDetail.price }}</span>
+					<span class="big">{{productDetail.price/100}}</span>
+					<view class="rmb_symbol">.00</view>
 				</view>
 			</view>
 			<view class="price-section-item">
@@ -70,7 +71,7 @@
 		</view>
 
 		<!-- 正在抢购 -->
-		<view class="winning_periods">
+		<view class="winning_periods" @click="goBuying">
 			<view class="particulars_item">
 				<view class="designation">正在抢购</view>
 				<view class="view_more">
@@ -96,7 +97,7 @@
 		<view class="winning_periods">
 			<view class="particulars_item">
 				<view class="designation">晒单</view>
-				<view class="view_more">
+				<view class="view_more" @click="goshowWinOrder">
 					<view>查看更多</view>
 					<image :src="icon_right"></image>
 				</view>
@@ -181,7 +182,18 @@ export default {
 			uni.navigateTo({
 				url: '../chooseCode/confirmOrder?discountGameId=' + this.productDetail.discountGameId + '&directBuy=' + directBuy
 			});
-		}
+		},
+		goBuying(){
+			console.log('this.productDetail ', this.productDetail);
+			uni.navigateTo({
+				url:"/pages/buying/buying?discountGameId="+this.productDetail.discountGameId
+			})
+		},
+		goshowWinOrder(){
+			uni.navigateTo({
+				url:"/pages/moments/components/showWinOrder"
+			})
+		},
 	},
 	onLoad(opt) {
 		this.fetchProductDetail(opt.productId);
@@ -375,7 +387,7 @@ export default {
 
 	.product-info {
 		background: #ffffff;
-		padding: 28upx;
+		padding: 20upx 28upx;
 		box-sizing: border-box;
 		color: #333333;
 		font-size: 30upx;
