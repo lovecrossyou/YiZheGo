@@ -163,7 +163,7 @@
 			},
 			async getVipModal() {
 				let res = await api.vipModal({});
-				if (res.pushPresentVip = true){
+				if (res.pushPresentVip == true){
 					this.showVIPModal = true;
 				}
 			}
