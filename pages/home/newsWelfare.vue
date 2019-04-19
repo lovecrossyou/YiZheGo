@@ -12,9 +12,9 @@
 		<view class="tab_filtrate_wrapper">
 			<tabFiltrate :data="navBarListTit"></tabFiltrate>
 			<view class="recommend_wrapper">
-				<view class="recommend_item" v-for='(item,i) in timeLimitChoiceList' :key='i' @click="goDetail(item.discountGameId)">
+				<view class="recommend_item" v-for='(item,i) in newsBenefitList' :key='i' @click="goDetail(item.discountGameId)">
 					<view class="recommend_item_img">
-						<image :src="item.timeLimitProductImageUrl " alt="" mode="aspectFill"/>
+						<image :src="item.productImageUrl" alt="" mode="aspectFill"/>
 					</view>
 					<view class="recommend_item_intro">
 						<view class="recommend_item_title">
@@ -22,7 +22,7 @@
 							<span>{{item.productName}}</span>
 						</view>
 						<view class="recommend_item_intro_sale">
-							<view class="price">￥<span style="font-size: 36upx;">{{item.oneDiscountPrice}}</span></view>
+							<view class="price">￥<span style="font-size: 36upx;">{{item.oneDiscountPrice/100}}</span></view>
 							<view class="already_sale"><image :src="home_huo_icon"></image>已抢{{item.currentPurchaseCount}}件</view>
 						</view>
 					</view>
@@ -47,6 +47,14 @@
 		},
 		computed:{
 			...mapState('home',['newsBenefitList','timeLimitChoiceList'])
+		},
+		methods:{
+			goDetail(productId){
+				uni.navigateTo({
+					url:"/pages/details/productDetails?productId="+productId
+				})
+			},
+			
 		},
 		components:{
 			tabFiltrate,
@@ -91,7 +99,7 @@
 				flex-wrap: wrap;
 				margin-top:12upx;
 				.recommend_item {
-					flex-basis: 49.5%;
+					flex-basis: 49.8%;
 					background: rgba(255, 255, 255, 1);
 					overflow: hidden;
 					margin-bottom: 4upx;
