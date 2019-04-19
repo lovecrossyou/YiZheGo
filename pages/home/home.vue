@@ -79,6 +79,8 @@
 				</view>
 			</view>
 		</view>
+		
+		
 	</view>
 </template>
 
@@ -240,6 +242,7 @@
 			background: #ffffff;
 			position: relative;
 			height: 427upx;
+			position: relative;
 		}
 
 		.nav {
