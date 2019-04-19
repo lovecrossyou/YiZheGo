@@ -7,6 +7,9 @@ import service from "../service.js";
 import confirmPay from './modules/confirmPay.js';
 import payResult from './modules/payResult.js';
 import chooseCode from './modules/chooseCode.js'
+import myOrder from './modules/myOrder.js'
+import inviteFriend from './modules/inviteFriend.js';
+
 
 const urlParams = () => {
 	const accessInfo = createAccessInfo();
@@ -40,6 +43,8 @@ const store = new Vuex.Store({
 		productDetail,
 		confirmPay,
 		payResult,
+		myOrder,
+		inviteFriend,
 	},
 
 	state: {
@@ -52,7 +57,8 @@ const store = new Vuex.Store({
 		token: null,
 		openid: null,
 		urlParams: '',
-		h5BaseUrl: 'https://www.xiteng.com/xitenggamenode/#/'
+		// h5BaseUrl: 'http://192.168.1.235:8000/#/'
+		h5BaseUrl: 'https://www.xiteng.com/xitenggamenode/#/' 
 	},
 	getters: {
 		h5Page: (state) => (page) => {
@@ -89,9 +95,12 @@ const store = new Vuex.Store({
 		}) {
 			const token = service.getToken();
 			const openid = service.getOpenId();
+			const userInfo = service.getInfo();
 			if (token) {
 				commit('saveToken', token);
 				commit('saveOpenId', openid);
+				commit('saveUserInfo', userInfo);
+
 				//拼接h5参数
 				const accessInfo = createAccessInfo();
 				commit('setH5Url', urlParams());
@@ -112,7 +121,17 @@ const store = new Vuex.Store({
 
 			service.addToken(token);
 			service.addOpenId(openid);
+			service.addInfo(userInfo);
 			commit('setH5Url', urlParams());
+
+			// 检测是否绑定过手机号
+			if (userInfo.phoneNumber == null || userInfo.phoneNumber.length == 0) {
+				// 继续绑定手机号
+				wx.redirectTo({
+					url: '/pages/login/WeChatLogin/inputTelNumber',
+				})
+			}
+
 
 			acceptInvite();
 			uni.navigateBack();
@@ -122,7 +141,20 @@ const store = new Vuex.Store({
 			commit,
 			state
 		}, params) {
-			const token = await api.checkCodeLogin(params);
+			const res = await api.checkCodeLogin(params);
+			const {
+				token,
+				userInfo,
+			} = res;
+			commit('saveToken', token);
+			commit('saveUserInfo', userInfo);
+			// commit('saveOpenId', openid);
+
+			service.addToken(token);
+			// service.addOpenId(openid);
+			service.addInfo(userInfo);
+
+
 			commit('saveToken', token);
 			service.addToken(token);
 			acceptInvite();

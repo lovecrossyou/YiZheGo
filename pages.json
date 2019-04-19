@@ -16,13 +16,13 @@
 		{
 			"path": "pages/home/home",
 			"style": {
-				"navigationStyle": "custom",
-				"navigationBarTitleText": "首页",
-				"app-plus": {
-					"titleNView": {
-						"type": "transparent" //透明渐变导航栏,
-					}
-				}
+				"navigationBarTitleText": "首页"
+				
+			}
+		},{
+			"path": "pages/home/newsWelfare",
+			"style": {
+				"navigationBarTitleText": "喜腾好物"
 			}
 		},
 		{
@@ -42,15 +42,24 @@
 		{
 			"path": "pages/moments/moments",
 			"style": {
-				"navigationBarTitleText": "动态",
+				"navigationBarTitleText": "  ",
 				"navigationBarTextStyle": "black",
 				"navigationBarBackgroundColor": "rgba(255,255,255,1)"
+				
 			}
 		},
 		{
 			"path": "pages/moments/showWinOrderdetails",
 			"style": {
 				"navigationBarTitleText": "详情",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "rgba(255,255,255,1)"
+			}
+		},
+		{
+			"path": "pages/moments/components/showWinOrder",
+			"style": {
+				"navigationBarTitleText": "  ",
 				"navigationBarTextStyle": "black",
 				"navigationBarBackgroundColor": "rgba(255,255,255,1)"
 			}
@@ -305,12 +314,20 @@
 		{
 			"path": "pages/me/common/forgetPassword",
 			"style": {
-				"navigationBarTitleText": "忘记密码",
+				"navigationBarTitleText": "忘记支付密码",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/xtgoods/xtgoods",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/buying/buying",
+            "style" : {}
+        }
+    ],
 	"tabBar": {
 		"color": "#7a7e83",
 		"selectedColor": "#FE594B",

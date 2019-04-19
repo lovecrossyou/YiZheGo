@@ -1,21 +1,13 @@
 <template>
 	<view class="share_friend">
-		<shareRedPacket></shareRedPacket>
-		<view class="share_btn" @click="savePic">分享</view>
+		分享给朋友
 	</view>
 </template>
 
 <script>
-	import shareRedPacket from './shareRedPacket'
 	export default {
-		methods: {
-			savePic() {
-				console.log('share.')
-			}
-		},
-		components:{
-			shareRedPacket
-		}
+	
+		
 	}
 </script>
 

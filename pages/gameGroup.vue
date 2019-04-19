@@ -12,7 +12,7 @@
 		</view>
 		<view class="orderwrapper">
 			<view class="group_endtime">
-				<view class="group_endtime_text">揭晓中签：22:00 还剩：</view>
+				<view class="group_endtime_text">揭晓中签：22:00  还剩：</view>
 				<view class="counttime">11</view>
 				<view class="colon">:</view>
 				<view class="counttime">22</view>
@@ -28,13 +28,15 @@
 				</view>
 			</view>
 			<view class="order_detail" v-if="visibility">
-				<view class="order_detail_text">订单号：{{ OrderDetail.payOrderNo }}</view>
-				<view class="order_detail_text">商品代码： {{ OrderDetail.productId }}</view>
-				<view class="order_detail_text">期数： {{ OrderDetail.discountGameStage }}</view>
-				<view class="order_detail_text">参与数量： {{ OrderDetail.purchaseCount }}</view>
-				<view class="order_detail_text">金额： ¥{{ OrderDetail.totalPayPrice }}</view>
-				<view class="order_detail_text">支付方式： {{ OrderDetail.payChannel }}</view>
 				<view class="order_detail_text">下单时间： {{ OrderDetail.clientOrderTime }}</view>
+				<view class="order_detail_text">订单号：{{ OrderDetail.payOrderNo }}</view>
+				<view class="order_detail_text">期数： {{ OrderDetail.discountGameStage }}</view>
+				<view class="order_detail_text">商品代码： {{ OrderDetail.productId }}</view>
+				<view class="order_detail_text">抢购数量： {{ OrderDetail.purchaseCount }}</view>
+				<view class="order_detail_text">实付金额： ¥{{ OrderDetail.totalPayPrice }}</view>
+				<view class="order_detail_text">支付方式： {{ OrderDetail.payChannel }}</view>
+				<view class="order_detail_text">支付时间： {{ OrderDetail.clientOrderTime}}</view>
+				<view class="order_detail_text">退款路径： 喜腾钱包</view>
 			</view>
 			<view class="pack_up" @click="pack_up_btn">
 				<view class="pack_up_text">收起</view>
@@ -47,9 +49,14 @@
 				<view>成功发起拼团奖励喜币红包</view>
 			</view>
 			<view class="group_user">
-				<image class="user_icon" :src="OrderDetail.userIconUrl"></image>
-				<image class="user_icon" src="/static/gameGroup/user_default_icon.png"></image>
-				<image class="user_icon" src="/static/gameGroup/user_default_icon.png"></image>
+				<block v-for="(group_item,group_index) in groupUserList" :key="group_index">
+					<view class="groupitem">
+						<block v-for="(row_item,row_index) in group_item" :key="row_index">
+							<image class="user_icon" :src="row_item.iconUrl"></image>
+							<view v-if="group_index+row_index===0" class="groupleader">团长</view>
+						</block>
+					</view>
+				</block>
 			</view>
 		</view>
 		<button class="invite_btn" open-type="share">邀请拼团</button>
@@ -67,14 +74,14 @@
 				OrderDetail: {
 					purchaseCode: []
 				},
-				GameGroup: {},
+				GameGroup: {groupUserModelList:[]},
 				visibility: true,
 				pack_up_icon: '/static/gameGroup/icon_up.png'
 			};
 		},
 		async onLoad(options) {
 			const res = await api.clientOrderDetail({
-				payOrderNo: options.payOrderNo
+				payOrderNo: options.id
 			});
 			this.OrderDetail = res;
 			this.GameGroup = res.discountGameGroupModel;
@@ -84,48 +91,37 @@
 			const groupId = this.OrderDetail.discountGameGroupModel.groupId;
 			const productId = this.OrderDetail.productId;
 			const payOrderNo = this.OrderDetail.payOrderNo;
-			let path = ''
-			if(userInfo){
-				path =  '/pages/home/home?inviteId=' + userInfo.userId + '&groupId=' + groupId + '&productId=' + productId +'&payOrderNo=' + payOrderNo;
-			}
-			else{
-				path =  '/pages/home/home?groupId=' + groupId + '&productId=' + productId +'&payOrderNo=' + payOrderNo;
-			}
+			console.log('userInfo ',userInfo)
+		
+			const path =  '/pages/home/home?inviteId=' + userInfo.userId + '&groupId=' + groupId + '&productId=' + productId +'&payOrderNo=' + payOrderNo;
 			return {
 				title: '邀请好友',
 				path: path,
 				type: 1
 			}
 		},
+
 		computed: {
 			...mapState(['userInfo']),
 			stringToList() {
 				var list = [];
 				for (var i = 0; i < this.OrderDetail.purchaseCode.length; i++) list.push(this.OrderDetail.purchaseCode[i].split(','));
 				return list;
+			},
+			groupUserList(){
+				var n =this.GameGroup.groupUserModelList.length%3;
+				var list=this.GameGroup.groupUserModelList;
+				if(n!==0){
+					for(var i=0;i<3-n;i++){
+						list.push({"iconUrl":"/static/gameGroup/user_default_icon.png"})
+					}
+				}
+				var user_finallist=[];
+				for(var j=1;j<=list.length/3;j++){
+					user_finallist.push(list.slice(3*j-3,3*j))
+				}
+				return user_finallist;
 			}
-			// 			countTime() {
-			// 				var h=0;
-			// 				var m=0;
-			// 				var s=0;
-			//                 //获取当前时间
-			//                 var date = new Date();
-			//                 var now = date.getTime();
-			//                 //设置截止时间
-			//                 var endDate = new Date(this.OrderDetail.openResultTime);
-			//                 var end = endDate.getTime();
-			//                 //时间差
-			//                 var leftTime = end - now;
-			//                 //定义变量 d,h,m,s保存倒计时的时间
-			//                 if (leftTime >= 0) {
-			//                     h = Math.floor(leftTime / 1000 / 60 / 60 % 24);
-			//                     m = Math.floor(leftTime / 1000 / 60 % 60);
-			//                     s = Math.floor(leftTime / 1000 % 60);
-			//                 }
-			//                 return {"h":h,"m":m,"s":s}
-			//                 //递归每秒调用countTime方法，显示动态时间效果
-			//                 setTimeout(this.countTime, 1000);
-			//             }
 		},
 		methods: {
 			pack_up_btn() {
@@ -330,7 +326,7 @@
 				font-weight: 400;
 				color: rgba(51, 51, 51, 1);
 				line-height: 38upx;
-				margin: 66upx 201upx;
+				margin: 66upx 201upx 56upx 201upx;
 				box-sizing: border-box;
 
 				.group_text1 {
@@ -341,15 +337,39 @@
 			.group_user {
 				width: 451upx;
 				display: flex;
-				flex-direction: row;
-				justify-content: space-between;
-				padding-top: 21upx;
+				flex-direction: column;
+				margin-top: 10upx;
 				padding-bottom: 178upx;
-
-				.user_icon {
-					width: 100upx;
-					height: 100upx;
-					border-radius: 50%;
+				
+				.groupitem{
+					display: flex;
+					flex-direction: row;
+					justify-content: space-between;
+					padding-top: 21upx;
+					position: relative;
+					
+					.user_icon {
+						width: 100upx;
+						height: 100upx;
+						border-radius: 50%;
+						
+					}
+					
+					.groupleader{
+						width:56upx;
+						height:32upx;
+						background:rgba(204,38,55,1);
+						border-radius:2upx;
+						font-size:20upx;
+						font-family:MicrosoftYaHei;
+						font-weight:400;
+						color:rgba(255,255,255,1);
+						line-height:32upx;
+						text-align: center;
+						position: absolute;
+						top:98upx;
+						left: 21upx;
+					}
 				}
 			}
 		}

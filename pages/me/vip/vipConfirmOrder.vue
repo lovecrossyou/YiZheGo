@@ -33,8 +33,8 @@
 		<view class="price-info">
 			<view class="price-info-product">
 				<view class="price-info-product-text">商品</view>
-				<view class="price-info-product-price" v-if="directBuy">¥{{orderInfo.price}}</view>
-				<view class="price-info-product-price" v-else>¥{{orderInfo.price}}</view>
+				<view class="price-info-product-price" v-if="directBuy">¥{{orderInfo.price*buyCount}}</view>
+				<view class="price-info-product-price" v-else>¥{{orderInfo.price*buyCount}}</view>
 			</view>
 			<view class="price-info-product">
 				<view class="price-info-product-text">运费</view>
@@ -67,19 +67,19 @@
 
 	export default {
 		onLoad: async function(option) {
-			const productId = option.productId;
-			const res = await api.vipProductDetail({
-				vipProductId: productId
-			})
-			this.orderInfo = res;
+			this.productId=option.productId;
+			this.vipProductDetail();
+		},
+		onShow() {
 			this.getAddressList();
 		},
 		data() {
 			return {
 				orderInfo: null,
-				addIcon: '../../static/pay/icon_location.png',
-				rightArrow: '../../static/pay/icon_arrow_right@2x.png',
-				buyCount: 1
+				addIcon: '@/static/pay/icon_location.png',
+				rightArrow: '@/static/pay/icon_arrow_right@2x.png',
+				buyCount: 1,
+				productId:0,
 			}
 		},
 		components: {
@@ -96,6 +96,12 @@
 			}
 		},
 		methods: {
+			async vipProductDetail(){
+				const res = await api.vipProductDetail({
+					vipProductId: this.productId
+				})
+				this.orderInfo = res;
+			},
 			async getAddressList() {
 				const res = await api.addressList({
 					size: 10,
@@ -107,7 +113,7 @@
 			async getConfirmOrderInfo(discountGameId) {
 				const res = await api.confirmOrderInfo({
 					discountGameId: discountGameId,
-					purchaseAmount: 1
+					purchaseAmount: this.buyCount
 				});
 				console.log("确认订单信息-----------" + JSON.stringify(res));
 				this.$store.commit('confirmPay/setOrderInfo', res)
@@ -122,16 +128,20 @@
 			},
 			async commitOrder() {
 				const order = await this.getOrder();
-				console.log("提交订单-----------" + JSON.stringify(order));
-				// #ifdef APP-PLUS
-				uni.navigateTo({
-					url: './pay?payOrderNo=' + order.payOrderNo + '&totalPayRmb=' + order.totalPayRmb
+				uni.redirectTo({
+					url: '/pages/chooseCode/pay?payOrderNo=' + order.payOrderNo + '&totalPayRmb=' + order.totalPayRmb + '&productType='+'vipProduct'
 				})
-				// #endif
-
-				// #ifdef MP-WEIXIN
-				this.wxminiPay(order);
-				// #endif
+// 				return;
+// 				console.log("提交订单-----------" + JSON.stringify(order));
+// 				// #ifdef APP-PLUS
+// 				uni.navigateTo({
+// 					url: './pay?payOrderNo=' + order.payOrderNo + '&totalPayRmb=' + order.totalPayRmb
+// 				})
+// 				// #endif
+// 
+// 				// #ifdef MP-WEIXIN
+// 				this.wxminiPay(order);
+// 				// #endif
 
 			},
 			...mapMutations({
@@ -169,10 +179,11 @@
 			},
 			onCountChanged(event) {
 				this.buyCount = event;
+				this.vipProductDetail();
 			},
 			addressList() {
 				uni.navigateTo({
-					url: '../me/address/address'
+					url: '/pages/me/address/address'
 				})
 			}
 		}

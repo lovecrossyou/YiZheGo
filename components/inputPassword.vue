@@ -45,8 +45,7 @@ export default {
 		},
 		hideKeyboard() {
 			// 输入完成隐藏键盘
-			document.activeElement.blur(); // ios隐藏键盘
-			this.$refs.input.blur(); // android隐藏键盘
+			// this.$refs.input.blur(); // android隐藏键盘
 		}
 	}
 };

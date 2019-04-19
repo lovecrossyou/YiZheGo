@@ -1,19 +1,19 @@
 <template>
 	<view class="invite_friend_wrapper">
-		<view class="banner">
+		 <view class="banner">
 			<view class="banner_item">
 				<view class="tit">我的好友</view>
-				<view class="intro"><span class="count">20</span>人</view>
+				<view class="intro"><span class="count">{{userProfitInfo.userFriendAmount}}</span>人</view>
 			</view>
 			<view class="banner_item">
 				<view class="tit">邀请红包</view>
-				<view class="intro"><span class="count">200</span>喜币</view>
+				<view class="intro"><span class="count">{{userProfitInfo.inviteProfitXtbAmount}}</span>喜币</view>
 			</view>
 			<view class="banner_item">
 				<view class="tit">会员返现</view>
-				<view class="intro"><span class="count">20</span>元</view>
+				<view class="intro"><span class="count">{{userProfitInfo.shareSellProfitRmbAmount}}</span>元</view>
 			</view>
-		</view>
+		</view> 
 		<view class="invite">
 			<view class="rule">亲，送你2个红包，一起来玩1折抢购吧!从0~9选3个号码,选中立享1折。全场1折、正品保证、公开透明!</view>
 			<image :src="yaoqing_bg"></image>
@@ -30,13 +30,19 @@
 		</view>
 		<view class="share_wx_friend_wrapper" v-if="isShare">
 			<view class="share_wx_friend">
-				<view class="share">
+				 <view class="share">
+					 <view class="share_item">
+						<button open-type="share" class="share_weixin">
+							<image :src="yaoqing_icon_weixin"></image>
+							<view>微信</view>
+						</button>
+					 </view>
 					<view class="share_item" v-for="(item,i) in shareList" :key="i" @click="shareWxFriend(item.tit)">
 						<image :src="item.img"></image>
-						<button open-type="share">{{item.tit}} </button>
-					</view>
-				</view>
-				<view class="cancel" @click="cancelBtn">取消</view>
+						<view>{{item.tit}}</view>
+					</view> 
+				</view> 
+				<view class="cancel" @click.stop="cancelBtn">取消</view>
 			</view>
 		</view>
 	</view>
@@ -50,12 +56,10 @@
 		data() {
 			return {
 				yaoqing_bg: 'http://qnimage.xiteng.com/yaoqing_bg.png',
-				yaoqing_icon_jinagli: '../../static/me/yaoqing_icon_jinagli.png',
+				yaoqing_icon_weixin:"../../../static/me/yaoqing_icon_weixin.png",
 				isShare: false,
-				shareList: [{
-					img: "../../../static/me/yaoqing_icon_weixin.png",
-					tit: "微信好友"
-				}, {
+				shareList: [
+					{
 					img: "../../../static/me/yaoqing_icon_pengyouquan.png",
 					tit: "朋友圈"
 				}, {
@@ -75,7 +79,8 @@
 			}
 		},
 		computed: {
-			...mapState(['userInfo'])
+			...mapState(['userInfo']),
+			...mapState('inviteFriend',['userProfitInfo'])
 		},
 		methods: {
 			inviteBtn() {
@@ -90,11 +95,21 @@
 						url: "./shareWxFriend"
 					})
 				} else {
+					this.fetchInviteUser()
 					uni.navigateTo({
 						url: "./shareFriend"
 					})
 				}
-			}
+			},
+			fetchUserProfitInfo() {
+				this.$store.dispatch('inviteFriend/fetchUserProfitInfo')
+			},
+			fetchInviteUser(){
+				this.$store.dispatch('inviteFriend/fetchInviteUser')
+			},
+		},
+		onLoad() {
+			this.fetchUserProfitInfo()
 		}
 	}
 </script>
@@ -223,7 +238,6 @@
 				bottom: -2upx;
 				left: 0;
 				z-index: 99;
-
 				.share {
 					width: 100%;
 					height: 230upx;
@@ -231,12 +245,33 @@
 					display: flex;
 					justify-content: space-around;
 					align-items: center;
-					font-size: 24upx;
-					font-family: PingFang-SC-Regular;
-					font-weight: 400;
-					color: rgba(51, 51, 51, 1);
 					text-align: center;
-
+					.share_item{
+						line-height:1.5;
+						background: #ECECEC;
+						font-size: 24upx;
+						font-family: PingFang-SC-Regular;
+						font-weight: 400;
+						color: rgba(51, 51, 51, 1);
+						.share_weixin{
+							width:140upx;
+							height: 230upx;
+							line-height:1.5;
+							background: #ECECEC;
+							font-size: 24upx;
+							font-family: PingFang-SC-Regular;
+							font-weight: 400;
+							color: rgba(51, 51, 51, 1);
+							display:flex;
+							flex-direction:column;
+							align-items:center;
+							justify-content:center;
+						}
+						button::after{
+							border:none;
+						}
+					}
+					
 					image {
 						width: 104upx;
 						height: 104upx;

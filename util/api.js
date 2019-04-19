@@ -4,8 +4,8 @@ import request from './request'
 const uploadBaseUrl = "http://123.57.161.212:9939/xitenggamenode/";
 
 const api = {
-	// 新人福利
-	newsBenefitList: params => request.post('/discountGameList/byCommonUser', params),
+	// 喜腾好物
+	newsBenefitList: params => request.post('/discountGameList/goodProduct', params),
 	// 热销榜单
 	byTimeLimitChoiceList: params => request.post('/discountGameList/byTimeLimitChoice', params),
 	// 全部抢购活动
@@ -25,7 +25,17 @@ const api = {
 	showWinOrderList: params => request.post('/discountGame/showWinOrderList', params),
 	//晒单讨论详情
 	showWinOrderDetail: params => request.post('/discountGame/showWinOrderDetail', params),
-
+	//点赞或取消
+	praiseShowWinOrder: params => request.post('/discountGame/praiseShowWinOrder', params),
+	//评论晒单
+	commentShowWinOrder: params => request.post('/discountGame/commentShowWinOrder', params),
+	
+	// 邀请用户
+	inviteUser:params=>request.post('/discountGame/inviteUser',params),
+	// 用户所有好友信息
+	userProfitAllFriendInfo:params=>request.post('/profit/userProfitAllFriendInfo',params),
+	// 用户返利信息
+	userProfitInfo:params=>request.post('/profit/userProfitInfo',params),
 
 	discusRecommendList: params => request.post(' /discountGame/discusRecommendList', params),
 	//我
@@ -64,12 +74,27 @@ const api = {
 	
 	checkCodeLogin:params => request.post("/checkCodeLogin",params),
 
-	clientOrderDetail: params => request.post("/discountGameOrder/clientOrderDetail", params),
-    
+	//用户订单列表    
+	getMyOrder: params => request.post("/discountGame/clientOrder", params),
+
 	//设置支付密码
 	setPayPassword:params => request.post("/client/bankCard/setPayPassword", params),
 	
 	acceptInvite : params =>request.post("/discountGame/acceptInvite",params),
+	
+	//红包弹窗
+	redPacket:params =>request.post("/discountGame/getRewardRecord",params),
+	//领取红包
+	getRedPacket:params => request.post("/discountGame/readRewardRecord",params),
+	//领取会员弹窗
+	vipModal:params =>request.post("/vip/pushPresentVipInfo",params),
+	// 领取会员
+	getPresentVip:params =>request.post("/vip/getPresentVip",params),
+	
+	
+	//取消订单
+	cancelClientOrder:params => request.post("/discountGameOrder/cancelClientOrder",params),
+
 	//上传
 	uploader: (file, callback) => {
 		uni.uploadFile({
@@ -88,6 +113,9 @@ const api = {
 	wxlogin: params => request.post('/login/weChatMiniPrograms', params),
 
 	vipProducts: params => request.post('/discountGame/vipProduct', params),
+	
+	bindPhone:params =>request.post('/bindPhone',params),
+	findPayPassword: params=>request.post('/client/bankCard/findPayPassword',params)
 }
 export default api
 

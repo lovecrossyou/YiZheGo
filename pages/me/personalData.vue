@@ -21,7 +21,7 @@
 		</view>
 		<view class="bottom_item_list">
 			<selectItemList title="性别" :leftText="personalInfoList.userInfo.sex == 1 ? '男' : '女'"></selectItemList>
-			<selectItemList title="星座" :leftText="personalInfoList.userInfo.constellation"></selectItemList>
+			<!-- <selectItemList title="星座" :leftText="personalInfoList.userInfo.constellation"></selectItemList> -->
 			<selectItemList page="/pages/me/address/address" title="送货地址"></selectItemList>
 		</view>
 	</view>
@@ -69,6 +69,11 @@ export default {
 .personal_wrapper {
 	width: 100%;
 	background-color: #f5f5f5;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 }
 
 .header_img_wrapper {
@@ -87,8 +92,9 @@ export default {
 }
 
 .header_img_text {
-	color: #333;
-	font-size: 30upx;
+	color: #666666;
+	font-size: 28upx;
+	margin-left: 8upx;
 }
 
 .right_header_img {

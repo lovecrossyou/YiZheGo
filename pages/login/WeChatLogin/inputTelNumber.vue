@@ -34,10 +34,10 @@ export default {
 		},
 		goVerification(){
 			uni.navigateTo({
-				url:"./verificationCode"
+				url:"./verificationCode?phoneNum="+this.inputContent
 			});
-			this.getInputContent = this.inputContent;
-			console.log("getInputContent",this.getInputContent)
+// 			this.getInputContent = this.inputContent;
+// 			console.log("getInputContent",this.getInputContent)
 			
 		},
 		async verification() {
@@ -49,7 +49,7 @@ export default {
 		},
 	},
 	onLoad(){
-		this.verification()
+		// this.verification()
 	}
 };
 </script>

@@ -22,12 +22,13 @@
 							<view class="moment_image_num">{{item.imageOrVideoUrl.length}}</view>
 						</view>
 					</view>
-				</view>
+				</view> 
 				<view class="moment_data">
 					<view class="gamestage"></view>
 					<view class="moment_num">
-						<view class="praise">
-							<image class="praise_img" src="/static/moments/icon_illume.png"></image>
+						<view class="praise" @click="change_praise(item)">
+							<image class="praise_img" v-if="item.praise" src="/static/moments/btn_like_red.png"></image>
+							<image class="praise_img" v-else src="/static/moments/icon_illume.png"></image>
 							<view class="praise_num">{{item.praiseCount}}</view>
 						</view>
 						<view class="comment" @click="godetails(index)">
@@ -55,11 +56,17 @@
 				uni.navigateTo({
 					url:"/pages/moments/showWinOrderdetails?id="+this.list[index].discussCommentId
 				})
+			},
+			async change_praise(item){
+				const res = await api.praiseShowWinOrder({
+					showWinOrderId:item.discussCommentId,
+				});
+				item.praise=res.praise;
+				item.praiseCount=res.praiseCount;
 			}
 		},
-		async onShow() {
+		async onLoad() {
 			const res = await api.discusCommentList({
-				
 			});
 			this.list = res;
 		}
