@@ -81,12 +81,15 @@
 		</view>
 
 		<!-- 获得会员弹框 -->
-		<view class="vip_modal_wrapper" v-if="showVIPModal">
-			<image src="http://qnimage.xiteng.com/huiyuan_photo_lingqu@2x.png" v-if="vipImg" class="vip_img" @click="getVIP"></image>
-			<image src="../../static/home/quxiao.png" class="cancel_icon" v-if="hiddenCancel" @click="cancelVip"></image>
-			<!-- 领取成功 -->
-			<image src="../../static/home/huiyuan_icon_chenggong@2x.png" v-if="getSucceed" class="get_succeed"></image>
+		<view class="registe_success_modal" v-if="showVIPModal">
+			<view class="vip_modal_wrapper" >
+				<image src="http://qnimage.xiteng.com/huiyuan_photo_lingqu@2x.png" v-if="vipImg" class="vip_img" @click="getVIP"></image>
+				<image src="../../static/home/quxiao.png" class="cancel_icon" v-if="hiddenCancel" @click="cancelVip"></image>
+				<!-- 领取成功 -->
+				<image src="../../static/home/huiyuan_icon_chenggong@2x.png" v-if="getSucceed" class="get_succeed"></image>
+			</view>
 		</view>
+
 
 	</view>
 </template>
@@ -154,25 +157,18 @@
 			cancelVip() {
 				this.modalArea = false;
 			},
-			getVIP() {
+			async getVIP() {
 				this.vipImg = false;
 				this.getSucceed = true;
-				this.hiddenCancel = false;
-
-				let delayed;
-				let that = this;
-				clearTimeout(delayed);
-				delayed = setTimeout(function() {
-					that.modalArea = false;
-					console.log('领取成功');
-				}, 1600);
+				this.hiddenCancel = false;				
+				const res = await api.getPresentVip();
+				this.showVIPModal = false;
 			},
 			async getVipModal() {
 				let res = await api.vipModal({});
-				this.showVIPModal = true;
-				// 			if (res.pushPresentVip = true){
-				// 				
-				// 			}
+				if (res.pushPresentVip = true){
+					this.showVIPModal = true;
+				}
 			}
 		},
 		onShow() {
