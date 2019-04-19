@@ -25,7 +25,12 @@
 						   </view>
 						   <view class="balance_info">
 							   <view class="balance_msg" v-if="paychannels[index].title=='零钱'">余额 ¥{{fix2Price.fix2RmbAmount}}</view>
-							   <view class="balance_msg" v-else>余额 ${{account.xtbTotalAmount}}</view>
+							    <view class="balance_xibi_info" v-else>
+									<view class="balance_xibi_msg">余额</view>
+									<image v-bind:src="xibiIcon" class="balance_xibi_icon"></image>
+									<view class="balance_xibi_msg_price">{{account.xtbTotalAmount}}</view>
+								</view>
+							   
 						   </view>
 						</view>
 					</block>
@@ -100,7 +105,8 @@
 				items: [0, 1, 2, 3, 4, 5],
 				password: [],
 				account:{},
-				closeIcon:'../../static/pay/zhifu_mima_icon_guanbi@2x.png'
+				closeIcon:'../../static/pay/zhifu_mima_icon_guanbi@2x.png',
+				xibiIcon:'../../static/pay/assets_icon_xibi@2x.png'
 			}
 		},
 		watch: {
@@ -342,6 +348,28 @@
 							font-family:PingFangSC-Regular;
 							font-weight:400;
 							color:#999999;
+						}
+						.balance_xibi_info{
+							display: flex;
+							flex-direction: row;
+							align-items: center;
+							.balance_xibi_msg{
+								font-size:26upx;
+								font-family:PingFangSC-Regular;
+								font-weight:400;
+								color:#999999;
+								margin-right: 6upx;
+							}
+							.balance_xibi_icon{
+								width:17upx;
+								height:18upx;
+							}
+							.balance_xibi_msg_price{
+								font-size:26upx;
+								font-family:PingFangSC-Regular;
+								font-weight:400;
+								color:#999999;
+							}
 						}
 					}
 
