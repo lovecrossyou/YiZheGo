@@ -21,11 +21,12 @@
 				<image v-bind:src="orderInfo.relatedProductImageUrl" class="product-info-pro-img"></image>
 				<view class="product-info-pro-name">
 					<view class="product-info-pro-name-text">{{ orderInfo.relatedProductName }}</view>
-					<view class="product-info-pro-price-info">
+					<view class="product-info-pro-price-info" v-if="directBuy=='false'">
 						<view class="product-info-pro-name-price">¥{{ fix2Price.oneDiscountPrice }}</view>
 
 						<view class="product-info-pro-name-price-discount">市场价:{{ fix2Price.originalPrice }}</view>
 					</view>
+					<view class="product-info-price-original" v-else>¥{{fix2Price.originalPrice}}</view>
 				</view>
 			</view>
 			<view class="product-info-pro-amount">
@@ -376,6 +377,13 @@
 							line-height: 42upx;
 						}
 					}
+					.product-info-price-original {
+							font-size: 26upx;
+							font-family: PingFangSC-Regular;
+							font-weight: 400;
+							color: rgba(204, 38, 54, 1);
+							margin-right: 10upx;
+						}
 				}
 			}
 
