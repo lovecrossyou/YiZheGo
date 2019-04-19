@@ -70,10 +70,10 @@
 					<view>{{productDetail.openResultTime}}</view>
 				</view>
 			</view>
-			<view class="particulars_item">
+			<view class="particulars_item" @click="goluckylist">
 				<view class="designation">往期中签</view>
 				<view class="view_more">
-					<view>123456</view>
+					<view> </view>
 					<image :src="icon_right"></image>
 				</view>
 			</view>
@@ -193,8 +193,14 @@
 		},
 		methods: {
 			goBuying(){
+				console.log('this.productDetail ', this.productDetail);
 				uni.navigateTo({
-					url:"/pages/buying/buying"
+					url:"/pages/buying/buying?discountGameId="+this.productDetail.discountGameId
+				})
+			},
+			goluckylist(){
+				uni.navigateTo({
+					url:"/pages/me/vip/lucky-list"
 				})
 			},
 			goshowWinOrder(){
