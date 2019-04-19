@@ -115,6 +115,7 @@
 			this.discountGameId = option.discountGameId;
 			this.$store.commit('confirmPay/setBuyType', option.directBuy);
 			this.getConfirmOrderInfo(option.discountGameId);
+			this.initCode();
 		},
 		onShow() {
 			this.getAddressList();
@@ -211,7 +212,8 @@
 
 			},
 			...mapMutations({
-				changeCodeCount: 'chooseCode/changeCodeCount'
+				changeCodeCount: 'chooseCode/changeCodeCount',
+				initCode: 'chooseCode/initCode',
 			}),
 			 
 			chooseCode() {
