@@ -240,6 +240,7 @@
 			background: #ffffff;
 			position: relative;
 			height: 427upx;
+			position: relative;
 		}
 
 		.nav {
