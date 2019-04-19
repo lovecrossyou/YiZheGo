@@ -18,7 +18,7 @@
 					<view class="qr_code"></view>
 				</view>
 				<view class="logo">
-					<image :src="yaoqing_bg"></image>喜腾抢购
+					<image :src="xitengLogo"></image>喜腾抢购
 				</view>
 			</view>
 		</view>
@@ -40,6 +40,7 @@
 			return {
 				isShow: false,
 				yaoqing_bg: 'http://qnimage.xiteng.com/yaoqing_bg.png',
+				xitengLogo:"http://qnimage.xiteng.com/xitengLogo.png"
 			}
 		},
 		methods: {
@@ -48,9 +49,9 @@
 			},
 			cancelBtn() {
 				this.isShow = false;
-				uni.navigateTo({
-					url:"./inviteFriend"
-				})
+// 				uni.navigateTo({
+// 					url:"./inviteFriend"
+// 				})
 			}
 		},
 		computed:{
@@ -182,6 +183,7 @@
 						display: inline-block;
 						width: 34upx;
 						height: 34upx;
+						border-radius: 50%;
 						background: rgba(255, 255, 255, 1);
 						box-shadow: 0px 1px 5px 0px rgba(124, 1, 6, 0.28);
 						margin-right: 12upx;
