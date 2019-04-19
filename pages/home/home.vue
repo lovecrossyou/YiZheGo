@@ -221,7 +221,7 @@
 		},
 		data() {
 			return {
-				showVIPModal: false,
+				showVIPModal: true,
 				showModal: false,
 				home_huiyuan: 'http://qnimage.xiteng.com/home_huiyuan.png',
 				home_gengduo_icon: '../../static/home/home_gengduo_icon.png',
