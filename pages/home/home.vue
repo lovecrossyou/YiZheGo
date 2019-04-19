@@ -113,7 +113,7 @@
 	export default {
 		computed: {
 			...mapState(['hasLogin', 'userInfo']),
-			...mapState('home', ['timeLimitChoices', 'timeLimitChoiceList']),
+			...mapState('home', ['timeLimitChoices', 'timeLimitChoiceList','timeLimitList']),
 			...mapGetters('home', ['timeLimit3'])
 		},
 		methods: {
