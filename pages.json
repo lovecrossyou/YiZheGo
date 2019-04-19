@@ -16,13 +16,8 @@
 		{
 			"path": "pages/home/home",
 			"style": {
-				"navigationStyle": "custom",
-				"navigationBarTitleText": "首页",
-				"app-plus": {
-					"titleNView": {
-						"type": "transparent" //透明渐变导航栏,
-					}
-				}
+				"navigationBarTitleText": "首页"
+				
 			}
 		},{
 			"path": "pages/home/newsWelfare",

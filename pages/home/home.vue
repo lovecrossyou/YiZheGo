@@ -113,8 +113,8 @@
 	export default {
 		computed: {
 			...mapState(['hasLogin', 'userInfo']),
-			...mapState('home', ['timeLimitChoices', 'timeLimitChoiceList','timeLimitList']),
-			...mapGetters('home', ['timeLimit3'])
+			...mapState('home', ['timeLimitChoiceList','timeLimitList']),
+			...mapGetters('home', ['timeLimit3','newsBenefitList3'])
 		},
 		methods: {
 			goVIP() {
@@ -325,6 +325,7 @@
 
 			.tooopencom_content {
 				background: #fee4e4;
+				border-radius: 10upx;
 
 				.tooopencom_product_list {
 					display: flex;
@@ -464,7 +465,6 @@
 					.image {
 						width: 136upx;
 						height: 178upx;
-						margin-top: 28upx;
 
 						image {
 							width: 136upx;
