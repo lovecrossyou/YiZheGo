@@ -193,8 +193,9 @@
 		},
 		methods: {
 			goBuying(){
+				console.log('this.productDetail ', this.productDetail);
 				uni.navigateTo({
-					url:"/pages/buying/buying"
+					url:"/pages/buying/buying?discountGameId="+this.productDetail.discountGameId
 				})
 			},
 			goluckylist(){

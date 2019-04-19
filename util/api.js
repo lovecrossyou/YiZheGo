@@ -90,6 +90,10 @@ const api = {
 	vipModal:params =>request.post("/vip/pushPresentVipInfo",params),
 	// 领取会员
 	getPresentVip:params =>request.post("/vip/getPresentVip",params),
+	
+	
+	//取消订单
+	cancelClientOrder:params => request.post("/discountGameOrder/cancelClientOrder",params),
 
 	//上传
 	uploader: (file, callback) => {
