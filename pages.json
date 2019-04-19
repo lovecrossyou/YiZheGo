@@ -324,6 +324,10 @@
             "path" : "pages/buying/buying",
             "style" : {}
         }
+        ,{
+            "path" : "pages/rule/rule",
+            "style" : {}
+        }
     ],
 	"tabBar": {
 		"color": "#7a7e83",

@@ -25,7 +25,7 @@ const acceptInvite = async () => {
 	const inviteId = service.getInviteId();
 	if (inviteId) {
 		const res = await api.acceptInvite({
-			inviteId
+			inviteUserId:inviteId
 		});
 	}
 }
@@ -124,6 +124,8 @@ const store = new Vuex.Store({
 			service.addInfo(userInfo);
 			commit('setH5Url', urlParams());
 
+			acceptInvite();
+
 			// 检测是否绑定过手机号
 			if (userInfo.phoneNumber == null || userInfo.phoneNumber.length == 0) {
 				// 继续绑定手机号
@@ -131,10 +133,9 @@ const store = new Vuex.Store({
 					url: '/pages/login/WeChatLogin/inputTelNumber',
 				})
 			}
-
-
-			acceptInvite();
-			uni.navigateBack();
+			else{
+				uni.navigateBack();	
+			}
 		},
 
 		async checkCodeLogin({

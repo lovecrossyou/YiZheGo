@@ -62,25 +62,25 @@
 			<!-- 红包模态！ -->
 			<view class="registe_success_modal" v-if="modalArea">
 				<view class="content_wrapper" v-if="modalStatus">
-				<image src="../../static/home/quxiao.png" class="cancel_icon" @click="hiddenImg"></image>
-				<image src="../../static/home/no_open.png" class="no_open_img" @click="openPacket"></image>
-				<view class="no_oppen_title_area">
-					<view class="top_text">{{ openRedPacket.awardDescription }}</view>
-					<view class="bottom_text">喜腾送您一个喜币红包</view>
-				</view>
-			</view>
-			<view class="content_wrapper" v-if="openPacketStatus">
-				<image src="../../static/home/quxiao.png" class="cancel_icon" @click="closeImg"></image>
-				<image src="../../static/home/opening.png" class="opening_img"></image>
-				<view class="oppen_title_area">
-					<view class="top_text">{{ openRedPacket.awardDescription }}</view>
-					<view class="bottom_text">
-						奖励
-						<view class="xibi_num">{{ openRedPacket.rewardMount }}</view>
-						喜币
+					<image src="../../static/home/quxiao.png" class="cancel_icon" @click="hiddenImg"></image>
+					<image src="../../static/home/no_open.png" class="no_open_img" @click="openPacket"></image>
+					<view class="no_oppen_title_area">
+						<view class="top_text">{{ openRedPacket.awardDescription }}</view>
+						<view class="bottom_text">喜腾送您一个喜币红包</view>
 					</view>
 				</view>
-			</view>
+				<view class="content_wrapper" v-if="openPacketStatus">
+					<image src="../../static/home/quxiao.png" class="cancel_icon" @click="closeImg"></image>
+					<image src="../../static/home/opening.png" class="opening_img"></image>
+					<view class="oppen_title_area">
+						<view class="top_text">{{ openRedPacket.awardDescription }}</view>
+						<view class="bottom_text">
+							奖励
+							<view class="xibi_num">{{ openRedPacket.rewardMount }}</view>
+							喜币
+						</view>
+					</view>
+				</view>
 			</view>
 
 			<!-- 获得会员弹框 -->
@@ -113,11 +113,21 @@
 	export default {
 		computed: {
 			...mapState(['hasLogin', 'userInfo']),
-			...mapState('home', ['timeLimitChoiceList','timeLimitList']),
-			...mapGetters('home', ['timeLimit3','newsBenefitList3'])
+			...mapState('home', ['timeLimitChoiceList', 'timeLimitList']),
+			...mapGetters('home', ['timeLimit3', 'newsBenefitList3'])
 		},
 		methods: {
-			hotsales(){
+			async fetchByTimeLimitList() {
+				const res = await api.byTimeLimitList({})
+				this.$store.commit('home/setByTimeLimitList', res)
+			},
+			async fetchTimeLimitChoiceList() {
+				this.$store.dispatch('home/fetchTimeLimitChoiceList')
+			},
+			async fetchNewsBenefitList() {
+				this.$store.dispatch('home/fetchNewsBenefitList');
+			},
+			hotsales() {
 				uni.navigateTo({
 					url: '/pages/xtgoods/xtgoods'
 				});
@@ -144,7 +154,7 @@
 			async openPacket() {
 				const id = this.openRedPacket.pushMassageId;
 				let res = await api.getRedPacket({
-					pushMassageId:id
+					pushMassageId: id
 				});
 				this.keepRedPacket = res;
 				this.modalStatus = false;
@@ -186,11 +196,21 @@
 			}
 		},
 		onShow() {
-			this.packets();
-			this.getVipModal();
+			if (this.hasLogin) {
+				this.packets();
+				this.getVipModal();
+			} else {
+				uni.navigateTo({
+					url: '/pages/login/WeChatLogin/WeChatLogin'
+				})
+			}
+
 			this.loading = false;
 		},
 		onLoad(option) {
+			this.fetchByTimeLimitList()
+			this.fetchTimeLimitChoiceList()
+			this.fetchNewsBenefitList()
 			console.log('inviteId ', option.inviteId);
 			let inviteId = option.inviteId;
 
@@ -232,7 +252,7 @@
 		},
 		data() {
 			return {
-				popMessage:[],//弹出 收到红包  会员奖励
+				popMessage: [], //弹出 收到红包  会员奖励
 				showVIPModal: false,
 				showModal: false,
 				loading: true,
@@ -335,6 +355,7 @@
 			.tooopencom_content {
 				background: #fee4e4;
 				border-radius: 8upx;
+
 				.tooopencom_product_list {
 					display: flex;
 					justify-content: space-around;
