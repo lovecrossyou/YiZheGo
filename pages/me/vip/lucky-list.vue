@@ -108,13 +108,14 @@
 					pageNo: this.pageNo,
 					size: 10
 				}
-				console.log(params);
+				
 				let res = await api.luckyList(params);
 				if (res.pageNo === 0) {
 					this.luckyListA = res.list;
 				} else {
 					this.luckyListA = this.luckyListA.concat(res.list);
 				}
+				console.log(res);
 				this.pageNo = res.pageNo + 1;
 				this.totalCount = res.totalCount;
 				if (this.luckyListA.length === this.totalCount) {
