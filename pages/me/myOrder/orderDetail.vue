@@ -108,21 +108,22 @@
 					</view>
 				</view>
 
-				<view class="group-detail">
-					<view class="member" v-for="(member, index) in orderDetail.discountGameGroupModel.groupUserModelList" :key="index">
-						<image :src="member.iconUrl" class="member-icon"></image>
-						<view class="tuan-zhang">团长</view>
+				<view class="group-detail" v-for="(memberList,memberListIndex) in groupListData" :key="memberListIndex">
+					<view class="member" v-for="(member, index) in memberList.group" :key="index">
+						<image :src="member.iconUrl !== '' ? member.iconUrl : emptyMember" class="member-icon"></image>
+						<view class="tuan-zhang" v-if="member.identity === 'originator'">团长</view>
 					</view>
-					<view class="group-right"><view class="group-button">立即邀请</view></view>
+					
+					<view class="group-right"><view class="group-button" @click="inviteMember(memberList.state)">{{memberList.state === 'done' ? '领取红包':'立即邀请'}}</view></view>
 				</view>
 			</view>
 			<!-- 订单信息 -->
 
 			<view class="order-more-info" v-if="showMoreInfo">
 				<view class="item-content buttom-address" v-if="orderDealState !== 0">
-					<view class="order-info">收货人：{{ orderDetail.deliveryAddressModel.recievName }}{{ '&#8195;' }}{{ orderDetail.deliveryAddressModel.phoneNum }}</view>
+					<view class="order-info">收&#8194;货&#8194;人：{{ orderDetail.deliveryAddressModel.recievName }}{{ '&#8195;' }}{{ orderDetail.deliveryAddressModel.phoneNum }}</view>
 					<view class="order-info">
-						地&#8195;址：
+						地&#8195;&#8195;址：
 
 						<view class="order-info long-text">
 							{{ orderDetail.deliveryAddressModel.districtAddress }} {{ '&#8194;' }}{{ orderDetail.deliveryAddressModel.detailAddress }}
@@ -133,8 +134,8 @@
 
 				<view class="item-content">
 					<view class="order-info">下单时间：{{ orderDetail.clientOrderTime }}</view>
-					<view class="order-info">订单号：{{ orderDetail.platformOrderNo }}</view>
-					<view class="order-info">期数：{{ orderDetail.discountGameStage }}</view>
+					<view class="order-info">订&#8194;单&#8194;号：{{ orderDetail.platformOrderNo }}</view>
+					<view class="order-info">期&#8195;&#8195;数：{{ orderDetail.discountGameStage }}</view>
 					<view class="order-info">商品代码：{{ orderDetail.productNo }}</view>
 					<view class="order-info">
 						实付金额：￥
@@ -165,7 +166,7 @@
 			<view class="button cancel-order" v-if="orderDetail.refundDetailModel !== null">查看退款</view>
 			<view class="button cancel-order" v-if="orderDealState === 0" @click="cancelOrder(orderDetail.clientOrderId)">取消订单</view>
 			<view class="button pay-now" v-if="orderDealState === 0" @click="enterPay(orderDetail)">立即支付</view>
-			<view class="button pay-now" v-if="orderDealState !== 0">再抢一次</view>
+			<view class="button pay-now" v-if="orderDealState !== 0" @click="enterProduct(orderDetail.productId)">再抢一次</view>
 			<view class="button pay-now" v-if="orderDealState === 2">去晒单</view>
 		</view>
 	</view>
@@ -193,6 +194,7 @@ export default {
 			inviteIcon: '../../../static/me/invite_icon.png',
 			openArrow: '../../../static/me/open_arrow.png',
 			closeArrow: '../../../static/me/close_arrow.png',
+			emptyMember: '../../../static/me/empty_member.png',
 			showMoreInfo: false,
 			downTimeShow: [0, 0, 0],
 			lastPayTimer: {},
@@ -301,13 +303,31 @@ export default {
 			uni.redirectTo({
 				url: '../../chooseCode/pay?payOrderNo=' + orderDetail.payOrderNo + '&totalPayRmb=' + orderDetail.totalPrice + '&productType='+'normalProduct'
 			});
+		},
+		inviteMember(groupState){
+			if(groupState==='ing'){
+				console.log('邀请拼团')
+			}else if(groupState === 'done'){
+				console.log('领取红包')
+			}
+		},
+		enterProduct(productId){
+			
+			//console.log('啦all：：：：'+productId)
+			
+			uni.redirectTo({
+				url: '../../details/productDetails?productId=' + productId
+			});
 		}
+		
 	},
 	computed: {
 		...mapGetters({
 			orderDealState: 'myOrder/orderDealState',
 			todayCode: 'myOrder/todayCode',
-			myCodeList: 'myOrder/myCodeList'
+			myCodeList: 'myOrder/myCodeList',
+			groupListData: 'myOrder/groupListData',
+			
 			//myCodeListLength: 'myOrder/myCodeListLength'
 		}),
 		...mapState({
@@ -378,12 +398,14 @@ export default {
 		.order-more-info {
 			.buttom-address {
 				margin-bottom: 0;
+				padding-bottom: 0upx;
 			}
 
 			.line-gray {
 				width: 100%;
 				height: 2upx;
 				background-color: #efeff4;
+				margin-top: 20upx;
 			}
 		}
 
@@ -577,7 +599,7 @@ export default {
 				margin-top: 50upx;
 				.member {
 					display: flex;
-
+					margin-right: 36upx;
 					.member-icon {
 						width: 80upx;
 						height: 80upx;
@@ -586,13 +608,17 @@ export default {
 
 					.tuan-zhang {
 						position: absolute;
-
+						padding-left: 4upx;
+						padding-right: 4upx;
+						padding-top: 4upx;
+						padding-bottom: 4upx;
 						background: rgba(204, 38, 54, 1);
 						border-radius: 2upx;
 						font-size: 18upx;
 						font-family: MicrosoftYaHei;
 						font-weight: 400;
 						color: rgba(255, 255, 255, 1);
+						
 					}
 				}
 				.group-right {

@@ -78,6 +78,9 @@
 <style lang="less">
 	.showWinOrderwrapper{
 		width: 100%; 
+		padding: 20upx 30upx;
+		box-sizing: border-box;
+		background: #eeeeee;
 		
 		.showWinOrderItem {
 			display: flex;

@@ -1,12 +1,11 @@
 <template>
 	<view>
 		<view class="uni-padding-wrap">
-			<view class="page-section swiper">
+			<view class="page-section swiper" @click="goRule">
 				<view class="page-section-spacing">
 					<swiper class="swiper" :indicator-dots="indicatorDots"  :interval="interval" :duration="duration">
 						<swiper-item v-for='(item,i) in [1,2,3,4]' :key='i'>
 							<view class="swiper-item uni-bg-red">
-								<!-- <image :src="item.imageUrl"></image> -->
 								<image :src="mall_banner"></image>
 							</view>
 						</swiper-item>
@@ -34,6 +33,11 @@
 			}
 		},
 		methods: {
+			goRule(){
+				uni.navigateTo({
+					url:"/pages/rule/rule"
+				})
+			},
 			changeIndicatorDots(e) {
 				this.indicatorDots = !this.indicatorDots
 			},

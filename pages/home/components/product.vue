@@ -2,7 +2,7 @@
 	<view class="recommend_wrapper">
 		<view class="recommend_item" v-for='(item,i) in timeLimitList' :key='i' @click="goDetail(item.discountGameId)">
 			<view class="recommend_item_img">
-				<image :src="item.timeLimitProductImageUrl " alt="" mode="aspectFill"/>
+				<image :src="item.productImageUrl " alt="" mode="aspectFill"/>
 			</view>
 			<view class="recommend_item_intro">
 				<view class="recommend_item_title">

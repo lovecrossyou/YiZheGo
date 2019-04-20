@@ -13,6 +13,11 @@ import inviteFriend from './modules/inviteFriend.js';
 
 const urlParams = () => {
 	const accessInfo = createAccessInfo();
+// 	const accessInfo = {
+// 		"app_key": "b5958b665e0b4d8cae77d28e1ad3f521",
+// 		"signature": "5C79284BE4601B53CB11B6103412D83A",
+// 		"access_token": "488183bc6bae4f7e98f70b85f5dbdae4"
+// 	}
 	const urlParams = '?app_key=' + accessInfo.app_key + '&signature=' + accessInfo.signature + '&access_token=' +
 		accessInfo.access_token + '&wechat_redirect';
 	return urlParams;
@@ -25,7 +30,7 @@ const acceptInvite = async () => {
 	const inviteId = service.getInviteId();
 	if (inviteId) {
 		const res = await api.acceptInvite({
-			inviteId
+			inviteUserId: inviteId
 		});
 	}
 }
@@ -57,8 +62,8 @@ const store = new Vuex.Store({
 		token: null,
 		openid: null,
 		urlParams: '',
-		// h5BaseUrl: 'http://192.168.1.235:8000/#/'
-		h5BaseUrl: 'https://www.xiteng.com/xitenggamenode/#/' 
+		h5BaseUrl: 'http://192.168.1.235:8000/#/'
+		// h5BaseUrl: 'https://www.xiteng.com/xitenggamenode/#/'
 	},
 	getters: {
 		h5Page: (state) => (page) => {
@@ -124,17 +129,17 @@ const store = new Vuex.Store({
 			service.addInfo(userInfo);
 			commit('setH5Url', urlParams());
 
+			acceptInvite();
+
 			// 检测是否绑定过手机号
 			if (userInfo.phoneNumber == null || userInfo.phoneNumber.length == 0) {
 				// 继续绑定手机号
 				wx.redirectTo({
 					url: '/pages/login/WeChatLogin/inputTelNumber',
 				})
+			} else {
+				uni.navigateBack();
 			}
-
-
-			acceptInvite();
-			uni.navigateBack();
 		},
 
 		async checkCodeLogin({

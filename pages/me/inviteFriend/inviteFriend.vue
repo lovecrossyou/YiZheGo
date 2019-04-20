@@ -1,6 +1,6 @@
 <template>
 	<view class="invite_friend_wrapper">
-		 <view class="banner">
+		 <view class="banner" v-if="userProfitInfo">
 			<view class="banner_item">
 				<view class="tit">我的好友</view>
 				<view class="intro"><span class="count">{{userProfitInfo.userFriendAmount}}</span>人</view>
@@ -72,10 +72,10 @@
 			}
 		},
 		onShareAppMessage() {
-			console.log('userInfo.userId ',userInfo.userId);
+			console.log('userInfo.userId ',this.userInfo.userId);
 			return {
 				title: '邀请好友',
-				path: '/pages/home/home?inviteId='+userInfo.userId
+				path: '/pages/home/home?inviteId='+this.userInfo.userId
 			}
 		},
 		computed: {

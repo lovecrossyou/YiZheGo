@@ -30,11 +30,11 @@
 		<view class="price-section">
 			<view class="price-section-item">
 				<view class="price">
-					￥<span class="big">{{productDetail.productItemModel.oneDiscountPrice/100}}</span>
+					￥<span class="big">{{productDetail.productItemModel.oneDiscountPrice}}</span>
 				</view>
 				<view class="vip">
 					<image :src="icon_vip"></image>
-					<view class="original_price">市场价 ￥{{productDetail.productItemModel.originalPrice/100}}</view>
+					<view class="original_price">市场价 ￥{{productDetail.productItemModel.originalPrice}}</view>
 				</view>
 			</view>
 			<view class="price-section-item">
@@ -168,11 +168,11 @@
 				<view class="name">关注</view>
 			</view>
 			<view class="right_buy" @click="confirmOrder(true)">
-				<view class="top">￥{{productDetail.productItemModel.originalPrice/100}}</view>
+				<view class="top">￥{{productDetail.productItemModel.originalPrice}}</view>
 				<view class="big">全价购买</view>
 			</view>
 			<view class="right_buy bgr" @click="confirmOrder(false)">
-				<view class="top">￥{{productDetail.productItemModel.oneDiscountPrice/100}}</view>
+				<view class="top">￥{{productDetail.productItemModel.oneDiscountPrice}}</view>
 				<view class="big">一折抢购</view>
 			</view>
 		</view>
@@ -195,7 +195,7 @@
 			goBuying(){
 				console.log('this.productDetail ', this.productDetail);
 				uni.navigateTo({
-					url:"/pages/buying/buying?discountGameId="+this.productDetail.discountGameId
+					url:"/pages/buying/buying?productId="+this.productDetail.discountGameId
 				})
 			},
 			goluckylist(){
@@ -481,7 +481,7 @@
 		.winning_periods {
 			margin-top: 20upx;
 			background: #FFFFFF;
-			margin-bottom: 18upx;
+			margin-bottom: 98upx;
 
 			.snapping_buy {
 				.snapping_buy_item {
