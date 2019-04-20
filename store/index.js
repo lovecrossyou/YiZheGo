@@ -57,7 +57,7 @@ const store = new Vuex.Store({
 		 * 是否需要强制登录
 		 */
 		forcedLogin: false,
-		hasLogin: true,
+		hasLogin: false,
 		userInfo: null,
 		token: null,
 		openid: null,
@@ -105,7 +105,9 @@ const store = new Vuex.Store({
 				commit('saveToken', token);
 				commit('saveOpenId', openid);
 				commit('saveUserInfo', userInfo);
-
+				if(userInfo){
+					commit('login',userInfo);
+				}
 				//拼接h5参数
 				const accessInfo = createAccessInfo();
 				commit('setH5Url', urlParams());
@@ -123,6 +125,8 @@ const store = new Vuex.Store({
 			commit('saveToken', token);
 			commit('saveUserInfo', userInfo);
 			commit('saveOpenId', openid);
+			
+			commit('login',userInfo);
 
 			service.addToken(token);
 			service.addOpenId(openid);
@@ -154,7 +158,7 @@ const store = new Vuex.Store({
 			commit('saveToken', token);
 			commit('saveUserInfo', userInfo);
 			// commit('saveOpenId', openid);
-
+			commit('login',userInfo);
 			service.addToken(token);
 			// service.addOpenId(openid);
 			service.addInfo(userInfo);

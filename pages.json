@@ -81,6 +81,14 @@
 			}
 		},
 		{
+			"path": "pages/moments/creatdiscuss",
+			"style": {
+				"navigationBarTitleText": "  ",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#ffffff"
+			}
+		},
+		{
 			"path": "pages/login/WeChatLogin/WeChatLogin",
 			"style": {
 				"navigationBarTitleText": "喜腾",

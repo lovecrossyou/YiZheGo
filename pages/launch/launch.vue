@@ -2,7 +2,7 @@
 	<view class="mainBg" @click="enter">
 		
 		<view class="timer">
-			{{count}}
+			跳过
 		</view>
 	</view>
 </template>
@@ -65,14 +65,14 @@
 		position: absolute;
 		top: 150upx;
 		right: 20upx;
-		width: 175upx;
-		height: 64upx;
+		width: 110upx;
+		height: 50upx;
 		/* background-color: #999999; */
 		color: #FFFFFF;
 		font-size: 28upx;
 		text-align: center;
-		line-height: 60upx;
-		border-radius: 30upx;
+		line-height: 50upx;
+		border-radius: 40upx;
 		
 		border: solid 1upx #FFFFFF;
 	}
