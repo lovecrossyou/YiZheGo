@@ -43,7 +43,7 @@ export default {
 		},
 		myCodeList(state) {
 			if (state.orderDetail.purchaseCode == null || state.orderDetail.purchaseCode == undefined) {
-				return ['0,0,0']
+				return ['0','0','0']
 			}
 			let length = state.orderDetail.purchaseCode.length;
 			length = length > 3 ? 3 : length;
@@ -52,6 +52,17 @@ export default {
 				return cur.split(',');
 			});
 
+		},
+		
+		allCodeList(state){
+			if (state.orderDetail.purchaseCode == null || state.orderDetail.purchaseCode == undefined) {
+				return ['0','0','0']
+			}
+			
+			
+			return state.orderDetail.purchaseCode.map((cur, index) => {
+				return cur.split(',');
+			});
 		},
 		groupListData(state) {
 

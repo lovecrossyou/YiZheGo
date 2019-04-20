@@ -118,6 +118,7 @@
 			...mapState({
 				openid: state => state.openid,
 				directBuy: state => state.confirmPay.buyType,
+				refundWay: state => state.confirmPay.refundWay,
 			}),
 			fix2Price:function(){
 				return {
@@ -187,7 +188,8 @@
 					openId: '',
 					payChannel: this.paychannels[this.selectIndex].payChannel,
 					payOrderNo: this.payOrderNo,
-					payPassword:this.password.join('')
+					payPassword:this.password.join(''),
+					refundWay: this.refundWay.refundWay,
 				})
 				console.log('钱包支付结果------'+JSON.stringify(orderInfo))
 				this.payResult(orderInfo)

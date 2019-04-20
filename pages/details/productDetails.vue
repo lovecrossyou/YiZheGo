@@ -30,11 +30,11 @@
 		<view class="price-section">
 			<view class="price-section-item">
 				<view class="price">
-					￥<span class="big">{{productDetail.productItemModel.oneDiscountPrice}}</span>
+					￥<span class="big">{{productDetail.productItemModel.oneDiscountPrice/100}}</span>
 				</view>
 				<view class="vip">
 					<image :src="icon_vip"></image>
-					<view class="original_price">市场价 ￥{{productDetail.productItemModel.originalPrice}}</view>
+					<view class="original_price">市场价 ￥{{productDetail.productItemModel.originalPrice/100}}</view>
 				</view>
 			</view>
 			<view class="price-section-item">
@@ -169,11 +169,11 @@
 				<view class="name">关注</view>
 			</view>
 			<view class="right_buy" @click="confirmOrder(true)">
-				<view class="top">￥{{productDetail.productItemModel.originalPrice}}</view>
+				<view class="top">￥{{productDetail.productItemModel.originalPrice/100}}</view>
 				<view class="big">全价购买</view>
 			</view>
 			<view class="right_buy bgr" @click="confirmOrder(false)">
-				<view class="top">￥{{productDetail.productItemModel.oneDiscountPrice}}</view>
+				<view class="top">￥{{productDetail.productItemModel.oneDiscountPrice/100}}</view>
 				<view class="big">一折抢购</view>
 			</view>
 		</view>
@@ -181,12 +181,17 @@
 </template>
 <script>
 	import api from '../../util/api.js';
+	import timeUtil from '../../util/timeUtil.js';
 	import {
-		mapState
+		mapState,
 	} from 'vuex';
 	export default {
+		onUnload(){
+			clearInterval(this.timer);
+		},
 		computed: {
 			...mapState('productDetail',['productDetail']),
+			
 			banners() {
 				if (this.productDetail === null) return [];
 				return this.productDetail.productItemModel.productShowImageUrlList
@@ -227,13 +232,24 @@
 					discountGameId: productId
 				});
 				this.$store.commit('productDetail/setProductDetails', res)
+				console.log('商品详情------'+JSON.stringify(res))
+				this.timerCountDown();
 			},
 			confirmOrder(directBuy) {
 				uni.navigateTo({
 					url: '../chooseCode/confirmOrder?discountGameId=' + this.productDetail.discountGameId + '&directBuy=' +
 						directBuy+'&groupId='+this.groupId
 				})
+			},
+			timerCountDown(){
+				this.timer = setInterval(this.countDown,1000);
+			},
+			countDown(){
+				const lastTime = timeUtil.showTickTime(this.productDetail.openResultTime);
+				console.log('倒计时-----'+JSON.stringify(lastTime))
+				return lastTime;
 			}
+			
 		},
 		onLoad(opt) {
 			console.log('详情啊=========', opt.productId)
@@ -242,6 +258,7 @@
 		},
 		data() {
 			return {
+				timer:null,
 				groupId:null,
 				selectedIndex: 0,
 				commentModelList: [{
