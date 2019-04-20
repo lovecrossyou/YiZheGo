@@ -39,7 +39,7 @@
 			</view>
 			<view class="price-section-item">
 				<view>
-					<image class="icon_fire" :src="icon_fire"></image>已抢{{productDetail.currentPurchaseCount}}件
+					<image class="icon_fire" :src="icon_fire"></image>已抢{{productDetail.participatePersonCount}}件
 				</view>
 			</view>
 		</view>
@@ -63,11 +63,18 @@
 		<view class="winning_periods">
 			<view class="particulars_item">
 				<view class="periods">第 {{productDetail.discountGameStage}} 期</view>
-				<view class="count_down">
+				<view class="count_down" v-if="lastTime">
 					<view>
 						<image :src="icon_time"></image>距揭晓还剩
 					</view>
-					<view>{{productDetail.openResultTime}}</view>
+					<!-- <view>{{productDetail.openResultTime}}</view> -->
+					<view class="count_down_time">
+						<view class="count_down_time_item">{{lastTime.hour}}</view>
+						<view class="mm">:</view>
+						<view class="count_down_time_item">{{lastTime.minute}}</view>
+						<view class="mm">:</view>
+						<view class="count_down_time_item">{{lastTime.sec}}</view>
+					</view>
 				</view>
 			</view>
 			<view class="particulars_item" @click="goluckylist">
@@ -181,12 +188,17 @@
 </template>
 <script>
 	import api from '../../util/api.js';
+	import timeUtil from '../../util/timeUtil.js';
 	import {
-		mapState
+		mapState,
 	} from 'vuex';
 	export default {
+		onUnload(){
+			clearInterval(this.timer);
+		},
 		computed: {
 			...mapState('productDetail',['productDetail']),
+			
 			banners() {
 				if (this.productDetail === null) return [];
 				return this.productDetail.productItemModel.productShowImageUrlList
@@ -227,13 +239,22 @@
 					discountGameId: productId
 				});
 				this.$store.commit('productDetail/setProductDetails', res)
+				console.log('商品详情------'+JSON.stringify(res))
+				this.timerCountDown();
 			},
 			confirmOrder(directBuy) {
 				uni.navigateTo({
 					url: '../chooseCode/confirmOrder?discountGameId=' + this.productDetail.discountGameId + '&directBuy=' +
 						directBuy+'&groupId='+this.groupId
 				})
+			},
+			timerCountDown(){
+				this.timer = setInterval(this.countDown,1000);
+			},
+			countDown(){
+			    this.lastTime = timeUtil.showTickTime(this.productDetail.openResultTime);
 			}
+			
 		},
 		onLoad(opt) {
 			console.log('详情啊=========', opt.productId)
@@ -242,6 +263,7 @@
 		},
 		data() {
 			return {
+				timer:null,
 				groupId:null,
 				selectedIndex: 0,
 				commentModelList: [{
@@ -279,7 +301,8 @@
 				icon_fire: "../../static/details/icon_fire.png",
 				btn_collection: "../../static/details/btn_collection.png",
 				btn_collection_red: "../../static/details/btn_collection_red.png",
-				isBg:false
+				isBg:false,
+				lastTime:null
 			};
 		},
 
@@ -491,7 +514,7 @@
 		.winning_periods {
 			margin-top: 20upx;
 			background: #FFFFFF;
-			margin-bottom: 98upx;
+			margin-bottom: 18upx;
 
 			.snapping_buy {
 				.snapping_buy_item {
@@ -697,6 +720,27 @@
 					width: 24upx;
 					height: 24upx;
 					margin-right: 12upx;
+				}
+				.count_down_time{
+					display: flex;
+					justify-content:space-around;
+					color:#E22537;
+					margin-top:8upx;
+					.count_down_time_item{
+						background:#E22537;
+						font-size:24upx;
+						font-family:PingFang-SC-Medium;
+						font-weight:500;
+						color:rgba(255,255,255,1);
+						line-height:1.5;
+						padding-left:10upx;
+						padding-right:10upx;
+						border-radius: 8upx;
+						.mm{
+							margin-left:12upx;
+							margin-right:12upx;
+						}
+					}
 				}
 			}
 

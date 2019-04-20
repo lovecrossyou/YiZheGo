@@ -1,5 +1,9 @@
 <template>
 	<view class="mainBg" @click="enter">
+		
+		<view class="timer">
+			跳过
+		</view>
 	</view>
 </template>
 
@@ -19,13 +23,28 @@
 		},
 		data() {
 			return {
-				showTime: '2019-04-18 22:00:00'
+				count:5,
+				showTime: '2019-04-18 22:00:00',
+				timer:null
 			};
 		},
 		computed: {
 			formatTime() {
 				return timeUtil.todayFormat(this.showTime);
 			}
+		},
+		onLoad() {
+			let that = this;
+			this.timer = setInterval(()=>{
+				that.count--;
+				if(that.count==0){
+					that.enter();
+				}
+			},1000);
+		},
+		onUnload() {
+			clearInterval(this.timer);
+			this.timer=null;
 		}
 	}
 </script>
@@ -40,5 +59,21 @@
 		bottom: 0;
 		background: url('http://qnimage.xiteng.com/WechatIMG1.jpeg') no-repeat center;
 		background-size: 100% 100%;
+	}
+	
+	.timer{
+		position: absolute;
+		top: 150upx;
+		right: 20upx;
+		width: 110upx;
+		height: 50upx;
+		/* background-color: #999999; */
+		color: #FFFFFF;
+		font-size: 28upx;
+		text-align: center;
+		line-height: 50upx;
+		border-radius: 40upx;
+		
+		border: solid 1upx #FFFFFF;
 	}
 </style>

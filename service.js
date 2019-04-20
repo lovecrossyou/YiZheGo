@@ -47,7 +47,7 @@ const getOpenId = function(openid) {
 
 
 const getInfo = function() {
-	let ret = '';
+	let ret = null;
 	ret = uni.getStorageSync(INFO_KEY);
 	if (!ret) return null;
 	return JSON.parse(ret);

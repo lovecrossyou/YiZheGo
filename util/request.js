@@ -4,9 +4,9 @@ import service from "../service.js"
 
 const request = new Fly()
 
-// export const baseURL = 'https://www.xiteng.com/xitenggamejar/'
+export const baseURL = 'https://www.xiteng.com/xitenggamejar/'
 
-export const baseURL = 'http://123.57.161.212:9939/xitenggamejar/'
+// export const baseURL = 'http://123.57.161.212:9939/xitenggamejar/'
 
 
 const APP_SECRET = '71838ae252714085bc0fb2fc3f420110'
@@ -61,19 +61,19 @@ request.interceptors.request.use((request) => {
 		}
 	}
 	request.body = body;
-	uni.showLoading();
+	// uni.showLoading();
 	return request
 })
 
 request.interceptors.response.use((response, promise) => {
-	uni.hideLoading()
+	// uni.hideLoading()
 	if (!(response.status === 200)) {
 		errorPrompt(response);
 
 	}
 	return promise.resolve(response.data)
 }, (err, promise) => {
-	uni.hideLoading()
+	// uni.hideLoading()
 	console.log('xxxxxx', err);
 	var message = err.response.data.message;
 	if (message && message.indexOf('升级会员') != -1) {

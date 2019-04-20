@@ -342,7 +342,11 @@
         ,{
             "path" : "pages/shareqrcode/shareqrcode",
             "style" : {}
-        }
+        },
+		{
+            "path" : "pages/xtgoods/xtgoods",
+            "style" : {}
+        } 
 	],
 	"tabBar": {
 		"color": "#7a7e83",

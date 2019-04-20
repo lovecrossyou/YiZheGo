@@ -26,7 +26,7 @@
 						</view>
 					</view>
 					<view class="tooopencom_product_list">
-						<view class="tooopencom_product_item" v-for="(item, i) in newsBenefitList3" :key="i">
+						<view class="tooopencom_product_item" v-for="(item, i) in newsBenefitList3" :key="i" @click="goNewsWelfare">
 							<view class="image">
 								<image :src="item.productImageUrl"></image>
 								<view class="tooopencom_product_price">￥{{ item.oneDiscountPrice/100 }}</view>
@@ -45,7 +45,7 @@
 					</view>
 				</view>
 				<view class="hot_sale_list">
-					<view class="hot_sale_product_item" v-for="(item, i) in timeLimit3" :key="i">
+					<view class="hot_sale_product_item" v-for="(item, i) in timeLimit3" :key="i" @click="hotsales">
 						<view class="image">
 							<image :src="item.productImageUrl"></image>
 						</view>
@@ -196,6 +196,8 @@
 			}
 		},
 		onShow() {
+			
+			console.log('onShow ');
 			if (this.hasLogin) {
 				this.packets();
 				this.getVipModal();
@@ -208,6 +210,7 @@
 			this.loading = false;
 		},
 		onLoad(option) {
+					
 			this.fetchByTimeLimitList()
 			this.fetchTimeLimitChoiceList();
 			this.fetchNewsBenefitList();
