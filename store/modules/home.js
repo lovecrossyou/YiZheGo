@@ -22,9 +22,11 @@ const actions = {
 		const res = await api.newsBenefitList();
 		commit('setNewsBenefitList', res);
 	},
-	async fetchTimeLimitChoiceList({commit}){
+	async fetchTimeLimitChoiceList({commit},cb){
 		const res = await api.byTimeLimitChoiceList();
+		console.log('fetchTimeLimitChoiceList ### ',res);
 		commit('setTimeLimitChoiceList',res)
+		cb&&cb();
 	}
 }
 

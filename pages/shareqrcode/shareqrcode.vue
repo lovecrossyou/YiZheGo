@@ -45,8 +45,8 @@
 					success: (res) => {
 						if (res.statusCode === 200) {
 							const tempFilePath = res.tempFilePath;
-							uni.saveFile({
-								tempFilePath: tempFilePath,
+							uni.saveImageToPhotosAlbum({
+								filePath: tempFilePath,
 								success: function(res) {
 									uni.showToast({
 										title: '保存成功',

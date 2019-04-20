@@ -15,17 +15,7 @@
 				uni.switchTab({
 					url: "/pages/home/home"
 				})
-			},
-			async fetchByTimeLimitList() {
-				const res = await api.byTimeLimitList({})
-				this.$store.commit('home/setByTimeLimitList', res)
-			},
-			async fetchTimeLimitChoiceList() {
-				this.$store.dispatch('home/fetchTimeLimitChoiceList')
-			},
-			async fetchNewsBenefitList() {
-				this.$store.dispatch('home/fetchNewsBenefitList');
-			},
+			}
 		},
 		data() {
 			return {
@@ -36,11 +26,6 @@
 			formatTime() {
 				return timeUtil.todayFormat(this.showTime);
 			}
-		},
-		onLoad() {
-			this.fetchByTimeLimitList()
-			this.fetchTimeLimitChoiceList()
-			this.fetchNewsBenefitList()
 		}
 	}
 </script>
