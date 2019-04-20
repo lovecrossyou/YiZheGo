@@ -6,7 +6,11 @@
 		</view>
 		<view class="message_code_area">
 			<input type="number" v-model="checkCode" placeholder="请填写验证码" />
-			<button type="warn" @click="send">获取验证码</button>
+			<view class="message_code_obtain_area"  @click="send">
+				<view class="message_code_obtain">{{countdownTime}}</view>
+				<view class="message_code_obtain" v-if="startCountdown">s</view>
+			</view>
+			
 		</view>
 		<button type="warn" class="login_btn" @click="goNext">下一步</button>
 	</view>
@@ -18,23 +22,51 @@
 		data() {
 			return {
 				checkCode:'',
-				phoneNum:''
+				phoneNum:'',
+				countdownTime: '获取验证码',
+				timer:null,
+				startCountdown:false,
 			};
 		},
 		components: {},
 		computed: {},
 		methods: {
 			async send(){
+				if(this.phoneNum.length!=11){
+					uni.showToast({
+						title: '请输入手机号',
+                        duration: 2000
+					})
+					return;
+				}
+				if(this.startCountdown)return;
 				let res = await api.getVerificationCode({
 					phoneNum: this.phoneNum,
 					codeType: "findBackPayPassword"
 				})
+				this.timeCountdown();
 			},
 			
 			goNext(code) {
 				uni.navigateTo({
 					url: "/pages/me/common/setPaymentCode?code="+this.checkCode+'&phoneNum='+this.phoneNum
 				})
+				
+			},
+			timeCountdown(){
+				this.countdownTime = 60;
+				this.startCountdown = true;
+				this.timer = setInterval(this.countdown,1000);
+			},
+			countdown(){
+				if(this.countdownTime>0){
+					this.countdownTime--;
+					console.log('倒计时----'+this.countdownTime)
+				}else{
+					this.countdownTime = '重新获取';
+					this.startCountdown = false;
+					clearInterval(this.timer);
+				}
 			}
 		}
 	};
@@ -76,6 +108,17 @@
 		align-items: center;
 		border-bottom: 1upx solid #ebeaea;
 		margin-top: 30upx;
+	}
+	.message_code_obtain_area{
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+	}
+	.message_code_obtain{
+		font-size:32upx;
+		font-family:PingFangSC-Regular;
+		font-weight:400;
+		color:#CC2636;
 	}
 
 	.message_code_area>input {

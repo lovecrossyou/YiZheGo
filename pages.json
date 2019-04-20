@@ -1,6 +1,5 @@
 {
-	"pages": [
-		{
+	"pages": [{
 			"path": "pages/launch/launch",
 			"style": {
 				"navigationBarTitleText": "喜腾抢购",
@@ -16,9 +15,9 @@
 			"path": "pages/home/home",
 			"style": {
 				"navigationBarTitleText": "首页"
-				
+
 			}
-		},{
+		}, {
 			"path": "pages/home/newsWelfare",
 			"style": {
 				"navigationBarTitleText": "喜腾好物"
@@ -44,7 +43,7 @@
 				"navigationBarTitleText": "  ",
 				"navigationBarTextStyle": "black",
 				"navigationBarBackgroundColor": "#ffffff"
-				
+
 			}
 		},
 		{
@@ -284,7 +283,7 @@
 		}, {
 			"path": "pages/acceptGroup/acceptGroup",
 			"style": {}
-		} ,{
+		}, {
 			"path": "pages/me/common/paymentCode",
 			"style": {
 				"navigationBarTitleText": "支付密码",
@@ -315,6 +314,25 @@
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
+		}, {
+			"path": "pages/xtgoods/xtgoods",
+			"style": {}
+		}, {
+			"path": "pages/buying/buying",
+			"style": {}
+
+		},
+		{
+			"path": "pages/me/myOrder/refundDetail",
+			"style": {
+				"navigationBarTitleText": "退款状态",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		},
+		{
+			"path": "pages/rule/rule",
+			"style": {}
 		}
 	    ,{
             "path" : "pages/xtgoods/xtgoods",
@@ -332,7 +350,7 @@
             "path" : "pages/shareqrcode/shareqrcode",
             "style" : {}
         }
-    ],
+	],
 	"tabBar": {
 		"color": "#7a7e83",
 		"selectedColor": "#FE594B",
@@ -369,11 +387,11 @@
 		"backgroundColor": "#FFFFFF"
 	},
 	"condition": {
-		"current": 0, 
+		"current": 0,
 		"list": [{
 			"name": "",
-			"path": "", 
-			"query": "" 
+			"path": "",
+			"query": ""
 		}]
 	}
 }

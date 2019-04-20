@@ -14,6 +14,8 @@ const api = {
 	productDetails: params => request.post('/discountGame/detail', params),
 	// 收藏
 	collectProduct:params=>request.post('/discountProduct/collect',params),
+	// 收藏列表
+	collectList:params=>request.post('/discountProduct/collectList',params),
 	vipProductDetail: params => request.post('/discountGame/vipProductDetail', params),
 	buyVipProduct: params => request.post('/discountGame/vipProductPurchaseInfo', params),
 	updateToVipUser: params => request.post('/vip/updateToVipUser', params),
@@ -96,9 +98,12 @@ const api = {
 	// 领取会员
 	getPresentVip:params =>request.post("/vip/getPresentVip",params),
 	
-	
 	//取消订单
 	cancelClientOrder:params => request.post("/discountGameOrder/cancelClientOrder",params),
+
+	//退款详情
+	getRefundDetail:params => request.post("/discountGame/refundDetail",params),
+
 
 	//上传
 	uploader: (file, callback) => {
