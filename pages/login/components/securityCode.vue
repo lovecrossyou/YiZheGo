@@ -35,6 +35,7 @@ export default {
 	methods: {
 		inputFn(e) {
 			this.value = e.target.value;
+			console.log('输入验证码------'+this.value)
 			if (this.value.length >= this.number) {
 				this.handleSubmit();
 				this.hideKeyboard();

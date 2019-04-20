@@ -95,9 +95,9 @@
 		
 			const path =  '/pages/home/home?inviteId=' + userInfo.userId + '&groupId=' + groupId + '&productId=' + productId +'&payOrderNo=' + payOrderNo;
 			return {
-				title: '邀请好友',
+				title: '发现一个好物,在这抢购仅需一折,一起来拼运气、拼人品.',
 				path: path,
-				type: 1
+				imageUrl:this.OrderDetail.productImageUrl
 			}
 		},
 

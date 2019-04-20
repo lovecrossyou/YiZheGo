@@ -188,12 +188,17 @@
 </template>
 <script>
 	import api from '../../util/api.js';
+	import timeUtil from '../../util/timeUtil.js';
 	import {
-		mapState
+		mapState,
 	} from 'vuex';
 	export default {
+		onUnload(){
+			clearInterval(this.timer);
+		},
 		computed: {
 			...mapState('productDetail',['productDetail']),
+			
 			banners() {
 				if (this.productDetail === null) return [];
 				return this.productDetail.productItemModel.productShowImageUrlList
@@ -234,13 +239,24 @@
 					discountGameId: productId
 				});
 				this.$store.commit('productDetail/setProductDetails', res)
+				console.log('商品详情------'+JSON.stringify(res))
+				this.timerCountDown();
 			},
 			confirmOrder(directBuy) {
 				uni.navigateTo({
 					url: '../chooseCode/confirmOrder?discountGameId=' + this.productDetail.discountGameId + '&directBuy=' +
 						directBuy+'&groupId='+this.groupId
 				})
+			},
+			timerCountDown(){
+				this.timer = setInterval(this.countDown,1000);
+			},
+			countDown(){
+				const lastTime = timeUtil.showTickTime(this.productDetail.openResultTime);
+				console.log('倒计时-----'+JSON.stringify(lastTime))
+				return lastTime;
 			}
+			
 		},
 		onLoad(opt) {
 			console.log('详情啊=========', opt.productId)
@@ -249,6 +265,7 @@
 		},
 		data() {
 			return {
+				timer:null,
 				groupId:null,
 				selectedIndex: 0,
 				commentModelList: [{

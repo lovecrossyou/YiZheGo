@@ -38,21 +38,21 @@
 				<text class="item-title">中签商品</text>
 				<view class="item-title">
 					-￥
-					<priceText :price="(orderDetail.oneDiscountPrice*orderDetail.winCodeCount / 100).toFixed(2)"></priceText>
+					<priceText :price="((orderDetail.oneDiscountPrice * orderDetail.winCodeCount) / 100).toFixed(2)"></priceText>
 				</view>
 			</view>
 			<view class="title-content">
 				<text class="item-title">运费</text>
 				<view class="item-title">
 					-￥
-					<priceText :price="orderDetail.winCodeCount > 0 ?(orderDetail.freight / 100).toFixed(2) :'0.00'"></priceText>
+					<priceText :price="orderDetail.winCodeCount > 0 ? (orderDetail.freight / 100).toFixed(2) : '0.00'"></priceText>
 				</view>
 			</view>
 			<view class="zongji">
 				中签
 				<text class="color">{{ orderDetail.winCodeCount }}</text>
 				件 退款金额：
-		
+
 				<view class="color">
 					￥
 					<priceText :price="(refundDetail.refundTotalRmb / 100).toFixed(2)"></priceText>
@@ -60,7 +60,7 @@
 			</view>
 		</view>
 		<view class="item-content">
-			<view class="refund-title">{{stepTitle}}</view>
+			<view class="refund-title">{{ stepTitle }}</view>
 
 			<view class="refund-step" v-for="(step, index) in stepList" :key="index">
 				<view class="left-line">
@@ -68,10 +68,10 @@
 					<view class="line" v-if="index < 4"></view>
 				</view>
 				<view class="step-content">
-					<view class="content-title">T日22：00 揭晓中签</view>
-					<view class="content-desc">已揭晓中签，未中签全额退款</view>
+					<view class="content-title">{{ step.title }}</view>
+					<view class="content-desc">{{ step.desc }}</view>
 				</view>
-				<view class="step-time">2019-4-23 22:00</view>
+				<view class="step-time" v-if="index === 0">{{ refundDetail.createRefundTime }}</view>
 			</view>
 		</view>
 	</view>
@@ -91,24 +91,43 @@ export default {
 	},
 	data() {
 		return {
-			stepList: [1, 2, 3, 4, 5],
-			stepTitle:'',
+			stepList: [
+				{ title: 'T日22:00 揭晓中签', desc: '已揭晓中签，未中签全额退款' },
+				{ title: 'T+1日 发起退款', desc: '系统自动发起退款' },
+				{ title: 'T+2日 审核退款', desc: '退款正在审核中，T+7日完成审核流程' },
+				{ title: 'T+7日 办理退款', desc: '开始办理退款，预计到账时间1~3日' },
+				{ title: '退款完成', desc: '退款路径:' }
+			],
+			stepTitle: ''
 		};
 	},
 	onLoad(params) {
 		console.log(params);
-		let { payOrderNo,isRefund } = params;
+		let { payOrderNo, isRefund } = params;
 		this.getRefundDetail(payOrderNo);
-		if(isRefund === 'true'){
+		if (isRefund === 'true') {
 			uni.setNavigationBarTitle({
-				title:'退款状态'
-			})
-			this.stepTitle = '退款流程'
-		}else{
+				title: '退款状态'
+			});
+			this.stepTitle = '退款流程';
+			let way = this.orderDetail.refundWay === 'account' ? '喜币钱包' : '原路返还';
+			this.stepList = [
+				{ title: 'T日22:00 揭晓中签', desc: '已揭晓中签，未中签全额退款' },
+				{ title: 'T+1日 发起退款', desc: '系统自动发起退款' },
+				{ title: 'T+2日 审核退款', desc: '退款正在审核中，T+7日完成审核流程' },
+				{ title: 'T+7日 办理退款', desc: '开始办理退款，预计到账时间1~3日' },
+				{ title: '退款完成', desc: '退款路径:' + way }
+			];
+		} else {
 			uni.setNavigationBarTitle({
-				title:'发货状态'
+				title: '发货状态'
 			});
 			this.stepTitle = '发货流程';
+			this.stepList = [
+				{ title: 'T日22:00 揭晓中签', desc: '已揭晓中签，中签立享1折' },
+				{ title: 'T+1日 中签审核', desc: '审核中签，组织备货' },
+				{ title: 'T+3日 中签发货', desc: '中签商品由京东自营发货，请注意查收' }
+			];
 		}
 	},
 
@@ -120,8 +139,7 @@ export default {
 	computed: {
 		...mapState({
 			orderDetail: state => state.myOrder.orderDetail,
-			refundDetail: state => state.myOrder.refundDetail,
-			
+			refundDetail: state => state.myOrder.refundDetail
 		})
 	}
 };

@@ -209,9 +209,8 @@
 		},
 		onLoad(option) {
 			this.fetchByTimeLimitList()
-			this.fetchTimeLimitChoiceList(()=>{
-				this.fetchNewsBenefitList();
-			})
+			this.fetchTimeLimitChoiceList();
+			this.fetchNewsBenefitList();
 			console.log('inviteId ', option.inviteId);
 			let inviteId = option.inviteId;
 
