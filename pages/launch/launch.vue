@@ -42,6 +42,9 @@
 					that.timer=null;
 				}
 			},1000);
+		},
+		onUnload() {
+			clearInterval(this.timer);
 		}
 	}
 </script>
@@ -64,11 +67,13 @@
 		right: 20upx;
 		width: 175upx;
 		height: 64upx;
-		background-color: #999999;
+		/* background-color: #999999; */
 		color: #FFFFFF;
 		font-size: 28upx;
 		text-align: center;
 		line-height: 60upx;
 		border-radius: 30upx;
+		
+		border: solid 1upx #FFFFFF;
 	}
 </style>
