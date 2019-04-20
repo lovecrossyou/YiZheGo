@@ -37,14 +37,14 @@
 			let that = this;
 			this.timer = setInterval(()=>{
 				that.count--;
-				if(that.count<=0){
+				if(that.count==0){
 					that.enter();
-					that.timer=null;
 				}
 			},1000);
 		},
 		onUnload() {
 			clearInterval(this.timer);
+			this.timer=null;
 		}
 	}
 </script>
