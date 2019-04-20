@@ -21,8 +21,8 @@
 				<image v-bind:src="orderInfo.imageUrl" class="product-info-pro-img"></image>
 				<view class="product-info-pro-name">
 					<view class="product-info-pro-name-text">{{orderInfo.productName}}</view>
-					<view class="product-info-pro-name-price" v-if="directBuy">¥{{orderInfo.price}}</view>
-					<view class="product-info-pro-name-price" v-else>¥{{orderInfo.price}}</view>
+					<view class="product-info-pro-name-price" v-if="directBuy">¥{{orderInfo.price/100}}</view>
+					<view class="product-info-pro-name-price" v-else>¥{{orderInfo.price/100}}</view>
 				</view>
 			</view>
 			<view class="product-info-pro-amount">
@@ -33,8 +33,8 @@
 		<view class="price-info">
 			<view class="price-info-product">
 				<view class="price-info-product-text">商品</view>
-				<view class="price-info-product-price" v-if="directBuy">¥{{orderInfo.price*buyCount}}</view>
-				<view class="price-info-product-price" v-else>¥{{orderInfo.price*buyCount}}</view>
+				<view class="price-info-product-price" v-if="directBuy">¥{{orderInfo.price*buyCount/100}}</view>
+				<view class="price-info-product-price" v-else>¥{{orderInfo.price*buyCount/100}}</view>
 			</view>
 			<view class="price-info-product">
 				<view class="price-info-product-text">运费</view>
@@ -47,7 +47,7 @@
 				<view class="confirm-footer-price-amount">共{{buyCount}}件</view>
 				<view class="confirm-footer-price-pay-info">
 					<view class="confirm-footer-price-pay-text">实付款:</view>
-					<view class="confirm-footer-price-pay">¥{{totalPayRmb}}</view>
+					<view class="confirm-footer-price-pay">¥{{totalPayRmb/100}}</view>
 				</view>
 			</view>
 			<view class="confirm-footer-commit" @click="commitOrder">提交订单</view>
