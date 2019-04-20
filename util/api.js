@@ -14,6 +14,8 @@ const api = {
 	productDetails: params => request.post('/discountGame/detail', params),
 	// 收藏
 	collectProduct:params=>request.post('/discountProduct/collect',params),
+	// 收藏列表
+	collectList:params=>request.post('/discountProduct/collectList',params),
 	vipProductDetail: params => request.post('/discountGame/vipProductDetail', params),
 	buyVipProduct: params => request.post('/discountGame/vipProductPurchaseInfo', params),
 	updateToVipUser: params => request.post('/vip/updateToVipUser', params),
