@@ -1,5 +1,5 @@
 {
-    "name" : "YiZheGo",
+    "name" : "喜腾抢购",
     "appid" : "__UNI__A0C1D93",
     "description" : "",
     "versionName" : "1.0.0",
@@ -15,7 +15,8 @@
         },
         "modules" : {
             "Payment" : {},
-            "OAuth" : {}
+            "OAuth" : {},
+            "Share" : {}
         },
         /* 模块配置 */
         "distribute" : {
@@ -59,6 +60,52 @@
                     "weixin" : {
                         "appid" : "wx0513af67bd4eb342",
                         "appsecret" : "0faed1797d3f783b480adcba975130b9"
+                    }
+                }
+            },
+            "icons" : {
+                "ios" : {
+                    "appstore" : "/Users/wangq/Desktop/xiteng/logo/WechatIMG6.png",
+                    "ipad" : {
+                        "app" : "unpackage/res/icons/76x76.png",
+                        "app@2x" : "unpackage/res/icons/152x152.png",
+                        "notification" : "unpackage/res/icons/20x20.png",
+                        "notification@2x" : "unpackage/res/icons/40x40.png",
+                        "proapp@2x" : "unpackage/res/icons/167x167.png",
+                        "settings" : "unpackage/res/icons/29x29.png",
+                        "settings@2x" : "unpackage/res/icons/58x58.png",
+                        "spotlight" : "unpackage/res/icons/40x40.png",
+                        "spotlight@2x" : "unpackage/res/icons/80x80.png"
+                    },
+                    "iphone" : {
+                        "app@2x" : "unpackage/res/icons/120x120.png",
+                        "app@3x" : "unpackage/res/icons/180x180.png",
+                        "notification@2x" : "unpackage/res/icons/40x40.png",
+                        "notification@3x" : "unpackage/res/icons/60x60.png",
+                        "settings@2x" : "unpackage/res/icons/58x58.png",
+                        "settings@3x" : "unpackage/res/icons/87x87.png",
+                        "spotlight@2x" : "unpackage/res/icons/80x80.png",
+                        "spotlight@3x" : "unpackage/res/icons/120x120.png"
+                    }
+                },
+                "android" : {
+                    "hdpi" : "unpackage/res/icons/72x72.png",
+                    "ldpi" : "unpackage/res/icons/48x48.png",
+                    "mdpi" : "unpackage/res/icons/48x48.png",
+                    "xhdpi" : "unpackage/res/icons/96x96.png",
+                    "xxhdpi" : "unpackage/res/icons/144x144.png",
+                    "xxxhdpi" : "unpackage/res/icons/192x192.png"
+                }
+            },
+            "splashscreen" : {
+                "ios" : {
+                    "iphone" : {
+                        "retina35" : "/Users/wangq/Desktop/xiteng/1/640_960.png",
+                        "retina40l" : "/Users/wangq/Desktop/xiteng/1/640_1136.png",
+                        "retina47" : "/Users/wangq/Desktop/xiteng/1/750_1334.png",
+                        "retina55" : "/Users/wangq/Desktop/xiteng/1/1241_2208.png",
+                        "portrait-896h@2x" : "/Users/wangq/Desktop/xiteng/喜腾启动页1/828.png",
+                        "iphonex" : "/Users/wangq/Desktop/xiteng/喜腾启动页1/x.png"
                     }
                 }
             }

@@ -30,11 +30,11 @@
 		<view class="price-section">
 			<view class="price-section-item">
 				<view class="price">
-					￥<span class="big">{{productDetail.productItemModel.oneDiscountPrice}}</span>
+					￥<span class="big">{{productDetail.productItemModel.oneDiscountPrice/100}}</span>
 				</view>
 				<view class="vip">
 					<image :src="icon_vip"></image>
-					<view class="original_price">市场价 ￥{{productDetail.productItemModel.originalPrice}}</view>
+					<view class="original_price">市场价 ￥{{productDetail.productItemModel.originalPrice/100}}</view>
 				</view>
 			</view>
 			<view class="price-section-item">
@@ -169,11 +169,11 @@
 				<view class="name">关注</view>
 			</view>
 			<view class="right_buy" @click="confirmOrder(true)">
-				<view class="top">￥{{productDetail.productItemModel.originalPrice}}</view>
+				<view class="top">￥{{productDetail.productItemModel.originalPrice/100}}</view>
 				<view class="big">全价购买</view>
 			</view>
 			<view class="right_buy bgr" @click="confirmOrder(false)">
-				<view class="top">￥{{productDetail.productItemModel.oneDiscountPrice}}</view>
+				<view class="top">￥{{productDetail.productItemModel.oneDiscountPrice/100}}</view>
 				<view class="big">一折抢购</view>
 			</view>
 		</view>

@@ -121,8 +121,8 @@
 				const res = await api.byTimeLimitList({})
 				this.$store.commit('home/setByTimeLimitList', res)
 			},
-			async fetchTimeLimitChoiceList() {
-				this.$store.dispatch('home/fetchTimeLimitChoiceList')
+			async fetchTimeLimitChoiceList(cb) {
+				this.$store.dispatch('home/fetchTimeLimitChoiceList',cb)
 			},
 			async fetchNewsBenefitList() {
 				this.$store.dispatch('home/fetchNewsBenefitList');
@@ -209,8 +209,8 @@
 		},
 		onLoad(option) {
 			this.fetchByTimeLimitList()
-			this.fetchTimeLimitChoiceList()
-			this.fetchNewsBenefitList()
+			this.fetchTimeLimitChoiceList();
+			this.fetchNewsBenefitList();
 			console.log('inviteId ', option.inviteId);
 			let inviteId = option.inviteId;
 

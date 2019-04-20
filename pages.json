@@ -40,24 +40,34 @@
 		{
 			"path": "pages/moments/moments",
 			"style": {
-				"navigationBarTitleText": "  ",
+				"navigationBarTitleText": "    ",
 				"navigationBarTextStyle": "black",
 				"navigationBarBackgroundColor": "#ffffff"
 
 			}
 		},
 		{
-			"path": "pages/moments/showWinOrderdetails",
+			"path": "pages/moments/components/showWinOrder",
 			"style": {
-				"navigationBarTitleText": "详情",
+				"navigationBarTitleText": "晒单",
 				"navigationBarTextStyle": "black",
 				"navigationBarBackgroundColor": "#ffffff"
+				
 			}
 		},
 		{
-			"path": "pages/moments/components/showWinOrder",
+			"path": "pages/moments/components/recommend",
 			"style": {
-				"navigationBarTitleText": "  ",
+				"navigationBarTitleText": "动态",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#ffffff"
+				
+			}
+		},
+		{
+			"path": "pages/moments/showWinOrderdetails",
+			"style": {
+				"navigationBarTitleText": "详情",
 				"navigationBarTextStyle": "black",
 				"navigationBarBackgroundColor": "#ffffff"
 			}
@@ -221,9 +231,6 @@
 			}
 		},
 		{
-			"path": "pages/moments/components/recommend",
-			"style": {}
-		}, {
 			"path": "pages/me/myOrder/myOrder",
 			"style": {
 				"navigationBarTitleText": "一折购",

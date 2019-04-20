@@ -75,7 +75,8 @@
 			console.log('userInfo.userId ',this.userInfo.userId);
 			return {
 				title: '邀请好友',
-				path: '/pages/home/home?inviteId='+this.userInfo.userId
+				path: '/pages/home/home?inviteId='+this.userInfo.userId,
+				imageUrl:'http://qnimage.xiteng.com/yaoqing_top_bg.png'
 			}
 		},
 		computed: {

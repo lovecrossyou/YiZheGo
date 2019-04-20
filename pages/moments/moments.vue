@@ -1,9 +1,14 @@
 <template>
 	<view class="moments">
-		<view class="navigation">
-			<block v-for="(item,index) in navigationlist" :key=index>
-				<view class="navigationtext" :class="{'navigationclicktext':isOnclick===index}" @click="navigationclick(index)">{{item}}</view>
-			</block>
+		<view class="top_wrapper">
+			<view class="navigation">
+				<block v-for="(item,index) in navigationlist" :key=index>
+					<view class="navigationtext" :class="{'navigationclicktext':isOnclick===index}" @click="navigationclick(index)">{{item}}</view>
+				</block>
+			</view>
+			<view class="notice_bar"  @click="goluckylist">
+				<noticebar></noticebar>
+			</view>
 		</view>
 		<view class="contentlist">
 			<recommend v-if="isOnclick===0"></recommend>
@@ -13,10 +18,9 @@
 </template>
 
 <script>
-	import api from "@/util/api.js";
 	import recommend from './components/recommend';
 	import comment from './components/comment';
-	import showWinOrder from './components/showWinOrder';
+	import noticebar from './components/noticebar';
 	
 	export default {
 		data() {
@@ -28,12 +32,17 @@
 		methods: {
 			navigationclick(index){
 				this.isOnclick=index;
+			},
+			goluckylist(){
+				uni.navigateTo({
+					url:"/pages/me/vip/lucky-list"
+				})
 			}
 		},
 		components:{
 			recommend,
 			comment,
-			showWinOrder
+			noticebar
 		}
 	}
 </script>
@@ -42,37 +51,49 @@
 	.moments {
 		width: 100%;
 
-		.navigation {
+		.top_wrapper{
 			width: 100%;
-			height: 100upx;
-			display: flex;
-			flex-direction: row;
-			justify-content: space-around;
-			background:white;
+			height: 170upx;
 			position: fixed;
 			top: 0upx;
 			z-index: 10;
-		
-
-			.navigationtext {
-				font-size: 30upx;
-				font-family: PingFang-SC-Medium;
-				font-weight: 500;
-				color: rgba(51, 51, 51, 1);
+			
+			.navigation {
+				width: 100%;
+				height: 100upx;
+				display: flex;
+				flex-direction: row;
+				justify-content: space-around;
+				background:white;
+			
+			
+				.navigationtext {
+					font-size: 30upx;
+					font-family: PingFang-SC-Medium;
+					font-weight: 500;
+					color: rgba(51, 51, 51, 1);
+				}
+			
+				.navigationclicktext {
+					font-size: 30upx;
+					font-family: PingFangSC-Regular;
+					font-weight: 400;
+					color: rgba(205, 46, 63, 1);
+					border-bottom: solid 2upx rgba(205,46,63,1);
+				}
 			}
-
-			.navigationclicktext {
-				font-size: 30upx;
-				font-family: PingFangSC-Regular;
-				font-weight: 400;
-				color: rgba(205, 46, 63, 1);
-				border-bottom: solid 2upx rgba(205,46,63,1);
+			
+			.notice_bar{
+				width: 100%;
+				height:70upx;
+				position: fixed;
 			}
+			
 		}
 		
 		.contentlist{
 			width: 100%;
-			margin-top: 101upx;
+			margin-top: 171upx;
 		}
 	}
 </style>
