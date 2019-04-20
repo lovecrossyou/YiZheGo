@@ -1,5 +1,5 @@
 <template lang="html">
-	<div id="reload" ref="reload" class="loadMoudle" :style="{transform: 'translate3d(0,' + top + 'px, 0)'}">
+	<div :style="{transform: 'translate3d(0,' + top + 'px, 0)'}">
 		<slot></slot>
 		<footer class="load-more">
 			<slot name="load-more">
@@ -50,9 +50,9 @@
 			if (this.pullUpState !== 3 && !this.isLoading) {
 				this.pullUpState = 1
 				this.infiniteLoad()
-				// 						setTimeout(() => {
-				// 							this.infiniteLoad()
-				// 						}, 200)
+// 				setTimeout(() => {
+// 					this.infiniteLoad()
+// 				}, 200)
 			}
 		},
 		methods: {
@@ -76,7 +76,6 @@
 	}
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 	.load-more {
 		width: 100%;
@@ -84,13 +83,13 @@
 		background: #f7f7f7;
 	}
 
-	/* .moreData-tip, */
 	.loading-tip {
 		display: flex;
 		align-items: center;
 		justify-content: center;
 		height: 60px;
 	}
+
 	.loading-tip-text {
 		margin-left: 10upx;
 		font-size: 28upx;
@@ -108,9 +107,8 @@
 
 	.icon-loading {
 		display: inline-flex;
-		width: 35px;
-		height: 35px;
-		background: #00C456;
+		width: 40px;
+		height: 40px;
 		background: url("../../../static/home/loading_half.png") no-repeat;
 		background-size: cover;
 		margin-right: 5px;

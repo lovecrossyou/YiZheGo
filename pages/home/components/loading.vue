@@ -3,7 +3,7 @@
 		<slot class="loading-more">
 			<div class="loading-tip">
 				<span class="icon-loading"></span>
-				<span class="loading-tip-text">正在加载...</span>
+				<!-- <span class="loading-tip-text">正在加载...</span> -->
 			</div>
 		</slot>
 	</div>
