@@ -1,7 +1,7 @@
 <template>
 	<view>
-		<image class="qrcode-image" :src="imageUrl" mode="widthFix"></image>
-		<button class="save" type="primary" @click="downloadAndSaveImage">保存</button>
+		<image @load="imageLoad" class="qrcode-image" :src="imageUrl" mode="widthFix"></image>
+		<button v-if="showBtn" class="save" type="primary" @click="downloadAndSaveImage">保存</button>
 	</view>
 </template>
 
@@ -31,10 +31,14 @@
 		},
 		data() {
 			return {
-				imageUrl: ''
+				imageUrl: '',
+				showBtn:false
 			}
 		},
 		methods: {
+			imageLoad(){
+				this.showBtn = true;
+			},
 			downloadAndSaveImage() {
 				uni.showLoading({
 					mask: true
