@@ -17,13 +17,16 @@
 			};
 		},
 		computed: {
+			...mapState(['userInfo']),
 			...mapGetters(['h5Page']),
 			url(){
-				return this.h5Page('buyDetail/page?'+'&id='+this.discountGameId)
+				return this.h5Page('buyDetail/page?')
 			}
 		},
 		onLoad(opt) {
 			this.discountGameId = opt.discountGameId;
+			
+			console.log('buyDetail/page ',this.url);
 		}
 	}
 </script>
