@@ -67,7 +67,6 @@
 					<view>
 						<image :src="icon_time"></image>距揭晓还剩
 					</view>
-					<!-- <view>{{productDetail.openResultTime}}</view> -->
 					<view class="count_down_time">
 						<view class="count_down_time_item">{{lastTime.hour}}</view>
 						<view class="mm">:</view>

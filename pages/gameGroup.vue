@@ -11,13 +11,13 @@
 			</view>
 		</view>
 		<view class="orderwrapper">
-			<view class="group_endtime">
+			<view class="group_endtime" v-if="lastTime">
 				<view class="group_endtime_text">揭晓中签：22:00  还剩：</view>
-				<view class="counttime">11</view>
+				<view class="counttime">{{lastTime.hour}}</view>
 				<view class="colon">:</view>
-				<view class="counttime">22</view>
+				<view class="counttime">{{lastTime.minute}}</view>
 				<view class="colon">:</view>
-				<view class="counttime">33</view>
+				<view class="counttime">{{lastTime.sec}}</view>
 			</view>
 			<view class="purchase_count">你的幸运号码：{{ OrderDetail.purchaseCount }}组</view>
 			<view class="purchase_code">
@@ -65,6 +65,7 @@
 
 <script>
 	import api from '@/util/api.js';
+	import timeUtil from'@/util/timeUtil.js';
 	import {
 		mapState
 	} from 'vuex';
@@ -76,7 +77,12 @@
 				},
 				GameGroup: {groupUserModelList:[]},
 				visibility: true,
-				pack_up_icon: '/static/gameGroup/icon_up.png'
+				pack_up_icon: '/static/gameGroup/icon_up.png',
+				lastTime:{day: 0,
+		hour: 0,
+		minute: 0,
+		sec: 0,},
+				timer:null,
 			};
 		},
 		async onLoad(options) {
@@ -85,6 +91,11 @@
 			});
 			this.OrderDetail = res;
 			this.GameGroup = res.discountGameGroupModel;
+			console.log('订单----'+JSON.stringify(res))
+			this.timerCountDown();
+		},
+		onUnload(){
+			clearInterval(this.timer);
 		},
 		onShareAppMessage(obj) {
 			let userInfo = this.userInfo;
@@ -127,7 +138,14 @@
 			pack_up_btn() {
 				this.visibility = !this.visibility;
 				this.pack_up_icon = this.visibility ? '/static/gameGroup/icon_up.png' : '/static/gameGroup/icon_down.png';
-			}
+			},
+			countDown(){
+				console.log('开奖----'+this.OrderDetail.openResultTime)
+			    this.lastTime = timeUtil.showTickTime(this.OrderDetail.openResultTime);
+			},
+			timerCountDown(){
+				this.timer = setInterval(this.countDown,1000);
+			},
 		}
 	};
 </script>
