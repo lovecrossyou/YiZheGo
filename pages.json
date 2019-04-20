@@ -315,9 +315,6 @@
 				"navigationBarTextStyle": "black"
 			}
 		}, {
-			"path": "pages/xtgoods/xtgoods",
-			"style": {}
-		}, {
 			"path": "pages/buying/buying",
 			"style": {}
 
@@ -334,18 +331,7 @@
 			"path": "pages/rule/rule",
 			"style": {}
 		}
-	    ,{
-            "path" : "pages/xtgoods/xtgoods",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/buying/buying",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/rule/rule",
-            "style" : {}
-        }
+	    
         ,{
             "path" : "pages/shareqrcode/shareqrcode",
             "style" : {}
