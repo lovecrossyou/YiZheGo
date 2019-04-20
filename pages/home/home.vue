@@ -196,6 +196,8 @@
 			}
 		},
 		onShow() {
+			
+			console.log('onShow ');
 			if (this.hasLogin) {
 				this.packets();
 				this.getVipModal();
@@ -208,6 +210,7 @@
 			this.loading = false;
 		},
 		onLoad(option) {
+					
 			this.fetchByTimeLimitList()
 			this.fetchTimeLimitChoiceList();
 			this.fetchNewsBenefitList();
