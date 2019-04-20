@@ -14,6 +14,7 @@ export default {
 	state: {
 		orderData: [],
 		orderDetail: {},
+		refundDetail: {},
 	},
 	getters: {
 		// 待付款：0，待揭晓：1,已揭晓：2,已取消：3
@@ -54,13 +55,14 @@ export default {
 		},
 		groupListData(state) {
 
-			if (state.orderDetail == undefined || state.orderDetail == null || state.orderDetail.discountGameGroupModel == undefined || state.orderDetail.discountGameGroupModel == null) {
+			if (state.orderDetail == undefined || state.orderDetail == null || state.orderDetail.discountGameGroupModel ==
+				undefined || state.orderDetail.discountGameGroupModel == null) {
 				return [{
 					group: [{
 						iconUrl: ''
-					},{
+					}, {
 						iconUrl: ''
-					},{
+					}, {
 						iconUrl: ''
 					}],
 					state: 'ing'
@@ -125,9 +127,13 @@ export default {
 			state.orderData[pageNo].loadingType = loadingType;
 		},
 		setOrderDetail(state, data) {
-			console.log(data);
+
 			state.orderDetail = data;
-		}
+		},
+		setRefundDetail(state, data) {
+
+			state.refundDetail = data;
+		},
 	},
 	actions: {
 		getOrderData({
@@ -198,7 +204,15 @@ export default {
 				commit('setOrderDetail', res)
 			})
 		},
-
+		getRefundDetail({
+			commit
+		}, payOrderNo) {
+			api.getRefundDetail({
+				payOrderNo: payOrderNo
+			}).then(res => {
+				commit('setRefundDetail', res)
+			})
+		},
 
 
 	}

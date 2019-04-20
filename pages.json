@@ -323,7 +323,15 @@
         ,{
             "path" : "pages/buying/buying",
             "style" : {}
-        }
+        },
+		{
+			"path": "pages/me/myOrder/refundDetail",
+			"style": {
+				"navigationBarTitleText": "退款状态",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		}
     ],
 	"tabBar": {
 		"color": "#7a7e83",

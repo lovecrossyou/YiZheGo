@@ -93,9 +93,12 @@ const api = {
 	// 领取会员
 	getPresentVip:params =>request.post("/vip/getPresentVip",params),
 	
-	
 	//取消订单
 	cancelClientOrder:params => request.post("/discountGameOrder/cancelClientOrder",params),
+
+	//退款详情
+	getRefundDetail:params => request.post("/discountGame/refundDetail",params),
+
 
 	//上传
 	uploader: (file, callback) => {

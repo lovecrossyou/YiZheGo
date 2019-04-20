@@ -162,8 +162,8 @@
 		</view>
 		<!-- 底部支付  《》：：：￥￥￥-->
 		<view class="pay-content">
-			<view class="button cancel-order" v-if="orderDetail.win">查看发货</view>
-			<view class="button cancel-order" v-if="orderDetail.refundDetailModel !== null">查看退款</view>
+			<view class="button cancel-order" v-if="orderDetail.win" @click="enterRefundDetail(orderDetail.payOrderNo,false)">查看发货</view>
+			<view class="button cancel-order" v-if="orderDetail.refundDetailModel !== null" @click="enterRefundDetail(orderDetail.payOrderNo,true)">查看退款</view>
 			<view class="button cancel-order" v-if="orderDealState === 0" @click="cancelOrder(orderDetail.clientOrderId)">取消订单</view>
 			<view class="button pay-now" v-if="orderDealState === 0" @click="enterPay(orderDetail)">立即支付</view>
 			<view class="button pay-now" v-if="orderDealState !== 0" @click="enterProduct(orderDetail.productId)">再抢一次</view>
@@ -317,6 +317,11 @@ export default {
 			
 			uni.redirectTo({
 				url: '../../details/productDetails?productId=' + productId
+			});
+		},
+		enterRefundDetail(payOrderNo,isRefund){
+			uni.navigateTo({
+				url: './refundDetail?payOrderNo=' + payOrderNo+'&isRefund='+isRefund
 			});
 		}
 		
