@@ -1,8 +1,8 @@
 <template>
 	<view class="home_page">
-		<block v-if="loading">
-			<loading></loading>
-		</block>
+		<!-- <block v-if="loading"> -->
+			<loading v-if="loading"></loading>
+		<!-- </block> -->
 		<block v-else>
 			<view class="header">
 				<searchWrap></searchWrap>

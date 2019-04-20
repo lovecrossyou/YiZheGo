@@ -5,13 +5,6 @@
 			<slot name="load-more">
 				<LoadingDiv v-if="pullUpState==1" :loadingText="pullUpStateText.moreDataTxt"></LoadingDiv>
 				<LoadingDiv v-if="pullUpState==2" :loadingText="pullUpStateText.loadingMoreDataTxt"></LoadingDiv>
-				<!-- <div class="loading-tip" v-if="pullUpState==1">
-					<span class="loading-tip-text">{{pullUpStateText.moreDataTxt}}</span>
-				</div> -->
-				<!-- <div class="loading-tip" v-if="pullUpState==2">
-					<span class="icon-loading"></span>
-					<span class="loading-tip-text">{{pullUpStateText.loadingMoreDataTxt}}</span>
-				</div> -->
 				<div class="loading-tip" v-if="pullUpState==3">
 					<span class="connectingLine"></span>
 					<span class="noMoreData-tip-text">{{pullUpStateText.noMoreDataTxt}}</span>
@@ -97,11 +90,7 @@
 		align-items: center;
 		justify-content: center;
 		height: 60px;
-
-
 	}
-
-	,
 	.loading-tip-text {
 		margin-left: 10upx;
 		font-size: 28upx;
@@ -117,12 +106,12 @@
 		color: #555555;
 	}
 
-	.loadMoudle .icon-loading {
+	.icon-loading {
 		display: inline-flex;
 		width: 35px;
 		height: 35px;
 		background: #00C456;
-		background: url("http://qnimage.xiteng.com/loading.png") no-repeat;
+		background: url("../../../static/home/loading_half.png") no-repeat;
 		background-size: cover;
 		margin-right: 5px;
 		animation: rotating 2s linear infinite;

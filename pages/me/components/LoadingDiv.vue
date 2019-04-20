@@ -9,6 +9,10 @@
 	export default {
 		props: {
 			loadingText: ''
+		},
+		onLoad() {
+			console.log('----------');
+			// console.log(loadingText);
 		}
 	}
 </script>
@@ -23,11 +27,11 @@
 	/* .moreData-tip, */
 	.loading-tip {
 		display: flex;
+		flex:1;
 		align-items: center;
 		justify-content: center;
 		height: 60px;
-
-
+		/* background-color: red; */
 	}
 
 	,
@@ -55,6 +59,7 @@
 		background-size: cover;
 		margin-right: 5px;
 		animation: rotating 2s linear infinite;
+		/* background: #00C456; */
 	}
 
 	@keyframes rotating {
