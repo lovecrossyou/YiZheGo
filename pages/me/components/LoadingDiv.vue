@@ -51,7 +51,7 @@
 		width: 35px;
 		height: 35px;
 		background: #00C456;
-		background: url("http://qnimage.xiteng.com/loading.png") no-repeat;
+		background: url("http://qnimage.xiteng.com/loading_half.png") no-repeat;
 		background-size: cover;
 		margin-right: 5px;
 		animation: rotating 2s linear infinite;
