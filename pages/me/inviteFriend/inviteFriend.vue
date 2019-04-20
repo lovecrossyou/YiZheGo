@@ -97,9 +97,10 @@
 				} else {
 					this.fetchInviteUser()
 					uni.navigateTo({
-						url: "./shareFriend"
+						url: "/pages/shareqrcode/shareqrcode"
 					})
 				}
+			this.isShare = false
 			},
 			fetchUserProfitInfo() {
 				this.$store.dispatch('inviteFriend/fetchUserProfitInfo')

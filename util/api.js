@@ -1,7 +1,7 @@
 import request from './request'
 
-// const uploadBaseUrl = "http://www.xiteng.com/xitenggamenode/";
-const uploadBaseUrl = "http://123.57.161.212:9939/xitenggamenode/";
+const uploadBaseUrl = "http://www.xiteng.com/xitenggamenode/";
+// const uploadBaseUrl = "http://123.57.161.212:9939/xitenggamenode/";
 
 const api = {
 	// 喜腾好物
@@ -36,6 +36,8 @@ const api = {
 	praiseShowWinOrder: params => request.post('/discountGame/praiseShowWinOrder', params),
 	//评论晒单
 	commentShowWinOrder: params => request.post('/discountGame/commentShowWinOrder', params),
+	//中签公告
+	winGameNotice: params => request.post('/discountGame/winGameNotice', params),
 	
 	// 邀请用户
 	inviteUser:params=>request.post('/discountGame/inviteUser',params),
@@ -98,9 +100,12 @@ const api = {
 	// 领取会员
 	getPresentVip:params =>request.post("/vip/getPresentVip",params),
 	
-	
 	//取消订单
 	cancelClientOrder:params => request.post("/discountGameOrder/cancelClientOrder",params),
+
+	//退款详情
+	getRefundDetail:params => request.post("/discountGame/refundDetail",params),
+
 
 	//上传
 	uploader: (file, callback) => {
