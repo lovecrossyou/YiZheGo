@@ -1,8 +1,7 @@
 <template>
 	<view>
 		<image class="qrcode-image" :src="imageUrl" mode="widthFix"></image>
-
-		<button type="primary" @click="downloadAndSaveImage">保存</button>
+		<button class="save" type="primary" @click="downloadAndSaveImage">保存</button>
 	</view>
 </template>
 
@@ -70,5 +69,17 @@
 <style>
 	.qrcode-image {
 		width: 100%;
+	}
+	.save{
+		width: 90%;
+		height: 88upx;
+		line-height: 88upx;
+		text-align: center;
+		background: #B92427!important;
+		border-radius: 6upx;
+		font-size: 36upx;
+		font-family: PingFang-SC-Medium;
+		font-weight: 500;
+		color: rgba(255, 255, 255, 1);
 	}
 </style>
