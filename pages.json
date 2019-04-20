@@ -328,6 +328,10 @@
             "path" : "pages/rule/rule",
             "style" : {}
         }
+        ,{
+            "path" : "pages/shareqrcode/shareqrcode",
+            "style" : {}
+        }
     ],
 	"tabBar": {
 		"color": "#7a7e83",
