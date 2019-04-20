@@ -74,6 +74,9 @@
 				let orderInfo;
 				let payChannel;
 				// #ifdef MP-WEIXIN
+				uni.showLoading({
+					mask: true
+				});
 				payChannel = 'WeixinMiniProgramPay';
 				orderInfo = await api.commitPay({
 					openId: this.openid,
@@ -104,6 +107,8 @@
 			payResult(payStatus) {
 // 				console.log('this.directBuy############## ', this.directBuy);
 // 				console.log('this.payStatus############## ', payStatus);
+				
+				uni.hideLoading();
 				if (this.productType === 'vipProduct') {
 					//会员商品
 					uni.redirectTo({
