@@ -163,8 +163,9 @@
 				<image class="top" :src="btn_message"></image>
 				<view class="name">客服</view>
 			</view>
-			<view class="left_message">
-				<image class="top" :src="btn_collection"></image>
+			<view v-bind:class="{left_message:true,left_messageb:isBg}" @click="collectProduct(productDetail.discountGameId)">
+				<image v-if="isBg" class="top" :src="btn_collection_red"></image>
+				<image v-else class="top" :src="btn_collection"></image>
 				<view class="name">关注</view>
 			</view>
 			<view class="right_buy" @click="confirmOrder(true)">
@@ -192,6 +193,13 @@
 			}
 		},
 		methods: {
+			async fetchCollectProduct(productId) {
+				const res = await api.collectProduct({discountGameId:productId})
+			},
+			collectProduct(discountGameId){
+				this.isBg=!this.isBg;
+				this.fetchCollectProduct(discountGameId)
+			},
 			goBuying(){
 				console.log('this.productDetail ', this.productDetail);
 				uni.navigateTo({
@@ -270,6 +278,8 @@
 				icon_vip: "../../static/details/icon_vip.png",
 				icon_fire: "../../static/details/icon_fire.png",
 				btn_collection: "../../static/details/btn_collection.png",
+				btn_collection_red: "../../static/details/btn_collection_red.png",
+				isBg:false
 			};
 		},
 
@@ -714,6 +724,9 @@
 					width: 36upx;
 					height: 36upx;
 				}
+			}
+			.left_messageb{
+				color: #CC2636;
 			}
 
 			.right_buy {

@@ -4,13 +4,6 @@ import api from '@/util/api.js';
 	productDetail: null
 }
 
-const actions = {
-	async fetchCollectProduct() {
-		const res = await api.collectProduct({})
-	}
-	
-}
-
 const mutations = {
 	setProductDetails(state, data) {
 		state.productDetail = data;
