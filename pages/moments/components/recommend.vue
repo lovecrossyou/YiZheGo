@@ -77,6 +77,9 @@
 <style lang="less">
 	.recommendwrapper{
 		width: 100%;
+		padding: 20upx 30upx;
+		box-sizing: border-box;
+		background: #eeeeee;
 		
 		.recommendItem {
 			display: flex;

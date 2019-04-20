@@ -1,13 +1,14 @@
 <template>
 	<view class="wrapper">
-		<view class="top_title_text">请设置支付密码，用于提现。</view>
-		<inputPassword @inputFnOn='inputFnOn'></inputPassword>
+		<uni-password ref="secrity" @input="onInput" @confirm="onConfirm">
+			请设置支付密码，用于提现。
+		</uni-password>
 		<button type="warn" class="finish_btn" @click="completePaySetting">完成</button>
 	</view>
 </template>
 
 <script>
-	import inputPassword from '@/components/inputPassword.vue';
+	import uniPassword from '../../components/payPsw/uni-password.vue'
 	import api from '@/util/api.js';
 
 	export default {
@@ -18,12 +19,12 @@
 			}
 		},
 		components: {
-			inputPassword
+			uniPassword
 		},
 		methods: {
 
-			inputFnOn(pwd) {
-				this.paymentPassword = pwd;
+			onConfirm(pwd) {
+				this.paymentPassword = pwd.value;
 			},
 			async completePaySetting() {
 				const params = {

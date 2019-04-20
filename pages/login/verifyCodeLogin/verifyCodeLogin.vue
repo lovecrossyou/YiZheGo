@@ -62,7 +62,7 @@
 			async send() {
 				let res = await api.getVerificationCode({
 					phoneNum: this.formData.phoneNum,
-					codeType: 'bindPhone'
+					codeType: 'login'
 				});
 			},
 			oauth(value) {

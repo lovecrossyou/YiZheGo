@@ -30,11 +30,11 @@
 		<view class="price-section">
 			<view class="price-section-item">
 				<view class="price">
-					￥<span class="big">{{productDetail.productItemModel.oneDiscountPrice/100}}</span>
+					￥<span class="big">{{productDetail.productItemModel.oneDiscountPrice}}</span>
 				</view>
 				<view class="vip">
 					<image :src="icon_vip"></image>
-					<view class="original_price">市场价 ￥{{productDetail.productItemModel.originalPrice/100}}</view>
+					<view class="original_price">市场价 ￥{{productDetail.productItemModel.originalPrice}}</view>
 				</view>
 			</view>
 			<view class="price-section-item">
@@ -163,16 +163,16 @@
 				<image class="top" :src="btn_message"></image>
 				<view class="name">客服</view>
 			</view>
-			<view class="left_message" @click="collectProduct(productDetail.discountGameId)">
+			<view class="left_message">
 				<image class="top" :src="btn_collection"></image>
 				<view class="name">关注</view>
 			</view>
 			<view class="right_buy" @click="confirmOrder(true)">
-				<view class="top">￥{{productDetail.productItemModel.originalPrice/100}}</view>
+				<view class="top">￥{{productDetail.productItemModel.originalPrice}}</view>
 				<view class="big">全价购买</view>
 			</view>
 			<view class="right_buy bgr" @click="confirmOrder(false)">
-				<view class="top">￥{{productDetail.productItemModel.oneDiscountPrice/100}}</view>
+				<view class="top">￥{{productDetail.productItemModel.oneDiscountPrice}}</view>
 				<view class="big">一折抢购</view>
 			</view>
 		</view>
@@ -192,20 +192,10 @@
 			}
 		},
 		methods: {
-			async fetchCollectProduct(discountGameId) {
-				const res = await api.collectProduct({discountGameId})
-				console.log('data============',res);
-				// this.$store.commit('productDetails/setCollectProduct')
-			},
-			collectProduct(discountGameId ){
-				console.log('关注商品===',discountGameId)
-				this.fetchCollectProduct(discountGameId)
-			},
-			
 			goBuying(){
 				console.log('this.productDetail ', this.productDetail);
 				uni.navigateTo({
-					url:"/pages/buying/buying?discountGameId="+this.productDetail.discountGameId
+					url:"/pages/buying/buying?productId="+this.productDetail.discountGameId
 				})
 			},
 			goluckylist(){
@@ -263,7 +253,7 @@
 					}
 				],
 				guarantee: "从0～9中选3个号码，选中即享1折。中签号码与当天3D中奖号码同步，每天22:00揭晓，不中全额退款，源自京东自营商品，天天发货。",
-				commitment: ["全场1折", "不限数量", "优质名品", "公开透明"],
+				commitment: ["破损包退", "正品保证", "七天退换", "极速退款"],
 				indicatorDots: true,
 				autoplay: true,
 				interval: 2000,
@@ -280,7 +270,6 @@
 				icon_vip: "../../static/details/icon_vip.png",
 				icon_fire: "../../static/details/icon_fire.png",
 				btn_collection: "../../static/details/btn_collection.png",
-				isBg:true
 			};
 		},
 
@@ -492,7 +481,7 @@
 		.winning_periods {
 			margin-top: 20upx;
 			background: #FFFFFF;
-			margin-bottom: 18upx;
+			margin-bottom: 98upx;
 
 			.snapping_buy {
 				.snapping_buy_item {

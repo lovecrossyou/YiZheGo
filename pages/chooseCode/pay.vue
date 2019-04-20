@@ -5,7 +5,6 @@
 				<view class="order_pay_top_amount">¥{{fix2TotalPayRmb}}</view>
 				<view class="order_pay_top_msg">支付金额</view>
 			</view>
-
 		</view>
 		<view class="p_option_info">
 			<view class="p_text">请选择支付方式</view>
@@ -53,7 +52,7 @@
 				return dataUtil.priceFix2(this.totalPayRmb)
 			},
 			mapPaychannels: function() {
-				if (this.productType == 'vipProduct') {
+				if (this.productType === 'vipProduct') {
 					this.paychannels.pop();
 					return this.paychannels;
 				}
@@ -99,28 +98,35 @@
 
 			},
 			payResult(payStatus) {
-				console.log('this.directBuy############## ',this.directBuy);
-				console.log('this.payStatus############## ',payStatus);
-				// 
-				if (payStatus) {
-					//支付成功
-					if (this.directBuy !== 'false') {
-						uni.redirectTo({
-							url: "./payResult?payOrderNo=" + this.payOrderNo + "&totalPayRmb=" + this.totalPayRmb + "&payChannel=" +
-								this.paychannels[this.selectIndex].payChannel + "&openId=" + this.openid
-						})
-					} else {
-						uni.redirectTo({
-							url: "/pages/gameGroup?payOrderNo=" + this.payOrderNo
-						})
-					}
-
-				} else {
-					//支付失败
+// 				console.log('this.directBuy############## ', this.directBuy);
+// 				console.log('this.payStatus############## ', payStatus);
+				if (this.productType === 'vipProduct') {
+					//会员商品
 					uni.redirectTo({
 						url: "./payResult?payOrderNo=" + this.payOrderNo + "&totalPayRmb=" + this.totalPayRmb + "&payChannel=" +
-							this.paychannels[this.selectIndex].payChannel + "&openId=" + this.openid
+							this.paychannels[this.selectIndex].payChannel + "&openId=" + this.openid + '&productType=' + this.productType
 					})
+				} else {
+					if (payStatus) {
+						//支付成功
+						if (this.directBuy !== 'false') {
+							uni.redirectTo({
+								url: "./payResult?payOrderNo=" + this.payOrderNo + "&totalPayRmb=" + this.totalPayRmb + "&payChannel=" +
+									this.paychannels[this.selectIndex].payChannel + "&openId=" + this.openid + '&productType=' + this.productType
+							})
+						} else {
+							uni.redirectTo({
+								url: "/pages/gameGroup?payOrderNo=" + this.payOrderNo
+							})
+						}
+
+					} else {
+						//支付失败
+						uni.redirectTo({
+							url: "./payResult?payOrderNo=" + this.payOrderNo + "&totalPayRmb=" + this.totalPayRmb + "&payChannel=" +
+								this.paychannels[this.selectIndex].payChannel + "&openId=" + this.openid + '&productType=' + this.productType
+						})
+					}
 				}
 			},
 			changePaychanel(index) {

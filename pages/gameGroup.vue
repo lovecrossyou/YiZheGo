@@ -5,8 +5,8 @@
 			<view class="product_icon_right">
 				<view class="product_name">{{ OrderDetail.productName }}</view>
 				<view class="product_price">
-					<view class="product_onediscountprice">¥{{ OrderDetail.oneDiscountPrice }}</view>
-					<view class="product_originalprice">市场价 ¥{{ OrderDetail.originalPrice }}</view>
+					<view class="product_onediscountprice">¥{{ OrderDetail.oneDiscountPrice/100 }}</view>
+					<view class="product_originalprice">市场价 ¥{{ OrderDetail.originalPrice/100 }}</view>
 				</view>
 			</view>
 		</view>
@@ -33,7 +33,7 @@
 				<view class="order_detail_text">期数： {{ OrderDetail.discountGameStage }}</view>
 				<view class="order_detail_text">商品代码： {{ OrderDetail.productId }}</view>
 				<view class="order_detail_text">抢购数量： {{ OrderDetail.purchaseCount }}</view>
-				<view class="order_detail_text">实付金额： ¥{{ OrderDetail.totalPayPrice }}</view>
+				<view class="order_detail_text">实付金额： ¥{{ OrderDetail.totalPrice/100 }}</view>
 				<view class="order_detail_text">支付方式： {{ OrderDetail.payChannel }}</view>
 				<view class="order_detail_text">支付时间： {{ OrderDetail.clientOrderTime}}</view>
 				<view class="order_detail_text">退款路径： 喜腾钱包</view>
@@ -81,7 +81,7 @@
 		},
 		async onLoad(options) {
 			const res = await api.clientOrderDetail({
-				payOrderNo: options.id
+				payOrderNo: options.payOrderNo
 			});
 			this.OrderDetail = res;
 			this.GameGroup = res.discountGameGroupModel;
