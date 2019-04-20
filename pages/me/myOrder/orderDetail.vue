@@ -114,7 +114,9 @@
 						<view class="tuan-zhang" v-if="member.identity === 'originator'">团长</view>
 					</view>
 					
-					<view class="group-right"><view class="group-button" @click="inviteMember(memberList.state)">{{memberList.state === 'done' ? '领取红包':'立即邀请'}}</view></view>
+					<view class="group-right">
+						<button class="group-button" open-type="share"  >{{memberList.state === 'done' ? '领取红包':'立即邀请'}}</button>
+						</view>
 				</view>
 			</view>
 			<!-- 订单信息 -->
@@ -162,8 +164,8 @@
 		</view>
 		<!-- 底部支付  《》：：：￥￥￥-->
 		<view class="pay-content">
-			<view class="button cancel-order" v-if="orderDetail.win">查看发货</view>
-			<view class="button cancel-order" v-if="orderDetail.refundDetailModel !== null">查看退款</view>
+			<view class="button cancel-order" v-if="orderDetail.win" @click="enterRefundDetail(orderDetail.payOrderNo,false)">查看发货</view>
+			<view class="button cancel-order" v-if="orderDetail.refundDetailModel !== null" @click="enterRefundDetail(orderDetail.payOrderNo,true)">查看退款</view>
 			<view class="button cancel-order" v-if="orderDealState === 0" @click="cancelOrder(orderDetail.clientOrderId)">取消订单</view>
 			<view class="button pay-now" v-if="orderDealState === 0" @click="enterPay(orderDetail)">立即支付</view>
 			<view class="button pay-now" v-if="orderDealState !== 0" @click="enterProduct(orderDetail.productId)">再抢一次</view>
@@ -317,6 +319,11 @@ export default {
 			
 			uni.redirectTo({
 				url: '../../details/productDetails?productId=' + productId
+			});
+		},
+		enterRefundDetail(payOrderNo,isRefund){
+			uni.navigateTo({
+				url: './refundDetail?payOrderNo=' + payOrderNo+'&isRefund='+isRefund
 			});
 		}
 		
@@ -600,6 +607,7 @@ export default {
 				.member {
 					display: flex;
 					margin-right: 36upx;
+					flex-direction: column;
 					.member-icon {
 						width: 80upx;
 						height: 80upx;
@@ -607,7 +615,8 @@ export default {
 					}
 
 					.tuan-zhang {
-						position: absolute;
+						
+						align-self: center;
 						padding-left: 4upx;
 						padding-right: 4upx;
 						padding-top: 4upx;
@@ -618,13 +627,14 @@ export default {
 						font-family: MicrosoftYaHei;
 						font-weight: 400;
 						color: rgba(255, 255, 255, 1);
-						
+						margin-top: -30upx;
 					}
 				}
 				.group-right {
 					flex: 1;
 					display: flex;
 					justify-content: flex-end;
+					flex-direction: row;
 
 					.group-button {
 						display: flex;
@@ -638,6 +648,11 @@ export default {
 						font-family: PingFangSC-Regular;
 						font-weight: 400;
 						color: rgba(204, 38, 54, 1);
+						padding-left: 0;
+						padding-right: 0;
+						padding-top: 0;
+						padding-bottom: 0;
+						margin: 0;
 					}
 				}
 			}
