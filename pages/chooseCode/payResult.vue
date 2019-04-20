@@ -63,6 +63,7 @@
 				payChannel: '',
 				totalPayRmb: 0,
 				openId: 0,
+				productType:null
 			}
 		},
 		methods: {
