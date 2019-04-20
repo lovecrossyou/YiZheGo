@@ -63,7 +63,7 @@
 	
 	.timer{
 		position: absolute;
-		top: 130upx;
+		top: 150upx;
 		right: 20upx;
 		width: 175upx;
 		height: 64upx;
