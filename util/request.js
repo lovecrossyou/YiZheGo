@@ -4,9 +4,9 @@ import service from "../service.js"
 
 const request = new Fly()
 
-export const baseURL = 'https://www.xiteng.com/xitenggamejar/'
+// export const baseURL = 'https://www.xiteng.com/xitenggamejar/'
 
-// export const baseURL = 'http://123.57.161.212:9939/xitenggamejar/'
+export const baseURL = 'http://123.57.161.212:9939/xitenggamejar/'
 
 
 const APP_SECRET = '71838ae252714085bc0fb2fc3f420110'
@@ -42,29 +42,6 @@ const errorPrompt = (err) => {
 		})
 		return;
 	}
-
-	// var message = err.data.message;
-	// 	if (message && message.indexOf('升级会员') != -1) {
-	// 		uni.showModal({
-	// 			cancelText: '暂不升级',
-	// 			confirmText: '立即升级',
-	// 			cancelColor: '#999999',
-	// 			confirmColor: '#cc2636',
-	// 			title: '升级会员',
-	// 			content: '您当前还不是会员，每月仅可参与一期，升级会员可参与每期的抽签抢活动',
-	// 			success(res) {
-	// 				if (res.confirm) {
-	// 					uni.navigateTo({
-	// 						url: '/pages/me/vip/vip-center',
-	// 					})
-	// 				} else if (res.cancel) {
-	// 					console.log('用户点击取消')
-	// 				}
-	// 			}
-	// 		})
-	// 		return;
-	// 	}
-
 	uni.showToast({
 		title: err.data.message || 'fetch data error.',
 		icon: 'none'
