@@ -187,7 +187,7 @@
 	} from 'vuex';
 	export default {
 		onUnload(){
-			clearInterval(timer);
+			clearInterval(this.timer);
 		},
 		computed: {
 			...mapState('productDetail',['productDetail']),
