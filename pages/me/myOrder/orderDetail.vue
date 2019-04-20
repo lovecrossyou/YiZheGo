@@ -8,16 +8,16 @@
 					<text class="time">
 						{{
 							orderDealState === 0
-								? '剩' + downTimeShow[0] + ':' + downTimeShow[1] + ':' + downTimeShow[2]  + '自动关闭'
+								? '剩' + downTimeShow[0] + ':' + downTimeShow[1] + ':' + downTimeShow[2] + '自动关闭'
 								: orderDealState === 1
-								? '距揭晓还剩'+ downTimeShow[0] + ':' + downTimeShow[1] + ':' + downTimeShow[2]
+								? '距揭晓还剩' + downTimeShow[0] + ':' + downTimeShow[1] + ':' + downTimeShow[2]
 								: '中签立享1折，未中签全额退款'
 						}}
 					</text>
 				</view>
 				<view class="state-icon" v-if="orderDealState === 2">
 					<text class="count">中签{{ orderDetail.winCodeCount }}件</text>
-					<image class="state-img" :src="orderDetail.winCodeCount > 0 ? stateIconGold:stateIcon"></image>
+					<image class="state-img" :src="orderDetail.winCodeCount > 0 ? stateIconGold : stateIcon"></image>
 				</view>
 			</view>
 
@@ -81,7 +81,7 @@
 				</view>
 			</view>
 			<!-- 我的幸运号码 -->
-			<view class="item-content">
+			<view class="item-content" @click="changeShowAllCode(orderDetail.purchaseCount > 3)">
 				<view class="title-content">
 					<text class="item-title">我的幸运号码（{{ orderDetail.purchaseCount }}组）</text>
 					<uni-icon type="arrowright" color="#bbb" size="20" v-if="orderDetail.purchaseCount > 3"></uni-icon>
@@ -108,22 +108,24 @@
 					</view>
 				</view>
 
-				<view class="group-detail" v-for="(memberList,memberListIndex) in groupListData" :key="memberListIndex">
+				<view class="group-detail" v-for="(memberList, memberListIndex) in groupListData" :key="memberListIndex">
 					<view class="member" v-for="(member, index) in memberList.group" :key="index">
 						<image :src="member.iconUrl !== '' ? member.iconUrl : emptyMember" class="member-icon"></image>
 						<view class="tuan-zhang" v-if="member.identity === 'originator'">团长</view>
 					</view>
-					
+
 					<view class="group-right">
-						<button class="group-button" open-type="share"  >{{memberList.state === 'done' ? '领取红包':'立即邀请'}}</button>
-						</view>
+						<button class="group-button" open-type="share">{{ memberList.state === 'done' ? '领取红包' : '立即邀请' }}</button>
+					</view>
 				</view>
 			</view>
 			<!-- 订单信息 -->
 
 			<view class="order-more-info" v-if="showMoreInfo">
 				<view class="item-content buttom-address" v-if="orderDealState !== 0">
-					<view class="order-info">收&#8194;货&#8194;人：{{ orderDetail.deliveryAddressModel.recievName }}{{ '&#8195;' }}{{ orderDetail.deliveryAddressModel.phoneNum }}</view>
+					<view class="order-info">
+						收&#8194;货&#8194;人：{{ orderDetail.deliveryAddressModel.recievName }}{{ '&#8195;' }}{{ orderDetail.deliveryAddressModel.phoneNum }}
+					</view>
 					<view class="order-info">
 						地&#8195;&#8195;址：
 
@@ -164,12 +166,26 @@
 		</view>
 		<!-- 底部支付  《》：：：￥￥￥-->
 		<view class="pay-content">
-			<view class="button cancel-order" v-if="orderDetail.win" @click="enterRefundDetail(orderDetail.payOrderNo,false)">查看发货</view>
-			<view class="button cancel-order" v-if="orderDetail.refundDetailModel !== null" @click="enterRefundDetail(orderDetail.payOrderNo,true)">查看退款</view>
+			<view class="button cancel-order" v-if="orderDetail.win" @click="enterRefundDetail(orderDetail.payOrderNo, false)">查看发货</view>
+			<view class="button cancel-order" v-if="orderDetail.refundDetailModel !== null" @click="enterRefundDetail(orderDetail.payOrderNo, true)">查看退款</view>
 			<view class="button cancel-order" v-if="orderDealState === 0" @click="cancelOrder(orderDetail.clientOrderId)">取消订单</view>
 			<view class="button pay-now" v-if="orderDealState === 0" @click="enterPay(orderDetail)">立即支付</view>
 			<view class="button pay-now" v-if="orderDealState !== 0" @click="enterProduct(orderDetail.productId)">再抢一次</view>
 			<view class="button pay-now" v-if="orderDealState === 2">去晒单</view>
+		</view>
+		<view class="code-pop" v-if="showAllCode">
+			<view class="pop-title-content">
+				<text class="pop-title">我的幸运号码</text>
+				<view class="pop-close" @click="changeShowAllCode(true)">
+					<image :src="closeIcon" class="pop-icon"></image>
+				</view>
+				
+			</view>
+			<view class="pop-code-content">
+				<view class="pop-code-array" v-for="(codeArray, index) in allCodeList" :key="index">
+					<view class="pop-code" v-for="(code, index1) in codeArray" :key="index1">{{ code }}</view>
+				</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -200,8 +216,8 @@ export default {
 			showMoreInfo: false,
 			downTimeShow: [0, 0, 0],
 			lastPayTimer: {},
-			
-			
+			closeIcon: '../../../static/me/code_close_icon.png',
+				showAllCode: false,
 		};
 	},
 	onLoad(params) {
@@ -212,6 +228,14 @@ export default {
 		this.lastPayTimer && clearInterval(this.lastPayTimer);
 	},
 	methods: {
+		
+		changeShowAllCode(canChange){
+			if(canChange){
+			this.showAllCode = !this.showAllCode;	
+			}
+			
+		}
+		,
 		...mapActions({
 			//getOrderDetail: 'myOrder/getOrderDetail'
 		}),
@@ -253,16 +277,16 @@ export default {
 						}
 						this.downTimeShow = [hour, min, second];
 					}, 1000);
-				}else if(res.orderRealStatus === 'waitingOpenResult'){
+				} else if (res.orderRealStatus === 'waitingOpenResult') {
 					let endTime = new Date(res.openResultTime).getTime();
-					
+
 					this.lastPayTimer = setInterval(() => {
 						let startTime = new Date().getTime();
 						let cha = endTime - startTime;
-					
+
 						if (cha < 1000) {
 							this.lastPayTimer && clearInterval(this.lastPayTimer);
-					
+
 							this.downTimeShow = ['00', '00', '00'];
 							uni.navigateBack();
 						}
@@ -291,42 +315,39 @@ export default {
 				//content: '这是一个模态弹窗',
 				success: function(res) {
 					if (res.confirm) {
-						
-						api.cancelClientOrder({clientOrderId:clientOrderId}).then(res=>{
+						api.cancelClientOrder({ clientOrderId: clientOrderId }).then(res => {
 							uni.navigateBack();
-						})
+						});
 					} else if (res.cancel) {
 						//console.log('用户点击取消');
 					}
 				}
 			});
 		},
-		enterPay(orderDetail){
+		enterPay(orderDetail) {
 			uni.redirectTo({
-				url: '../../chooseCode/pay?payOrderNo=' + orderDetail.payOrderNo + '&totalPayRmb=' + orderDetail.totalPrice + '&productType='+'normalProduct'
+				url: '../../chooseCode/pay?payOrderNo=' + orderDetail.payOrderNo + '&totalPayRmb=' + orderDetail.totalPrice + '&productType=' + 'normalProduct'
 			});
 		},
-		inviteMember(groupState){
-			if(groupState==='ing'){
-				console.log('邀请拼团')
-			}else if(groupState === 'done'){
-				console.log('领取红包')
+		inviteMember(groupState) {
+			if (groupState === 'ing') {
+				console.log('邀请拼团');
+			} else if (groupState === 'done') {
+				console.log('领取红包');
 			}
 		},
-		enterProduct(productId){
-			
+		enterProduct(productId) {
 			//console.log('啦all：：：：'+productId)
-			
+
 			uni.redirectTo({
 				url: '../../details/productDetails?productId=' + productId
 			});
 		},
-		enterRefundDetail(payOrderNo,isRefund){
+		enterRefundDetail(payOrderNo, isRefund) {
 			uni.navigateTo({
-				url: './refundDetail?payOrderNo=' + payOrderNo+'&isRefund='+isRefund
+				url: './refundDetail?payOrderNo=' + payOrderNo + '&isRefund=' + isRefund
 			});
 		}
-		
 	},
 	computed: {
 		...mapGetters({
@@ -334,7 +355,8 @@ export default {
 			todayCode: 'myOrder/todayCode',
 			myCodeList: 'myOrder/myCodeList',
 			groupListData: 'myOrder/groupListData',
-			
+			allCodeList: 'myOrder/allCodeList'
+
 			//myCodeListLength: 'myOrder/myCodeListLength'
 		}),
 		...mapState({
@@ -615,7 +637,6 @@ export default {
 					}
 
 					.tuan-zhang {
-						
 						align-self: center;
 						padding-left: 4upx;
 						padding-right: 4upx;
@@ -696,6 +717,76 @@ export default {
 		.pay-now {
 			border: 1px solid #cc2636;
 			color: rgba(204, 38, 54, 1);
+		}
+	}
+	.code-pop {
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		z-index: 100;
+		background-color: gray;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		bottom: 0;
+		.pop-title-content {
+			background-color: white;
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			.pop-title {
+				font-size: 30upx;
+				font-family: PingFangSC-Regular;
+				font-weight: 400;
+				color: rgba(51, 51, 51, 1);
+				line-height: 42upx;
+				flex: 1;
+				text-align: center;
+			}
+			.pop-close{
+				padding: 35upx;
+				
+				margin-left: -100upx;
+				.pop-icon{
+					width: 40upx;
+					height: 40upx;
+					
+				}
+			}
+			
+			
+		}
+		.pop-code-content{
+			background-color: white;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+			padding-left: 46upx;
+			padding-right: 46upx;
+			width: 100%;
+			padding-bottom: 145upx;
+			.pop-code-array{
+				display: flex;
+				flex-direction: row;
+				width: 31%;
+				
+				margin-top: 40upx;
+				.pop-code{
+					width: 50upx;
+					height: 50upx;
+					border-radius: 50%;
+					font-size: 29upx;
+					font-family: PingFang-SC-Medium;
+					font-weight: 500;
+					color: rgba(204, 38, 54, 1);
+					background-color: #f5cccc;
+					margin-left: 5upx;
+					margin-right: 5upx;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+				}
+			}
 		}
 	}
 }
