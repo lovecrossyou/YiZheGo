@@ -67,7 +67,14 @@
 					<view>
 						<image :src="icon_time"></image>距揭晓还剩
 					</view>
-					<view>{{productDetail.openResultTime}}</view>
+					<!-- <view>{{productDetail.openResultTime}}</view> -->
+					<view class="count_down_time">
+						<view class="count_down_time_item">4</view>
+						<view class="mm">:</view>
+						<view class="count_down_time_item">4</view>
+						<view class="mm">:</view>
+						<view class="count_down_time_item">4</view>
+					</view>
 				</view>
 			</view>
 			<view class="particulars_item" @click="goluckylist">
@@ -697,6 +704,26 @@
 					width: 24upx;
 					height: 24upx;
 					margin-right: 12upx;
+				}
+				.count_down_time{
+					display: flex;
+					justify-content:space-around;
+					color:#E22537;
+					.count_down_time_item{
+						background:#E22537;
+						font-size:24upx;
+						font-family:PingFang-SC-Medium;
+						font-weight:500;
+						color:rgba(255,255,255,1);
+						line-height:1.5;
+						padding-left:10upx;
+						padding-right:10upx;
+						border-radius: 8upx;
+						.mm{
+							margin-left:12upx;
+							margin-right:12upx;
+						}
+					}
 				}
 			}
 
