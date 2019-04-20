@@ -39,7 +39,7 @@
 			</view>
 			<view class="price-section-item">
 				<view>
-					<image class="icon_fire" :src="icon_fire"></image>已抢{{productDetail.currentPurchaseCount}}件
+					<image class="icon_fire" :src="icon_fire"></image>已抢{{productDetail.participatePersonCount}}件
 				</view>
 			</view>
 		</view>
