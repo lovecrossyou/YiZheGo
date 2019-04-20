@@ -114,7 +114,9 @@
 						<view class="tuan-zhang" v-if="member.identity === 'originator'">团长</view>
 					</view>
 					
-					<view class="group-right"><view class="group-button" @click="inviteMember(memberList.state)">{{memberList.state === 'done' ? '领取红包':'立即邀请'}}</view></view>
+					<view class="group-right">
+						<button class="group-button" open-type="share"  >{{memberList.state === 'done' ? '领取红包':'立即邀请'}}</button>
+						</view>
 				</view>
 			</view>
 			<!-- 订单信息 -->
@@ -632,6 +634,7 @@ export default {
 					flex: 1;
 					display: flex;
 					justify-content: flex-end;
+					flex-direction: row;
 
 					.group-button {
 						display: flex;
@@ -645,6 +648,11 @@ export default {
 						font-family: PingFangSC-Regular;
 						font-weight: 400;
 						color: rgba(204, 38, 54, 1);
+						padding-left: 0;
+						padding-right: 0;
+						padding-top: 0;
+						padding-bottom: 0;
+						margin: 0;
 					}
 				}
 			}
