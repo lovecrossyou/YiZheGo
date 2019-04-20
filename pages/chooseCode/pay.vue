@@ -74,6 +74,9 @@
 				let orderInfo;
 				let payChannel;
 				// #ifdef MP-WEIXIN
+				uni.showLoading({
+					mask: true
+				});
 				payChannel = 'WeixinMiniProgramPay';
 				orderInfo = await api.commitPay({
 					openId: this.openid,
@@ -104,6 +107,8 @@
 			payResult(payStatus) {
 // 				console.log('this.directBuy############## ', this.directBuy);
 // 				console.log('this.payStatus############## ', payStatus);
+				
+				uni.hideLoading();
 				if (this.productType === 'vipProduct') {
 					//会员商品
 					uni.redirectTo({
@@ -233,7 +238,7 @@
 		align-items: center;
 
 		.order_content {
-			height: 230upx;
+			height: 250upx;
 			width: 100%;
 			background: #ffffff;
 
@@ -259,10 +264,10 @@
 					margin-top: 5upx;
 				}
 				.order_pay_top_refundWay{
-					color: #E9DAAD;
+					color: #FFB540;
 					font-size: 26upx;
 					font-family: PingFang-SC-Medium;
-					margin-top: 10upx;
+					margin-top: 40upx;
 				}
 			}
 		}

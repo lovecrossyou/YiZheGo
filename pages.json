@@ -81,14 +81,6 @@
 			}
 		},
 		{
-			"path": "pages/moments/creatdiscuss",
-			"style": {
-				"navigationBarTitleText": "  ",
-				"navigationBarTextStyle": "black",
-				"navigationBarBackgroundColor": "#ffffff"
-			}
-		},
-		{
 			"path": "pages/login/WeChatLogin/WeChatLogin",
 			"style": {
 				"navigationBarTitleText": "喜腾",
@@ -350,7 +342,11 @@
         ,{
             "path" : "pages/shareqrcode/shareqrcode",
             "style" : {}
-        }
+        },
+		{
+            "path" : "pages/xtgoods/xtgoods",
+            "style" : {}
+        } 
 	],
 	"tabBar": {
 		"color": "#7a7e83",

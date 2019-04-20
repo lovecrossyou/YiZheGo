@@ -7,13 +7,13 @@
 			</view>
 			<view class="delivery-userinfo-addInfo">
 				<image v-bind:src="addIcon" class="delivery-userinfo-addInfo-icon"></image>
-				<view class="delivery-userinfo-addInfo-add">收货地址:{{ address.fullAddress }}</view>
+				<view class="delivery-userinfo-addInfo-add">地址:{{ address.fullAddress }}</view>
 			</view>
 			<image v-bind:src="rightArrow" class="delivery-userinfo-arrow"></image>
 		</view>
 		<view class="delivery-no-info" @click="addressList" v-else>
 			<image v-bind:src="addIcon" class="delivery-no-info-icon"></image>
-			<view class="delivery-no-info-msg">选择收货地址</view>
+			<view class="delivery-no-info-msg">选择地址</view>
 		</view>
 		<image v-bind:src="lineCai" class="delivery-userinfo-line"></image>
 		<view v-if="orderInfo" class="product-info">
@@ -513,7 +513,7 @@
 					font-size: 24upx;
 					font-family: PingFang-SC-Medium;
 					font-weight: 500;
-					color: rgba(119, 119, 119, 1);
+					color: #CC2636;
 					line-height: 30upx;
 				}
 			}
