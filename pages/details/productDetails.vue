@@ -67,7 +67,6 @@
 					<view>
 						<image :src="icon_time"></image>距揭晓还剩
 					</view>
-					<!-- <view>{{productDetail.openResultTime}}</view> -->
 					<view class="count_down_time">
 						<view class="count_down_time_item">{{lastTime.hour}}</view>
 						<view class="mm">:</view>
@@ -283,7 +282,7 @@
 					}
 				],
 				guarantee: "从0～9中选3个号码，选中即享1折。中签号码与当天3D中奖号码同步，每天22:00揭晓，不中全额退款，源自京东自营商品，天天发货。",
-				commitment: ["破损包退", "正品保证", "七天退换", "极速退款"],
+				commitment: ["全场一折", "不限数量", "优质名品", "公开透明"],
 				indicatorDots: true,
 				autoplay: true,
 				interval: 2000,
@@ -726,13 +725,14 @@
 					justify-content:space-around;
 					color:#E22537;
 					margin-top:8upx;
+					height:36upx;
+					line-height:36upx;
 					.count_down_time_item{
 						background:#E22537;
 						font-size:24upx;
 						font-family:PingFang-SC-Medium;
 						font-weight:500;
 						color:rgba(255,255,255,1);
-						line-height:1.5;
 						padding-left:10upx;
 						padding-right:10upx;
 						border-radius: 8upx;
