@@ -3,7 +3,7 @@ const orderTypes = ['allClientOrder', 'waitPayClientOrder', 'waitOpenResultClien
 	'refundClientOrder'
 ];
 
-const hasShowed = 'waitingShowOrder,waitingRefund';
+const hasShowed = 'waitingShowOrder,waitingRefund,waitingReceiveAndWaitingRefund,waitingReceiveAndHasRefund,waitingShowOrder,hasReceiveAndWaitingRefund,finished';
 const waitShow = 'waitingOpenResult';
 const waitPay = 'waitingPay';
 const hasCancel = 'cancelOrder';

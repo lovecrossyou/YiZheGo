@@ -605,6 +605,7 @@ export default {
 				.member {
 					display: flex;
 					margin-right: 36upx;
+					flex-direction: column;
 					.member-icon {
 						width: 80upx;
 						height: 80upx;
@@ -612,7 +613,8 @@ export default {
 					}
 
 					.tuan-zhang {
-						position: absolute;
+						
+						align-self: center;
 						padding-left: 4upx;
 						padding-right: 4upx;
 						padding-top: 4upx;
@@ -623,7 +625,7 @@ export default {
 						font-family: MicrosoftYaHei;
 						font-weight: 400;
 						color: rgba(255, 255, 255, 1);
-						
+						margin-top: -30upx;
 					}
 				}
 				.group-right {
