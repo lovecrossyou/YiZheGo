@@ -182,11 +182,15 @@
 <script>
 	import api from '../../util/api.js';
 	import {
-		mapState
+		mapState,
+		mapGetters
 	} from 'vuex';
 	export default {
 		computed: {
 			...mapState('productDetail',['productDetail']),
+			...mapGetters({
+				lastTime:'productDetail/lastTimer'
+			}),
 			banners() {
 				if (this.productDetail === null) return [];
 				return this.productDetail.productItemModel.productShowImageUrlList
@@ -227,6 +231,7 @@
 					discountGameId: productId
 				});
 				this.$store.commit('productDetail/setProductDetails', res)
+				console.log('商品详情------'+JSON.stringify(res))
 			},
 			confirmOrder(directBuy) {
 				uni.navigateTo({
