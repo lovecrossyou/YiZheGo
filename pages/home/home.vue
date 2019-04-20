@@ -51,7 +51,7 @@
 						</view>
 						<view class="hot_sale_product_price">￥{{ item.oneDiscountPrice/100 }}</view>
 						<view class="hot_sale_product_name">{{ item.productName }}</view>
-						<view class="already_sale">已抢{{ item.currentPurchaseCount }}</view>
+						<view class="already_sale">已抢{{ item.participatePersonCount }}</view>
 					</view>
 				</view>
 			</view>

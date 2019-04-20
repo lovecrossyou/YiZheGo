@@ -266,22 +266,7 @@
 				timer:null,
 				groupId:null,
 				selectedIndex: 0,
-				commentModelList: [{
-						userName: "电视成金",
-						time: 123,
-						qishu: 201805260002,
-						content: "中签了，太棒了，手气相当不错，真的是0元呀，没问题，看图说话。",
-						imageUrlList: []
-					},
-					{
-						userIcoin: "../../static/home/home_shop_1.png",
-						userName: "电视成金",
-						time: 123,
-						qishu: 201805260002,
-						content: "中签了，太棒了，手气相当不错，真的是0元呀，没问题，看图说话。",
-						imageUrlList: []
-					}
-				],
+				commentModelList: [],
 				guarantee: "从0～9中选3个号码，选中即享1折。中签号码与当天3D中奖号码同步，每天22:00揭晓，不中全额退款，源自京东自营商品，天天发货。",
 				commitment: ["破损包退", "正品保证", "七天退换", "极速退款"],
 				indicatorDots: true,
