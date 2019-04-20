@@ -74,7 +74,7 @@
 		onShareAppMessage() {
 			console.log('userInfo.userId ',this.userInfo.userId);
 			return {
-				title: '邀请好友',
+				title: '亲,送你2个红包,专享1折抢购!优质名品,全场1折!',
 				path: '/pages/home/home?inviteId='+this.userInfo.userId,
 				imageUrl:'http://qnimage.xiteng.com/yaoqing_top_bg.png'
 			}

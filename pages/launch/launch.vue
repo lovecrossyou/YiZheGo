@@ -1,5 +1,9 @@
 <template>
 	<view class="mainBg" @click="enter">
+		
+		<view class="timer">
+			{{count}}
+		</view>
 	</view>
 </template>
 
@@ -19,13 +23,25 @@
 		},
 		data() {
 			return {
-				showTime: '2019-04-18 22:00:00'
+				count:5,
+				showTime: '2019-04-18 22:00:00',
+				timer:null
 			};
 		},
 		computed: {
 			formatTime() {
 				return timeUtil.todayFormat(this.showTime);
 			}
+		},
+		onLoad() {
+			let that = this;
+			this.timer = setInterval(()=>{
+				that.count--;
+				if(that.count<=0){
+					that.enter();
+					that.timer=null;
+				}
+			},1000);
 		}
 	}
 </script>
@@ -40,5 +56,19 @@
 		bottom: 0;
 		background: url('http://qnimage.xiteng.com/WechatIMG1.jpeg') no-repeat center;
 		background-size: 100% 100%;
+	}
+	
+	.timer{
+		position: absolute;
+		top: 130upx;
+		right: 20upx;
+		width: 175upx;
+		height: 64upx;
+		background-color: #999999;
+		color: #FFFFFF;
+		font-size: 28upx;
+		text-align: center;
+		line-height: 60upx;
+		border-radius: 30upx;
 	}
 </style>
