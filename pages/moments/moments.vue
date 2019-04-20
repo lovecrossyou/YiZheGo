@@ -6,7 +6,7 @@
 					<view class="navigationtext" :class="{'navigationclicktext':isOnclick===index}" @click="navigationclick(index)">{{item}}</view>
 				</block>
 			</view>
-			<view class="notice_bar">
+			<view class="notice_bar"  @click="goluckylist">
 				<noticebar></noticebar>
 			</view>
 		</view>
@@ -32,6 +32,11 @@
 		methods: {
 			navigationclick(index){
 				this.isOnclick=index;
+			},
+			goluckylist(){
+				uni.navigateTo({
+					url:"/pages/me/vip/lucky-list"
+				})
 			}
 		},
 		components:{
