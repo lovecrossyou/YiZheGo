@@ -73,13 +73,6 @@
 				<uni-icon type="arrowright" color="#bbb" size="20"></uni-icon>
 			</view>
 		</view>
-		<view class="refound-info" @click="refundRoute" v-if="directBuy == 'false'">
-			<view class="refound-info-text">退款路径</view>
-			<view class="refound-info-select-info">
-				<view class="refound-info-select-msg">{{ refundWay.title }}</view>
-				<image v-bind:src="rightArrow" class="refound-info-select-arrow"></image>
-			</view>
-		</view>
 		<view v-if="orderInfo" class="confirm-footer">
 			<view class="confirm-footer-price-info">
 				<view class="confirm-footer-price-amount">共{{purchaseAmount}}件</view>

@@ -4,6 +4,7 @@
 			<view class="order_pay_top">
 				<view class="order_pay_top_amount">¥{{fix2TotalPayRmb}}</view>
 				<view class="order_pay_top_msg">支付金额</view>
+				<view class="order_pay_top_refundWay" @click="refundRoute">不中签全额退款></view>
 			</view>
 		</view>
 		<view class="p_option_info">
@@ -47,6 +48,7 @@
 			...mapState({
 				openid: state => state.openid,
 				directBuy: state => state.confirmPay.buyType,
+				refundWay: state => state.confirmPay.refundWay,
 			}),
 			fix2TotalPayRmb: function() {
 				return dataUtil.priceFix2(this.totalPayRmb)
@@ -76,7 +78,8 @@
 				orderInfo = await api.commitPay({
 					openId: this.openid,
 					payChannel: payChannel,
-					payOrderNo: this.payOrderNo
+					payOrderNo: this.payOrderNo,
+					refundWay: this.refundWay.refundWay,
 				});
 				// #endif
 
@@ -85,7 +88,8 @@
 				orderInfo = await api.commitPay({
 					openId: this.openid,
 					payChannel: payChannel,
-					payOrderNo: this.payOrderNo
+					payOrderNo: this.payOrderNo,
+					refundWay: this.refundWay.refundWay,
 				});
 				// #endif
 
@@ -149,7 +153,11 @@
 			handleActionShow() {
 				this.$refs.xyDialog.show()
 			},
-
+            refundRoute() {
+				uni.navigateTo({
+					url: './refundRoute'
+				});
+			}
 		},
 		// #ifdef APP-PLUS
 		data() {
@@ -225,7 +233,7 @@
 		align-items: center;
 
 		.order_content {
-			height: 169upx;
+			height: 230upx;
 			width: 100%;
 			background: #ffffff;
 
@@ -249,6 +257,12 @@
 					font-weight: 500;
 					color: rgba(153, 153, 153, 1);
 					margin-top: 5upx;
+				}
+				.order_pay_top_refundWay{
+					color: #E9DAAD;
+					font-size: 26upx;
+					font-family: PingFang-SC-Medium;
+					margin-top: 10upx;
 				}
 			}
 		}
