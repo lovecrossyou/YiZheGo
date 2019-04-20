@@ -37,7 +37,7 @@
 		methods: {
 			downloadAndSaveImage() {
 				uni.showLoading({
-					mask:true
+					mask: true
 				});
 				uni.downloadFile({
 					url: this.imageUrl,
@@ -57,7 +57,7 @@
 						}
 						uni.hideLoading();
 					},
-					fail:()=>{
+					fail: () => {
 						uni.hideLoading();
 					}
 				})
@@ -70,12 +70,13 @@
 	.qrcode-image {
 		width: 100%;
 	}
-	.save{
+
+	.save {
 		width: 90%;
 		height: 88upx;
 		line-height: 88upx;
 		text-align: center;
-		background: #B92427!important;
+		background: #B92427 !important;
 		border-radius: 6upx;
 		font-size: 36upx;
 		font-family: PingFang-SC-Medium;

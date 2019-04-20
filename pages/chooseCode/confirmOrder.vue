@@ -98,8 +98,10 @@
 			<!-- xx -->
 		</view>
 		<view v-if="isShow" class="news_welfare_wrapper">
-			<image class="card" :src="xinren_icon_fuli" @click="chooseCode" ></image>
-			<view><image class="cancelBtn" :src="cancelBtn" @click="cancelToast" ></image></view>
+			<image class="card" :src="xinren_icon_fuli" @click="goUpgradeVIP"></image>
+			<view>
+				<image class="cancelBtn" :src="cancelBtn" @click="cancelToast"></image>
+			</view>
 		</view>
 	</view>
 </template>
@@ -137,9 +139,9 @@
 				rightArrow: '../../static/pay/icon_arrow_right@2x.png',
 				lineCai: '../../static/pay/img_cai@2x.png',
 				codes: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
-				isShow:false,
-				xinren_icon_fuli:"http://qnimage.xiteng.com/xinyonghu_photo_fuli@2x.png",
-				cancelBtn:"../../static/pay/cancel.png"
+				isShow: false,
+				xinren_icon_fuli: "http://qnimage.xiteng.com/1@2x.png",
+				cancelBtn: "../../static/pay/cancel.png"
 			};
 		},
 		components: {
@@ -177,7 +179,7 @@
 				const res = await api.confirmOrderInfo({
 					discountGameId: discountGameId,
 					purchaseAmount: this.purchaseAmount,
-					originalPriceBuy:this.directBuy
+					originalPriceBuy: this.directBuy
 				});
 				console.log('确认订单信息-----------' + JSON.stringify(res));
 				this.$store.commit('confirmPay/setOrderInfo', res);
@@ -199,30 +201,45 @@
 					groupId: groupId
 				});
 			},
-			cancelToast(){
+			cancelToast() {
 				this.isShow = false
 			},
-			showToast(){
+			showToast() {
 				this.isShow = true
 			},
+			goUpgradeVIP() {
+				uni.redirectTo({
+					url: '/pages/me/vip/vip-center',
+				})
+				this.cancelToast();
+			},
 			async commitOrder() {
-				if (!this.allFinished&&this.directBuy=='false') {
-					this.showToast();
+				if (!this.allFinished && this.directBuy == 'false') {
+					uni.showToast({
+						title: '请完成选号',
+						mask: false,
+						duration: 1500
+					});
 					return;
 				}
-				const order = await this.getOrder();
-				console.log("提交订单-----------" + JSON.stringify(order));
-
-				uni.redirectTo({
-					url: './pay?payOrderNo=' + order.payOrderNo + '&totalPayRmb=' + order.totalPayRmb + '&productType='+'normalProduct'
-				});
-
+				const data = await this.getOrder();
+				console.log("提交订单-----------" + JSON.stringify(data));
+				if (data==='请您升级会员！') {
+					//升级
+					this.showToast();
+				} else {
+					let order = data;
+					uni.redirectTo({
+						url: './pay?payOrderNo=' + order.payOrderNo + '&totalPayRmb=' + order.totalPayRmb + '&productType=' +
+							'normalProduct'
+					});
+				}
 			},
 			...mapMutations({
 				changeCodeCount: 'chooseCode/changeCodeCount',
 				initCode: 'chooseCode/initCode',
 			}),
-			 
+
 			chooseCode() {
 				this.cancelToast();
 				uni.navigateTo({
@@ -256,28 +273,28 @@
 		background: #f7f7f7;
 		display: flex;
 		flex-direction: column;
-		
-		.news_welfare_wrapper{
-			width:100%;
-			height:100%;
-			background: rgba(0,0,0,.7);
+
+		.news_welfare_wrapper {
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, .7);
 			position: fixed;
-			left:0;
-			top:0;
+			left: 0;
+			top: 0;
 			text-align: center;
-			
-			.card{
-				width:540upx;
-				height:640upx;
-				margin-top:300upx;
+
+			.card {
+				width: 540upx;
+				height: 640upx;
+				margin-top: 300upx;
 			}
-			
-			.cancelBtn{
-				width:60upx;
-				height:60upx;
-				margin-top:48upx;
+
+			.cancelBtn {
+				width: 60upx;
+				height: 60upx;
+				margin-top: 48upx;
 			}
-			
+
 		}
 
 		.delivery-info {
@@ -407,14 +424,15 @@
 							line-height: 42upx;
 						}
 					}
+
 					.product-info-price-original {
-							font-size: 26upx;
-							font-family: PingFangSC-Regular;
-							font-weight: 400;
-							color: rgba(204, 38, 54, 1);
-							margin-right: 10upx;
-							margin-top: 10upx;
-						}
+						font-size: 26upx;
+						font-family: PingFangSC-Regular;
+						font-weight: 400;
+						color: rgba(204, 38, 54, 1);
+						margin-right: 10upx;
+						margin-top: 10upx;
+					}
 				}
 			}
 

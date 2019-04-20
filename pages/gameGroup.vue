@@ -97,7 +97,7 @@
 			return {
 				title: '邀请好友',
 				path: path,
-				type: 1
+				imageUrl:'http://qnimage.xiteng.com/yaoqing_top_bg.png'
 			}
 		},
 

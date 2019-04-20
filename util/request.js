@@ -43,27 +43,27 @@ const errorPrompt = (err) => {
 		return;
 	}
 
-	var message = err.data.message;
-	if (message && message.indexOf('升级会员') != -1) {
-		uni.showModal({
-			cancelText: '暂不升级',
-			confirmText: '立即升级',
-			cancelColor: '#999999',
-			confirmColor: '#cc2636',
-			title: '升级会员',
-			content: '您当前还不是会员，每月仅可参与一期，升级会员可参与每期的抽签抢活动',
-			success(res) {
-				if (res.confirm) {
-					uni.navigateTo({
-						url: '/pages/me/vip/vip-center',
-					})
-				} else if (res.cancel) {
-					console.log('用户点击取消')
-				}
-			}
-		})
-		return;
-	}
+	// var message = err.data.message;
+	// 	if (message && message.indexOf('升级会员') != -1) {
+	// 		uni.showModal({
+	// 			cancelText: '暂不升级',
+	// 			confirmText: '立即升级',
+	// 			cancelColor: '#999999',
+	// 			confirmColor: '#cc2636',
+	// 			title: '升级会员',
+	// 			content: '您当前还不是会员，每月仅可参与一期，升级会员可参与每期的抽签抢活动',
+	// 			success(res) {
+	// 				if (res.confirm) {
+	// 					uni.navigateTo({
+	// 						url: '/pages/me/vip/vip-center',
+	// 					})
+	// 				} else if (res.cancel) {
+	// 					console.log('用户点击取消')
+	// 				}
+	// 			}
+	// 		})
+	// 		return;
+	// 	}
 
 	uni.showToast({
 		title: err.data.message || 'fetch data error.',
@@ -91,12 +91,20 @@ request.interceptors.request.use((request) => {
 request.interceptors.response.use((response, promise) => {
 	uni.hideLoading()
 	if (!(response.status === 200)) {
-		errorPrompt(response)
+		errorPrompt(response);
+
 	}
 	return promise.resolve(response.data)
 }, (err, promise) => {
 	uni.hideLoading()
-	errorPrompt(err.response)
+	console.log('xxxxxx', err);
+	var message = err.response.data.message;
+	if (message && message.indexOf('升级会员') != -1) {
+		return promise.resolve(message);
+	}
+	else{
+		errorPrompt(err.response);
+	}
 	return promise.reject(err)
 })
 
