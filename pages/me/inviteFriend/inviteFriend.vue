@@ -76,7 +76,7 @@
 			return {
 				title: '亲,送你2个红包,专享1折抢购!优质名品,全场1折!',
 				path: '/pages/home/home?inviteId='+this.userInfo.userId,
-				imageUrl:'http://qnimage.xiteng.com/yaoqing_top_bg.png'
+				imageUrl:'http://qnimage.xiteng.com/yaoqing_bg.png'
 			}
 		},
 		computed: {

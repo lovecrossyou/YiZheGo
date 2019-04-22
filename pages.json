@@ -374,7 +374,7 @@
 			},
 			{
 				"pagePath": "pages/message/message",
-				"text": "消息",
+				"text": "喜信",
 				"iconPath": "static/tab/tab_xixin_d@2x.png",
 				"selectedIconPath": "static/tab/tab_xixin_s@2x.png"
 			},
