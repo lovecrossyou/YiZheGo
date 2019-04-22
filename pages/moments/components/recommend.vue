@@ -70,6 +70,12 @@
 				
 			});
 			this.list = res;
+		},
+		async onShow() {
+			const res = await api.discusRecommendList({
+				
+			});
+			this.list = res;
 		}
 	}
 </script>
