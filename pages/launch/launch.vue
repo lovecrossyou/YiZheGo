@@ -1,9 +1,5 @@
 <template>
 	<view class="mainBg" @click="enter">
-		
-		<!-- <view class="timer">
-			跳过
-		</view> -->
 	</view>
 </template>
 
@@ -35,12 +31,12 @@
 		},
 		onLoad() {
 			let that = this;
-			this.timer = setInterval(()=>{
-				that.count--;
-				if(that.count==0){
-					that.enter();
-				}
-			},1000);
+// 			this.timer = setInterval(()=>{
+// 				that.count--;
+// 				if(that.count==0){
+// 					that.enter();
+// 				}
+// 			},1000);
 		},
 		onUnload() {
 			clearInterval(this.timer);
@@ -57,8 +53,9 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: url('http://qnimage.xiteng.com/WechatIMG1.jpeg') no-repeat center;
-		background-size: 100% 100%;
+		background: url('http://qnimage.xiteng.com/WechatIMG1.jpeg') no-repeat top;
+		/* background-origin: content-box;; */
+		background-size: cover ;
 	}
 	
 	.timer{
