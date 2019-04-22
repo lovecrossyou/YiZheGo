@@ -108,21 +108,21 @@
 					pageNo: this.pageNo,
 					size: 10
 				}
-				
-				let res = await api.luckyList(params);
-				if (res.pageNo === 0) {
-					this.luckyListA = res.list;
-				} else {
-					this.luckyListA = this.luckyListA.concat(res.list);
-				}
-				console.log(res);
-				this.pageNo = res.pageNo + 1;
-				this.totalCount = res.totalCount;
-				if (this.luckyListA.length === this.totalCount) {
-					this.infiniteLoadData.pullUpState = 3;
-				} else {
-					this.infiniteLoadData.pullUpState = 0;
-				}
+				api.luckyList(params).then((res)=>{
+					console.log(res);
+					if (res.pageNo === 0) {
+						this.luckyListA = res.list;
+					} else {
+						this.luckyListA = this.luckyListA.concat(res.list);
+					}
+					this.pageNo = res.pageNo + 1;
+					this.totalCount = res.totalCount;
+					if (this.luckyListA.length === this.totalCount) {
+						this.infiniteLoadData.pullUpState = 3;
+					} else {
+						this.infiniteLoadData.pullUpState = 0;
+					}
+				})
 			},
 			turnToLuckyDetail(item, index) {
 				let colorParam = this.backColorA[index % 4];
