@@ -129,13 +129,20 @@
 				});
 				this.showWinOrderCommentModel.praise = res.praise;
 				this.showWinOrderCommentModel.praiseCount = res.praiseCount;
-				
+				const listres = await api.showWinOrderDetail({
+					showOrderCommentId: this.showOrderCommentId
+				});
+				this.praiseDetailModelList = listres.praiseDetailModelList;
 			},
 			async send(event){
 				const res = await api.commentShowWinOrder({
 					showWinOrderId: this.showOrderCommentId,
 					commentContent:event.detail.value
 				});
+				const listres = await api.showWinOrderDetail({
+					showOrderCommentId: this.showOrderCommentId
+				});
+				this.commentShowWinOrderModelList = listres.commentShowWinOrderModelList;
 			},
 			preview_pic(url){
 				this.isPreview=true;
