@@ -193,12 +193,12 @@
 		mapState,
 	} from 'vuex';
 	export default {
-		onUnload(){
+		onUnload() {
 			clearInterval(this.timer);
 		},
 		computed: {
-			...mapState('productDetail',['productDetail']),
-			
+			...mapState('productDetail', ['productDetail']),
+
 			banners() {
 				if (this.productDetail === null) return [];
 				return this.productDetail.productItemModel.productShowImageUrlList
@@ -206,26 +206,28 @@
 		},
 		methods: {
 			async fetchCollectProduct(productId) {
-				const res = await api.collectProduct({discountGameId:productId})
+				const res = await api.collectProduct({
+					discountGameId: productId
+				})
 			},
-			collectProduct(discountGameId){
-				this.isBg=!this.isBg;
+			collectProduct(discountGameId) {
+				this.isBg = !this.isBg;
 				this.fetchCollectProduct(discountGameId)
 			},
-			goBuying(){
+			goBuying() {
 				console.log('this.productDetail ', this.productDetail);
 				uni.navigateTo({
-					url:"/pages/buying/buying?productId="+this.productDetail.discountGameId
+					url: "/pages/buying/buying?productId=" + this.productDetail.discountGameId
 				})
 			},
-			goluckylist(){
+			goluckylist() {
 				uni.navigateTo({
-					url:"/pages/me/vip/lucky-list"
+					url: "/pages/me/vip/lucky-list"
 				})
 			},
-			goshowWinOrder(){
+			goshowWinOrder() {
 				uni.navigateTo({
-					url:"/pages/moments/components/showWinOrder"
+					url: "/pages/moments/components/showWinOrder"
 				})
 			},
 			changeIndex(ind) {
@@ -239,22 +241,22 @@
 					discountGameId: productId
 				});
 				this.$store.commit('productDetail/setProductDetails', res)
-				console.log('商品详情------'+JSON.stringify(res))
+				console.log('商品详情------' + JSON.stringify(res))
 				this.timerCountDown();
 			},
 			confirmOrder(directBuy) {
 				uni.navigateTo({
 					url: '../chooseCode/confirmOrder?discountGameId=' + this.productDetail.discountGameId + '&directBuy=' +
-						directBuy+'&groupId='+this.groupId
+						directBuy + '&groupId=' + this.groupId
 				})
 			},
-			timerCountDown(){
-				this.timer = setInterval(this.countDown,1000);
+			timerCountDown() {
+				this.timer = setInterval(this.countDown, 1000);
 			},
-			countDown(){
-			    this.lastTime = timeUtil.showTickTime(this.productDetail.openResultTime);
+			countDown() {
+				this.lastTime = timeUtil.showTickTime(this.productDetail.openResultTime);
 			}
-			
+
 		},
 		onLoad(opt) {
 			console.log('详情啊=========', opt.productId)
@@ -263,8 +265,8 @@
 		},
 		data() {
 			return {
-				timer:null,
-				groupId:null,
+				timer: null,
+				groupId: null,
 				selectedIndex: 0,
 				commentModelList: [],
 				guarantee: "从0～9中选3个号码，选中即享1折。中签号码与当天3D中奖号码同步，每天22:00揭晓，不中全额退款，源自京东自营商品，天天发货。",
@@ -286,8 +288,8 @@
 				icon_fire: "../../static/details/icon_fire.png",
 				btn_collection: "../../static/details/btn_collection.png",
 				btn_collection_red: "../../static/details/btn_collection_red.png",
-				isBg:false,
-				lastTime:null
+				isBg: false,
+				lastTime: null
 			};
 		},
 
@@ -706,24 +708,28 @@
 					height: 24upx;
 					margin-right: 12upx;
 				}
-				.count_down_time{
+
+				.count_down_time {
 					display: flex;
-					justify-content:space-around;
-					color:#E22537;
-					margin-top:8upx;
-					.count_down_time_item{
-						background:#E22537;
-						font-size:24upx;
-						font-family:PingFang-SC-Medium;
-						font-weight:500;
-						color:rgba(255,255,255,1);
-						line-height:1.5;
-						padding-left:10upx;
-						padding-right:10upx;
-						border-radius: 8upx;
-						.mm{
-							margin-left:12upx;
-							margin-right:12upx;
+					justify-content: space-around;
+					color: #E22537;
+					margin-top: 8upx;
+
+					.count_down_time_item {
+						background: #E22537;
+						font-size: 24upx;
+						font-family: PingFang-SC-Medium;
+						font-weight: 500;
+						color: rgba(255, 255, 255, 1);
+						width: 38upx;
+						height: 38upx;
+						text-align: center;
+						line-height: 38upx;
+
+
+						.mm {
+							margin-left: 12upx;
+							margin-right: 12upx;
 						}
 					}
 				}
@@ -754,7 +760,8 @@
 					height: 36upx;
 				}
 			}
-			.left_messageb{
+
+			.left_messageb {
 				color: #CC2636;
 			}
 

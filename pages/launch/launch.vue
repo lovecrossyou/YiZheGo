@@ -2,7 +2,7 @@
 	<view class="mainBg" @click="enter">
 		
 		<view class="timer">
-			跳过
+			<!-- 跳过 -->
 		</view>
 	</view>
 </template>
