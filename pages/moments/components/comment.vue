@@ -1,6 +1,6 @@
 <template>
 	<view class="commentwrapper">
-		<image v-if="creat" class="creat_discuss_btn"  src="/static/moments/icon_add.png" @click="gocreatdiscuss"></image>
+		<image class="creat_discuss_btn"  src="/static/moments/icon_add.png" @click="gocreatdiscuss"></image>
 		<block v-for="(item,index) in list" :key="index">
 			<view class="commentItem">
 				<view class="user">
@@ -49,8 +49,7 @@
 		data(){
 			return{
 				id:0,
-				list:[],
-				creat:false
+				list:[]
 			}
 		},
 		methods:{
@@ -73,6 +72,11 @@
 			}
 		},
 		async onLoad() {
+			const res = await api.discusCommentList({
+			});
+			this.list = res;
+		},
+		async onShow() {
 			const res = await api.discusCommentList({
 			});
 			this.list = res;

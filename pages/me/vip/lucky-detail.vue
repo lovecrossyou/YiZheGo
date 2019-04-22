@@ -57,10 +57,11 @@
 		methods: {
 			async getLuckyDetail(params) {
 				console.log(params);
-				let res = await api.luckyDetail(params)
-				this.detailParam = res;
-				this.winUserA = res.winUserInfoModelList;
-				console.log(res)
+				api.luckyDetail(params).then((res)=>{
+					console.log(res)
+					this.detailParam = res;
+					this.winUserA = res.winUserInfoModelList;
+				})
 			},
 		},
 		onLoad: function(option) {
@@ -71,7 +72,6 @@
 				lotteryStage: option.lotteryStage,
 				lotteryType: 'FC3D'
 			}
-			// console.log(params);option.lotteryType
 			this.getLuckyDetail(params);
 
 		}

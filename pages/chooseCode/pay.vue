@@ -236,7 +236,12 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-
+	    flex: 1;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
 		.order_content {
 			height: 250upx;
 			width: 100%;
@@ -284,6 +289,7 @@
 				color: rgba(51, 51, 51, 1);
 				background: #ffffff;
 				padding: 20upx;
+				border-bottom: 1px solid rgba(227,227,227,1);
 			}
 
 			.p_option {
@@ -292,7 +298,6 @@
 				justify-content: space-between;
 				align-items: center;
 				background: #ffffff;
-
 				.p_option_left {
 					display: flex;
 					flex-direction: row;

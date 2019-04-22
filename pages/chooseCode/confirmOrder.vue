@@ -266,7 +266,12 @@
 		background: #f7f7f7;
 		display: flex;
 		flex-direction: column;
-
+	    flex: 1;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
 		.news_welfare_wrapper {
 			width: 100%;
 			height: 100%;
@@ -459,17 +464,19 @@
 				align-items: center;
 
 				.choose-code-msg-red {
-					font-size: 30upx;
-					font-family: PingFangSC-Regular;
-					font-weight: 400;
-					color: #333333;
+					font-size:30upx;
+					font-family:PingFangSC-Regular;
+					font-weight:400;
+					color:rgba(51,51,51,1);
+					line-height:30upx;
 				}
 
 				.choose-code-msg-time {
-					font-size: 26upx;
-					font-family: PingFang-SC-Medium;
-					font-weight: 500;
-					color: rgba(204, 38, 54, 1);
+					font-size:24upx;
+					font-family:PingFangSC-Regular;
+					font-weight:400;
+					color:rgba(153,153,153,1);
+					line-height:30upx;
 					margin-left: 10upx;
 				}
 			}
@@ -586,7 +593,7 @@
 				}
 			}
 		}
-
+      
 		.confirm-footer {
 			height: 98upx;
 			position: fixed;

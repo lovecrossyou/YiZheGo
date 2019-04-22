@@ -1,7 +1,7 @@
 import request from './request'
 
-// const uploadBaseUrl = "http://www.xiteng.com/xitenggamenode/";
-const uploadBaseUrl = "http://123.57.161.212:9939/xitenggamenode/";
+const uploadBaseUrl = "http://www.xiteng.com/xitenggamenode/";
+// const uploadBaseUrl = "http://123.57.161.212:9939/xitenggamenode/";
 
 const api = {
 	// 喜腾好物
@@ -36,6 +36,8 @@ const api = {
 	praiseShowWinOrder: params => request.post('/discountGame/praiseShowWinOrder', params),
 	//评论晒单
 	commentShowWinOrder: params => request.post('/discountGame/commentShowWinOrder', params),
+	//发表评论
+	createShowWinOrder: params => request.post('/discountGame/createShowWinOrder', params),
 	//中签公告
 	winGameNotice: params => request.post('/discountGame/winGameNotice', params),
 	
@@ -110,7 +112,7 @@ const api = {
 	//上传
 	uploader: (file, callback) => {
 		uni.uploadFile({
-			url: uploadBaseUrl + '/upload',
+			url: uploadBaseUrl + 'upload',
 			filePath: file,
 			name: 'file',
 			success: (result) => {
