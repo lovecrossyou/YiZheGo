@@ -13,11 +13,14 @@
 		</view>
 		<view class="moment_text">{{showWinOrderCommentModel.commentContent}}</view>
 		<view class="moment_image_wrapper" v-if="showWinOrderCommentModel.imageOrVideoUrl.length!==0">
-			<image class="moment_image_big" :src="showWinOrderCommentModel.imageOrVideoUrl[0]"></image>
+			<image class="moment_image_big" :src="showWinOrderCommentModel.imageOrVideoUrl[0]" @click="preview_pic(showWinOrderCommentModel.imageOrVideoUrl[0])"></image>
 			<view class="moment_image_small_list" v-if="showWinOrderCommentModel.imageOrVideoUrl.length>1">
 				<block v-for="(item,index) in image_small_list" :key="index">
-					<image class="moment_image_small" :src="item"></image>
+					<image class="moment_image_small" :src="item" @click="preview_pic(item)"></image>
 				</block>
+			</view>
+			<view class="previewpic" v-if="isPreview" @click="close_pic">
+				<image class="pic" :src="pic_url"></image>
 			</view>
 		</view>
 		<view class="product" v-if="showWinOrderCommentModel.discountGameStage">
@@ -86,7 +89,9 @@
 					imageOrVideoUrl: []
 				},
 				showOrderCommentId: 0,
-				content:""
+				content:"",
+				isPreview:false,
+				pic_url:""
 			}
 		},
 		computed: {
@@ -130,6 +135,13 @@
 					showWinOrderId: this.showOrderCommentId,
 					commentContent:event.detail.value
 				});
+			},
+			preview_pic(url){
+				this.isPreview=true;
+				this.pic_url=url;
+			},
+			close_pic(){
+				this.isPreview=false;
 			}
 		}
 	}
@@ -226,6 +238,25 @@
 					height: 127upx;
 					margin-right: 15upx;
 				}
+			}
+			
+			.previewpic{
+				display: flex;
+				align-items: center;
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				background: rgba(0,0,0,0.3);
+				z-index: 10;
+				
+				
+				.pic{
+					width: 100%;
+					height: 80%;
+				}
+			
 			}
 
 		}
