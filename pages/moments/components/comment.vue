@@ -75,6 +75,11 @@
 			const res = await api.discusCommentList({
 			});
 			this.list = res;
+		},
+		async onShow() {
+			const res = await api.discusCommentList({
+			});
+			this.list = res;
 		}
 	}
 </script>

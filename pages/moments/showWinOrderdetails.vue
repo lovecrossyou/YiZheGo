@@ -129,6 +129,7 @@
 				});
 				this.showWinOrderCommentModel.praise = res.praise;
 				this.showWinOrderCommentModel.praiseCount = res.praiseCount;
+				
 			},
 			async send(event){
 				const res = await api.commentShowWinOrder({
@@ -225,6 +226,8 @@
 			}
 
 			.moment_image_small_list {
+				display: flex;
+				flex-direction: row;
 				width: 100%;
 				height: 177upx;
 				white-space: nowrap;
@@ -234,6 +237,7 @@
 
 				.moment_image_small {
 					display: inline-block;
+					box-sizing: border-box;
 					width: 127upx;
 					height: 127upx;
 					margin-right: 15upx;

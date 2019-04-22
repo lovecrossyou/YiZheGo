@@ -71,6 +71,12 @@
 				
 			});
 			this.list = res;
+		},
+		async onShow() {
+			const res = await api.showWinOrderList({
+				
+			});
+			this.list = res;
 		}
 	}
 </script>
