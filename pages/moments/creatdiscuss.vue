@@ -4,9 +4,9 @@
 			<view class="discuss_input_wrapper">
 				<textarea ref="disarea" class="discuss_input" placeholder="请输入讨论内容" @input="getComemnt" />
 				<view class="imgwrapper">
-					<view v-if="addBtnShow" class="imgBack" :style="{width:imgStyle.width+15+'px',height:imgStyle.height+15+'px'}">
+					<!-- <view v-if="addBtnShow" class="imgBack" :style="{width:imgStyle.width+15+'px',height:imgStyle.height+15+'px'}">
 						<view class="upbtn" :style="{width:imgStyle.width+'px',height:imgStyle.height+'px'}" @click="chooseImageFromFile"></view>
-					</view>
+					</view> -->
 					<block v-for="(item, index) in imglist" :key="index">
 						<view class="imgBack" :style="{width:imgStyle.width+15+'px',height:imgStyle.height+15+'px'}">
 							<image :style="{width:imgStyle.width+'px',height:imgStyle.height+'px'}" :src="item"></image>
@@ -61,10 +61,18 @@ export default {
 			  success: function (res) {
 				// 无论用户是从相册选择还是直接用相机拍摄，路径都是在这里面
 				var filePath = res.tempFilePaths[0];
-				that.imglist.push(filePath);
-				console.log(res);
-				console.log(that.imglist);
-				that.addBtnShow=that.imglist.length<9;
+				
+				api.uploader(filePath, res => {
+						console.log(JSON.stringify(res));
+						
+// 						that.imglist.push(filePath);
+// 						that.addBtnShow=that.imglist.length<9;
+					});
+				
+				
+				
+// 				console.log(res);
+// 				console.log(that.imglist);
 			  },
 			  fail: function (error) {
 				console.error("调用本地相册文件时出错")

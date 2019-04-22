@@ -31,12 +31,12 @@
 		},
 		onLoad() {
 			let that = this;
-// 			this.timer = setInterval(()=>{
-// 				that.count--;
-// 				if(that.count==0){
-// 					that.enter();
-// 				}
-// 			},1000);
+			this.timer = setInterval(()=>{
+				that.count--;
+				if(that.count==0){
+					that.enter();
+				}
+			},1000);
 		},
 		onUnload() {
 			clearInterval(this.timer);
