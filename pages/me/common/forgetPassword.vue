@@ -30,6 +30,10 @@
 		},
 		components: {},
 		computed: {},
+		onUnload(){
+			if(this.timer)
+			clearInterval(this.timer);
+		},
 		methods: {
 			async send(){
 				if(this.phoneNum.length!=11){

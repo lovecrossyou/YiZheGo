@@ -1,9 +1,9 @@
 <template>
 	<view class="mainBg" @click="enter">
 		
-		<view class="timer">
-			<!-- 跳过 -->
-		</view>
+		<!-- <view class="timer">
+			跳过
+		</view> -->
 	</view>
 </template>
 

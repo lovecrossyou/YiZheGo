@@ -1,7 +1,7 @@
 import request from './request'
 
-const uploadBaseUrl = "http://www.xiteng.com/xitenggamenode/";
-// const uploadBaseUrl = "http://123.57.161.212:9939/xitenggamenode/";
+// const uploadBaseUrl = "http://www.xiteng.com/xitenggamenode/";
+const uploadBaseUrl = "http://123.57.161.212:9939/xitenggamenode/";
 
 const api = {
 	// 喜腾好物
