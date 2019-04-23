@@ -20,7 +20,7 @@
 				</block>
 			</view>
 			<view class="previewpic" v-if="isPreview" @click="close_pic">
-				<image class="pic" :src="pic_url"></image>
+				<image class="pic" :src="pic_url" mode="widthFix"></image>
 			</view>
 		</view>
 		<view class="product" v-if="showWinOrderCommentModel.discountGameStage">
