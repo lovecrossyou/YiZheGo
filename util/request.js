@@ -1,10 +1,10 @@
- import Fly from 'flyio/dist/npm/wx'
+import Fly from 'flyio/dist/npm/wx'
 import hex_md5 from "../util/md.js"
 import service from "../service.js"
 
 const request = new Fly()
 
-// export const baseURL = 'https://www.xiteng.com/xitenggamejar/'
+//export const baseURL = 'https://www.xiteng.com/xitenggamejar/'
 
 export const baseURL = 'http://123.57.161.212:9939/xitenggamejar/'
 
@@ -78,8 +78,8 @@ request.interceptors.response.use((response, promise) => {
 	var message = err.response.data.message;
 	if (message && message.indexOf('升级会员') != -1) {
 		return promise.resolve(message);
-	}
-	else{
+
+	} else {
 		errorPrompt(err.response);
 	}
 	return promise.reject(err)

@@ -2,7 +2,7 @@
 	<view class="product">
 		<image v-bind:src="productImg" mode="widthFix" class="product-image"></image>
 		<view class="product-info">
-			<view class="one-tips">一折购</view>
+			<view class="one-tips">1折购</view>
 			<text class="product-name">{{ '&#8195;&#8195;&#8195;&#8194;' }}{{ productName }}</text>
 			<view class="product-prices">
 				<text class="current-price">￥{{currentPrice}}</text>
@@ -59,10 +59,11 @@ export default {
 			font-family: PingFang-SC-Medium;
 			font-weight: 500;
 			color: rgba(255, 255, 255, 1);
-			position: absolute;
+			margin-bottom: -38upx;
 			line-height: 38upx;
 			padding-left: 10upx;
 			padding-right: 10upx;
+			align-self: flex-start;
 		}
 		.product-name {
 			font-size: 30upx;

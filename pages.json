@@ -241,7 +241,7 @@
 		{
 			"path": "pages/me/myOrder/myOrder",
 			"style": {
-				"navigationBarTitleText": "一折购",
+				"navigationBarTitleText": "我的订单",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}

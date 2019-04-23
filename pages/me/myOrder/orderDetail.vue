@@ -196,6 +196,7 @@ import uniIcon from '@/pages/components/uni-icon/uni-icon.vue';
 import productInfo from '../components/productInfo.vue';
 import priceText from '../components/priceText.vue';
 import { mapActions, mapState, mapGetters, mapMutations } from 'vuex';
+import {remainTime} from '@/util/timeUtil.js';
 import api from '@/util/api';
 export default {
 	components: {
@@ -263,7 +264,12 @@ export default {
 							this.downTimeShow = ['00', '00', '00'];
 							uni.navigateBack();
 						}
-						let hour = Math.floor(cha / 1000 / 60 / 60);
+						
+						let remainResult	 = remainTime(Math.floor(cha/1000) );
+						this.downTimeShow = [remainResult.hrStr, remainResult.minStr, remainResult.secStr];
+						
+						
+						/* let hour = Math.floor(cha / 1000 / 60 / 60);
 						cha = cha - hour * 60 * 60 * 1000;
 						let min = Math.floor(cha / 1000 / 60);
 						cha = cha - min * 60 * 1000;
@@ -277,7 +283,7 @@ export default {
 						if (second < 10) {
 							second = '0' + second;
 						}
-						this.downTimeShow = [hour, min, second];
+						this.downTimeShow = [hour, min, second]; */
 					}, 1000);
 				} else if (res.orderRealStatus === 'waitingOpenResult') {
 					let endTime = new Date(res.openResultTime).getTime();
@@ -292,7 +298,12 @@ export default {
 							this.downTimeShow = ['00', '00', '00'];
 							uni.navigateBack();
 						}
-						let hour = Math.floor(cha / 1000 / 60 / 60);
+						
+					let remainResult	 = remainTime(Math.floor(cha/1000) );
+					this.downTimeShow = [remainResult.hrStr, remainResult.minStr, remainResult.secStr];
+						
+						
+						/* let hour = Math.floor(cha / 1000 / 60 / 60);
 						cha = cha - hour * 60 * 60 * 1000;
 						let min = Math.floor(cha / 1000 / 60);
 						cha = cha - min * 60 * 1000;
@@ -306,7 +317,7 @@ export default {
 						if (second < 10) {
 							second = '0' + second;
 						}
-						this.downTimeShow = [hour, min, second];
+						this.downTimeShow = [hour, min, second]; */
 					}, 1000);
 				}
 			});
