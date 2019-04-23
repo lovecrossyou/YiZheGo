@@ -1,17 +1,17 @@
 <template>
 	<view class="search_wrapper">
-		<view class="search_wrapper_item">
+		<!-- <view class="search_wrapper_item">
 			<image :src="fenlei" alt="" />
-		</view>
+		</view> -->
 		<view class="search_wrapper_center">
 			<view class="search_wrapper_center_input">
 				<image :src="home_search" alt="" />
 				<view>搜索商品</view>
 			</view>
 		</view>
-		<view class="search_wrapper_item">
+		<!-- <view class="search_wrapper_item">
 			<image :src="fenxiang" alt="" />
-		</view>
+		</view> -->
 	</view>
 </template>
 
@@ -43,7 +43,7 @@
 		top:10upx;
 		z-index: 999;
 		.search_wrapper_item {
-			flex:1;
+			// flex:1;
 			text-align: center;
 			image {
 				width: 38upx;
@@ -52,7 +52,8 @@
 		}
 
 		.search_wrapper_center {
-			flex:8;
+			// flex:8;
+			width:90%;
 			.search_wrapper_center_input {
 				width: 100%;
 				height: 64upx;
