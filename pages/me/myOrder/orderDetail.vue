@@ -332,7 +332,9 @@ export default {
 			});
 		},
 		scanRed() {
-			
+			uni.navigateTo({
+				url:'../wallet/wallet'
+			})
 		},
 		enterProduct(productId) {
 			//console.log('啦all：：：：'+productId)
