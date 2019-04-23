@@ -19,7 +19,7 @@
             },
             max: {
                 type: Number,
-                default: 1000
+                default: 100000
             },
             step: {
                 type: Number,
@@ -91,6 +91,7 @@
                     value = this.min
                 }
                 this.inputValue = value
+				this.$emit("changes",this.inputValue);
             }
         }
     }

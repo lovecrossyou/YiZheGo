@@ -172,6 +172,9 @@
 						return;
 					}
 					this.password.push(item);
+					if(this.password.length === this.items.length){
+						this.pay();
+					}
 			},
 			 del(){
 				 if (this.password.length > 0) {

@@ -2,12 +2,15 @@
 	<view :class="'keyboard ' + pattern">
 		<ul class="number">
 			<li class="button" @tap="input(item)" v-for="item in keys" :key="item">{{item}}</li>
-			<li class="button">.</li>
-			<li class="button down" @tap="hide"></li>
+			<!-- <li class="button down" @tap="hide"></li> -->
 		</ul>
+			<!-- <view class="ok" @tap="done"></view> -->
 		<view class="action">
-			<view class="delete" @tap="del"></view>
-			<view class="ok" @tap="done"></view>
+			<view class="space"></view>
+			<view class="zero" @tap="input('0')">0</view>
+			<view class="space" @tap="del">
+				<image v-bind:src="deleteIcon" class="delete"></image>
+			</view>
 		</view>
 	</view>
 </template>
@@ -16,10 +19,7 @@
 	import uniIcon from './payPsw/i-icon/i-icon.vue'
 
     const keys = () => {
-    	let natural = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-    	return natural.sort(function(){
-    		return Math.random()>0.5 ? -1 : 1;//用Math.random()函数生成0~1之间的随机数与0.5比较，返回-1或1
-    	});
+    	return [1, 2, 3, 4, 5, 6, 7, 8, 9];
     };
 	export default{
 		onLoad() {
@@ -30,6 +30,7 @@
 				keys: keys(),
 				pattern: 'hidden',
 				password:[],
+				deleteIcon:'../../static/pay/btn_delete@2x.png'
 			}
 		},
 		methods:{
@@ -83,11 +84,11 @@
 		border-top: 1px solid #ddd;
 		background: #fff;
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		.number {
 			display: flex;
 			flex-wrap: wrap;
-			width: 75%;
+			width: 100%;
 			list-style: none;
 			padding: 0 0 0 1px;
 			margin: 0;
@@ -129,50 +130,56 @@
 				font-size: 30px;
 			}
 		}
+		
 		.action {
-			width: 25%;
+			width: 100%;
 			display: flex;
-			flex-direction: column;
+			flex-direction: row;
 			align-items: center;
 			justify-content: center;
-			.delete {
-				height: 50%;
-				width: 100%;
-				border-bottom: 1px solid #ddd;
-				background: #ddd;
-				&:after {
-					content: '\e900';
-					font-family: 'icomoon';
-					text-align: center;
-					width: 100%;
-					height: 100%;
-					line-height: 100%;
-					font-size: 30px;
-					display: block;
-					line-height: 240upx;
-				}
-				&:active {
-					background: #fff;
+			.space{
+				margin: 0;
+				padding: 0;
+				width: 33.33%;
+				height: 120upx;
+				line-height: 100upx;	
+				background: #ECECEC;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				.delete{
+					height: 34upx;
+					width: 46upx;
 				}
 			}
-			.ok {
-				flex: 1;
-				width: 100%;
-				&:after {
-					content: '\e901';
-					font-family: 'icomoon';
-					width: 100%;
-					height: 100%;
-					line-height: 100%;
-					text-align: center;
-					font-size: 30px;
-					display: block;
-					line-height: 240upx;
-				}
-				&:active {
-					background: #ddd;
-				}
+			.zero{
+				margin: 0;
+				padding: 0;
+				width: 33%;
+				height: 120upx;
+				text-align: center;
+				line-height: 100upx;	
+				border-right: 0.5px solid #ddd;
+				border-bottom: 0.5px solid #ddd;
 			}
+// 			.ok {
+// 				flex: 1;
+// 				width: 100%;
+// 				&:after {
+// 					content: '\e901';
+// 					font-family: 'icomoon';
+// 					width: 100%;
+// 					height: 100%;
+// 					line-height: 100%;
+// 					text-align: center;
+// 					font-size: 30px;
+// 					display: block;
+// 					line-height: 240upx;
+// 				}
+// 				&:active {
+// 					background: #ddd;
+// 				}
+// 			}
 		}
 	}
 	/*动画*/

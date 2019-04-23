@@ -18,7 +18,7 @@
 		<image v-bind:src="lineCai" class="delivery-userinfo-line"></image>
 		<view v-if="orderInfo" class="product-info">
 			<view class="product-info-pro">
-				<image v-bind:src="orderInfo.relatedProductImageUrl" class="product-info-pro-img"></image>
+				<image v-bind:src="orderInfo.relatedProductImageUrl" class="product-info-pro-img" mode="aspectFit"></image>
 				<view class="product-info-pro-name">
 					<view class="product-info-pro-name-text">{{ orderInfo.relatedProductName }}</view>
 					<view class="product-info-pro-price-info" v-if="directBuy=='false'">
@@ -382,8 +382,8 @@
 				align-items: center;
 
 				.product-info-pro-img {
-					width: 100upx;
-					height: 100upx;
+					width: 140upx;
+					height: 140upx;
 				}
 
 				.product-info-pro-name {
@@ -397,6 +397,7 @@
 						font-family: PingFang-SC-Medium;
 						font-weight: 500;
 						color: rgba(51, 51, 51, 1);
+						height: 67upx;
 					}
 
 					.product-info-pro-price-info {
