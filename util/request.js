@@ -1,4 +1,4 @@
-import Fly from 'flyio/dist/npm/wx'
+ import Fly from 'flyio/dist/npm/wx'
 import hex_md5 from "../util/md.js"
 import service from "../service.js"
 
