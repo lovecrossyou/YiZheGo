@@ -1,5 +1,5 @@
 <template>
-	<view class="product_details_wrapper" v-if="productDetail">
+	<view class="product_details_wrapper" ref="homPage" v-if="productDetail">
 		<!-- 顶部导航 -->
 		<view class="header">
 			<view class="left-arrow" @click="goBack">
@@ -238,7 +238,6 @@
 					discountGameId: productId
 				});
 				this.$store.commit('productDetail/setProductDetails', res)
-				console.log('商品详情------'+JSON.stringify(res))
 				this.timerCountDown();
 			},
 			confirmOrder(directBuy) {
@@ -256,7 +255,6 @@
 			
 		},
 		onLoad(opt) {
-			console.log('详情啊=========', opt.productId)
 			this.fetchProductDetails(opt.productId);
 			this.groupId = opt.groupId;
 		},
@@ -286,7 +284,7 @@
 				btn_collection: "../../static/details/btn_collection.png",
 				btn_collection_red: "../../static/details/btn_collection_red.png",
 				isBg:false,
-				lastTime:null
+				lastTime:null,
 			};
 		},
 
@@ -296,10 +294,9 @@
 	.product_details_wrapper {
 		width: 100%;
 		background-color: #F3F3F3;
-
 		.header {
 			width: 100%;
-			height: 96upx;
+			height: 116upx;
 			padding: 0 30upx;
 			box-sizing: border-box;
 			display: flex;
@@ -325,7 +322,6 @@
 			.product_title {
 				width: 200upx;
 				height: 94upx;
-				background: #FFFFFF;
 				display: flex;
 				justify-content: space-around;
 				align-items: center;

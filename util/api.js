@@ -132,4 +132,3 @@ const api = {
 	findPayPassword: params=>request.post('/client/bankCard/findPayPassword',params)
 }
 export default api
-
