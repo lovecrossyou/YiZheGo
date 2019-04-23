@@ -107,6 +107,14 @@ export default {
 				}
 				groupListData.push(groupData);
 			}
+			
+			if(groupListData.length > 1){
+				let temp = groupListData[0];
+				groupListData[0] = groupListData[groupListData.length -1];
+				groupListData[groupListData.length -1] = temp;
+			}
+			
+			
 			return groupListData;
 		}
 

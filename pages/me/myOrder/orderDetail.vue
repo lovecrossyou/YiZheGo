@@ -115,7 +115,8 @@
 					</view>
 
 					<view class="group-right">
-						<button class="group-button" open-type="share">{{ memberList.state === 'done' ? '领取红包' : '立即邀请' }}</button>
+						<button class="group-button" v-if="memberList.state === 'done'" @click="scanRed">查看红包</button>
+						<button class="group-button" open-type="share" v-else>立即邀请</button>
 					</view>
 				</view>
 			</view>
@@ -330,12 +331,10 @@ export default {
 				url: '../../chooseCode/pay?payOrderNo=' + orderDetail.payOrderNo + '&totalPayRmb=' + orderDetail.totalPrice + '&productType=' + 'normalProduct'
 			});
 		},
-		inviteMember(groupState) {
-			if (groupState === 'ing') {
-				console.log('邀请拼团');
-			} else if (groupState === 'done') {
-				console.log('领取红包');
-			}
+		scanRed() {
+			uni.navigateTo({
+				url:'../wallet/wallet'
+			})
 		},
 		enterProduct(productId) {
 			//console.log('啦all：：：：'+productId)
