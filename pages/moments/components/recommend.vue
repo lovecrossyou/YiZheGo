@@ -105,7 +105,6 @@
 					height: 70upx;
 					margin-left: 31upx;
 					margin-top: 29upx;
-					float: left;
 				}
 		
 				.user_icon_right {

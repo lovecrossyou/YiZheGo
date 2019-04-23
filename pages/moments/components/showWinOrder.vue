@@ -87,6 +87,7 @@
 		padding: 20upx 30upx;
 		box-sizing: border-box;
 		background: #eeeeee;
+		overflow: hidden;
 		
 		.showWinOrderItem {
 			display: flex;
@@ -106,7 +107,6 @@
 					height: 70upx;
 					margin-left: 31upx;
 					margin-top: 29upx;
-					float: left;
 				}
 		
 				.user_icon_right {
@@ -184,7 +184,7 @@
 						opacity: 0.3;
 						border-radius: 10px;
 						margin-top: 349upx;
-						margin-left: 544upx;
+						// margin-left: 544upx;
 						position: absolute;
 						
 						.moment_num_icon {
@@ -211,7 +211,7 @@
 				flex-direction: row;
 				justify-content: space-between;
 				margin-top: 41upx;
-				margin-right: 31upx;
+				// margin-right: 31upx;
 		
 				.gamestage {
 					font-size: 24upx;
