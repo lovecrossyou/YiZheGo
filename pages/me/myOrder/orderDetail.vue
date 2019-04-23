@@ -8,9 +8,9 @@
 					<text class="time">
 						{{
 							orderDealState === 0
-								? '剩' + downTimeShow[0] + ':' + downTimeShow[1] + ':' + downTimeShow[2] + '自动关闭'
+								? '剩' + downTimeShow.hour + ':' + downTimeShow.minute + ':' + downTimeShow.sec + '自动关闭'
 								: orderDealState === 1
-								? '距揭晓还剩' + downTimeShow[0] + ':' + downTimeShow[1] + ':' + downTimeShow[2]
+								? '距揭晓还剩' + downTimeShow.hour + ':' + downTimeShow.minute + ':' + downTimeShow.sec
 								: '中签立享1折，未中签全额退款'
 						}}
 					</text>
@@ -177,10 +177,7 @@
 		<view class="code-pop" v-if="showAllCode">
 			<view class="pop-title-content">
 				<text class="pop-title">我的幸运号码</text>
-				<view class="pop-close" @click="changeShowAllCode(true)">
-					<image :src="closeIcon" class="pop-icon"></image>
-				</view>
-				
+				<view class="pop-close" @click="changeShowAllCode(true)"><image :src="closeIcon" class="pop-icon"></image></view>
 			</view>
 			<view class="pop-code-content">
 				<view class="pop-code-array" v-for="(codeArray, index) in allCodeList" :key="index">
@@ -196,7 +193,7 @@ import uniIcon from '@/pages/components/uni-icon/uni-icon.vue';
 import productInfo from '../components/productInfo.vue';
 import priceText from '../components/priceText.vue';
 import { mapActions, mapState, mapGetters, mapMutations } from 'vuex';
-import {remainTime} from '@/util/timeUtil.js';
+import timeUtil from '@/util/timeUtil.js';
 import api from '@/util/api';
 export default {
 	components: {
@@ -216,11 +213,11 @@ export default {
 			closeArrow: '../../../static/me/close_arrow.png',
 			emptyMember: '../../../static/me/empty_member.png',
 			showMoreInfo: false,
-			downTimeShow: [0, 0, 0],
+			downTimeShow: { day: 0, hour: 0, minute: 0, sec: 0 },
 			lastPayTimer: {},
 			closeIcon: '../../../static/me/code_close_icon.png',
-				showAllCode: false,
-				showShan:false,
+			showAllCode: false,
+			showShan: false
 		};
 	},
 	onLoad(params) {
@@ -231,14 +228,11 @@ export default {
 		this.lastPayTimer && clearInterval(this.lastPayTimer);
 	},
 	methods: {
-		
-		changeShowAllCode(canChange){
-			if(canChange){
-			this.showAllCode = !this.showAllCode;	
+		changeShowAllCode(canChange) {
+			if (canChange) {
+				this.showAllCode = !this.showAllCode;
 			}
-			
-		}
-		,
+		},
 		...mapActions({
 			//getOrderDetail: 'myOrder/getOrderDetail'
 		}),
@@ -261,14 +255,15 @@ export default {
 						if (cha < 1000) {
 							this.lastPayTimer && clearInterval(this.lastPayTimer);
 
-							this.downTimeShow = ['00', '00', '00'];
+							//this.downTimeShow = ['00', '00', '00'];
+							this.downTimeShow = { day: 0, hour: 0, minute: 0, sec: 0 };
 							uni.navigateBack();
 						}
-						
-						let remainResult	 = remainTime(Math.floor(cha/1000) );
-						this.downTimeShow = [remainResult.hrStr, remainResult.minStr, remainResult.secStr];
-						
-						
+
+						//let remainResult	 = remainTime(Math.floor(cha/1000) );
+						//	this.downTimeShow = [remainResult.hrStr, remainResult.minStr, remainResult.secStr];
+						this.downTimeShow = timeUtil.showTickTime(res.lastPayTime);
+
 						/* let hour = Math.floor(cha / 1000 / 60 / 60);
 						cha = cha - hour * 60 * 60 * 1000;
 						let min = Math.floor(cha / 1000 / 60);
@@ -295,14 +290,14 @@ export default {
 						if (cha < 1000) {
 							this.lastPayTimer && clearInterval(this.lastPayTimer);
 
-							this.downTimeShow = ['00', '00', '00'];
+							this.downTimeShow = { day: 0, hour: 0, minute: 0, sec: 0 };
 							uni.navigateBack();
 						}
-						
-					let remainResult	 = remainTime(Math.floor(cha/1000) );
-					this.downTimeShow = [remainResult.hrStr, remainResult.minStr, remainResult.secStr];
-						
-						
+
+						//	let remainResult	 = remainTime(Math.floor(cha/1000) );
+						//this.downTimeShow = [remainResult.hrStr, remainResult.minStr, remainResult.secStr];
+
+						this.downTimeShow = timeUtil.showTickTime(res.openResultTime);
 						/* let hour = Math.floor(cha / 1000 / 60 / 60);
 						cha = cha - hour * 60 * 60 * 1000;
 						let min = Math.floor(cha / 1000 / 60);
@@ -344,8 +339,8 @@ export default {
 		},
 		scanRed() {
 			uni.navigateTo({
-				url:'../wallet/wallet'
-			})
+				url: '../wallet/wallet'
+			});
 		},
 		enterProduct(productId) {
 			//console.log('啦all：：：：'+productId)
@@ -754,20 +749,17 @@ export default {
 				flex: 1;
 				text-align: center;
 			}
-			.pop-close{
+			.pop-close {
 				padding: 35upx;
-				
+
 				margin-left: -100upx;
-				.pop-icon{
+				.pop-icon {
 					width: 40upx;
 					height: 40upx;
-					
 				}
 			}
-			
-			
 		}
-		.pop-code-content{
+		.pop-code-content {
 			background-color: white;
 			display: flex;
 			flex-direction: row;
@@ -776,13 +768,13 @@ export default {
 			padding-right: 46upx;
 			width: 100%;
 			padding-bottom: 145upx;
-			.pop-code-array{
+			.pop-code-array {
 				display: flex;
 				flex-direction: row;
 				width: 31%;
-				
+
 				margin-top: 40upx;
-				.pop-code{
+				.pop-code {
 					width: 50upx;
 					height: 50upx;
 					border-radius: 50%;

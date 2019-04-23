@@ -138,6 +138,8 @@
 		}
 
 		.list {
+			width:100%;
+			
 			.vip-item {
 				display: flex;
 				flex: 1;

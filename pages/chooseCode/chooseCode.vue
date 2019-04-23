@@ -1,5 +1,6 @@
 <template>
 	<view class="page">
+		<view class="gray-bg"></view>
 		<view class="choose-content">
 			<text class="tips">从0～9中选择3个号码，选中立享1折，中签号码与 当天3D中奖号码同步，每天22:00揭晓。</text>
 			<view class="ball-list">
@@ -19,8 +20,6 @@
 			</text>
 			<view class="code-list">
 				<view class="code-array" v-for="(codeArray, arrayIndex) in codeList" :key="arrayIndex" v-if="codeArray.state !== 'other'">
-					
-
 					<button
 						class="code"
 						v-for="(code, index) in codeArray.code"
@@ -45,8 +44,7 @@
 			</view>
 		</view>
 
-		<view class="confirm-button" :style="{background: allFinished ? '#D22222' : '#E28A8A' }" @click="goBack">我选好了</view>
-
+		<view class="confirm-button" :style="{ background: allFinished ? '#D22222' : '#E28A8A' }" @click="goBack">我选好了</view>
 	</view>
 </template>
 
@@ -66,7 +64,7 @@ export default {
 		...mapGetters({
 			allFinished: 'chooseCode/allFinished',
 			isResetState: 'chooseCode/isResetState',
-			allCode: 'chooseCode/allCode',
+			allCode: 'chooseCode/allCode'
 		})
 	},
 	methods: {
@@ -91,12 +89,14 @@ export default {
 	flex-direction: column;
 	height: 100%;
 	flex: 1;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
 	background-color: #f2f2f2;
+
+	.gray-bg {
+		position: fixed;
+		background-color: #f2f2f2;
+		width: 100%;
+		height: 100%;
+	}
 	.choose-content {
 		display: flex;
 		flex-direction: column;
@@ -105,7 +105,7 @@ export default {
 		border-bottom: 1px solid #999999;
 		padding-top: 37upx;
 		padding-bottom: 31upx;
-
+		z-index: 10;
 		.tips {
 			font-size: 30upx;
 			font-family: PingFangSC-Regular;
@@ -178,7 +178,7 @@ export default {
 		margin-bottom: 80upx;
 		display: flex;
 		flex-direction: column;
-
+		z-index: 10;
 		.code-tips {
 			font-size: 30upx;
 			font-family: PingFangSC-Medium;
@@ -249,6 +249,7 @@ export default {
 		font-family: Adobe Heiti Std R;
 		font-weight: normal;
 		color: rgba(255, 255, 255, 1);
+		z-index: 10;
 	}
 }
 </style>
