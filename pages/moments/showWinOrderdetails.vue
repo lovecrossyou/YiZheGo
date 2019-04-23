@@ -413,6 +413,7 @@
 			
 			.comment{
 				width: 100%;
+				margin-bottom: 100upx;
 				
 				.commentitem{
 					width: 100%;
@@ -420,7 +421,6 @@
 					flex-direction: row;
 					margin-left: 31upx;
 					margin-top: 32upx;
-					margin-bottom: 100upx;
 					
 					.comment_user_icon{
 						width: 70upx;
