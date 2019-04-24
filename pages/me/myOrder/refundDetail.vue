@@ -1,5 +1,7 @@
 <template>
 	<view class="page-content">
+		<view class="bg_color"></view>
+
 		<!-- 商品信息 -->
 		<view class="item-content">
 			<productInfo
@@ -64,12 +66,12 @@
 
 			<view class="refund-step" v-for="(step, index) in stepList" :key="index">
 				<view class="left-line">
-					<view class="point"></view>
-					<view class="line" v-if="index < 4"></view>
+					<view :class="step.done ?  'point-done' : 'point'"></view>
+					<view :class="step.done ?  'line-done' : 'line'" v-if="index < 4"></view>
 				</view>
 				<view class="step-content">
-					<view class="content-title">{{ step.title }}</view>
-					<view class="content-desc">{{ step.desc }}</view>
+					<view :class="step.done ?  'content-title-done' : 'content-title'    ">{{ step.title }}</view>
+					<view :class="step.done ?  'content-desc-done' : 'content-desc'    ">{{ step.desc }}</view>
 				</view>
 				<view class="step-time" v-if="index === 0">{{ refundDetail.createRefundTime }}</view>
 			</view>
@@ -102,38 +104,100 @@ export default {
 		};
 	},
 	onLoad(params) {
-		console.log(params);
+		
 		let { payOrderNo, isRefund } = params;
-		this.getRefundDetail(payOrderNo);
-		if (isRefund === 'true') {
-			uni.setNavigationBarTitle({
-				title: '退款状态'
-			});
-			this.stepTitle = '退款流程';
-			let way = this.orderDetail.refundWay === 'account' ? '喜币钱包' : '原路返还';
-			this.stepList = [
-				{ title: 'T日22:00 揭晓中签', desc: '已揭晓中签，未中签全额退款' },
-				{ title: 'T+1日 发起退款', desc: '系统自动发起退款' },
-				{ title: 'T+2日 审核退款', desc: '退款正在审核中，T+7日完成审核流程' },
-				{ title: 'T+7日 办理退款', desc: '开始办理退款，预计到账时间1~3日' },
-				{ title: '退款完成', desc: '退款路径:' + way }
-			];
-		} else {
-			uni.setNavigationBarTitle({
-				title: '发货状态'
-			});
-			this.stepTitle = '发货流程';
-			this.stepList = [
-				{ title: 'T日22:00 揭晓中签', desc: '已揭晓中签，中签立享1折' },
-				{ title: 'T+1日 中签审核', desc: '审核中签，组织备货' },
-				{ title: 'T+3日 中签发货', desc: '中签商品由京东自营发货，请注意查收' }
-			];
-		}
+		//this.getRefundDetail(payOrderNo);
+		
+		
+		api.getRefundDetail({
+			payOrderNo: payOrderNo
+		}).then(res => {
+			this.setRefundDetail(res);
+			
+			
+			let startRefundTime;
+			let currentTime;
+			let hours;
+			
+			if (isRefund === 'true') {
+				uni.setNavigationBarTitle({
+					title: '退款状态'
+				});
+				this.stepTitle = '退款流程';
+				let way = this.orderDetail.refundWay === 'account' ? '喜币钱包' : '原路返还';
+				this.stepList = [
+					{ title: 'T日22:00 揭晓中签', desc: '已揭晓中签，未中签全额退款',done:true },
+					{ title: 'T+1日 发起退款', desc: '系统自动发起退款',done:false },
+					{ title: 'T+2日 审核退款', desc: '退款正在审核中，T+7日完成审核流程',done:false },
+					{ title: 'T+7日 办理退款', desc: '开始办理退款，预计到账时间1~3日',done:false },
+					{ title: '退款完成', desc: '退款路径:' + way,done:false }
+				];
+				
+				if(res.refundStatus === "finish"){
+					this.stepList.every((cur,index)=>{
+						cur.done = true;
+					})
+				}else{
+					 startRefundTime = new Date(res.createRefundTime).getTime();
+					 currentTime = new Date().getTime();
+					 hours = (currentTime - startRefundTime)/1000/60/60;
+					if(hours > 2){
+						this.stepList[1].done = true;
+					}
+					if(hours > (2 + 24*1)){
+						this.stepList[2].done = true;
+					}
+					if(hours > (2 + 24*6)){
+						this.stepList[3].done = true;
+					}
+					
+				}
+				
+			} else {
+				uni.setNavigationBarTitle({
+					title: '发货状态'
+				});
+				this.stepTitle = '发货流程';
+				this.stepList = [
+					{ title: 'T日22:00 揭晓中签', desc: '已揭晓中签，中签立享1折',done:true },
+					{ title: 'T+1日 中签审核', desc: '审核中签，组织备货',done:false },
+					{ title: 'T+3日 中签发货', desc: '中签商品由京东自营发货，请注意查收',done:false }
+				];
+				
+				if(res.refundStatus === "finish"){
+					this.stepList.every((cur,index)=>{
+						cur.done = true;
+					})
+				}else{
+					 startRefundTime = new Date(res.createRefundTime).getTime();
+					 currentTime = new Date().getTime();
+					 hours = (currentTime - startRefundTime)/1000/60/60;
+					if(hours > 2){
+						this.stepList[1].done = true;
+					}
+					
+					if(hours > (2 + 24*2)){
+						this.stepList[2].done = true;
+					}
+					
+				}
+			}
+			
+			
+		})
+		
+		
+		
+		
+		
 	},
 
 	methods: {
-		...mapActions({
+		/* ...mapActions({
 			getRefundDetail: 'myOrder/getRefundDetail'
+		}) */
+		...mapMutations({
+			setRefundDetail: 'myOrder/setRefundDetail'
 		})
 	},
 	computed: {
@@ -152,11 +216,13 @@ export default {
 	flex-direction: column;
 	background-color: #efeff4;
 	height: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
+
+	.bg_color {
+		position: fixed;
+		width: 100%;
+		background-color: #efeff4;
+		height: 100%;
+	}
 
 	.item-content {
 		margin-top: 6upx;
@@ -168,6 +234,7 @@ export default {
 		flex-direction: column;
 		margin-bottom: 20upx;
 		background-color: white;
+		z-index: 5;
 
 		.price-content {
 			margin-top: 80upx;
@@ -175,14 +242,7 @@ export default {
 		.title-content {
 			display: flex;
 			justify-content: space-between;
-			.invite-title {
-				display: flex;
-				align-items: center;
-				.invite-img {
-					width: 32upx;
-					height: 32upx;
-				}
-			}
+
 			.item-title {
 				font-size: 30upx;
 				font-family: PingFangSC-Regular;
@@ -190,6 +250,7 @@ export default {
 				color: rgba(51, 51, 51, 1);
 				line-height: 46upx;
 				display: flex;
+			
 			}
 		}
 		.zongji {
@@ -225,14 +286,27 @@ export default {
 				.point {
 					width: 19upx;
 					height: 19upx;
-					background: rgba(54, 189, 60, 1);
+					background: #B9B9B9;
 					border-radius: 50%;
 				}
 				.line {
 					width: 2upx;
 					flex: 1;
+					background: #B9B9B9;
+				}
+				
+				.point-done {
+					width: 19upx;
+					height: 19upx;
+					background: rgba(54, 189, 60, 1);
+					border-radius: 50%;
+				}
+				.line-done {
+					width: 2upx;
+					flex: 1;
 					background: rgba(185, 185, 185, 1);
 				}
+				
 			}
 
 			.step-content {
@@ -245,9 +319,21 @@ export default {
 					font-size: 28upx;
 					font-family: PingFangSC-Regular;
 					font-weight: 400;
-					color: rgba(54, 189, 60, 1);
+					color: #B9B9B9;
 				}
 				.content-desc {
+					font-size: 24upx;
+					font-family: PingFangSC-Regular;
+					font-weight: 400;
+					color: #B9B9B9;
+				}
+				.content-title-done {
+					font-size: 28upx;
+					font-family: PingFangSC-Regular;
+					font-weight: 400;
+					color: rgba(54, 189, 60, 1);
+				}
+				.content-desc-done {
 					font-size: 24upx;
 					font-family: PingFangSC-Regular;
 					font-weight: 400;
