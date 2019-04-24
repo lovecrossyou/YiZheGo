@@ -1,14 +1,8 @@
 <template>
 	<view class="no-ball-all">
 		<block v-for="(num,index) in numberA" :key="index">
-			<view :class="{
-				'no-ball-back':numberA.length>5,
-				'no-ball-back-less5':numberA.length<=5,
-			}">
-				<view :class="{
-				'no-ball':numberA.length>5,
-				'no-ball-less5':numberA.length<=5,
-			}">{{num}}</view>
+			<view class="no-ball-back-less5">
+				<view class="no-ball-less5">{{num}}</view>
 			</view>
 		</block>
 	</view>
@@ -24,6 +18,9 @@
 				return this.numbers.split(',')
 			}
 
+		},
+		onLoad() {
+			console.log(this.numbers);
 		}
 	}
 </script>
@@ -42,7 +39,6 @@
 			width: 122upx;
 			height: 78upx;
 
-			// padding: 0upx 15upx;
 			.no-ball-less5 {
 				display: flex;
 				justify-content: center;

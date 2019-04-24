@@ -1,33 +1,37 @@
 <template>
 	<view class="main" :style='{background:backColor}'>
-
-		<view class="header">
-			<view class="ordinal-date">
-				<view class="ordinal">第 {{detailParam.lotteryStage}} 期中签号码</view>
-				<view class="date">2019-03-25</view>
-			</view>
-
-			<luckyBallItem :numbers="winCode"></luckyBallItem>
-
-			<view class="numbers-count">
-				<view class="item">中签人数：{{detailParam.winUserCount}}人</view>
-				<view class="sep-line"></view>
-				<view class="item">中签注数：{{detailParam.winCodeCount}}注</view>
-			</view>
-		</view>
-
-		<view class="numbers-list" v-if="winUserA!==null&&winUserA.length!==0">
-			<block v-for="(user,index) in winUserA" :key="index">
-				<userPrizeItem :item="user" :backColor="itemColor"></userPrizeItem>
-			</block>
-		</view>
-		
-		<view class="empty-list" :style="{background:itemColor}" v-if="winUserA===null||winUserA.length===0">
-			<view class="empty-text" style="margin-top: -50">本期没有中奖用户</view>
-			<view class="empty-text">参与越多中奖几率越高</view>
-			<view class="empty-text">快去参与新一期吧~</view>
-		</view>
-
+		 <block v-if="loading"> 
+			<LoadingTurn></LoadingTurn>
+		 </block> 
+		 <block v-else>
+			 <view class="header">
+			 	<view class="ordinal-date">
+			 		<view class="ordinal">第 {{detailParam.lotteryStage}} 期中签号码</view>
+			 		<view class="date">{{detailParam.openResultTime}}</view>
+			 	</view>
+			 
+			 	<luckyBallItem :numbers="winCode"></luckyBallItem>
+			 
+			 	<view class="numbers-count">
+			 		<view class="item">中签人数：{{detailParam.winUserCount}}人</view>
+			 		<view class="sep-line"></view>
+			 		<view class="item">中签注数：{{detailParam.winCodeCount}}注</view>
+			 	</view>
+			 </view>
+			 
+			 <view class="numbers-list" v-if="winUserA!==null&&winUserA.length!==0">
+			 	<block v-for="(user,index) in winUserA" :key="index">
+			 		<userPrizeItem :item="user" :backColor="itemColor"></userPrizeItem>
+			 	</block>
+			 </view>
+			 
+			 <view class="empty-list" :style="{background:itemColor}" v-if="winUserA===null||winUserA.length===0">
+			 	<view class="empty-text" style="margin-top: -50">本期没有中奖用户</view>
+			 	<view class="empty-text">参与越多中奖几率越高</view>
+			 	<view class="empty-text">快去参与新一期吧~</view>
+			 </view>
+		 </block>
+		 
 	</view>
 </template>
 
@@ -35,15 +39,18 @@
 	import api from "@/util/api.js"
 	import luckyBallItem from '../components/luckyBallItem.vue'
 	import userPrizeItem from '../components/userPrizeItem.vue'
+	import LoadingTurn from '../../components/LoadingTurn.vue'
 
 	export default {
 		data() {
 			return {
+				loading: true,
 				backColor: '',
 				itemColor: '',
 				winCode:'',
 				detailParam: {
 					lotteryStage: 0,
+					openResultTime: '',
 					winCodeCount: 0,//中签注数
 					winUserCount: 0,//中签人数
 				},
@@ -52,15 +59,18 @@
 		},
 		components: {
 			luckyBallItem,
-			userPrizeItem
+			userPrizeItem,
+			LoadingTurn
 		},
 		methods: {
 			async getLuckyDetail(params) {
 				console.log(params);
 				api.luckyDetail(params).then((res)=>{
 					console.log(res)
+					res.openResultTime = res.openResultTime.substring(0,10);
 					this.detailParam = res;
 					this.winUserA = res.winUserInfoModelList;
+					this.loading=false;
 				})
 			},
 		},
