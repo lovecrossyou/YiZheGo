@@ -30,7 +30,7 @@
 			<itemList page="/pages/me/wallet/wallet" img="../../static/me/me_icon_wallet@2x.png" title="钱包"></itemList>
 		</view>
 		<view class="other_unctions">
-			<itemList img="../../static/me/me_icon_collect@2x.png" title="我的关注"></itemList>
+			<itemList img="../../static/me/me_icon_collect@2x.png" title="我的关注" page="/pages/me/attention/attentionList"></itemList>
 			<view class="border_line"></view>
 			<view @click="goMoments">
 				<itemList img="../../static/me/me_icon_dynamic@2x.png" title="我的动态"></itemList>

@@ -22,9 +22,7 @@
 	import {mapState} from 'vuex';
 	export default {
 		computed:{
-			...mapState({
-				timeLimitList:state=>state.home.timeLimitList,
-			})
+			...mapState('home',['timeLimitList'])
 		},
 		data() {
 			return {

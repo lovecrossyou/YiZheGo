@@ -53,7 +53,7 @@
 		left: 0;
 		right: 0;
 		bottom: 0;
-		background: url('http://qnimage.xiteng.com/WechatIMG1.jpeg') no-repeat top;
+		background: url('http://qnimage.xiteng.com/WechatIMG7.png') no-repeat top;
 		/* background-origin: content-box;; */
 		background-size: cover ;
 	}

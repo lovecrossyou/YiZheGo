@@ -1,7 +1,12 @@
 <template>
 	<view class="tab_filtrate">
 		<view class="nav_bar_list">
-			<span v-for="(item,i) in data" class="nav_bar_list_item" :key="i" @click='changeActive(i)' v-bind:class="[selectedIndex==i?'activeClass':'initialClass']">
+			<span v-for="(item,i) in data" 
+					class="nav_bar_list_item" 
+					:key="i" 
+					@click='changeActive(i)' 
+					v-bind:class="[selectedIndex==i?'activeClass':'initialClass']"
+					>
 				{{item}}
 			</span>
 		</view>
@@ -11,7 +16,7 @@
 
 <script>
 	import api from '../../../util/api.js';
-	
+	import {mapState} from 'vuex'
 	export default {
 		props: {
 			data: Array,
@@ -23,6 +28,7 @@
 		},
 		methods: {
 			async fetchTeaMallContent(ind) {
+				console.log('ind----',ind);
 				const res = await api.HomeTeaMallContent({
 					"accessInfo": {},
 					"categoryId": ind
@@ -30,9 +36,16 @@
 				// this.$store.commit('main/setMallContent',res)
 			},
 			changeActive(i) {
+				if(i==1){
+					this.$store.commit('home/setSelectedInd',"relatedProductSaleMount")
+				}else if(i==2){
+					this.$store.commit('home/setSelectedInd',"originalPrice")
+				}else{
+					this.$store.commit('home/setSelectedInd',"participatePersonCount")
+				}
 				this.selectedIndex = i;
-				this.fetchTeaMallContent(i);
-				this.$emit('sendSelectedInd', i);
+				// this.fetchTeaMallContent(i);
+				
 			}
 
 		},
