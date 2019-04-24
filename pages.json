@@ -358,6 +358,12 @@
             "style" : {
 				"navigationBarTitleText": "热销榜单"
 			}
+        } ,
+		{
+            "path" : "pages/me/attention/attentionList",
+            "style" : {
+				"navigationBarTitleText": "关注列表"
+			}
         } 
 	],
 	"tabBar": {

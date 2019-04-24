@@ -106,7 +106,8 @@ const api = {
 	cancelClientOrder:params => request.post("/discountGameOrder/cancelClientOrder",params),
 
 	//退款详情
-	getRefundDetail:params => request.post("/discountGame/refundDetail",params),
+	getRefundDetail:params => request.post("/discountGame/refundDetail",),
+	
 
 
 	//上传
