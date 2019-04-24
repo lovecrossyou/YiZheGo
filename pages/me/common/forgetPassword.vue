@@ -21,7 +21,7 @@
 	export default {
 		data() {
 			return {
-				checkCode:'',
+				checkCode:null,
 				phoneNum:'',
 				countdownTime: '获取验证码',
 				timer:null,
@@ -52,6 +52,19 @@
 			},
 			
 			goNext(code) {
+				if(this.phoneNum.length!=11){
+					uni.showToast({
+						title: '请输入手机号',
+					    duration: 2000
+					})
+					return;
+				}else if(this.checkCode==null||this.checkCode==''){
+					uni.showToast({
+						title: '请输入验证码',
+					    duration: 2000
+					})
+					return;
+				}
 				uni.navigateTo({
 					url: "/pages/me/common/setPaymentCode?code="+this.checkCode+'&phoneNum='+this.phoneNum
 				})
