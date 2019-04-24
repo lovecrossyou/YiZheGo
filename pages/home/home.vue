@@ -114,7 +114,10 @@
 		computed: {
 			...mapState(['hasLogin', 'userInfo']),
 			...mapState('home', ['timeLimitChoiceList', 'timeLimitList']),
-			...mapGetters('home', ['timeLimit3', 'newsBenefitList3'])
+			...mapGetters('home', ['timeLimit3', 'newsBenefitList3','loading']),
+			// loading(){
+			// 	return this.timeLimit3.length==0 || this.newsBenefitList3.length==0;
+			// }
 		},
 		methods: {
 			async fetchByTimeLimitList() {
@@ -206,8 +209,6 @@
 					url: '/pages/login/WeChatLogin/WeChatLogin'
 				})
 			}
-
-			this.loading = false;
 		},
 		onLoad(option) {
 					
@@ -258,7 +259,6 @@
 				popMessage: [], //弹出 收到红包  会员奖励
 				showVIPModal: false,
 				showModal: false,
-				loading: true,
 				home_huiyuan: 'http://qnimage.xiteng.com/home_huiyuan.png',
 				home_gengduo_icon: '../../static/home/home_gengduo_icon.png',
 				navBarListTit: ['精选', '销量', '价格'],
