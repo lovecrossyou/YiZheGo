@@ -100,9 +100,9 @@
 		onShareAppMessage(obj) {
 			let userInfo = this.userInfo;
 			const groupId = this.OrderDetail.discountGameGroupModel.groupId;
-			const productId = this.OrderDetail.productId;
+			const productId = this.OrderDetail.discountGameId;
 			const payOrderNo = this.OrderDetail.payOrderNo;
-			console.log('userInfo ',userInfo)
+			console.log('productId ',productId)
 		
 			const path =  '/pages/home/home?inviteId=' + userInfo.userId + '&groupId=' + groupId + '&productId=' + productId +'&payOrderNo=' + payOrderNo;
 			return {

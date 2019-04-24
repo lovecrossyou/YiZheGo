@@ -107,6 +107,11 @@
                         "portrait-896h@2x" : "/Users/wangq/Desktop/xiteng/喜腾启动页1/828.png",
                         "iphonex" : "/Users/wangq/Desktop/xiteng/喜腾启动页1/x.png"
                     }
+                },
+                "android" : {
+                    "hdpi" : "/Users/wangq/Desktop/xiteng/安卓/Android480_762.png",
+                    "xhdpi" : "/Users/wangq/Desktop/xiteng/安卓/Android720_1242.png",
+                    "xxhdpi" : "/Users/wangq/Desktop/xiteng/安卓/Android1080_1882.png"
                 }
             }
         }

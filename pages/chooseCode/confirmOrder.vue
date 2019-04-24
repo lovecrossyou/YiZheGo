@@ -87,8 +87,12 @@
 		选择号码
 	</view> -->
 
-		<view class="showUpgradeModal" v-if="showUpgradeModal">
+		<view class="news_welfare_wrapper" v-if="showUpgradeModal">
 			<!-- xx -->
+			<image class="card" :src="xinren_upgrade_icon" @click="goUpgradeVIP"></image>
+			<view>
+				<image class="cancelBtn" :src="cancelBtn" @click="cancelUpgradeModal"></image>
+			</view>
 		</view>
 		<view v-if="isShow" class="news_welfare_wrapper">
 			<image class="card" :src="xinren_icon_fuli" @click="goUpgradeVIP"></image>
@@ -134,7 +138,9 @@
 				codes: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
 				isShow: false,
 				xinren_icon_fuli: "http://qnimage.xiteng.com/1@2x.png",
-				cancelBtn: "../../static/pay/cancel.png"
+				cancelBtn: "../../static/pay/cancel.png",
+				showUpgradeModal:false,
+				xinren_upgrade_icon:'../../static/pay/xinren_icon_fuli@2x.png'
 			};
 		},
 		components: {
@@ -215,9 +221,17 @@
 					});
 					return;
 				}
+				if(this.directBuy=='false'){
+					const vip = await this.vipInfo();
+					console.log('会员信息--------'+JSON.stringify(vip));
+					if(!vip.userIsVip&&vip.restPresentCount==0){
+						this.startUpgradeModal();
+						return;
+					}
+				}
 				const data = await this.getOrder();
 				console.log("提交订单-----------" + JSON.stringify(data));
-				if (data==='请您升级会员！') {
+				if (data === '请您升级会员！') {
 					//升级
 					this.showToast();
 				} else {
@@ -254,6 +268,15 @@
 				uni.navigateTo({
 					url: './refundRoute'
 				});
+			},
+			cancelUpgradeModal(){
+				this.showUpgradeModal=false;
+			},
+			startUpgradeModal(){
+				this.showUpgradeModal=true;
+			},
+			async vipInfo(){
+				return api.vipInfo({});
 			}
 		}
 	};
@@ -266,12 +289,13 @@
 		background: #f7f7f7;
 		display: flex;
 		flex-direction: column;
-	    flex: 1;
+		flex: 1;
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
+
 		.news_welfare_wrapper {
 			width: 100%;
 			height: 100%;
@@ -397,7 +421,12 @@
 						font-family: PingFang-SC-Medium;
 						font-weight: 500;
 						color: rgba(51, 51, 51, 1);
-						height: 67upx;
+						// height: 67upx;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						display: -webkit-box;
+						-webkit-box-orient: vertical; //从上到下垂直排列子元素（设置伸缩盒子的子元素排列方式）
+						-webkit-line-clamp: 2;
 					}
 
 					.product-info-pro-price-info {
@@ -465,19 +494,19 @@
 				align-items: center;
 
 				.choose-code-msg-red {
-					font-size:30upx;
-					font-family:PingFangSC-Regular;
-					font-weight:400;
-					color:rgba(51,51,51,1);
-					line-height:30upx;
+					font-size: 30upx;
+					font-family: PingFangSC-Regular;
+					font-weight: 400;
+					color: rgba(51, 51, 51, 1);
+					line-height: 30upx;
 				}
 
 				.choose-code-msg-time {
-					font-size:24upx;
-					font-family:PingFangSC-Regular;
-					font-weight:400;
-					color:rgba(153,153,153,1);
-					line-height:30upx;
+					font-size: 24upx;
+					font-family: PingFangSC-Regular;
+					font-weight: 400;
+					color: rgba(153, 153, 153, 1);
+					line-height: 30upx;
 					margin-left: 10upx;
 				}
 			}
@@ -594,7 +623,7 @@
 				}
 			}
 		}
-      
+
 		.confirm-footer {
 			height: 98upx;
 			position: fixed;

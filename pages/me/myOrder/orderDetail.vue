@@ -499,11 +499,11 @@ export default {
 			}
 			.address-content {
 				display: flex;
-
 				.position-icon {
 					width: 26upx;
-					height: 31upx;
+					height: 30upx;
 					margin-right: 14upx;
+					margin-top: 8upx;
 				}
 				.address-title {
 					font-size: 30upx;
@@ -514,16 +514,22 @@ export default {
 				}
 				.default {
 					border: 1upx solid rgba(255, 0, 0, 1);
-					border-radius: 4px;
+					border-radius: 4upx;
 					font-size: 20upx;
 					font-family: PingFang-SC-Medium;
 					font-weight: 500;
 					color: rgba(255, 41, 41, 1);
-					position: absolute;
-					left: 220upx;
-					line-height: 36upx;
+					
 					padding-left: 6upx;
 					padding-right: 6upx;
+					margin-top: 8upx;
+					width: 55upx;
+					height: 30upx;
+					margin-right: -55upx;
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					
 				}
 				.address {
 					font-size: 30upx;
@@ -555,6 +561,7 @@ export default {
 					color: rgba(51, 51, 51, 1);
 					line-height: 46upx;
 					display: flex;
+					
 				}
 			}
 			.zongji {
