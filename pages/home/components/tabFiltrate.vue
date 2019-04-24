@@ -16,7 +16,7 @@
 
 <script>
 	import api from '../../../util/api.js';
-	
+	import {mapState} from 'vuex'
 	export default {
 		props: {
 			data: Array,
@@ -36,9 +36,12 @@
 				// this.$store.commit('main/setMallContent',res)
 			},
 			changeActive(i) {
-				console.log('点击的是===',i)
 				if(i==1){
 					this.$store.commit('home/setSelectedInd',"relatedProductSaleMount")
+				}else if(i==2){
+					this.$store.commit('home/setSelectedInd',"originalPrice")
+				}else{
+					this.$store.commit('home/setSelectedInd',"participatePersonCount")
 				}
 				this.selectedIndex = i;
 				// this.fetchTeaMallContent(i);
