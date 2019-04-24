@@ -201,8 +201,8 @@
 						background: rgba(0, 0, 0, 1);
 						opacity: 0.3;
 						border-radius: 10px;
-						margin-top: 349upx;
-						margin-left: 544upx;
+						margin-top: 149upx;
+						margin-left: 244upx;
 						position: absolute;
 						
 						.moment_num_icon {
