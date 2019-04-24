@@ -23,7 +23,7 @@
 						</view>
 						<view class="recommend_item_intro_sale">
 							<view class="price">￥<span style="font-size: 36upx;">{{item.oneDiscountPrice/100}}</span></view>
-							<view class="already_sale"><image :src="home_huo_icon"></image>已抢{{item.currentPurchaseCount}}件</view>
+							<view class="already_sale"><image :src="home_huo_icon"></image>已抢{{item.participatePersonCount}}件</view>
 						</view>
 					</view>
 				</view>

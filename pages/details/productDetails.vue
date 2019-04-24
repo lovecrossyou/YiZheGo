@@ -12,7 +12,7 @@
 				</view>
 			</view>
 			<view class="share">
-				<image :src="share_icon"></image>
+				<!-- <image :src="share_icon"></image> -->
 			</view>
 		</view>
 		<!-- 轮播 -->
@@ -45,9 +45,10 @@
 		</view>
 		<!-- 商品信息  -->
 		<view class="product-info">
-			<view class="product-info-title">
-				<span class="pinkage">一折购</span>
-				<span class="info-name">{{productDetail.productItemModel.productName}}</span>
+			<view class="product-info-title-wrap">
+				<view class="product-info-title">
+					<span class="pinkage">一折购</span>{{productDetail.productItemModel.productName}}
+				</view>
 			</view>
 			<view class="rule">
 				<view class="product-info-guarantee">
@@ -296,8 +297,8 @@
 		background-color: #F3F3F3;
 		.header {
 			width: 100%;
-			height: 116upx;
-			padding: 0 30upx;
+			height: 180upx;
+			padding:77rpx 30rpx 0 30rpx;
 			box-sizing: border-box;
 			display: flex;
 			justify-content: space-between;
@@ -308,7 +309,6 @@
 			top: 0;
 			left: 0;
 			z-index: 111;
-
 			.left-arrow {
 				width: 20upx;
 				height: 36upx;
@@ -427,28 +427,31 @@
 
 			background: #FFFFFF;
 
-			.product-info-title {
+			.product-info-title-wrap {
+				width:100%;
 				padding: 22upx;
 				box-sizing: border-box;
-
-				.info-name {
+				.product-info-title{
+					overflow: hidden;
+					text-overflow: ellipsis;
+					display:-webkit-box;               
+					-webkit-box-orient:vertical; 
+					-webkit-line-clamp:2; 
 					font-size: 30upx;
 					line-height: 1.5;
-				}
-
-				.pinkage {
-
-					display: inline-block;
-					height: 36upx;
-					line-height: 36upx;
-					text-align: center;
-					background: #FF594B;
-					border-radius: 6upx;
-					color: #FFFFFF;
-					font-size: 20upx;
-					margin-right: 8upx;
-					padding-left: 10upx;
-					padding-right: 10upx;
+					.pinkage {
+						display: inline-block;
+						height: 36upx;
+						line-height: 36upx;
+						text-align: center;
+						background: #FF594B;
+						border-radius: 6upx;
+						color: #FFFFFF;
+						font-size: 20upx;
+						margin-right: 8upx;
+						padding-left: 10upx;
+						padding-right: 10upx;
+					}
 				}
 			}
 
@@ -494,7 +497,6 @@
 		.winning_periods {
 			margin-top: 20upx;
 			background: #FFFFFF;
-			margin-bottom: 18upx;
 
 			.snapping_buy {
 				.snapping_buy_item {
@@ -657,6 +659,8 @@
 		}
 
 		.detail_imgurllist {
+			width:100%;
+			padding-bottom: 98upx;
 			image {
 				width: 100%;
 
