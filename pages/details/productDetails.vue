@@ -195,6 +195,7 @@
 	export default {
 		onUnload(){
 			clearInterval(this.timer);
+			this.$store.commit('productDetail/resetProductDetail');
 		},
 		computed: {
 			...mapState('productDetail',['productDetail']),
