@@ -40,6 +40,7 @@
 				</view>
 			</view>
 		</block>
+		<view class="loadmore" @click="load_more">点击加载更多</view>
 	</view>
 </template>
 
@@ -48,7 +49,10 @@
 	export default{
 		data(){
 			return{
-				list:[]
+				list:[],
+				pageNo:1,
+				pageSize:10,
+				totalCount:0
 			}
 		},
 		methods:{
@@ -60,22 +64,38 @@
 			async change_praise(item){
 				const res = await api.praiseShowWinOrder({
 					showWinOrderId:item.showWinOrderCommentId,
+					pageNo:this.pageNo,
+					size:this.pageSize
 				});
-				item.praise=res.praise;
-				item.praiseCount=res.praiseCount;
+				item.praise=res.list.praise;
+				item.praiseCount=res.list.praiseCount;
+			},
+			async load_more(){
+				if(this.pageNo!=this.totalCount){
+					this.pageNo++;
+					const res = await api.discusRecommendList({
+						pageNo:this.pageNo,
+						size:this.pageSize
+					});
+					this.list = this.list.concat(res.list);
+				}
 			}
 		},
 		async onLoad() {
 			const res = await api.discusRecommendList({
-				
+				pageNo:this.pageNo,
+				size:this.pageSize
 			});
-			this.list = res;
+			this.list = res.list;
+			this.totalCount=res.totalCount;
 		},
 		async onShow() {
 			const res = await api.discusRecommendList({
-				
+				pageNo:this.pageNo,
+				size:this.pageSize
 			});
-			this.list = res;
+			this.list = res.list;
+			this.totalCount=res.totalCount;
 		}
 	}
 </script>
@@ -159,11 +179,14 @@
 					width: 100%;
 					height: 400upx;
 					position: relative;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
 						
 					.moment_image {
 						width: 630upx;
 						height: 100%;
-						margin-left: 30upx;
 						position: absolute;
 						
 					}
@@ -264,6 +287,13 @@
 					}
 				}
 			}
+		}
+		
+		.loadmore{
+			width: 100%;
+			font-size: 30upx;
+			font-family: PingFangSC-Regular;
+			text-align: center;
 		}
 	}
 </style>
