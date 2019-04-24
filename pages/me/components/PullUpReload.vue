@@ -24,7 +24,7 @@
 		props: {
 			isLoading: true,
 			parentPullUpState: {
-				default: 0
+				default: 2
 			},
 			onInfiniteLoad: {
 				type: Function,
@@ -33,7 +33,7 @@
 		},
 		data() {
 			return {
-				pullUpState: 0, // 1:上拉加载更多, 2:加载中……, 3:我是有底线的
+				pullUpState: 2, // 1:上拉加载更多, 2:加载中……, 3:我是有底线的
 				// isLoading: true, // 是否正在加载
 				pullUpStateText: {
 					moreDataTxt: '上拉加载更多',
