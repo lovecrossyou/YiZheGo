@@ -1,7 +1,12 @@
 <template>
 	<view class="tab_filtrate">
 		<view class="nav_bar_list">
-			<span v-for="(item,i) in data" class="nav_bar_list_item" :key="i" @click='changeActive(i)' v-bind:class="[selectedIndex==i?'activeClass':'initialClass']">
+			<span v-for="(item,i) in data" 
+					class="nav_bar_list_item" 
+					:key="i" 
+					@click='changeActive(i)' 
+					v-bind:class="[selectedIndex==i?'activeClass':'initialClass']"
+					>
 				{{item}}
 			</span>
 		</view>
@@ -23,6 +28,7 @@
 		},
 		methods: {
 			async fetchTeaMallContent(ind) {
+				console.log('ind----',ind);
 				const res = await api.HomeTeaMallContent({
 					"accessInfo": {},
 					"categoryId": ind
@@ -30,9 +36,13 @@
 				// this.$store.commit('main/setMallContent',res)
 			},
 			changeActive(i) {
+				console.log('点击的是===',i)
+				if(i==1){
+					this.$store.commit('home/setSelectedInd',"relatedProductSaleMount")
+				}
 				this.selectedIndex = i;
-				this.fetchTeaMallContent(i);
-				this.$emit('sendSelectedInd', i);
+				// this.fetchTeaMallContent(i);
+				
 			}
 
 		},

@@ -36,8 +36,8 @@
 					</view>
 				</view>
 			</view>
-			<view class="hot_sale" @click="hotsales">
-				<view class="tooopencom_title">
+			<view class="hot_sale">
+				<view class="tooopencom_title" @click="hotsales">
 					<view>热销榜单</view>
 					<view class="tooopencom_title_right">
 						<view>抢更多精选好物</view>

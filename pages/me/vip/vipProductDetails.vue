@@ -8,7 +8,8 @@
 					{{ item }}
 				</view>
 			</view>
-			<image :src="share_icon" class="share"></image>
+			<view></view>
+			<!-- <image :src="share_icon" class="share"></image> -->
 		</view>
 		<!-- 轮播 -->
 		<view class="scroll-wrapper">

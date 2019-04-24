@@ -39,6 +39,10 @@ const mutations = {
 	},
 	setNewsBenefitList(state, data) {
 		state.newsBenefitList = data
+	},
+	setSelectedInd(state,data){
+		console.log("data===",data)
+		// state.timeLimitList=state.timeLimitList.filter(data)
 	}
 }
 export default {
