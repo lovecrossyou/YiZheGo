@@ -27,6 +27,13 @@
 				this.paymentPassword = pwd.value;
 			},
 			async completePaySetting() {
+				if(this.paymentPassword.length!=6){
+					uni.showToast({
+						title: '请设置6位密码',
+					    duration: 2000
+					})
+					return;
+				}
 				const params = {
 					code: this.code,
 					payPassword: this.paymentPassword,

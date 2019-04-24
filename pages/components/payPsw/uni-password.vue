@@ -99,12 +99,16 @@
 				let args = {
 					cancel: false
 				};
-				this.$emit('delete', args);
+				//this.$emit('delete', args);
 				if (!args.cancel) {
 					if (this.password.length > 0) {
 						this.password = this.password.slice(0, this.password.length - 1);
 					}
 				}
+				this.$emit('confirm', {
+					target: this,
+					value: this.password.join('')
+				});
 			},
 			done(){
 				if (this.password.length !== this.items.length) return;
