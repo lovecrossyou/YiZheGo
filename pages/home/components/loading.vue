@@ -30,7 +30,7 @@
 		background:#FFF url("../../../static/home/loading_half.png") no-repeat center;
 		background-size: cover;
 		margin-right: 5px;
-		animation: rotating 2s linear infinite;
+		animation: rotating 1s linear infinite;
 	}
 	@keyframes rotating {
 		0% {

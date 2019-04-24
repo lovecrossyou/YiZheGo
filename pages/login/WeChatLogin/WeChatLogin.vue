@@ -39,7 +39,13 @@
 								} = infoRes;
 								console.log("infoRes ", JSON.stringify(infoRes));
 								console.log("res ", JSON.stringify(res));
-								const params = {
+								
+								// #ifdef APP-PLUS
+								
+								// #endif
+								
+								// #ifdef MP-WEIXIN
+									const params = {
 									code: res.code,
 									miniProgramsEncode: {
 										"encryptedData": encryptedData,
@@ -47,6 +53,9 @@
 									}
 								}
 								that.wxlogin(params);
+								// #endif
+								
+							
 							}
 						});
 					},

@@ -15,12 +15,13 @@
 		<view :class="'keyboard ' + pattern">
 			<ul class="number">
 				<li class="button" @tap="input(item)" v-for="item in keys" :key="item">{{item}}</li>
-				<li class="button">.</li>
-				<li class="button down" @tap="hide"></li>
 			</ul>
 			<view class="action">
-				<view class="delete" @tap="del"></view>
-				<view class="ok" @tap="done"></view>
+				<view class="space"></view>
+				<view class="zero" @tap="input('0')">0</view>
+				<view class="space" @tap="del">
+					<image v-bind:src="deleteIcon" class="delete"></image>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -28,10 +29,7 @@
 
 <script>
 	const keys = () => {
-		let natural = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-		return natural.sort(function(){
-			return Math.random()>0.5 ? -1 : 1;//用Math.random()函数生成0~1之间的随机数与0.5比较，返回-1或1
-		});
+		return [1, 2, 3, 4, 5, 6, 7, 8, 9]; 
 	};
 	
 	import uniIcon from './i-icon/i-icon.vue'
@@ -48,7 +46,8 @@
 				items: [0, 1, 2, 3, 4, 5],
 				password: [],
 				keys: keys(),
-				pattern: 'hidden'
+				pattern: 'hidden',
+				deleteIcon:'../../../static/pay/btn_delete@2x.png'
 			};
 		},
 		methods: {
@@ -100,12 +99,16 @@
 				let args = {
 					cancel: false
 				};
-				this.$emit('delete', args);
+				//this.$emit('delete', args);
 				if (!args.cancel) {
 					if (this.password.length > 0) {
 						this.password = this.password.slice(0, this.password.length - 1);
 					}
 				}
+				this.$emit('confirm', {
+					target: this,
+					value: this.password.join('')
+				});
 			},
 			done(){
 				if (this.password.length !== this.items.length) return;

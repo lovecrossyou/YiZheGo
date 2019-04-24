@@ -80,6 +80,9 @@ export default {
 				}]
 			}
 
+
+
+
 			let emptyMember = (state.orderDetail.discountGameGroupModel.groupUserModelList.length - 1) % 2;
 			let groupCount = Math.ceil((state.orderDetail.discountGameGroupModel.groupUserModelList.length - 1) / 2);
 
@@ -87,8 +90,18 @@ export default {
 				groupCount++;
 				emptyMember = 2;
 			}
+			
+			//groupCount = 4 ;
+			//emptyMember = 2;
+			
+			
 			let memberList = state.orderDetail.discountGameGroupModel.groupUserModelList.slice(0, state.orderDetail.discountGameGroupModel
 				.groupUserModelList.length);
+				
+				/* for(let aaa =0;aaa<8;aaa++){
+					memberList.push(memberList[0])
+				} */
+				
 			for (let m = 0; m < emptyMember; m++) {
 				memberList.push({
 					iconUrl: ''

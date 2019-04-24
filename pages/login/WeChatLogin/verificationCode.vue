@@ -5,7 +5,7 @@
 		<view class="code_item">
 			<security-code @inputFnOn="inputFnOn"></security-code>
 		</view>
-		<view class="count_down">40S后可重新获取</view>
+		<view class="count_down">{{content}}</view>
 		<button type="warn" :disabled="judge" @click="goVerifyLogin">完成</button>
 	</view>
 </template>
@@ -20,7 +20,8 @@
 			return {
 				judge: true,
 				phoneNum: '',
-				checkCode:''
+				checkCode:'',
+				content: '60s后重新发送',
 			};
 		},
 		components: {
@@ -57,6 +58,20 @@
 			const phoneNum = opt.phoneNum;
 			this.phoneNum = phoneNum;
 			this.sendCode(phoneNum);
+		},
+		created(){
+			const TIME_COUNT = 59;
+			this.count = TIME_COUNT;
+			this.timer = setInterval(() => {
+				this.content = this.count + "s后重新发送";
+				if (this.count > 0) {
+					this.count--;
+				}else{
+					clearInterval(this.timer);
+					this.timer= null;
+					this.content = "重新发送"
+				}
+			}, 1000);
 		}
 	};
 </script>

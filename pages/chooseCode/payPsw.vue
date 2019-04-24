@@ -8,7 +8,7 @@
 </template>
 
 <script>
-	import uniPassword from '../components/payPsw/uni-password.vue'
+	import uniPassword from '../components/payPsw/uni-password.vue' 
 	import uniIcon from '../components/payPsw/i-icon/i-icon.vue'
 	import uniKeyboard from '../components/payPsw/uni-keyboard.vue'
 	import api from '../../util/api.js';
@@ -76,6 +76,11 @@
 		height: 100%;
 		align-items: center;
 		background: #f5f5f5;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
 		.done{
 			width:690upx;
 			height:80upx;
