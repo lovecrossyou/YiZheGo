@@ -1,14 +1,13 @@
 <template>
 	<section class="main">
-		<PullUpReload :on-infinite-load="onInfiniteLoad" :parent-pull-up-state="infiniteLoadData.pullUpState">
+		<PullUpReload :isLoading="loading" :on-infinite-load="onInfiniteLoad" :parent-pull-up-state="infiniteLoadData.pullUpState">
 			<div class="lucky-list">
 				<block v-for="(item,index) in luckyListA" :key="index">
 					<view class="lucky-item">
 						<view class="top-tag">
-							<!-- <view class="date">今天</view> -->
-							<view class="day-time">{{item.openResultTime}}</view>
+							<view class="date">{{item.openResultTime}}</view>
+							<view class="day-time">{{item.week}}</view>
 						</view>
-						<!-- <view class="lucky"  :style="{ background: 'linear-gradient(backColorA[index].color1,backColorA[index].color2)' }"> -->
 						<view class="lucky" :style='{background: backColorA[index%4].background}'>
 							<view class="caty-No">
 								<view class="catygory-tag">
@@ -37,7 +36,7 @@
 							<view class="sep-line"></view>
 
 							<view class="attention">
-								注：本期中签号码与福彩3D第2019186期一等奖号码相同，即选 中3个红球，详情请查询“中国福利彩票开奖公告”。
+								注：本期中签号码与福彩3D第{{item.welfareStage}}期一等奖号码相同，即选 中3个红球，详情请查询“中国福利彩票开奖公告”。
 							</view>
 
 						</view>
@@ -62,6 +61,7 @@
 		},
 		data() {
 			return {
+				loading: true,
 				luckyListA: [],
 				totalCount: 0,
 				pageNo: 0,
@@ -69,7 +69,7 @@
 					initial: 10, // 初始显示多少条
 					size: 10, // 每次加载的个数
 					pageNo: 0, //页数
-					pullUpState: 0, // 子组件的pullUpState状态
+					pullUpState: 2, // 子组件的pullUpState状态
 					pullUpList: [], // 上拉加载更多数据的数组
 					showPullUpListLength: this.initial // 上拉加载后所展示的个数
 				},
@@ -92,12 +92,10 @@
 				],
 			};
 		},
-		mounted() {
-			this.getLuckyList();
-		},
 		methods: {
 			onInfiniteLoad(done) {
-				if (this.infiniteLoadData.pullUpState === 0) {
+				console.log('正在加载'+this.infiniteLoadData.pullUpState)
+				if (this.infiniteLoadData.pullUpState === 2) {
 					this.getLuckyList();
 				}
 				done()
@@ -108,8 +106,13 @@
 					pageNo: this.pageNo,
 					size: 10
 				}
+				this.loading=true;
 				api.luckyList(params).then((res)=>{
 					console.log(res);
+					res.list.forEach(lucky=>{
+						lucky.week = lucky.week+' '+lucky.openResultTime.substring(11,19)
+						lucky.openResultTime = this.judgeTime(lucky.openResultTime);
+					})
 					if (res.pageNo === 0) {
 						this.luckyListA = res.list;
 					} else {
@@ -117,11 +120,13 @@
 					}
 					this.pageNo = res.pageNo + 1;
 					this.totalCount = res.totalCount;
+					this.loading=false;
 					if (this.luckyListA.length === this.totalCount) {
 						this.infiniteLoadData.pullUpState = 3;
 					} else {
-						this.infiniteLoadData.pullUpState = 0;
+						this.infiniteLoadData.pullUpState = 2;
 					}
+					console.log('this.infiniteLoadData.pullUpState');
 				})
 			},
 			turnToLuckyDetail(item, index) {
@@ -134,7 +139,6 @@
 			judgeTime(date) {
 				console.log(date)
 				// 2019-03-14 09:11:18
-				let _this = this
 				let dateStr = new Date(date)
 				let today = new Date()
 				let hour = today.getHours()
@@ -149,16 +153,17 @@
 				let offset = dateStr.getTime() - otime
 				let isToday = offset / 1000 / 60 / 60
 				if (isToday > 0 && isToday <= 24) {
-					return '今天 ' + _this.add0(hour) + ':' + _this.add0(minute) + ':' + _this.add0(second)
+					return '今天';
 				} else if (isToday < 0 && isToday >= -24) {
-					return '昨天 ' + _this.add0(hour) + ':' + _this.add0(minute) + ':' + _this.add0(second)
+					return '昨天' 
 				} else {
-					return date
+					return date.substring(5,10);
 				}
 			}
 		},
 		onLoad() {
-			// this.getLuckyList();
+			console.log('中签榜');
+			this.getLuckyList();
 		}
 	}
 </script>
@@ -170,7 +175,8 @@
 		flex-direction: column;
 		width: 100%;
 		height: 100%;
-		background-color: #f4f8fb;
+		position: absolute;
+		background-color: #f7f7f7;
 
 		.lucky-list {
 
@@ -206,7 +212,6 @@
 					margin: 20upx 40upx 40upx 40upx;
 					border-radius: 20upx;
 
-					// background: linear-gradient(#60ECFF, #9890FF);
 					.caty-No {
 						display: flex;
 						flex-direction: column;
