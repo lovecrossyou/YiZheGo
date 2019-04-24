@@ -146,6 +146,7 @@
 				});
 			},
 			goDetail(productId, groupId) {
+				console.log('productId## ', productId);
 				uni.navigateTo({
 					url: '/pages/details/productDetails?productId=' + productId + '&groupId=' + groupId
 				});
