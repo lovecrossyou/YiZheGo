@@ -102,6 +102,8 @@
 					} else {
 						this.pullUpState = 2;
 					}
+					
+					console.log(this.list)
 				});
 				
 			}
@@ -109,10 +111,10 @@
 		onLoad() {
 			this.get_list()
 		},
-		onShow() {
-			this.pageNo=1;
-			this.get_list()
-		}
+		// onShow() {
+		// 	this.pageNo=1;
+		// 	this.get_list()
+		// }
 	}
 </script>
 
