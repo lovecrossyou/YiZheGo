@@ -13,15 +13,15 @@ const api = {
 	// 详情
 	productDetails: params => request.post('/discountGame/detail', params),
 	// 收藏
-	collectProduct:params=>request.post('/discountProduct/collect',params),
+	collectProduct: params => request.post('/discountProduct/collect', params),
 	// 收藏列表
-	collectList:params=>request.post('/discountProduct/collectList',params),
+	collectList: params => request.post('/discountProduct/collectList', params),
 	vipProductDetail: params => request.post('/discountGame/vipProductDetail', params),
 	buyVipProduct: params => request.post('/discountGame/vipProductPurchaseInfo', params),
 	updateToVipUser: params => request.post('/vip/updateToVipUser', params),
-	
+
 	//查询VIP商品订单
-	vipProductOrderDetail:params=>request.post('/discountGame/vipProductOrderDetail', params),
+	vipProductOrderDetail: params => request.post('/discountGame/vipProductOrderDetail', params),
 
 	searchNearby: (params) => request.post("map/search", params),
 	//推荐列表
@@ -40,23 +40,23 @@ const api = {
 	createShowWinOrder: params => request.post('/discountGame/createShowWinOrder', params),
 	//中签公告
 	winGameNotice: params => request.post('/discountGame/winGameNotice', params),
-	
+
 	// 邀请用户
-	inviteUser:params=>request.post('/discountGame/inviteUser',params),
+	inviteUser: params => request.post('/discountGame/inviteUser', params),
 	// 用户所有好友信息
-	userProfitAllFriendInfo:params=>request.post('/profit/userProfitAllFriendInfo',params),
+	userProfitAllFriendInfo: params => request.post('/profit/userProfitAllFriendInfo', params),
 	// 用户返利信息
-	userProfitInfo:params=>request.post('/profit/userProfitInfo',params),
+	userProfitInfo: params => request.post('/profit/userProfitInfo', params),
 
 	discusRecommendList: params => request.post(' /discountGame/discusRecommendList', params),
 	//我
-	userInfo:(params) => request.post("/user/info",params),
+	userInfo: (params) => request.post("/user/info", params),
 	//会员信息
-	vipInfo:(params) => request.post('/vip/userVipInfo', params),
+	vipInfo: (params) => request.post('/vip/userVipInfo', params),
 	//中签列表
-	luckyList:(params) => request.post('/discountGame/winGameListByStage', params),
+	luckyList: (params) => request.post('/discountGame/winGameListByStage', params),
 	//中签详情
-	luckyDetail:(params) => request.post('/discountGame/winGameListByStageDetail', params),
+	luckyDetail: (params) => request.post('/discountGame/winGameListByStageDetail', params),
 
 	//确认订单
 	confirmOrderInfo: params => request.post("/discountGameOrder/immediateBuy", params),
@@ -72,43 +72,44 @@ const api = {
 	//支付结果查询
 	queryResult: params => request.post("/client/discountGamePay/queryResult", params),
 	//订单详情
-	clientOrderDetail:params => request.post("/discountGameOrder/clientOrderDetail",params),
-	
+	clientOrderDetail: params => request.post("/discountGameOrder/clientOrderDetail", params),
+
 	//判断是否设置支付密码
-	checkSetPayPassword:params => request.post("/client/bankCard/checkSetPayPassword",params),
-    
+	checkSetPayPassword: params => request.post("/client/bankCard/checkSetPayPassword", params),
+
 	//账户信息
-	accountInfo:params => request.post("/account/info",params),
-	
+	accountInfo: params => request.post("/account/info", params),
+
 	//获取验证码
-	getVerificationCode:params => request.post("/reqcheckCode/getCode",params),
-	
-	checkCodeLogin:params => request.post("/checkCodeLogin",params),
+	getVerificationCode: params => request.post("/reqcheckCode/getCode", params),
+
+	checkCodeLogin: params => request.post("/checkCodeLogin", params),
 
 	//用户订单列表    
 	getMyOrder: params => request.post("/discountGame/clientOrder", params),
 
 	//设置支付密码
-	setPayPassword:params => request.post("/client/bankCard/setPayPassword", params),
-	
-	acceptInvite : params =>request.post("/discountGame/acceptInvite",params),
-	
+	setPayPassword: params => request.post("/client/bankCard/setPayPassword", params),
+
+	acceptInvite: params => request.post("/discountGame/acceptInvite", params),
+
 	//红包弹窗
-	redPacket:params =>request.post("/discountGame/getRewardRecord",params),
+	redPacket: params => request.post("/discountGame/getRewardRecord", params),
 	//领取红包
-	getRedPacket:params => request.post("/discountGame/readRewardRecord",params),
+	getRedPacket: params => request.post("/discountGame/readRewardRecord", params),
 	//领取会员弹窗
-	vipModal:params =>request.post("/vip/pushPresentVipInfo",params),
+	vipModal: params => request.post("/vip/pushPresentVipInfo", params),
 	// 领取会员
-	getPresentVip:params =>request.post("/vip/getPresentVip",params),
-	
+	getPresentVip: params => request.post("/vip/getPresentVip", params),
+
 	//取消订单
-	cancelClientOrder:params => request.post("/discountGameOrder/cancelClientOrder",params),
+	cancelClientOrder: params => request.post("/discountGameOrder/cancelClientOrder", params),
 
 	//退款详情
-	getRefundDetail:params => request.post("/discountGame/refundDetail",),
-	
+	getRefundDetail: params => request.post("/discountGame/refundDetail", params),
 
+	//app登录
+	loginForApp: params => request.post("/login", params),
 
 	//上传
 	uploader: (file, callback) => {
@@ -128,8 +129,8 @@ const api = {
 	wxlogin: params => request.post('/login/weChatMiniPrograms', params),
 
 	vipProducts: params => request.post('/discountGame/vipProduct', params),
-	
-	bindPhone:params =>request.post('/bindPhone',params),
-	findPayPassword: params=>request.post('/client/bankCard/findPayPassword',params)
+
+	bindPhone: params => request.post('/bindPhone', params),
+	findPayPassword: params => request.post('/client/bankCard/findPayPassword', params)
 }
 export default api
