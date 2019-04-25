@@ -40,7 +40,6 @@
 	export default {
 		data(){
 			return {
-				navBarListTit:['综合','价格','销量'],
 				home_search: "../../static/home/home_search.png",
 
 			}
