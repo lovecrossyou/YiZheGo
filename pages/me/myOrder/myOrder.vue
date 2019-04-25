@@ -203,6 +203,7 @@ export default {
 
 	.swiper-box {
 		flex: 1;
+		display:flex;
 		width: 100%;
 		.list {
 			width: 100%;

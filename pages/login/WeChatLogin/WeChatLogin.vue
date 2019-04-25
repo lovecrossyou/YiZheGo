@@ -58,9 +58,7 @@
 										access_token:'',
 										signature:genSignature(openId),
 										phone_num:openId,
-										loginType:'weixin',
-										version:'1.0',
-										os:'android'
+										loginType:'weixin'
 									}
 								}
 								this.$store.dispatch('authwxappLogin',nativeParams)
