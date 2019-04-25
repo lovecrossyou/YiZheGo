@@ -239,12 +239,21 @@
 			},
 			countDown(){
 			    this.lastTime = timeUtil.showTickTime(this.productDetail.openResultTime);
+			},
+			async collectState(productId){
+				let res = await api.collectState({
+					discountGameId :productId
+				});
+				if(res.valid == true){
+					this.isBg = true
+				}
 			}
 			
 		},
 		onLoad(opt) {
 			this.fetchProductDetails(opt.productId);
 			this.groupId = opt.groupId;
+			this.collectState(opt.productId)
 		},
 		data() {
 			return {

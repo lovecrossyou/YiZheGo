@@ -7,7 +7,25 @@
 				<image src="http://qnimage.xiteng.com/next_go_icon.png" alt="" class="next_icon"></image>
 			</view>
 		</view>
+		<view class="mpvue-picker">
+			<view class="uni-padding-wrap uni-common-mt">
+				<!-- <view class="uni-textarea uni-common-mt"><textarea :value="pickerText" disabled placeholder="请点击下面的按钮进行选择"></textarea></view>
+				<view class="uni-btn-v"><button type="default" @click="showSinglePicker">单列选择</button></view> -->
+			</view>
+			<mpvue-picker
+				:themeColor="themeColor"
+				ref="mpvuePicker"
+				:mode="mode"
+				:deepLength="deepLength"
+				:pickerValueDefault="pickerValueDefault"
+				@onConfirm="onConfirm"
+				@onCancel="onCancel"
+				:pickerValueArray="pickerValueArray"
+			></mpvue-picker>
+		</view>
+
 		<selectItemList title="名字" :leftText="personalInfoList.userInfo.cnName"></selectItemList>
+
 		<view class="xt_num_area">
 			<view class="header_img_text">喜腾号</view>
 			<view class="num_text">{{ personalInfoList.userInfo.xtNumber }}</view>
@@ -20,7 +38,11 @@
 			</view>
 		</view>
 		<view class="bottom_item_list">
-			<selectItemList title="性别" :leftText="personalInfoList.userInfo.sex == 1 ? '男' : '女'"></selectItemList>
+			<view @click="showSinglePicker">
+				<selectItemList title="性别" :leftText="personalInfoList.userInfo.sex == 1 ? '男' : '女'"></selectItemList>
+				<!-- <selectItemList title="性别" :leftText="pickerText"></selectItemList> -->
+
+			</view>
 			<!-- <selectItemList title="星座" :leftText="personalInfoList.userInfo.constellation"></selectItemList> -->
 			<selectItemList page="/pages/me/address/address" title="送货地址"></selectItemList>
 		</view>
@@ -30,14 +52,35 @@
 <script>
 import api from '../../util/api.js';
 import selectItemList from './components/selectItemList.vue';
+// https://github.com/zhetengbiji/mpvue-picker
+import mpvuePicker from '@/components/mpvue-picker/mpvuePicker.vue';
+// https://github.com/zhetengbiji/mpvue-citypicker
+import mpvueCityPicker from '@/components/mpvue-citypicker/mpvueCityPicker.vue';
+
 export default {
 	data() {
 		return {
-			personalInfoList: null
+			personalInfoList: null,
+			pickerSingleArray: [
+				{
+					label: '男'
+				},
+				{
+					label: '女'
+				}
+			],
+			// cityPickerValueDefault: [0, 0, 1],
+			themeColor: '#007AFF',
+			pickerText: '',
+			mode: '',
+			pickerValueDefault: [0],
+			pickerValueArray: []
 		};
 	},
 	components: {
-		selectItemList
+		selectItemList,
+		mpvuePicker,
+		mpvueCityPicker
 	},
 	computed: {},
 	methods: {
@@ -57,11 +100,25 @@ export default {
 			let res = await api.userInfo({});
 			this.personalInfoList = res;
 			console.log(this.personalInfoList);
+		},
+		onCancel(e) {
+			console.log(e);
+		},
+		// 单列
+		showSinglePicker() {
+			this.pickerValueArray = this.pickerSingleArray;
+			this.mode = 'selector';
+			this.deepLength = 1;
+			this.pickerValueDefault = [0];
+			this.$refs.mpvuePicker.show();
+		},
+		onConfirm(e) {
+			this.pickerText = e.label;
 		}
 	},
 	onLoad() {
 		this.personalInfo();
-	}
+	},
 };
 </script>
 
