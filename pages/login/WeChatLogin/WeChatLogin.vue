@@ -11,6 +11,9 @@
 </template>
 
 <script>
+	import {APP_KEY,genSignature} from "@/util/request.js"
+	import api from '@/util/api.js';
+
 	export default {
 		data() {
 			return {};
@@ -37,32 +40,29 @@
 									encryptedData,
 									iv
 								} = infoRes;
-								console.log("infoRes## ", infoRes);
-								console.log("res ", res);
+								// console.log("infoRes## ", JSON.stringify(infoRes));
+								// console.log("res ", JSON.stringify(res));
+								const {userInfo} = infoRes;
+								const {openId,nickName,avatarUrl,gender} = userInfo;
+								
 								
 								// #ifdef APP-PLUS
-								
-	/* 							String userName;    open id  微信返回
-     String app_key;   accessInfo中的appkey
-     String nickName;       nick_name"  微信返回  
-    String headImageUrl;    head_img  微信返回  
-     int sex;    sex  微信返回  
-	 
-	 
-	 
-	 
-     LoginAccessInfo accessInfo;
-				String app_key;
-    String access_token;  "" 空字符串
-	String signature;    MD5.encode(Constant.APPSERRET + open id).toUpperCase();
-	                                  "71838ae252714085bc0fb2fc3f420110"
-    String phone_num;   open id  微信返回
-    String loginType;    "weixin"
-    String version;   
-    String os="android";	 */			
-								
-								
-								
+								const nativeParams = {
+									userName:openId,
+									app_key:APP_KEY,
+									nickName,
+									headImageUrl:avatarUrl,
+									sex:gender,
+									accessInfo:{
+										app_key:APP_KEY,
+										access_token:'',
+										signature:genSignature(openId),
+										phone_num:openId,
+										loginType:'weixin'
+									}
+								}
+								this.$store.dispatch('authwxappLogin',nativeParams)
+															
 								// #endif
 								
 								// #ifdef MP-WEIXIN

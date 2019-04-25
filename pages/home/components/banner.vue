@@ -1,12 +1,12 @@
 <template>
 	<view>
-		<view class="uni-padding-wrap">
-			<view class="page-section swiper" @click="goRule">
+		<view class="uni-padding-wrap" v-if="homeBannerLists.length!=0">
+			<view class="page-section swiper">
 				<view class="page-section-spacing">
 					<swiper class="swiper" :indicator-dots="indicatorDots"  :interval="interval" :duration="duration">
-						<swiper-item v-for='(item,i) in [1,2,3,4]' :key='i'>
-							<view class="swiper-item uni-bg-red">
-								<image :src="mall_banner"></image>
+						<swiper-item v-for='(item,i) in homeBannerLists' :key='i'>
+							<view class="swiper-item uni-bg-red" @click="goRule(item.detailPage)">
+								<image :src="item.bannerUrl" mode="widthFix"></image>
 							</view>
 						</swiper-item>
 					</swiper>
@@ -21,6 +21,9 @@
 		mapState
 	} from "vuex";
 	export default {
+		computed: {
+			...mapState('home',['homeBannerLists'])
+		},
 		data() {
 			return {
 				mall_banner: "http://qnimage.xiteng.com/banner.png",
@@ -33,9 +36,10 @@
 			}
 		},
 		methods: {
-			goRule(){
+			goRule(detailPage){
+				// console.log('detailPage',detailPage)
 				uni.navigateTo({
-					url:"/pages/rule/rule"
+					url:detailPage
 				})
 			},
 			changeIndicatorDots(e) {
@@ -49,7 +53,13 @@
 			},
 			durationChange(e) {
 				this.duration = e.target.value
+			},
+			async fetchBannerLists(){
+				this.$store.dispatch('home/fetchBannerLists')
 			}
+		},
+		onLoad(){
+			this.fetchBannerLists()
 		}
 	}
 </script>
