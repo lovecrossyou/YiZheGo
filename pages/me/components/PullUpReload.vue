@@ -1,5 +1,5 @@
 <template lang="html">
-	<div :style="{transform: 'translate3d(0,' + top + 'px, 0)'}">
+	<div :style="{transform: 'translate3d(0,' + top + 'px, 0)',backgroud:backgroudcolor} ">
 		<slot></slot>
 		<footer class="load-more">
 			<slot name="load-more">
@@ -23,6 +23,7 @@
 		},
 		props: {
 			isLoading: true,
+			backgroudcolor: "#f7f7f7",
 			parentPullUpState: {
 				default: 2
 			},
@@ -47,7 +48,7 @@
 			this.clientHeight = '${document.documentElement.clientHeight}'
 		},
 		onReachBottom: function() {
-			console.log('000');
+			console.log(this.isLoading);
 			if (this.pullUpState !== 3 && !this.isLoading) {
 				if (!this.isLoading) {
 					this.onInfiniteLoad(this.infiniteLoadDone);
@@ -78,7 +79,6 @@
 	.load-more {
 		width: 100%;
 		color: #c0c0c0;
-		background: #f7f7f7;
 	}
 
 	.loading-tip {
