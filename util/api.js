@@ -4,6 +4,8 @@ const uploadBaseUrl = "http://www.xiteng.com/xitenggamenode/";
 // const uploadBaseUrl = "http://123.57.161.212:9939/xitenggamenode/";
 
 const api = {
+	// 轮播
+	bannerList:params=>request.post('/discountGame/banner'),
 	// 喜腾好物
 	newsBenefitList: params => request.post('/discountGameList/goodProduct', params),
 	// 热销榜单

@@ -1,7 +1,7 @@
 <template>
 	<view class="product_details_wrapper" ref="homPage" v-if="productDetail">
 		<!-- 顶部导航 -->
-		<view class="header">
+		<!-- <view class="header">
 			<view class="left-arrow" @click="goBack">
 				<image :src="nav_icon_back"></image>
 			</view>
@@ -14,7 +14,7 @@
 			<view class="share">
 				<!-- <image :src="share_icon"></image> -->
 			</view>
-		</view>
+		</view> -->
 		<!-- 轮播 -->
 		<view class="scroll-wrapper">
 			<swiper class="swiper" :indicator-dots="indicatorDots" :interval="interval" :duration="duration">
@@ -358,7 +358,6 @@
 		.scroll-wrapper {
 			height: 700upx;
 			width: 100%;
-			padding-top:180rpx;
 			
 			.swiper {
 				width: 100%;
