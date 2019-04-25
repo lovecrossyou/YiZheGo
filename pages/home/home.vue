@@ -212,7 +212,6 @@
 			},
 			async vipInfo(){
 				const vip = await api.vipInfo({});
-				console.log('会员信息----'+JSON.stringify(vip))
 				if(!vip.userIsVip&&vip.restPresentCount==3){
 					this.startNewUserModal();
 				}
