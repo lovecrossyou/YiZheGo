@@ -195,12 +195,13 @@
 	export default {
 		onUnload(){
 			clearInterval(this.timer);
+			this.$store.commit('productDetail/resetProductDetail');
 		},
 		computed: {
 			...mapState('productDetail',['productDetail']),
 			
 			banners() {
-				if (this.productDetail === null) return [];
+				if (this.productDetail === null) return null;
 				return this.productDetail.productItemModel.productShowImageUrlList
 			}
 		},

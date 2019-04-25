@@ -18,14 +18,14 @@
 			</view>
 		</view>
 		<view class="pay-order-info">
-			<view class="pay-order-text">订单号:{{result.payOrderNo}}</view>
-			<view class="pay-order-text">下单时间:{{orderDetails.clientOrderTime}}</view>
-			<view class="pay-order-text">商品代码:{{orderDetails.productNo}}</view>
-			<view v-if="productType !== 'vipProduct'" class="pay-order-text">期数:{{orderDetails.discountGameStage}}</view>
-			<view v-if="productType !== 'vipProduct'" class="pay-order-text">抢购数量:{{orderDetails.purchaseCount}}</view>
-			<view class="pay-order-text">金额:{{result.totalFee/100}}</view>
-			<view class="pay-order-text">支付方式:{{orderDetails.payChannel}}</view>
-			<view class="pay-order-text">支付时间:{{orderDetails.clientOrderTime}}</view>
+			<view class="pay-order-text">订单号: {{result.payOrderNo}}</view>
+			<view class="pay-order-text">下单时间: {{orderDetails.clientOrderTime}}</view>
+			<view v-if="orderDetails.productNo" class="pay-order-text">商品代码: {{orderDetails.productNo}}</view>
+			<view v-if="productType !== 'vipProduct'" class="pay-order-text">期数: {{orderDetails.discountGameStage}}</view>
+			<view v-if="productType !== 'vipProduct'" class="pay-order-text">抢购数量: {{orderDetails.purchaseCount}}</view>
+			<view class="pay-order-text">金额: {{result.totalFee/100}}</view>
+			<view class="pay-order-text">支付方式: {{orderDetails.payChannel}}</view>
+			<view class="pay-order-text">支付时间: {{orderDetails.clientOrderTime}}</view>
 		</view>
 		<view class="pay-button-info" @click="done">
 			<view class="pay-button">完成</view>

@@ -171,6 +171,14 @@
 			}
 		},
 		{
+			"path": "pages/me/vip/vip-right",
+			"style": {
+				"navigationBarTitleText": "会员权益",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
+		},
+		{
 			"path": "pages/me/vip/lucky-list",
 			"style": {
 				"navigationBarTitleText": "中签榜",

@@ -1,6 +1,6 @@
 <template lang="html">
 	<div class="main">
-		<slot class="loading-more">
+		<slot class="load-more">
 			<div class="loading-tip">
 				<span class="icon-loading"></span>
 			</div>
@@ -14,7 +14,12 @@
 
 <style scoped>
 	.load-more {
+		display: flex;
+		flex: 1;
 		width: 100%;
+		height: 100%;
+		position: absolute;
+		background: white;
 	}
 	.loading-tip {
 		display: flex;
@@ -27,10 +32,10 @@
 		display: inline-flex;
 		width: 50px;
 		height: 50px;
-		background:#FFF url("../../../static/home/loading_half.png") no-repeat center;
+		background:#FFF url("../../static/home/loading_half.png") no-repeat center;
 		background-size: cover;
 		margin-right: 5px;
-		animation: rotating 1s linear infinite;
+		animation: rotating 2s linear infinite;
 	}
 	@keyframes rotating {
 		0% {
@@ -52,11 +57,7 @@
 		justify-content: center;
 		align-items: center;
 
-		position: fixed;
-		top: 0;
-		left: 0;
-		right: 0;
-		bottom: 0;
-
+		position: absolute;
+		background-color: white;
 	}
 </style>

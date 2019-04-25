@@ -1,6 +1,6 @@
 <template>
 	<view class="invite_friend_wrapper">
-		 <view class="banner" v-if="userProfitInfo">
+		 <view class="banner" v-if="userProfitInfo" @click="turnToWallet">
 			<view class="banner_item">
 				<view class="tit">我的好友</view>
 				<view class="intro"><span class="count">{{userProfitInfo.userFriendAmount}}</span>人</view>
@@ -84,6 +84,11 @@
 			...mapState('inviteFriend',['userProfitInfo'])
 		},
 		methods: {
+			turnToWallet() {
+				uni.navigateTo({
+					url:"/pages/me/wallet/wallet"
+				})
+			},
 			inviteBtn() {
 				this.isShare = true;
 			},

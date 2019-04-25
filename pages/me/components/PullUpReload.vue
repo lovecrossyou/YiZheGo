@@ -4,7 +4,7 @@
 		<footer class="load-more">
 			<slot name="load-more">
 				<LoadingDiv v-if="pullUpState==1" :loadingText="pullUpStateText.moreDataTxt"></LoadingDiv>
-				<LoadingDiv v-if="pullUpState==2" :loadingText="pullUpStateText.loadingMoreDataTxt"></LoadingDiv>
+				<LoadingDiv v-if="pullUpState==2 || isLoading" :loadingText="pullUpStateText.loadingMoreDataTxt"></LoadingDiv>
 				<div class="loading-tip" v-if="pullUpState==3">
 					<span class="connectingLine"></span>
 					<span class="noMoreData-tip-text">{{pullUpStateText.noMoreDataTxt}}</span>
@@ -19,11 +19,12 @@
 	import LoadingDiv from './LoadingDiv.vue'
 	export default {
 		components: {
-			LoadingDiv
+			LoadingDiv,
 		},
 		props: {
+			isLoading: true,
 			parentPullUpState: {
-				default: 0
+				default: 2
 			},
 			onInfiniteLoad: {
 				type: Function,
@@ -32,8 +33,8 @@
 		},
 		data() {
 			return {
-				pullUpState: 0, // 1:上拉加载更多, 2:加载中……, 3:我是有底线的
-				isLoading: false, // 是否正在加载
+				pullUpState: 2, // 1:上拉加载更多, 2:加载中……, 3:我是有底线的
+				// isLoading: true, // 是否正在加载
 				pullUpStateText: {
 					moreDataTxt: '上拉加载更多',
 					loadingMoreDataTxt: '加载中...',
@@ -48,24 +49,21 @@
 		onReachBottom: function() {
 			console.log('000');
 			if (this.pullUpState !== 3 && !this.isLoading) {
-				this.pullUpState = 1
-				this.infiniteLoad()
-// 				setTimeout(() => {
-// 					this.infiniteLoad()
-// 				}, 200)
+				if (!this.isLoading) {
+					this.onInfiniteLoad(this.infiniteLoadDone);
+				}
 			}
 		},
 		methods: {
 			infiniteLoad() {
 				this.pullUpState = 2
 				this.isLoading = true
-				setTimeout(() => {
-					this.onInfiniteLoad(this.infiniteLoadDone)
-				}, 800)
+// 				setTimeout(() => {
+// 					this.onInfiniteLoad(this.infiniteLoadDone)
+// 				}, 800)
 			},
 			infiniteLoadDone() {
-				this.pullUpState = 0
-				this.isLoading = false
+				this.pullUpState = 2
 			}
 		},
 		watch: {
