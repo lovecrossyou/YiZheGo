@@ -16,7 +16,7 @@
 				<view class="momentcontent"  @click="godetails(index)">
 					<view class="moment_text">{{item.commentContent}}</view>
 					<view class="moment_image_wrapper" v-if="item.imageOrVideoUrl.length!==0">
-						<image class="moment_image" :src="item.imageOrVideoUrl[0]" mode="widthFix"></image>
+						<image class="moment_image" :src="item.imageOrVideoUrl[0]"></image>
 						<view class="moment_image_num_wrapper">
 							<image class="moment_num_icon" src="/static/moments/shaidan_icon_tupian.png"></image>
 							<view class="moment_image_num">{{item.imageOrVideoUrl.length}}</view>
@@ -40,7 +40,7 @@
 				</view>
 			</view>
 		</block>
-		<view class="loadmore" @click="load_more">点击加载更多</view>
+		<view class="loadmore" @click="load_more" v-if="pageNo!=totalCount">点击加载更多</view>
 	</view>
 </template>
 

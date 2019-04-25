@@ -4,14 +4,17 @@ import service from "../service.js"
 
 const request = new Fly()
 
-export const baseURL = 'https://www.xiteng.com/xitenggamejar/'
+//export const baseURL = 'https://www.xiteng.com/xitenggamejar/'
 
-// export const baseURL = 'http://123.57.161.212:9939/xitenggamejar/'
+ export const baseURL = 'http://123.57.161.212:9939/xitenggamejar/'
 
 
-const APP_SECRET = '71838ae252714085bc0fb2fc3f420110'
-const APP_KEY = 'b5958b665e0b4d8cae77d28e1ad3f521'
+export const APP_SECRET = '71838ae252714085bc0fb2fc3f420110'
+export const APP_KEY = 'b5958b665e0b4d8cae77d28e1ad3f521'
 
+export const genSignature = openid => {
+	return hex_md5(APP_SECRET + '' + openid).toUpperCase();
+}
 
 // 生成accessinfo信息
 export const createAccessInfo = () => {
@@ -42,38 +45,41 @@ const errorPrompt = (err) => {
 		})
 		return;
 	}
-	uni.showToast({
-		title: err.data.message || 'fetch data error.',
-		icon: 'none'
-	})
+	if (err.data.message) {
+		uni.showToast({
+			title: err.data.message,
+			icon: 'none'
+		})
+	}
 }
 
 request.interceptors.request.use((request) => {
 	let body = request.body;
 	if (body) {
-		body = Object.assign({}, { ...body
-		}, {
-			accessInfo: createAccessInfo()
-		});
+		if (!body.accessInfo) {
+			body = Object.assign({}, { ...body
+			}, {
+				accessInfo: createAccessInfo()
+			});
+		}
 	} else {
 		body = {
 			accessInfo: createAccessInfo()
 		}
 	}
 	request.body = body;
-	// uni.showLoading();
+	uni.showLoading();
 	return request
 })
 
 request.interceptors.response.use((response, promise) => {
-	// uni.hideLoading()
+	uni.hideLoading()
 	if (!(response.status === 200)) {
 		errorPrompt(response);
 	}
 	return promise.resolve(response.data)
 }, (err, promise) => {
-	// uni.hideLoading()
-	console.log('xxxxxx', JSON.stringify(err));
+	uni.hideLoading()
 	var message = err.response.data.message;
 	if (message && message.indexOf('升级会员') != -1) {
 		return promise.resolve(message);

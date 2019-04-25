@@ -1,5 +1,6 @@
 <template>
 	<view class="uni-tab-bar">
+		
 		<view id="tab-bar" class="uni-swiper-tab">
 			<view
 				v-for="(tab, index) in tabBars"
@@ -175,11 +176,7 @@ export default {
 	flex: 1;
 	flex-direction: column;
 	height: 100%;
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
+	
 	.uni-swiper-tab {
 		width: 100%;
 		display: flex;
@@ -203,7 +200,11 @@ export default {
 
 	.swiper-box {
 		flex: 1;
+		display:flex;
 		width: 100%;
+		position: fixed;
+		top:100upx;
+		height:100%;
 		.list {
 			width: 100%;
 			height: 100%;
