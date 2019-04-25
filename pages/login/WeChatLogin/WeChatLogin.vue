@@ -40,8 +40,8 @@
 									encryptedData,
 									iv
 								} = infoRes;
-								console.log("infoRes## ", JSON.stringify(infoRes));
-								console.log("res ", JSON.stringify(res));
+								// console.log("infoRes## ", JSON.stringify(infoRes));
+								// console.log("res ", JSON.stringify(res));
 								const {userInfo} = infoRes;
 								const {openId,nickName,avatarUrl,gender} = userInfo;
 								
@@ -58,9 +58,7 @@
 										access_token:'',
 										signature:genSignature(openId),
 										phone_num:openId,
-										loginType:'weixin',
-										version:'1.0',
-										os:'ios'
+										loginType:'weixin'
 									}
 								}
 								this.$store.dispatch('authwxappLogin',nativeParams)

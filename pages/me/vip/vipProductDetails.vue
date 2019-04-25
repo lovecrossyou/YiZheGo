@@ -1,16 +1,5 @@
 <template>
 	<view class="product_details_wrapper" v-if="productDetail">
-		<!-- 顶部导航 -->
-		<view class="header">
-			<image :src="nav_icon_back" class="left-arrow" @click="goBack"></image>
-			<view class="product_title">
-				<view class="product_title_item" v-for="(item, i) in ['商品', '详情']" :key="i" :class="[selectedIndex == i ? 'activeBd' : 'initialBd']" @click="changeIndex(i)">
-					{{ item }}
-				</view>
-			</view>
-			<view></view>
-			<!-- <image :src="share_icon" class="share"></image> -->
-		</view>
 		<!-- 轮播 -->
 		<view class="scroll-wrapper">
 			<swiper class="swiper" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
@@ -237,7 +226,6 @@ export default {
 	.scroll-wrapper {
 		height: 700upx;
 		width: 100%;
-		margin-top: 180upx;
 
 		.swiper {
 			width: 100%;

@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<view class="uni-padding-wrap">
+		<view class="uni-padding-wrap" v-if="homeBannerLists.length!=0">
 			<view class="page-section swiper">
 				<view class="page-section-spacing">
 					<swiper class="swiper" :indicator-dots="indicatorDots"  :interval="interval" :duration="duration">
@@ -37,7 +37,7 @@
 		},
 		methods: {
 			goRule(detailPage){
-				console.log('detailPage',detailPage)
+				// console.log('detailPage',detailPage)
 				uni.navigateTo({
 					url:detailPage
 				})

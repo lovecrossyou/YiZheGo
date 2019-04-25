@@ -32,7 +32,7 @@ const actions = {
 		commit
 	}, cb) {
 		const res = await api.byTimeLimitChoiceList();
-		console.log('fetchTimeLimitChoiceList ### ', res);
+		// console.log('fetchTimeLimitChoiceList ### ', res);
 		commit('setTimeLimitChoiceList', res)
 		cb && cb();
 	},

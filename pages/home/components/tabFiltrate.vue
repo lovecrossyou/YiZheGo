@@ -28,7 +28,7 @@
 		},
 		methods: {
 			async fetchTeaMallContent(ind) {
-				console.log('ind----',ind);
+				// console.log('ind----',ind);
 				const res = await api.HomeTeaMallContent({
 					"accessInfo": {},
 					"categoryId": ind

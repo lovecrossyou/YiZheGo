@@ -1,20 +1,6 @@
 <template>
 	<view class="product_details_wrapper" ref="homPage" v-if="productDetail">
 		<!-- 顶部导航 -->
-		<!-- <view class="header">
-			<view class="left-arrow" @click="goBack">
-				<image :src="nav_icon_back"></image>
-			</view>
-			<view class="product_title">
-				<view class="product_title_item" v-for="(item,i) in ['商品','详情']" :key='i' :class="[selectedIndex==i?'activeBd':'initialBd']"
-				 @click="changeIndex(i)">
-					{{item}}
-				</view>
-			</view>
-			<view class="share">
-				<!-- <image :src="share_icon"></image> -->
-			</view>
-		</view> -->
 		<!-- 轮播 -->
 		<view class="scroll-wrapper">
 			<swiper class="swiper" :indicator-dots="indicatorDots" :interval="interval" :duration="duration">
@@ -253,12 +239,21 @@
 			},
 			countDown(){
 			    this.lastTime = timeUtil.showTickTime(this.productDetail.openResultTime);
+			},
+			async collectState(productId){
+				let res = await api.collectState({
+					discountGameId :productId
+				});
+				if(res.valid == true){
+					this.isBg = true
+				}
 			}
 			
 		},
 		onLoad(opt) {
 			this.fetchProductDetails(opt.productId);
 			this.groupId = opt.groupId;
+			this.collectState(opt.productId)
 		},
 		data() {
 			return {
