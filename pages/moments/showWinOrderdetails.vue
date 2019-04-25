@@ -16,7 +16,7 @@
 			<image class="moment_image_big" mode="widthFix" :src="showWinOrderCommentModel.imageOrVideoUrl[0]" @click="preview_pic(showWinOrderCommentModel.imageOrVideoUrl[0])"></image>
 			<view class="moment_image_small_list" v-if="showWinOrderCommentModel.imageOrVideoUrl.length>1">
 				<block v-for="(item,index) in image_small_list" :key="index">
-					<image class="moment_image_small" :src="item" @click="preview_pic(item)"></image>
+					<image class="moment_image_small" :src="item" @click="preview_pic(item)" mode="aspectFill"></image>
 				</block>
 			</view>
 			<view class="previewpic" v-if="isPreview" @click="close_pic">

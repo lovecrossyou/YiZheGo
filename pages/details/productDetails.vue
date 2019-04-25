@@ -17,10 +17,10 @@
 		</view>
 		<!-- 轮播 -->
 		<view class="scroll-wrapper">
-			<swiper class="swiper" :indicator-dots="indicatorDots" :autoplay="autoplay" :interval="interval" :duration="duration">
+			<swiper class="swiper" :indicator-dots="indicatorDots" :interval="interval" :duration="duration">
 				<swiper-item class="swiper-item" v-for="(item,i) in banners" :key='i'>
 					<view>
-						<image :src="item"></image>
+						<image :src="item" mode="aspectFill"></image>
 					</view>
 				</swiper-item>
 			</swiper>
@@ -358,7 +358,8 @@
 		.scroll-wrapper {
 			height: 700upx;
 			width: 100%;
-
+			padding-top:180rpx;
+			
 			.swiper {
 				width: 100%;
 				height: 100%;
@@ -661,7 +662,7 @@
 
 		.detail_imgurllist {
 			width:100%;
-			padding-bottom: 98upx;
+			padding-bottom: 30upx;
 			image {
 				width: 100%;
 
