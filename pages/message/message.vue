@@ -10,18 +10,23 @@
 	} from 'vuex'
 	export default {
 		data() {
-			return {};
+			return {
+				extra:''
+			};
 		},
 		computed: {
 			...mapGetters(['h5Page']),
 			url(){
-				return this.h5Page('ximessage/page')
+				return this.h5Page('ximessage/page?extra='+this.extra)
 			}
 		},
 		methods: {
 			EventHandler: function(e) {
 				
 			}
+		},
+		onShow() {
+			this.extra = Math.random(100000);
 		}
 	}
 </script>

@@ -37,8 +37,8 @@
 									encryptedData,
 									iv
 								} = infoRes;
-								console.log("infoRes ", JSON.stringify(infoRes));
-								console.log("res ", JSON.stringify(res));
+								console.log("infoRes## ", infoRes);
+								console.log("res ", res);
 								
 								// #ifdef APP-PLUS
 								
