@@ -60,7 +60,7 @@
 										phone_num:openId,
 										loginType:'weixin',
 										version:'1.0',
-										os:'ios'
+										os:'android'
 									}
 								}
 								this.$store.dispatch('authwxappLogin',nativeParams)

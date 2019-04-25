@@ -99,6 +99,7 @@
 		{
 			"path": "pages/login/WeChatLogin/inputTelNumber",
 			"style": {
+				"navigationBarTitleText": "",
 				"navigationBarBackgroundColor": "#fff",
 				"navigationBarTextStyle": "black"
 			}
@@ -106,6 +107,7 @@
 		{
 			"path": "pages/login/WeChatLogin/verificationCode",
 			"style": {
+				"navigationBarTitleText": "",
 				"navigationBarBackgroundColor": "#fff",
 				"navigationBarTextStyle": "black"
 			}
@@ -257,7 +259,11 @@
 			}
 		}, {
 			"path": "pages/category/category",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
 		}
 
 		, {
@@ -307,7 +313,11 @@
 			}
 		}, {
 			"path": "pages/acceptGroup/acceptGroup",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
 		}, {
 			"path": "pages/me/common/paymentCode",
 			"style": {
@@ -341,7 +351,11 @@
 			}
 		}, {
 			"path": "pages/buying/buying",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
 
 		},
 		{
@@ -354,12 +368,20 @@
 		},
 		{
 			"path": "pages/rule/rule",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
 		}
 	    
         ,{
             "path" : "pages/shareqrcode/shareqrcode",
-            "style" : {}
+            "style" : {
+				"navigationBarTitleText": "",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
         },
 		{
             "path" : "pages/xtgoods/xtgoods",

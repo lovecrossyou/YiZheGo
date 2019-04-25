@@ -4,9 +4,9 @@ import service from "../service.js"
 
 const request = new Fly()
 
-export const baseURL = 'https://www.xiteng.com/xitenggamejar/'
+// export const baseURL = 'https://www.xiteng.com/xitenggamejar/'
 
-// export const baseURL = 'http://123.57.161.212:9939/xitenggamejar/'
+export const baseURL = 'http://123.57.161.212:9939/xitenggamejar/'
 
 
 export const APP_SECRET = '71838ae252714085bc0fb2fc3f420110'
