@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<image class="images" src="http://qnimage.xiteng.com/image_rule_new.jpg" mode="widthFix"></image>
+		<image class="images" src="http://qnimage.xiteng.com/image_rule_banner.jpg" mode="widthFix"></image>
 	</view>
 </template>
 
