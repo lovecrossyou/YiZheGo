@@ -43,7 +43,7 @@
 				<!-- <selectItemList title="性别" :leftText="pickerText"></selectItemList> -->
 
 			</view>
-			<selectItemList title="星座" :leftText="personalInfoList.userInfo.constellation"></selectItemList>
+			<!-- <selectItemList title="星座" :leftText="personalInfoList.userInfo.constellation"></selectItemList> -->
 			<selectItemList page="/pages/me/address/address" title="送货地址"></selectItemList>
 		</view>
 	</view>
