@@ -11,6 +11,9 @@
 </template>
 
 <script>
+	import {APP_KEY,genSignature} from "@/util/request.js"
+	import api from '@/util/api.js';
+
 	export default {
 		data() {
 			return {};
@@ -37,11 +40,31 @@
 									encryptedData,
 									iv
 								} = infoRes;
-								console.log("infoRes## ", infoRes);
-								console.log("res ", res);
+								console.log("infoRes## ", JSON.stringify(infoRes));
+								console.log("res ", JSON.stringify(res));
+								const {userInfo} = infoRes;
+								const {openId,nickName,avatarUrl,gender} = userInfo;
+								
 								
 								// #ifdef APP-PLUS
-								
+								const nativeParams = {
+									userName:openId,
+									app_key:APP_KEY,
+									nickName,
+									headImageUrl:avatarUrl,
+									sex:gender,
+									accessInfo:{
+										app_key:APP_KEY,
+										access_token:'',
+										signature:genSignature(openId),
+										phone_num:openId,
+										loginType:'weixin',
+										version:'1.0',
+										os:'ios'
+									}
+								}
+								this.$store.dispatch('authwxappLogin',nativeParams)
+															
 								// #endif
 								
 								// #ifdef MP-WEIXIN

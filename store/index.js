@@ -13,11 +13,11 @@ import inviteFriend from './modules/inviteFriend.js';
 
 const urlParams = () => {
 	const accessInfo = createAccessInfo();
-// 	const accessInfo = {
-// 		"app_key": "b5958b665e0b4d8cae77d28e1ad3f521",
-// 		"signature": "5C79284BE4601B53CB11B6103412D83A",
-// 		"access_token": "488183bc6bae4f7e98f70b85f5dbdae4"
-// 	}
+	// 	const accessInfo = {
+	// 		"app_key": "b5958b665e0b4d8cae77d28e1ad3f521",
+	// 		"signature": "5C79284BE4601B53CB11B6103412D83A",
+	// 		"access_token": "488183bc6bae4f7e98f70b85f5dbdae4"
+	// 	}
 	const urlParams = '?app_key=' + accessInfo.app_key + '&signature=' + accessInfo.signature + '&access_token=' +
 		accessInfo.access_token + '&wechat_redirect';
 	return urlParams;
@@ -91,6 +91,10 @@ const store = new Vuex.Store({
 		},
 		setH5Url(state, data) {
 			state.urlParams = data;
+		},
+
+		setAuthAppLogin(state, data) {
+
 		}
 	},
 	actions: {
@@ -105,14 +109,15 @@ const store = new Vuex.Store({
 				commit('saveToken', token);
 				commit('saveOpenId', openid);
 				commit('saveUserInfo', userInfo);
-				if(userInfo){
-					commit('login',userInfo);
+				if (userInfo) {
+					commit('login', userInfo);
 				}
 				//拼接h5参数
 				const accessInfo = createAccessInfo();
 				commit('setH5Url', urlParams());
 			}
 		},
+
 		async wxlogin({
 			commit,
 			state
@@ -125,8 +130,8 @@ const store = new Vuex.Store({
 			commit('saveToken', token);
 			commit('saveUserInfo', userInfo);
 			commit('saveOpenId', openid);
-			
-			commit('login',userInfo);
+
+			commit('login', userInfo);
 
 			service.addToken(token);
 			service.addOpenId(openid);
@@ -158,16 +163,37 @@ const store = new Vuex.Store({
 			commit('saveToken', token);
 			commit('saveUserInfo', userInfo);
 			// commit('saveOpenId', openid);
-			commit('login',userInfo);
+			commit('login', userInfo);
 			service.addToken(token);
 			// service.addOpenId(openid);
 			service.addInfo(userInfo);
-
 
 			commit('saveToken', token);
 			service.addToken(token);
 			acceptInvite();
 			uni.navigateBack();
+		},
+
+		async authwxappLogin({
+			state,
+			commit
+		}, nativeParams) {
+			const token = await api.loginForApp(nativeParams);
+			commit('saveUserInfo', userInfo);
+			service.addToken(token);
+			let userInfo = await api.userInfo({});
+			
+			service.addInfo(userInfo);
+			commit('login', userInfo);
+			// 检测是否绑定过手机号
+			if (userInfo.phoneNumber == null || userInfo.phoneNumber.length == 0) {
+				// 继续绑定手机号
+				wx.redirectTo({
+					url: '/pages/login/WeChatLogin/inputTelNumber',
+				})
+			} else {
+				uni.navigateBack();
+			}
 		}
 	}
 })

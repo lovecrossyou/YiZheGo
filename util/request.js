@@ -9,9 +9,12 @@ const request = new Fly()
 export const baseURL = 'http://123.57.161.212:9939/xitenggamejar/'
 
 
-const APP_SECRET = '71838ae252714085bc0fb2fc3f420110'
-const APP_KEY = 'b5958b665e0b4d8cae77d28e1ad3f521'
+export const APP_SECRET = '71838ae252714085bc0fb2fc3f420110'
+export const APP_KEY = 'b5958b665e0b4d8cae77d28e1ad3f521'
 
+export const genSignature = openid => {
+	return hex_md5(APP_SECRET + '' + openid).toUpperCase();
+}
 
 // 生成accessinfo信息
 export const createAccessInfo = () => {
@@ -51,10 +54,12 @@ const errorPrompt = (err) => {
 request.interceptors.request.use((request) => {
 	let body = request.body;
 	if (body) {
-		body = Object.assign({}, { ...body
-		}, {
-			accessInfo: createAccessInfo()
-		});
+		if (!body.accessInfo) {
+			body = Object.assign({}, { ...body
+			}, {
+				accessInfo: createAccessInfo()
+			});
+		}
 	} else {
 		body = {
 			accessInfo: createAccessInfo()
