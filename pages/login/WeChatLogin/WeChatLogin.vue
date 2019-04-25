@@ -42,6 +42,27 @@
 								
 								// #ifdef APP-PLUS
 								
+	/* 							String userName;    open id  微信返回
+     String app_key;   accessInfo中的appkey
+     String nickName;       nick_name"  微信返回  
+    String headImageUrl;    head_img  微信返回  
+     int sex;    sex  微信返回  
+	 
+	 
+	 
+	 
+     LoginAccessInfo accessInfo;
+				String app_key;
+    String access_token;  "" 空字符串
+	String signature;    MD5.encode(Constant.APPSERRET + open id).toUpperCase();
+	                                  "71838ae252714085bc0fb2fc3f420110"
+    String phone_num;   open id  微信返回
+    String loginType;    "weixin"
+    String version;   
+    String os="android";	 */			
+								
+								
+								
 								// #endif
 								
 								// #ifdef MP-WEIXIN
