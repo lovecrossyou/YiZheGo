@@ -28,7 +28,7 @@
 					<view class="tooopencom_product_list">
 						<view class="tooopencom_product_item" v-for="(item, i) in newsBenefitList3" :key="i" @click="goNewsWelfare">
 							<view class="image">
-								<image :src="item.productImageUrl"></image>
+								<image :src="item.productImageUrl" mode="aspectFill"></image>
 								<view class="tooopencom_product_price">￥{{ item.oneDiscountPrice/100 }}</view>
 							</view>
 							<view class="tooopencom_product_name">{{ item.productName }}</view>
@@ -375,15 +375,17 @@
 							.tooopencom_product_price {
 								width:100%;
 								height:48upx;
+								background:rgba(255,255,255,0.5);
 								line-height:48upx;
 								position: absolute;
 								bottom: 10upx;
-								left: 10upx;
+								left:0;
+								padding-left:10upx;
+								box-sizing: border-box;
 								font-size: 32upx;
 								font-family: PingFang-SC-Medium;
 								font-weight: 500;
 								color: rgba(226, 37, 55, 1);
-								
 								
 							}
 
@@ -503,7 +505,6 @@
 					.image {
 						width: 136upx;
 						height: 178upx;
-
 						image {
 							width: 136upx;
 							height: 178upx;
