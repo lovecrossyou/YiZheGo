@@ -1,7 +1,7 @@
 <template>
-	 <view>
-        <web-view :webview-styles="webviewStyles" :src="url"></web-view>
-    </view>
+	<view v-if="page">
+		<web-view :src="page"></web-view>
+	</view>
 </template>
 
 <script>
@@ -12,18 +12,18 @@
 	} from 'vuex';
 	export default {
 		data() {
-			return {};
+			return {
+				page: null
+			};
 		},
 		computed: {
-			...mapGetters(['h5Page']),
-			url(){
-				return this.h5Page('3DHotSell/page')
-			}
+			...mapGetters(['h5Page'])
 		},
 		methods: {
-			EventHandler: function(e) {
-				
-			}
+
+		},
+		onLoad() {
+			this.page = this.h5Page('3DHotSell/page');
 		}
 	}
 </script>

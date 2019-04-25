@@ -193,15 +193,13 @@
 			},
 			async getVipModal() {
 				let res = await api.vipModal({});
-				console.log('getVipModal ', res);
+				// console.log('getVipModal ', res);
 				if (res.pushPresentVip) {
 					this.showVIPModal = true;
 				}
 			}
 		},
 		onShow() {
-			
-			console.log('onShow ');
 			if (this.hasLogin) {
 				this.packets();
 				this.getVipModal();
