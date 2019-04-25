@@ -74,6 +74,7 @@
 				})
 			},
 			async getVipProduct(){
+				// return;
 				const res = await api.vipProducts({}).then((res)=>{
 					res.forEach(pro=>{
 						pro.isVipPro=true;

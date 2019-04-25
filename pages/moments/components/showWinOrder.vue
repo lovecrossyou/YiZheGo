@@ -1,51 +1,54 @@
 <template>
-	<view class="showWinOrderwrapper">
-		<block v-for="(item,index) in list" :key="index">
-			<view class="showWinOrderItem">
-				<view class="user">
-					<image class="user_icon" :src="item.userIconUrl"></image>
-					<view class="user_icon_right">
-						<view class="user_wrapper">
-							<view class="user_name">{{item.userName}}</view>
-							<image class="user_sex" v-if="item.userSex==='男'" src="/static/moments/icon_man.png"></image>
-							<image class="user_sex" v-else src="/static/moments/icon_woman.png"></image>
-						</view>
-						<view class="time">{{item.createTime}}</view>
-					</view>
-				</view>
-				<view class="momentcontent"  @click="godetails(index)">
-					<view class="moment_text">{{item.commentContent}}</view>
-					<view class="moment_image_wrapper" v-if="item.imageOrVideoUrl.length!==0">
-						<image class="moment_image" :src="item.imageOrVideoUrl[0]"></image>
-						<view class="moment_image_num_wrapper">
-							<image class="moment_num_icon" src="/static/moments/shaidan_icon_tupian.png"></image>
-							<view class="moment_image_num">{{item.imageOrVideoUrl.length}}</view>
+	<view class="main">
+		<view class="showWinOrderwrapper">
+			<block v-for="(item,index) in list" :key="index">
+				<view class="showWinOrderItem">
+					<view class="user">
+						<image class="user_icon" :src="item.userIconUrl"></image>
+						<view class="user_icon_right">
+							<view class="user_wrapper">
+								<view class="user_name">{{item.userName}}</view>
+								<image class="user_sex" v-if="item.userSex==='男'" src="/static/moments/icon_man.png"></image>
+								<image class="user_sex" v-else src="/static/moments/icon_woman.png"></image>
+							</view>
+							<view class="time">{{item.createTime}}</view>
 						</view>
 					</view>
-				</view>
-				<view class="moment_data">
-					<view class="gamestage" v-if="item.discountGameStage">期数: {{item.discountGameStage}}</view>
-					<view class="gamestage" v-else></view>
-					<view class="moment_num">
-						<view class="praise" @click="change_praise(item)">
-							<image class="praise_img" v-if="item.praise" src="/static/moments/btn_like_red.png"></image>
-							<image class="praise_img" v-else src="/static/moments/icon_illume.png"></image>
-							<view class="praise_num">{{item.praiseCount}}</view>
+					<view class="momentcontent"  @click="godetails(index)">
+						<view class="moment_text">{{item.commentContent}}</view>
+						<view class="moment_image_wrapper" v-if="item.imageOrVideoUrl.length!==0">
+							<image class="moment_image" :src="item.imageOrVideoUrl[0]"></image>
+							<view class="moment_image_num_wrapper">
+								<image class="moment_num_icon" src="/static/moments/shaidan_icon_tupian.png"></image>
+								<view class="moment_image_num">{{item.imageOrVideoUrl.length}}</view>
+							</view>
 						</view>
-						<view class="comment"  @click="godetails(index)">
-							<image class="comment_img" src="/static/moments/icon_comment.png"></image>
-							<view class="comment_num">{{item.commentCount}}</view>
+					</view>
+					<view class="moment_data">
+						<view class="gamestage" v-if="item.discountGameStage">期数: {{item.discountGameStage}}</view>
+						<view class="gamestage" v-else></view>
+						<view class="moment_num">
+							<view class="praise" @click="change_praise(item)">
+								<image class="praise_img" v-if="item.praise" src="/static/moments/btn_like_red.png"></image>
+								<image class="praise_img" v-else src="/static/moments/icon_illume.png"></image>
+								<view class="praise_num">{{item.praiseCount}}</view>
+							</view>
+							<view class="comment"  @click="godetails(index)">
+								<image class="comment_img" src="/static/moments/icon_comment.png"></image>
+								<view class="comment_num">{{item.commentCount}}</view>
+							</view>
 						</view>
 					</view>
 				</view>
-			</view>
-		</block>
-		<view class="loadmore" @click="load_more" v-if="pageNo!=totalCount">点击加载更多</view>
+			</block>
+			<PullUpReload :isLoading="loading" :on-infinite-load="onInfiniteLoad" :parent-pull-up-state="pullUpState" backgroudcolor="#eeeeee"></PullUpReload>
+		</view>
 	</view>
 </template>
 
 <script>
 	import api from "@/util/api.js"
+	import PullUpReload from "@/pages/me/components/PullUpReload.vue"
 	export default{
 		data(){
 			return{
@@ -53,8 +56,13 @@
 				list:[],
 				pageNo:1,
 				pageSize:10,
-				totalCount:0
+				totalCount:0,
+				loading: true,
+				pullUpState:2
 			}
+		},
+		components:{
+			PullUpReload
 		},
 		methods:{
 			godetails(index){
@@ -62,240 +70,245 @@
 					url:"/pages/moments/showWinOrderdetails?id="+this.list[index].showWinOrderCommentId
 				})
 			},
+			onInfiniteLoad(done) {
+				console.log('正在加载'+this.pullUpState)
+				if (this.pullUpState === 2) {
+					this.get_list();
+				}
+				done()
+			},
 			async change_praise(item){
 				const res = await api.praiseShowWinOrder({
 					showWinOrderId:item.showWinOrderCommentId,
-					pageNo:this.pageNo,
-					size:this.pageSize
 				});
-				item.praise=res.list.praise;
-				item.praiseCount=res.list.praiseCount;
+				item.praise=res.praise;
+				item.praiseCount=res.praiseCount;
 			},
-			async load_more(){
-				if(this.pageNo!=this.totalCount){
-					this.pageNo++;
-					const res = await api.discusRecommendList({
-						pageNo:this.pageNo,
-						size:this.pageSize
-					});
-					this.list = this.list.concat(res.list);
-				}
+			async get_list(){
+				this.loading=true;
+				let param = {
+				pageNo:this.pageNo,
+				size:this.pageSize
+				};
+				api.showWinOrderList(param).then((res)=>{
+					this.totalCount=res.totalCount;
+					if(this.pageNo===1){
+						this.list = res.list;
+					}
+					else{
+						this.list = this.list.concat(res.list);
+					}
+					this.pageNo=res.pageNo+1;
+					this.loading=false;
+					if (this.pageNo === this.totalCount) {
+						this.pullUpState = 3;
+					} else {
+						this.pullUpState = 2;
+					}
+					console.log(res)
+				});
 			}
 		},
-		async onLoad() {
-			const res = await api.showWinOrderList({
-				pageNo:this.pageNo,
-				size:this.pageSize
-			});
-			this.list = res.list;
-			this.totalCount=res.totalCount;
+		onLoad() {
+			this.get_list()
 		},
-		async onShow() {
-			const res = await api.showWinOrderList({
-				pageNo:this.pageNo,
-				size:this.pageSize
-			});
-			this.list = res.list;
-			this.totalCount=res.totalCount;
+		onShow() {
+			this.pageNo=1;
+			this.get_list()
 		}
 	}
 </script>
 
 <style lang="less">
-	.showWinOrderwrapper{
-		width: 100%; 
-		padding: 20upx 30upx;
-		box-sizing: border-box;
+	.main{
+		width: 100%;
+		height: 100%;
+		position: absolute;
 		background: #eeeeee;
-		overflow: hidden;
 		
-		.showWinOrderItem {
-			display: flex;
-			flex-direction: column;
-			width: 100%;
-			background: rgba(255, 255, 255, 1);
-			margin-bottom: 20upx;
-		
-			.user {
+		.showWinOrderwrapper{
+			width: 100%; 
+			padding: 20upx 30upx;
+			box-sizing: border-box;
+			background: #eeeeee;
+			
+			.showWinOrderItem {
 				width: 100%;
-				height: 99upx;
-				display: flex;
-				flex-direction: row;
-		
-				.user_icon {
-					width: 70upx;
-					height: 70upx;
-					margin-left: 31upx;
-					margin-top: 29upx;
-				}
-		
-				.user_icon_right {
-					margin-left: 18upx;
-					margin-top: 31upx;
-		
-					.user_wrapper {
-						display: flex;
-						flex-direction: row;
-		
-						.user_name {
-							font-size: 30upx;
+				background: rgba(255, 255, 255, 1);
+				margin-bottom: 20upx;
+				.user {
+					width: 100%;
+					height: 99upx;
+					display: flex;
+					flex-direction: row;
+					.user_icon {
+						width: 70upx;
+						height: 70upx;
+						margin-left: 31upx;
+						margin-top: 29upx;
+					}
+			
+					.user_icon_right {
+						margin-left: 18upx;
+						margin-top: 31upx;
+			
+						.user_wrapper {
+							display: flex;
+							flex-direction: row;
+			
+							.user_name {
+								font-size: 30upx;
+								font-family: PingFangSC-Regular;
+								font-weight: 400;
+								color: rgba(51, 51, 51, 1);
+							}
+			
+							.user_sex {
+								width: 27upx;
+								height: 27upx;
+								margin-left: 9upx;
+								margin-top: 8upx;
+							}
+						}
+			
+						.time {
+							font-size: 24upx;
 							font-family: PingFangSC-Regular;
 							font-weight: 400;
-							color: rgba(51, 51, 51, 1);
-						}
-		
-						.user_sex {
-							width: 27upx;
-							height: 27upx;
-							margin-left: 9upx;
-							margin-top: 8upx;
+							color: rgba(153, 153, 153, 1);
+							line-height: 40upx;
+							margin-bottom: 3upx;
 						}
 					}
-		
-					.time {
+			
+				}
+			
+				.momentcontent{
+					width: 100%;
+					
+					.moment_text {
+						font-size: 28upx;
+						font-family: PingFangSC-Regular;
+						font-weight: 400;
+						color: rgba(51, 51, 51, 1);
+						line-height: 36upx;
+						margin: 31upx 32upx 18upx 32upx;
+						box-sizing: border-box;
+					}
+							
+					.moment_image_wrapper {
+						width: 100%;
+						height: 400upx;
+						position: relative;
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
+						align-items: center;
+							
+						.moment_image {
+							width: 630upx;
+							height: 100%;
+							position: absolute;
+							
+						}
+							
+						.moment_image_num_wrapper {
+							display: flex;
+							flex-direction: row;
+							justify-content: center;
+							align-items: center;
+							width: 66upx;
+							height: 33upx;
+							background: rgba(0, 0, 0, 1);
+							opacity: 0.3;
+							border-radius: 10px;
+							margin-top: 149upx;
+							margin-left: 244upx;
+							position: absolute;
+							
+							.moment_num_icon {
+								width: 18upx;
+								height: 16upx;
+							}
+							
+							.moment_image_num {
+								font-size: 22upx;
+								font-family: PingFangSC-Regular;
+								font-weight: 400;
+								color: rgba(255, 255, 255, 1);
+								margin-left: 5upx;
+							}
+						}
+							
+					}
+				}
+			
+				.moment_data {
+					width: 100%;
+					height: 60upx;
+					display: flex;
+					flex-direction: row;
+					justify-content: space-between;
+					margin-top: 41upx;
+					// margin-right: 31upx;
+			
+					.gamestage {
 						font-size: 24upx;
 						font-family: PingFangSC-Regular;
 						font-weight: 400;
 						color: rgba(153, 153, 153, 1);
-						line-height: 40upx;
-						margin-bottom: 3upx;
+						margin-left: 37upx;
+			
 					}
-				}
-		
-			}
-		
-			.momentcontent{
-				width: 100%;
-				
-				.moment_text {
-					font-size: 28upx;
-					font-family: PingFangSC-Regular;
-					font-weight: 400;
-					color: rgba(51, 51, 51, 1);
-					line-height: 36upx;
-					margin: 31upx 32upx 18upx 32upx;
-					box-sizing: border-box;
-				}
-						
-				.moment_image_wrapper {
-					width: 100%;
-					height: 400upx;
-					position: relative;
-					display: flex;
-					flex-direction: column;
-					justify-content: center;
-					align-items: center;
-						
-					.moment_image {
-						width: 630upx;
-						height: 100%;
-						position: absolute;
-						
-					}
-						
-					.moment_image_num_wrapper {
+					
+					.moment_num{
 						display: flex;
 						flex-direction: row;
-						justify-content: center;
-						align-items: center;
-						width: 66upx;
-						height: 33upx;
-						background: rgba(0, 0, 0, 1);
-						opacity: 0.3;
-						border-radius: 10px;
-						margin-top: 149upx;
-						margin-left: 244upx;
-						position: absolute;
+						margin-right: 1upx;
 						
-						.moment_num_icon {
-							width: 18upx;
-							height: 16upx;
-						}
-						
-						.moment_image_num {
-							font-size: 22upx;
-							font-family: PingFangSC-Regular;
-							font-weight: 400;
-							color: rgba(255, 255, 255, 1);
-							margin-left: 5upx;
-						}
-					}
-						
-				}
-			}
-		
-			.moment_data {
-				width: 100%;
-				height: 60upx;
-				display: flex;
-				flex-direction: row;
-				justify-content: space-between;
-				margin-top: 41upx;
-				// margin-right: 31upx;
-		
-				.gamestage {
-					font-size: 24upx;
-					font-family: PingFangSC-Regular;
-					font-weight: 400;
-					color: rgba(153, 153, 153, 1);
-					margin-left: 37upx;
-		
-				}
-				
-				.moment_num{
-					display: flex;
-					flex-direction: row;
-					margin-right: 1upx;
-					
-					.praise {
-						display: flex;
-						flex-direction: row;
-						height: 26upx;
-					
-						.praise_img {
-							width: 29upx;
+						.praise {
+							display: flex;
+							flex-direction: row;
 							height: 26upx;
+						
+							.praise_img {
+								width: 29upx;
+								height: 26upx;
+							}
+						
+							.praise_num {
+								font-size: 24upx;
+								font-family: PingFangSC-Regular;
+								font-weight: 400;
+								color: rgba(102, 102, 102, 1);
+								margin-left: 10upx;
+								margin-top: -5upx;
+							}
 						}
-					
-						.praise_num {
-							font-size: 24upx;
-							font-family: PingFangSC-Regular;
-							font-weight: 400;
-							color: rgba(102, 102, 102, 1);
-							margin-left: 10upx;
-							margin-top: -5upx;
-						}
-					}
-					
-					.comment {
-						display: flex;
-						flex-direction: row;
-						margin-left: 36upx;
-					
-						.comment_img {
-							width: 28upx;
-							height: 28upx;
-						}
-					
-						.comment_num {
-							font-size: 24upx;
-							font-family: PingFangSC-Regular;
-							font-weight: 400;
-							color: rgba(102, 102, 102, 1);
-							margin-left: 10upx;
-							margin-top: -5upx;
-							margin-right: 31upx;
+						
+						.comment {
+							display: flex;
+							flex-direction: row;
+							margin-left: 36upx;
+						
+							.comment_img {
+								width: 28upx;
+								height: 28upx;
+							}
+						
+							.comment_num {
+								font-size: 24upx;
+								font-family: PingFangSC-Regular;
+								font-weight: 400;
+								color: rgba(102, 102, 102, 1);
+								margin-left: 10upx;
+								margin-top: -5upx;
+								margin-right: 31upx;
+							}
 						}
 					}
 				}
 			}
-		}
-		
-		.loadmore{
-			width: 100%;
-			font-size: 30upx;
-			font-family: PingFangSC-Regular;
-			text-align: center;
 		}
 	}
 </style>

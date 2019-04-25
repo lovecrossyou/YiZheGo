@@ -8,10 +8,10 @@
 			</view>
 		</view>
 		<view class="mpvue-picker">
-			<view class="uni-padding-wrap uni-common-mt">
-				<!-- <view class="uni-textarea uni-common-mt"><textarea :value="pickerText" disabled placeholder="请点击下面的按钮进行选择"></textarea></view>
-				<view class="uni-btn-v"><button type="default" @click="showSinglePicker">单列选择</button></view> -->
-			</view>
+			<!-- <view class="uni-padding-wrap uni-common-mt">
+				<view class="uni-textarea uni-common-mt"><textarea :value="pickerText" disabled placeholder="请点击下面的按钮进行选择"></textarea></view>
+				<view class="uni-btn-v"><button type="default" @click="showSinglePicker">单列选择</button></view>
+			</view> -->
 			<mpvue-picker
 				:themeColor="themeColor"
 				ref="mpvuePicker"
@@ -38,10 +38,9 @@
 			</view>
 		</view>
 		<view class="bottom_item_list">
-			<view @click="showSinglePicker">
+			<!-- <view @click="showSinglePicker"> -->
 				<selectItemList title="性别" :leftText="personalInfoList.userInfo.sex == 1 ? '男' : '女'"></selectItemList>
 				<!-- <selectItemList title="性别" :leftText="pickerText"></selectItemList> -->
-
 			</view>
 			<!-- <selectItemList title="星座" :leftText="personalInfoList.userInfo.constellation"></selectItemList> -->
 			<selectItemList page="/pages/me/address/address" title="送货地址"></selectItemList>
@@ -52,23 +51,51 @@
 <script>
 import api from '../../util/api.js';
 import selectItemList from './components/selectItemList.vue';
-// https://github.com/zhetengbiji/mpvue-picker
 import mpvuePicker from '@/components/mpvue-picker/mpvuePicker.vue';
-// https://github.com/zhetengbiji/mpvue-citypicker
 import mpvueCityPicker from '@/components/mpvue-citypicker/mpvueCityPicker.vue';
 
 export default {
 	data() {
 		return {
 			personalInfoList: null,
-			pickerSingleArray: [
-				{
-					label: '男'
-				},
-				{
-					label: '女'
-				}
-			],
+			// formData:{
+				pickerSingleArray: [
+					{
+						label: '男'
+					},
+					{
+						label: '女'
+					}
+				],
+				// constellation:[
+				// 	{
+				// 		consItem:"水瓶座"
+				// 	},{
+				// 		consItem:"双鱼座"
+				// 	},{
+				// 		consItem:"白羊座"
+				// 	},{
+				// 		consItem:"金牛座"
+				// 	},{
+				// 		consItem:"双子座"
+				// 	},{
+				// 		consItem:"巨蟹座"
+				// 	},{
+				// 		consItem:"狮子座"
+				// 	},{
+				// 		consItem:"处女座"
+				// 	},{
+				// 		consItem:"天秤座"
+				// 	},{
+				// 		consItem:"天蝎座"
+				// 	},{
+				// 		consItem:"射手座"
+				// 	},{
+				// 		consItem:"射手座"
+				// 	}
+				// ]
+			// },
+
 			// cityPickerValueDefault: [0, 0, 1],
 			themeColor: '#007AFF',
 			pickerText: '',
@@ -104,13 +131,18 @@ export default {
 		onCancel(e) {
 			console.log(e);
 		},
-		// 单列
-		showSinglePicker() {
+		// 修改内容弹框
+		async showSinglePicker() {
 			this.pickerValueArray = this.pickerSingleArray;
 			this.mode = 'selector';
 			this.deepLength = 1;
 			this.pickerValueDefault = [0];
 			this.$refs.mpvuePicker.show();
+
+			let res = await api.constellation({
+				// sex :this.formData.pickerSingleArray.label,
+				// constellation :"",
+			});
 		},
 		onConfirm(e) {
 			this.pickerText = e.label;
@@ -118,7 +150,7 @@ export default {
 	},
 	onLoad() {
 		this.personalInfo();
-	},
+	}
 };
 </script>
 
