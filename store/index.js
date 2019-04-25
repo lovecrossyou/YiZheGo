@@ -13,11 +13,6 @@ import inviteFriend from './modules/inviteFriend.js';
 
 const urlParams = () => {
 	const accessInfo = createAccessInfo();
-	// 	const accessInfo = {
-	// 		"app_key": "b5958b665e0b4d8cae77d28e1ad3f521",
-	// 		"signature": "5C79284BE4601B53CB11B6103412D83A",
-	// 		"access_token": "488183bc6bae4f7e98f70b85f5dbdae4"
-	// 	}
 	const urlParams = 'app_key=' + accessInfo.app_key + '&signature=' + accessInfo.signature + '&access_token=' +
 		accessInfo.access_token + '&wechat_redirect';
 	return urlParams;

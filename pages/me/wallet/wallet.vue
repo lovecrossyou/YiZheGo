@@ -15,7 +15,7 @@
 		computed: {
 			...mapGetters(['h5Page']),
 			url(){
-				return this.h5Page('wallet/page')
+				return this.h5Page('wallet/page?')
 			}
 		},
 		methods: {
