@@ -110,6 +110,9 @@ const api = {
 
 	//app登录
 	loginForApp: params => request.post("/login", params),
+	
+	//商品关注状态
+	collectState:params => request.post("/discountProduct/collectState",params),
 
 	//上传
 	uploader: (file, callback) => {
