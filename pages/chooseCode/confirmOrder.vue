@@ -2,18 +2,20 @@
 	<view class="container">
 		<view class="delivery-info" @click="addressList" v-if="address">
 			<view class="delivery-userinfo">
-				<view class="delivery-userinfo-name">收货人:{{ address.recievName }}</view>
+				<view class="delivery-userinfo-name">收货人: <span class="ml10">{{ address.recievName }}</span></view>
 				<view class="delivery-userinfo-name">{{ address.phoneNum }}</view>
 			</view>
 			<view class="delivery-userinfo-addInfo">
 				<image v-bind:src="addIcon" class="delivery-userinfo-addInfo-icon"></image>
-				<view class="delivery-userinfo-addInfo-add">地址:{{ address.fullAddress }}</view>
+				<view class="address-name">地址：</view>
+				<view class="address">{{address.fullAddress}}</view>
 			</view>
 			<image v-bind:src="rightArrow" class="delivery-userinfo-arrow"></image>
 		</view>
 		<view class="delivery-no-info" @click="addressList" v-else>
 			<image v-bind:src="addIcon" class="delivery-no-info-icon"></image>
 			<view class="delivery-no-info-msg">选择地址</view>
+			<image v-bind:src="rightArrow" class="delivery-no-info-arrow"></image>
 		</view>
 		<image v-bind:src="lineCai" class="delivery-userinfo-line"></image>
 		<view v-if="orderInfo" class="product-info">
@@ -283,6 +285,9 @@
 </script>
 
 <style lang="scss">
+	.ml10{
+		margin-left:10upx;
+	}
 	.container {
 		width: 100%;
 		height: 100%;
@@ -320,54 +325,65 @@
 		}
 
 		.delivery-info {
-			display: flex;
-			flex-direction: column;
+			width:100%;
 			background: #ffffff;
-			height: 182upx;
-			padding: 20upx;
-			justify-content: center;
-
-			.delivery-userinfo {
-				display: flex;
-				flex-direction: row;
-				justify-content: space-between;
-				align-items: center;
-				margin-left: 30upx;
-				margin-right: 20upx;
-
-				.delivery-userinfo-name {
-					font-size: 30upx;
-					font-family: PingFangSC-Regular;
-					color: rgba(51, 51, 51, 1);
+			padding: 34upx 0;
+			box-sizing: border-box;
+			font-size: 30upx;
+			font-family: PingFangSC-Regular;
+			color: rgba(51, 51, 51, 1);
+			position: relative;
+				.delivery-userinfo {
+					width:100%;
+					padding-left:64upx;
+					padding-right:92upx;
+					box-sizing: border-box;
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
 				}
-			}
-
-			.delivery-userinfo-addInfo {
-				display: flex;
-				flex-direction: row;
-				margin-top: 20upx;
-				margin-right: 20upx;
-				align-items: flex-end;
-
-				.delivery-userinfo-addInfo-icon {
-					width: 27upx;
-					height: 31upx;
-				}
-
-				.delivery-userinfo-addInfo-add {
+				.delivery-userinfo-addInfo {
+					width:100%;
+					padding-left:64upx;
+					padding-right:92upx;
+					box-sizing: border-box;
+					display: flex;
+					margin-top: 20upx;
+					position: relative;
 					font-size: 30upx;
 					font-family: PingFangSC-Regular;
 					color: rgba(51, 51, 51, 1);
 					margin-left: 7upx;
-				}
-			}
 
-			.delivery-userinfo-arrow {
-				position: fixed;
-				width: 17upx;
-				height: 30upx;
-				right: 10upx;
-			}
+					.delivery-userinfo-addInfo-icon {
+						position: absolute;
+						left:24upx;
+						top:6upx;
+						width: 27upx;
+						height: 31upx;
+					}
+					.address-name{
+						width:106upx;
+					}
+					.address{
+						width:100%;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						display:-webkit-box;               
+						-webkit-box-orient:vertical;
+						-webkit-line-clamp:2;
+					}
+					
+				}
+
+				.delivery-userinfo-arrow {
+					position: absolute;
+					width: 17upx;
+					height: 30upx;
+					right: 10upx;
+					top:76upx;
+					
+				}
 		}
 
 		.delivery-no-info {
@@ -376,8 +392,7 @@
 			background: #ffffff;
 			height: 90upx;
 			align-items: center;
-			margin-left: 20upx;
-
+            padding: 0 20upx;
 			.delivery-no-info-icon {
 				width: 27upx;
 				height: 31upx;
@@ -388,6 +403,14 @@
 				font-family: PingFangSC-Regular;
 				color: rgba(51, 51, 51, 1);
 				margin-left: 10upx;
+			}
+			.delivery-no-info-arrow {
+				position: absolute;
+				width: 17upx;
+				height: 30upx;
+				right: 10upx;
+				top:35upx;
+				
 			}
 		}
 

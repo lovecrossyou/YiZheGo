@@ -207,7 +207,7 @@ export default {
 					background-color: #d22222;
 					border-radius: 31upx;
 					margin-right: 30upx;
-
+					padding: 0upx;
 					display: flex;
 					align-items: center;
 					justify-content: center;

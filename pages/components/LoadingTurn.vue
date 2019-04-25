@@ -30,12 +30,12 @@
 	}
 	.icon-loading {
 		display: inline-flex;
-		width: 50px;
-		height: 50px;
-		background:#FFF url("../../static/home/loading_half.png") no-repeat center;
+		width: 200px;
+		height: 200px;
+		background:#FFF url("http://qnimage.xiteng.com/Loading_Turn.gif") no-repeat center;
 		background-size: cover;
 		margin-right: 5px;
-		animation: rotating 2s linear infinite;
+		/* animation: rotating 2s linear infinite; */
 	}
 	@keyframes rotating {
 		0% {
@@ -59,5 +59,11 @@
 
 		position: absolute;
 		background-color: white;
+		
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
 	}
 </style>

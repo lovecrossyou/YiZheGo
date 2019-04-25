@@ -3,7 +3,8 @@ import api from '@/util/api.js';
 const state = {
 	timeLimitList: [],
 	timeLimitChoiceList: null,
-	newsBenefitList: null
+	newsBenefitList: null,
+	homeBannerLists:[]
 }
 
 const getters = {
@@ -31,13 +32,21 @@ const actions = {
 		commit
 	}, cb) {
 		const res = await api.byTimeLimitChoiceList();
-		console.log('fetchTimeLimitChoiceList ### ', res);
+		// console.log('fetchTimeLimitChoiceList ### ', res);
 		commit('setTimeLimitChoiceList', res)
 		cb && cb();
+	},
+	async fetchBannerLists({commit}){
+		const res = await api.bannerList()
+		commit('setHomeBannerLists',res)
 	}
 }
 
 const mutations = {
+	setHomeBannerLists(state,data){
+		console.log('data==',data)
+		state.homeBannerLists = data
+	},
 	setByTimeLimitList(state, data) {
 		state.timeLimitList = data
 	},

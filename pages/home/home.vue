@@ -1,7 +1,7 @@
 <template>
 	<view class="home_page">
 		<block v-if="loading">
-			<loading></loading>
+			<LoadingTurn></LoadingTurn>
 		</block>
 		<block v-else>
 			<view class="header">
@@ -28,7 +28,7 @@
 					<view class="tooopencom_product_list">
 						<view class="tooopencom_product_item" v-for="(item, i) in newsBenefitList3" :key="i" @click="goNewsWelfare">
 							<view class="image">
-								<image :src="item.productImageUrl"></image>
+								<image :src="item.productImageUrl" mode="aspectFill"></image>
 								<view class="tooopencom_product_price">￥{{ item.oneDiscountPrice/100 }}</view>
 							</view>
 							<view class="tooopencom_product_name">{{ item.productName }}</view>
@@ -92,7 +92,13 @@
 					<image src="../../static/home/huiyuan_icon_chenggong@2x.png" v-if="getSucceed" class="get_succeed"></image>
 				</view>
 			</view>
-
+           <!-- 首次注册弹框 -->
+           <view class="regiser_modal_wrapper" v-if="showNewUserModal">
+			<image class="card" :src="xinren_fuli_icon" @click="cancelNewUserModal"></image>
+			<view>
+				<image class="cancelBtn" :src="cancelBtn" @click="cancelNewUserModal"></image>
+			</view>
+		</view>
 		</block>
 	</view>
 </template>
@@ -109,6 +115,7 @@
 	import product from './components/product';
 	import service from '@/service.js';
 	import loading from "./components/loading"
+	import LoadingTurn from '../components/LoadingTurn.vue'
 
 	export default {
 		computed: {
@@ -193,15 +200,26 @@
 			},
 			async getVipModal() {
 				let res = await api.vipModal({});
-				console.log('getVipModal ', res);
+				// console.log('getVipModal ', res);
 				if (res.pushPresentVip) {
 					this.showVIPModal = true;
 				}
-			}
+			},
+			cancelNewUserModal(){
+				this.showNewUserModal=false;
+			},
+			startNewUserModal(){
+				this.showNewUserModal=true;
+			},
+			async vipInfo(){
+				const vip = await api.vipInfo({});
+				console.log('会员信息----'+JSON.stringify(vip))
+				if(!vip.userIsVip&&vip.restPresentCount==3){
+					this.startNewUserModal();
+				}
+			} 
 		},
 		onShow() {
-			
-			console.log('onShow ');
 			if (this.hasLogin) {
 				this.packets();
 				this.getVipModal();
@@ -216,6 +234,7 @@
 			this.fetchByTimeLimitList()
 			this.fetchTimeLimitChoiceList();
 			this.fetchNewsBenefitList();
+			this.vipInfo();
 			console.log('inviteId ', option.inviteId);
 			let inviteId = option.inviteId;
 
@@ -271,6 +290,9 @@
 				vipImg: true,
 				getSucceed: false,
 				hiddenCancel: true,
+				showNewUserModal:false,
+				xinren_fuli_icon:'../../static/pay/xinyonghu_photo_fuli@2x.png',
+				cancelBtn: "../../static/pay/cancel.png",
 				navList: [{
 						img: '../../static/home/home_nav_zhongqian.png',
 						name: '中签',
@@ -299,7 +321,8 @@
 			tabFiltrate,
 			product,
 			searchWrap,
-			loading
+			loading,
+			LoadingTurn
 		}
 	};
 </script>
@@ -357,9 +380,9 @@
 			margin-top: 20upx;
 
 			.tooopencom_content {
-				background: #fee4e4;
 				border-radius: 8upx;
-
+				background:url('http://qnimage.xiteng.com/home_new_bg@2x.png') no-repeat;
+				background-size:100%;
 				.tooopencom_product_list {
 					display: flex;
 					justify-content: space-around;
@@ -373,13 +396,20 @@
 							position: relative;
 
 							.tooopencom_product_price {
+								width:100%;
+								height:48upx;
+								background:rgba(255,255,255,0.5);
+								line-height:48upx;
 								position: absolute;
 								bottom: 10upx;
-								left: 10upx;
+								left:0;
+								padding-left:10upx;
+								box-sizing: border-box;
 								font-size: 32upx;
 								font-family: PingFang-SC-Medium;
 								font-weight: 500;
 								color: rgba(226, 37, 55, 1);
+								
 							}
 
 							image {
@@ -498,7 +528,6 @@
 					.image {
 						width: 136upx;
 						height: 178upx;
-
 						image {
 							width: 136upx;
 							height: 178upx;
@@ -623,6 +652,27 @@
 				width: 250upx;
 				height: 70upx;
 				margin-top: 300upx;
+			}
+		}
+		.regiser_modal_wrapper{
+			width: 100%;
+			height: 100%;
+			background: rgba(0, 0, 0, .7);
+			position: fixed;
+			left: 0;
+			top: 0;
+			text-align: center;
+			
+			.card {
+				width: 540upx;
+				height: 640upx;
+				margin-top: 300upx;
+			}
+			
+			.cancelBtn {
+				width: 60upx;
+				height: 60upx;
+				margin-top: 48upx;
 			}
 		}
 	}
