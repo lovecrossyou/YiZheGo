@@ -15,7 +15,7 @@
 		computed: {
 			...mapGetters(['h5Page']),
 			url(){
-				return this.h5Page('classify/page')
+				return this.h5Page('classify/page?')
 			}
 		},
 		methods: {
