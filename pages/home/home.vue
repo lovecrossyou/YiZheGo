@@ -356,9 +356,9 @@
 			margin-top: 20upx;
 
 			.tooopencom_content {
-				background: #fee4e4;
 				border-radius: 8upx;
-
+				background:url('http://qnimage.xiteng.com/home_new_bg@2x.png') no-repeat;
+				background-size:100%;
 				.tooopencom_product_list {
 					display: flex;
 					justify-content: space-around;
@@ -372,6 +372,9 @@
 							position: relative;
 
 							.tooopencom_product_price {
+								width:100%;
+								height:48upx;
+								line-height:48upx;
 								position: absolute;
 								bottom: 10upx;
 								left: 10upx;
@@ -379,6 +382,8 @@
 								font-family: PingFang-SC-Medium;
 								font-weight: 500;
 								color: rgba(226, 37, 55, 1);
+								
+								
 							}
 
 							image {
