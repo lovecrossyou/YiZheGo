@@ -1,5 +1,5 @@
 import api from '@/util/api.js';
- 
+  
 const state={
 	showWinOrderlist:[],
 	pageNo:1,
@@ -12,11 +12,8 @@ const state={
 } 
 
 const mutations={
-	godetails(state,index){
+	change_index(state,index){
 		state.index=index;
-		uni.navigateTo({
-			url:"/pages/moments/showWinOrderdetails?id="+state.showWinOrderlist[index].showWinOrderCommentId+"&type_id="+state.type_id
-		})
 	},
 	change_praise(state,date){
 		date[0].praise=date[1].praise;

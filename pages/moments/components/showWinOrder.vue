@@ -49,7 +49,7 @@
 <script>
 	import api from "@/util/api.js"
 	import PullUpReload from "@/pages/me/components/PullUpReload.vue"
-	import {mapState,mapMutations} from 'vuex'
+	import {mapState} from 'vuex'
 	export default{
 		data(){
 			return{
@@ -59,12 +59,9 @@
 			PullUpReload
 		},
 		computed:{
-			...mapState('showWinOrder',['showWinOrderlist','pageNo','pageSize','totalCount','loading','pullUpState'])
+			...mapState('showWinOrder',['showWinOrderlist','pageNo','pageSize','totalCount','loading','pullUpState','index','type_id'])
 		},
 		methods:{
-			...mapMutations({
-				godetails:'showWinOrder/godetails'
-			}),
 			async change_praise(item) {
 				this.$store.dispatch('showWinOrder/change_praise',item);
 			},
@@ -76,6 +73,12 @@
 					this.get_list()
 				}
 				done()
+			},
+			godetails(index){
+				this.$store.commit('showWinOrder/change_index',index);
+				uni.navigateTo({
+					url:"/pages/moments/showWinOrderdetails?id="+this.showWinOrderlist[index].showWinOrderCommentId+"&type_id="+this.type_id
+				})
 			}
 		},
 		onLoad() {

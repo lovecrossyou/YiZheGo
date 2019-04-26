@@ -1,4 +1,4 @@
-<template>
+<template> 
 	<view class="commentwrapper">
 		<image class="creat_discuss_btn" src="/static/moments/icon_add.png" @click="gocreatdiscuss"></image>
 		<block v-for="(item, index) in commentlist" :key="index">
@@ -47,7 +47,7 @@
 <script>
 import api from '@/util/api.js';
 import PullUpReload from '@/pages/me/components/PullUpReload.vue';
-import {mapState,mapMutations} from 'vuex'
+import {mapState} from 'vuex'
 export default {
 	data() {
 		return {
@@ -57,12 +57,9 @@ export default {
 		PullUpReload
 	},
 	computed:{
-		...mapState('comment',['commentlist','pageNo','pageSize','totalCount','loading','pullUpState'])
+		...mapState('comment',['commentlist','pageNo','pageSize','totalCount','loading','pullUpState','index','type_id'])
 	},
 	methods: {
-		...mapMutations({
-			godetails:'comment/godetails'
-		}),
 		async change_praise(item) {
 			this.$store.dispatch('comment/change_praise',item);
 		},
@@ -74,6 +71,12 @@ export default {
 				this.get_list()
 			}
 			done()
+		},
+		godetails(index){
+			this.$store.commit('comment/change_index',index);
+			uni.navigateTo({
+				url: '/pages/moments/showWinOrderdetails?id=' + this.commentlist[index].discussCommentId+"&type_id="+this.type_id
+			})
 		}
 	},
 	onLoad() {

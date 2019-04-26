@@ -12,12 +12,9 @@ const state={
 }
  
 const mutations={
-	godetails(state,index){
-		state.index=index;
-		uni.navigateTo({
-			url: '/pages/moments/showWinOrderdetails?id=' + state.commentlist[index].discussCommentId+"&type_id="+state.type_id
-		})
-	},
+	change_index(state,index){
+			state.index=index;
+		},
 	change_praise(state,date){
 		date[0].praise=date[1].praise;
 		date[0].praiseCount=date[1].praiseCount;

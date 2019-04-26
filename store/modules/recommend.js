@@ -13,11 +13,8 @@ const state={
 
  
 const mutations={
-	godetails(state,index){
+	change_index(state,index){
 		state.index=index;
-		uni.navigateTo({
-			url:"/pages/moments/showWinOrderdetails?id="+state.recommendlist[index].showWinOrderCommentId+"&type_id="+state.type_id
-		})
 	},
 	change_praise(state,date){
 		date[0].praise=date[1].praise;
@@ -34,7 +31,7 @@ const mutations={
 			if(state.pageNo===1){
 				state.recommendlist = res.list;
 			}
-			else{
+			else{ 
 				state.recommendlist= state.recommendlist.concat(res.list);
 			}
 			state.pageNo=res.pageNo+1;

@@ -118,7 +118,6 @@
 			this.praiseDetailModelList = res.praiseDetailModelList;
 			this.showWinOrderCommentModel = res.showWinOrderCommentModel;
 			this.type_id=options.type_id;
-			console.log(typeof(this.type_id))
 		},
 		methods: {
 			gopraiseDetail() {

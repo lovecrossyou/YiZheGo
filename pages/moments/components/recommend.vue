@@ -47,7 +47,7 @@
 <script>
 	import api from "@/util/api.js";
 	import PullUpReload from "@/pages/me/components/PullUpReload.vue"
-	import {mapState,mapMutations} from 'vuex'
+	import {mapState} from 'vuex'
 	export default{
 		data(){
 			return{
@@ -57,12 +57,9 @@
 			PullUpReload
 		},
 		computed:{
-			...mapState('recommend',['recommendlist','pageNo','pageSize','totalCount','loading','pullUpState']),
+			...mapState('recommend',['recommendlist','pageNo','pageSize','totalCount','loading','pullUpState','index','type_id']),
 		},
 		methods:{
-			...mapMutations({
-				godetails:'recommend/godetails'
-			}),
 			async change_praise(item) {
 				this.$store.dispatch('recommend/change_praise',item);
 			},
@@ -74,6 +71,12 @@
 					this.get_list()
 				}
 				done()
+			},
+			godetails(index){
+				this.$store.commit('recommend/change_index',index);
+				uni.navigateTo({
+					url:"/pages/moments/showWinOrderdetails?id="+this.recommendlist[index].showWinOrderCommentId+"&type_id="+this.type_id
+				})
 			}
 		},
 		onLoad() {
