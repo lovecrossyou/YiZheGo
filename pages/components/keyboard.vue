@@ -79,7 +79,7 @@
 	.keyboard {
 		position: fixed;
 		bottom: 0;
-		height: 480upx;
+		height: 500upx;
 		width: 100%;
 		border-top: 1px solid #ddd;
 		background: #fff;
@@ -141,7 +141,7 @@
 				margin: 0;
 				padding: 0;
 				width: 33.33%;
-				height: 120upx;
+				height: 140upx;
 				line-height: 100upx;	
 				background: #ECECEC;
 				display: flex;
@@ -156,9 +156,9 @@
 				margin: 0;
 				padding: 0;
 				width: 33%;
-				height: 120upx;
+				height: 140upx;
 				text-align: center;
-				line-height: 100upx;	
+				line-height: 140upx;	
 				border-right: 0.5px solid #ddd;
 				border-bottom: 0.5px solid #ddd;
 				font-size: 56upx;
