@@ -32,10 +32,10 @@
 		data() {
 			return {
 				selectedIndex: 0,
-				ascendBtn:true,
-				descendBtn:true,
-				priceascendBtn:true,
-				pricedescendBtn:true,
+				ascendBtn: true,
+				descendBtn: true,
+				priceascendBtn: true,
+				pricedescendBtn: true,
 				top_gory: "../../static/home/top_gray.png",
 				bottom_gory: "../../static/home/bottom_gray.png",
 				top_red: "../../static/home/top_red.png",
@@ -53,32 +53,32 @@
 			changeActive(index, item) {
 				switch (item) {
 					case '销量':
-						this.priceascendBtn=true
-						this.pricedescendBtn=true
-						this.ascendBtn=!this.ascendBtn
-						this.descendBtn=!this.ascendBtn
+						this.priceascendBtn = true
+						this.pricedescendBtn = true
+						this.ascendBtn = !this.ascendBtn
+						this.descendBtn = !this.ascendBtn
 						this.$store.commit('home/setSelectedInd', {
-							filt:"relatedProductSaleMount",
-							rev:this.ascendBtn
+							filt: "relatedProductSaleMount",
+							rev: this.ascendBtn
 						});
 						break;
 					case '价格':
-						this.ascendBtn=true
-						this.descendBtn=true
-						this.priceascendBtn=!this.priceascendBtn
-						this.pricedescendBtn=!this.priceascendBtn
-						this.$store.commit('home/setSelectedInd',  {
-							filt:"relatedProductSaleMount",
-							rev:this.priceascendBtn
+						this.ascendBtn = true
+						this.descendBtn = true
+						this.priceascendBtn = !this.priceascendBtn
+						this.pricedescendBtn = !this.priceascendBtn
+						this.$store.commit('home/setSelectedInd', {
+							filt: "relatedProductSaleMount",
+							rev: this.priceascendBtn
 						});
 						break;
 					default:
-						this.priceascendBtn=true
-						this.pricedescendBtn=true
-						this.ascendBtn=true
-						this.descendBtn=true
-						this.$store.commit('home/setSelectedInd',  {
-							filt:"relatedProductSaleMount"
+						this.priceascendBtn = true
+						this.pricedescendBtn = true
+						this.ascendBtn = true
+						this.descendBtn = true
+						this.$store.commit('home/setSelectedInd', {
+							filt: "relatedProductSaleMount"
 						});
 						break;
 				}
@@ -91,11 +91,13 @@
 </script>
 
 <style lang="less">
-	.mt6{
-		margin-top:6upx;
+	.mt6 {
+		margin-top: 6upx;
 	}
+
 	.tab_filtrate {
 		width: 100%;
+
 		.tab_filtrate_list {
 			width: 100%;
 			height: 88upx;
@@ -107,25 +109,29 @@
 			display: flex;
 			justify-content: space-around;
 			align-items: center;
+
 			.initial,
-			.activeClass{
+			.activeClass {
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				.assend{
+
+				.assend {
 					display: flex;
 					flex-direction: column;
 					justify-content: center;
 					align-items: center;
-					margin-left:8upx;
-					image{
-						width:12upx;
-						height:8upx;
+					margin-left: 8upx;
+
+					image {
+						width: 12upx;
+						height: 8upx;
 					}
 				}
 			}
-			.activeClass{
-				border-bottom:4upx solid #E22537;
+
+			.activeClass {
+				border-bottom: 4upx solid #E22537;
 			}
 
 		}
