@@ -1,7 +1,7 @@
 <template>
 	<view class="commentwrapper">
 		<image class="creat_discuss_btn" src="/static/moments/icon_add.png" @click="gocreatdiscuss"></image>
-		<block v-for="(item, index) in list" :key="index">
+		<block v-for="(item, index) in commentlist" :key="index">
 			<view class="commentItem">
 				<view class="user">
 					<image class="user_icon" :src="item.userIconUrl"></image>
@@ -47,75 +47,36 @@
 <script>
 import api from '@/util/api.js';
 import PullUpReload from '@/pages/me/components/PullUpReload.vue';
+import {mapState,mapMutations} from 'vuex'
 export default {
 	data() {
 		return {
-			id: 0,
-			list: [],
-			pageNo: 1,
-			pageSize: 10,
-			totalCount: 0,
-			loading: true,
-			pullUpState: 2
 		};
 	},
 	components: {
 		PullUpReload
 	},
+	computed:{
+		...mapState('comment',['commentlist','pageNo','pageSize','totalCount','loading','pullUpState'])
+	},
 	methods: {
-		godetails(index) {
-			uni.navigateTo({
-				url: '/pages/moments/showWinOrderdetails?id=' + this.list[index].discussCommentId
-			});
-		},
-		gocreatdiscuss() {
-			uni.navigateTo({
-				url: '/pages/moments/creatdiscuss'
-			});
-		},
-		onInfiniteLoad(done) {
-			console.log('正在加载' + this.pullUpState);
-			if (this.pullUpState === 2) {
-				this.get_list();
-			}
-			done();
+		...mapMutations({
+			godetails:'comment/godetails'
+		}),
+		async change_praise(item) {
+			this.$store.dispatch('comment/change_praise',item);
 		},
 		async get_list(){
-			this.loading=true;
-			let param = {
-			pageNo:this.pageNo,
-			size:this.pageSize
-			};
-			api.discusCommentList(param).then((res)=>{
-				this.totalCount=res.totalCount;
-				if(this.pageNo===1){
-					this.list = res.list;
-				}
-				else{
-					this.list = this.list.concat(res.list);
-				}
-				this.pageNo=res.pageNo+1;
-				this.loading=false;
-				if (this.pageNo === this.totalCount) {
-					this.pullUpState = 3;
-				} else {
-					this.pullUpState = 2;
-				}
-			});
+			this.$store.dispatch('comment/get_list');
 		},
-		async change_praise(item) {
-			const res = await api.praiseShowWinOrder({
-				showWinOrderId: item.discussCommentId,
-			});
-			item.praise = res.praise;
-			item.praiseCount = res.praiseCount;
+		onInfiniteLoad(done) {
+			if (this.pullUpState === 2) {
+				this.get_list()
+			}
+			done()
 		}
 	},
 	onLoad() {
-		this.get_list();
-	},
-	onShow() {
-		this.pageNo=1;
 		this.get_list();
 	}
 };

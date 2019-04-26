@@ -8,7 +8,10 @@ import confirmPay from './modules/confirmPay.js';
 import payResult from './modules/payResult.js';
 import chooseCode from './modules/chooseCode.js'
 import myOrder from './modules/myOrder.js'
-import inviteFriend from './modules/inviteFriend.js';
+import inviteFriend from './modules/inviteFriend.js'
+import recommend from './modules/recommend.js'
+import comment from './modules/comment.js'
+import showWinOrder from './modules/showWinOrder.js'
 
 
 const urlParams = () => {
@@ -45,6 +48,9 @@ const store = new Vuex.Store({
 		payResult,
 		myOrder,
 		inviteFriend,
+		recommend,
+		comment,
+		showWinOrder
 	},
 
 	state: {
