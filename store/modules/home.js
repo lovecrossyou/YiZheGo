@@ -59,15 +59,15 @@ const mutations = {
 		state.newsBenefitList = data
 	},
 	setSelectedInd(state, data) {
-		function compare(prop, rev) {
+		function compare(filt, rev) {
 			if (rev == undefined) {
 				rev = 1
 			} else {
 				rev = (rev) ? 1 : -1
 			}
 			return function(obj1, obj2) {
-				var val1 = obj1[prop]
-				var val2 = obj2[prop]
+				var val1 = obj1[filt]
+				var val2 = obj2[filt]
 				if (val1 < val2) {
 					return rev * -1
 				} else if (val1 > val2) {

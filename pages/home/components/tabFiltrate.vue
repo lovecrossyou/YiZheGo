@@ -59,7 +59,7 @@
 						this.descendBtn = !this.ascendBtn
 						this.$store.commit('home/setSelectedInd', {
 							filt: "relatedProductSaleMount",
-							rev: this.ascendBtn
+							rev: !this.ascendBtn
 						});
 						break;
 					case '价格':
@@ -68,8 +68,8 @@
 						this.priceascendBtn = !this.priceascendBtn
 						this.pricedescendBtn = !this.priceascendBtn
 						this.$store.commit('home/setSelectedInd', {
-							filt: "relatedProductSaleMount",
-							rev: this.priceascendBtn
+							filt: "oneDiscountPrice",
+							rev: !this.priceascendBtn
 						});
 						break;
 					default:
