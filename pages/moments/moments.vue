@@ -50,6 +50,9 @@
 <style lang="scss">
 	.moments {
 		width: 100%;
+		height: 100%;
+		position: absolute;
+		background: #eeeeee;
 
 		.top_wrapper{
 			width: 100%;
@@ -93,7 +96,7 @@
 		
 		.contentlist{
 			width: 100%;
-			margin-top: 171upx;
+			margin-top: 170upx;
 		}
 	}
 </style>

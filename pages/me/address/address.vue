@@ -15,7 +15,7 @@
 		computed: {
 			...mapGetters(['h5Page']),
 			url(){
-				return this.h5Page('address/page')
+				return this.h5Page('address/page?')
 			}
 		},
 		methods: {
