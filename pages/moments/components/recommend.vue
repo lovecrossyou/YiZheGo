@@ -40,20 +40,26 @@
 				</view>
 			</view>
 		</block>
-		<view class="loadmore" @click="load_more" v-if="pageNo!=totalCount">点击加载更多</view>
+		<PullUpReload :isLoading="loading" :on-infinite-load="onInfiniteLoad" :parent-pull-up-state="pullUpState" backgroudcolor="#eeeeee"></PullUpReload>
 	</view>
 </template>
 
 <script>
 	import api from "@/util/api.js";
+	import PullUpReload from "@/pages/me/components/PullUpReload.vue"
 	export default{
 		data(){
 			return{
 				list:[],
 				pageNo:1,
 				pageSize:10,
-				totalCount:0
+				totalCount:0,
+				loading: true,
+				pullUpState:2
 			}
+		},
+		components:{
+			PullUpReload
 		},
 		methods:{
 			godetails(index){
@@ -61,48 +67,61 @@
 						url:"/pages/moments/showWinOrderdetails?id="+this.list[index].showWinOrderCommentId
 					})
 			},
+			onInfiniteLoad(done) {
+				console.log('正在加载'+this.pullUpState)
+				if (this.pullUpState === 2) {
+					this.get_list();
+				}
+				done()
+			},
 			async change_praise(item){
 				const res = await api.praiseShowWinOrder({
 					showWinOrderId:item.showWinOrderCommentId,
-					pageNo:this.pageNo,
-					size:this.pageSize
 				});
-				item.praise=res.list.praise;
-				item.praiseCount=res.list.praiseCount;
+				item.praise=res.praise;
+				item.praiseCount=res.praiseCount;
 			},
-			async load_more(){
-				if(this.pageNo!=this.totalCount){
-					this.pageNo++;
-					const res = await api.discusRecommendList({
-						pageNo:this.pageNo,
-						size:this.pageSize
-					});
-					this.list = this.list.concat(res.list);
-				}
+			async get_list(){
+				this.loading=true;
+				let param = {
+				pageNo:this.pageNo,
+				size:this.pageSize
+				};
+				api.discusRecommendList(param).then((res)=>{
+					this.totalCount=res.totalCount;
+					if(this.pageNo===1){
+						this.list = res.list;
+					}
+					else{
+						this.list = this.list.concat(res.list);
+					}
+					this.pageNo=res.pageNo+1;
+					this.loading=false;
+					if (this.pageNo === this.totalCount) {
+						this.pullUpState = 3;
+					} else {
+						this.pullUpState = 2;
+					}
+					
+					console.log(this.list)
+				});
+				
 			}
 		},
-		async onLoad() {
-			const res = await api.discusRecommendList({
-				pageNo:this.pageNo,
-				size:this.pageSize
-			});
-			this.list = res.list;
-			this.totalCount=res.totalCount;
+		onLoad() {
+			this.get_list()
 		},
-		async onShow() {
-			const res = await api.discusRecommendList({
-				pageNo:this.pageNo,
-				size:this.pageSize
-			});
-			this.list = res.list;
-			this.totalCount=res.totalCount;
-		}
+		// onShow() {
+		// 	this.pageNo=1;
+		// 	this.get_list()
+		// }
 	}
 </script>
 
 <style lang="less">
 	.recommendwrapper{
 		width: 100%;
+		height: 100%;
 		padding: 20upx 30upx;
 		box-sizing: border-box;
 		background: #eeeeee;
@@ -287,13 +306,6 @@
 					}
 				}
 			}
-		}
-		
-		.loadmore{
-			width: 100%;
-			font-size: 30upx;
-			font-family: PingFangSC-Regular;
-			text-align: center;
 		}
 	}
 </style>

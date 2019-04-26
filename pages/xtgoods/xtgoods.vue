@@ -23,7 +23,7 @@
 
 		},
 		onLoad() {
-			this.page = this.h5Page('3DHotSell/page');
+			this.page = this.h5Page('3DHotSell/page?');
 		}
 	}
 </script>

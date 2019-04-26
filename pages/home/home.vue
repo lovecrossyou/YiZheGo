@@ -1,7 +1,7 @@
 <template>
 	<view class="home_page">
 		<block v-if="loading">
-			<loading></loading>
+			<LoadingTurn></LoadingTurn>
 		</block>
 		<block v-else>
 			<view class="header">
@@ -115,6 +115,7 @@
 	import product from './components/product';
 	import service from '@/service.js';
 	import loading from "./components/loading"
+	import LoadingTurn from '../components/LoadingTurn.vue'
 
 	export default {
 		computed: {
@@ -212,7 +213,6 @@
 			},
 			async vipInfo(){
 				const vip = await api.vipInfo({});
-				console.log('会员信息----'+JSON.stringify(vip))
 				if(!vip.userIsVip&&vip.restPresentCount==3){
 					this.startNewUserModal();
 				}
@@ -320,7 +320,8 @@
 			tabFiltrate,
 			product,
 			searchWrap,
-			loading
+			loading,
+			LoadingTurn
 		}
 	};
 </script>
