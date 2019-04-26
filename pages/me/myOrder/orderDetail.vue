@@ -1,5 +1,9 @@
 <template>
 	<view class="page-content">
+		<block v-if="loading">
+			<LoadingTurn></LoadingTurn>
+		</block>
+		<block v-else>
 		<view class="info-content">
 			<!-- 订单状态 -->
 			<view class="state-content">
@@ -179,12 +183,18 @@
 				<text class="pop-title">我的幸运号码</text>
 				<view class="pop-close" @click="changeShowAllCode(true)"><image :src="closeIcon" class="pop-icon"></image></view>
 			</view>
-			<view class="pop-code-content">
-				<view class="pop-code-array" v-for="(codeArray, index) in allCodeList" :key="index">
-					<view class="pop-code" v-for="(code, index1) in codeArray" :key="index1">{{ code }}</view>
+			<scroll-view class="pop-code-content" scroll-y>
+				<view class="pop-code-array" v-for="(codeArray, index) in allCodeListFormat" :key="index">
+					
+					<view class="pop-code-item" v-for="(codeItem,index1) in codeArray" :key="index1">
+						<view :class="code=='-1'?'blank-code': 'pop-code'" v-for="(code, index2) in codeItem" :key="index2">{{ code }}</view>
+					</view>
+					
+					
 				</view>
-			</view>
+			</scroll-view>
 		</view>
+		</block>
 	</view>
 </template>
 
@@ -195,11 +205,13 @@ import priceText from '../components/priceText.vue';
 import { mapActions, mapState, mapGetters, mapMutations } from 'vuex';
 import timeUtil from '@/util/timeUtil.js';
 import api from '@/util/api';
+import LoadingTurn from '@/pages/components/LoadingTurn.vue';
 export default {
 	components: {
 		uniIcon,
 		productInfo,
-		priceText
+		priceText,
+		LoadingTurn
 	},
 	data() {
 		return {
@@ -217,7 +229,8 @@ export default {
 			lastPayTimer: {},
 			closeIcon: '../../../static/me/code_close_icon.png',
 			showAllCode: false,
-			showShan: false
+			showShan: false,
+			loading:false,
 		};
 	},
 	onLoad(params) {
@@ -243,6 +256,7 @@ export default {
 			setOrderDetail: 'myOrder/setOrderDetail'
 		}),
 		getOrderDetail(platformOrderNo) {
+			this.loading = true;
 			api.clientOrderDetail({ platformOrderNo: platformOrderNo }).then(res => {
 				this.setOrderDetail(res);
 				if (res.lastPayTime !== '') {
@@ -315,6 +329,8 @@ export default {
 						this.downTimeShow = [hour, min, second]; */
 					}, 1000);
 				}
+				
+				this.loading = false;
 			});
 		},
 		cancelOrder(clientOrderId) {
@@ -345,7 +361,7 @@ export default {
 		enterProduct(productId) {
 			//console.log('啦all：：：：'+productId)
 
-			uni.redirectTo({
+			uni.navigateTo({
 				url: '../../details/productDetails?productId=' + productId
 			});
 		},
@@ -361,7 +377,9 @@ export default {
 			todayCode: 'myOrder/todayCode',
 			myCodeList: 'myOrder/myCodeList',
 			groupListData: 'myOrder/groupListData',
-			allCodeList: 'myOrder/allCodeList'
+			allCodeList: 'myOrder/allCodeList',
+			allCodeListFormat: 'myOrder/allCodeListFormat',
+			
 
 			//myCodeListLength: 'myOrder/myCodeListLength'
 		}),
@@ -769,33 +787,50 @@ export default {
 		.pop-code-content {
 			background-color: white;
 			display: flex;
-			flex-direction: row;
-			flex-wrap: wrap;
-			padding-left: 46upx;
-			padding-right: 46upx;
 			width: 100%;
-			padding-bottom: 145upx;
+			padding-bottom: 53upx;
+			height: 714upx;
 			.pop-code-array {
 				display: flex;
 				flex-direction: row;
-				width: 31%;
-
 				margin-top: 40upx;
-				.pop-code {
-					width: 50upx;
-					height: 50upx;
-					border-radius: 50%;
-					font-size: 29upx;
-					font-family: PingFang-SC-Medium;
-					font-weight: 500;
-					color: rgba(204, 38, 54, 1);
-					background-color: #f5cccc;
-					margin-left: 5upx;
-					margin-right: 5upx;
+				justify-content: space-around;
+				width: 100%;
+				.pop-code-item{
 					display: flex;
-					justify-content: center;
-					align-items: center;
+					flex-direction: row;
+					.pop-code {
+						width: 50upx;
+						height: 50upx;
+						border-radius: 50%;
+						font-size: 29upx;
+						font-family: PingFang-SC-Medium;
+						font-weight: 500;
+						color: rgba(204, 38, 54, 1);
+						background-color: #f5cccc;
+						margin-left: 5upx;
+						margin-right: 5upx;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+					}
+					.blank-code{
+						width: 50upx;
+						height: 50upx;
+						border-radius: 50%;
+						font-size: 29upx;
+						font-family: PingFang-SC-Medium;
+						font-weight: 500;
+						color: rgba(255, 255, 255, 0);
+						background-color: rgba(255, 255, 255, 0);
+						margin-left: 5upx;
+						margin-right: 5upx;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+					}
 				}
+				
 			}
 		}
 	}
