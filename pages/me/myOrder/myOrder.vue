@@ -1,6 +1,9 @@
 <template>
 	<view class="uni-tab-bar">
-		
+		<block v-if="loading">
+			<LoadingTurn></LoadingTurn>
+		</block>
+		<block v-else>
 		<view id="tab-bar" class="uni-swiper-tab">
 			<view
 				v-for="(tab, index) in tabBars"
@@ -48,6 +51,7 @@
 				</view>
 			</swiper-item>
 		</swiper>
+		</block>
 	</view>
 </template>
 <script>
@@ -56,18 +60,21 @@ import uniLoadMore from '../components/uni-load-more.vue';
 import productInfo from '../components/productInfo.vue';
 import priceText from '../components/priceText.vue';
 import { mapActions, mapState } from 'vuex';
+	import LoadingTurn from '@/pages/components/LoadingTurn.vue';
 export default {
 	components: {
 		mediaList,
 		uniLoadMore,
 		productInfo,
-		priceText
+		priceText,
+		LoadingTurn
 		
 	},
 
 	computed: {
 		...mapState({
-			orderData: state => state.myOrder.orderData
+			orderData: state => state.myOrder.orderData,
+			loading: state => state.myOrder.loading,
 		}),
 		
 	},

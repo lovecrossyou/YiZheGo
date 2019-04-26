@@ -4,7 +4,7 @@ const state = {
 	timeLimitList: [],
 	timeLimitChoiceList: null,
 	newsBenefitList: null,
-	homeBannerLists:[]
+	homeBannerLists: []
 }
 
 const getters = {
@@ -36,15 +36,17 @@ const actions = {
 		commit('setTimeLimitChoiceList', res)
 		cb && cb();
 	},
-	async fetchBannerLists({commit}){
+	async fetchBannerLists({
+		commit
+	}) {
 		const res = await api.bannerList()
-		commit('setHomeBannerLists',res)
+		commit('setHomeBannerLists', res)
 	}
 }
 
 const mutations = {
-	setHomeBannerLists(state,data){
-		console.log('data==',data)
+	setHomeBannerLists(state, data) {
+		console.log('data==', data)
 		state.homeBannerLists = data
 	},
 	setByTimeLimitList(state, data) {
@@ -57,15 +59,25 @@ const mutations = {
 		state.newsBenefitList = data
 	},
 	setSelectedInd(state, data) {
-		function compare(prop){
-			return function(obj1,obj2){
-				var val1 = obj1[prop]
-				var val2 = obj2[prop]
-				return val1-val2
+		function compare(filt, rev) {
+			if (rev == undefined) {
+				rev = 1
+			} else {
+				rev = (rev) ? 1 : -1
+			}
+			return function(obj1, obj2) {
+				var val1 = obj1[filt]
+				var val2 = obj2[filt]
+				if (val1 < val2) {
+					return val1-val2
+				} else if (val1 > val2) {
+					return val2-val1
+				}
+				// return 0
 			}
 		}
-		state.timeLimitList.sort(compare(data))
-		console.log(state.timeLimitList)
+		state.timeLimitList.sort(compare(data.filt, data.rev))
+		state.newsBenefitList.sort(compare(data.filt, data.rev))
 	}
 }
 export default {
