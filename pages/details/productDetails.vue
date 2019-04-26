@@ -33,7 +33,7 @@
 		<view class="product-info">
 			<view class="product-info-title-wrap">
 				<view class="product-info-title">
-					<span class="pinkage">一折购</span>{{productDetail.productItemModel.productName}}
+					<span class="pinkage">1折购</span>{{productDetail.productItemModel.productName}}
 				</view>
 			</view>
 			<view class="rule">
@@ -179,13 +179,13 @@
 		mapState,
 	} from 'vuex';
 	export default {
-		onUnload(){
+		onUnload() {
 			clearInterval(this.timer);
 			this.$store.commit('productDetail/resetProductDetail');
 		},
 		computed: {
-			...mapState('productDetail',['productDetail']),
-			
+			...mapState('productDetail', ['productDetail']),
+
 			banners() {
 				if (this.productDetail === null) return null;
 				return this.productDetail.productItemModel.productShowImageUrlList
@@ -193,26 +193,28 @@
 		},
 		methods: {
 			async fetchCollectProduct(productId) {
-				const res = await api.collectProduct({discountGameId:productId})
+				const res = await api.collectProduct({
+					discountGameId: productId
+				})
 			},
-			collectProduct(discountGameId){
-				this.isBg=!this.isBg;
+			collectProduct(discountGameId) {
+				this.isBg = !this.isBg;
 				this.fetchCollectProduct(discountGameId)
 			},
-			goBuying(){
+			goBuying() {
 				console.log('this.productDetail ', this.productDetail);
 				uni.navigateTo({
-					url:"/pages/buying/buying?productId="+this.productDetail.discountGameId
+					url: "/pages/buying/buying?productId=" + this.productDetail.discountGameId
 				})
 			},
-			goluckylist(){
+			goluckylist() {
 				uni.navigateTo({
-					url:"/pages/me/vip/lucky-list"
+					url: "/pages/me/vip/lucky-list"
 				})
 			},
-			goshowWinOrder(){
+			goshowWinOrder() {
 				uni.navigateTo({
-					url:"/pages/moments/components/showWinOrder"
+					url: "/pages/moments/components/showWinOrder"
 				})
 			},
 			changeIndex(ind) {
@@ -231,24 +233,24 @@
 			confirmOrder(directBuy) {
 				uni.navigateTo({
 					url: '../chooseCode/confirmOrder?discountGameId=' + this.productDetail.discountGameId + '&directBuy=' +
-						directBuy+'&groupId='+this.groupId
+						directBuy + '&groupId=' + this.groupId
 				})
 			},
-			timerCountDown(){
-				this.timer = setInterval(this.countDown,1000);
+			timerCountDown() {
+				this.timer = setInterval(this.countDown, 1000);
 			},
-			countDown(){
-			    this.lastTime = timeUtil.showTickTime(this.productDetail.openResultTime);
+			countDown() {
+				this.lastTime = timeUtil.showTickTime(this.productDetail.openResultTime);
 			},
-			async collectState(productId){
+			async collectState(productId) {
 				let res = await api.collectState({
-					discountGameId :productId
+					discountGameId: productId
 				});
-				if(res.valid == true){
+				if (res.valid == true) {
 					this.isBg = true
 				}
 			}
-			
+
 		},
 		onLoad(opt) {
 			this.fetchProductDetails(opt.productId);
@@ -257,8 +259,8 @@
 		},
 		data() {
 			return {
-				timer:null,
-				groupId:null,
+				timer: null,
+				groupId: null,
 				selectedIndex: 0,
 				commentModelList: [],
 				guarantee: "从0～9中选3个号码，选中即享1折。中签号码与当天3D中奖号码同步，每天22:00揭晓，不中全额退款，源自京东自营商品，天天发货。",
@@ -280,8 +282,8 @@
 				icon_fire: "../../static/details/icon_fire.png",
 				btn_collection: "../../static/details/btn_collection.png",
 				btn_collection_red: "../../static/details/btn_collection_red.png",
-				isBg:false,
-				lastTime:null,
+				isBg: false,
+				lastTime: null,
 			};
 		},
 
@@ -291,10 +293,13 @@
 	.product_details_wrapper {
 		width: 100%;
 		background-color: #F3F3F3;
+		padding-top: 20px;
+		padding-top: constant(safe-area-inset-top);
+
 		.header {
 			width: 100%;
 			height: 180upx;
-			padding:77rpx 30rpx 0 30rpx;
+			padding: 77rpx 30rpx 0 30rpx;
 			box-sizing: border-box;
 			display: flex;
 			justify-content: space-between;
@@ -305,6 +310,7 @@
 			top: 0;
 			left: 0;
 			z-index: 111;
+
 			.left-arrow {
 				width: 20upx;
 				height: 36upx;
@@ -353,7 +359,7 @@
 		.scroll-wrapper {
 			height: 700upx;
 			width: 100%;
-			
+
 			.swiper {
 				width: 100%;
 				height: 100%;
@@ -424,17 +430,19 @@
 			background: #FFFFFF;
 
 			.product-info-title-wrap {
-				width:100%;
+				width: 100%;
 				padding: 22upx;
 				box-sizing: border-box;
-				.product-info-title{
+
+				.product-info-title {
 					overflow: hidden;
 					text-overflow: ellipsis;
-					display:-webkit-box;               
-					-webkit-box-orient:vertical; 
-					-webkit-line-clamp:2; 
+					display: -webkit-box;
+					-webkit-box-orient: vertical;
+					-webkit-line-clamp: 2;
 					font-size: 30upx;
 					line-height: 1.5;
+
 					.pinkage {
 						display: inline-block;
 						height: 36upx;
@@ -655,8 +663,9 @@
 		}
 
 		.detail_imgurllist {
-			width:100%;
+			width: 100%;
 			padding-bottom: 30upx;
+
 			image {
 				width: 100%;
 
@@ -701,25 +710,28 @@
 					height: 24upx;
 					margin-right: 12upx;
 				}
-				.count_down_time{
+
+				.count_down_time {
 					display: flex;
-					justify-content:space-around;
-					color:#E22537;
-					margin-top:8upx;
-					height:36upx;
-					line-height:36upx;
-					.count_down_time_item{
-						background:#E22537;
-						font-size:24upx;
-						font-family:PingFang-SC-Medium;
-						font-weight:500;
-						color:rgba(255,255,255,1);
-						padding-left:10upx;
-						padding-right:10upx;
+					justify-content: space-around;
+					color: #E22537;
+					margin-top: 8upx;
+					height: 36upx;
+					line-height: 36upx;
+
+					.count_down_time_item {
+						background: #E22537;
+						font-size: 24upx;
+						font-family: PingFang-SC-Medium;
+						font-weight: 500;
+						color: rgba(255, 255, 255, 1);
+						padding-left: 10upx;
+						padding-right: 10upx;
 						border-radius: 8upx;
-						.mm{
-							margin-left:12upx;
-							margin-right:12upx;
+
+						.mm {
+							margin-left: 12upx;
+							margin-right: 12upx;
 						}
 					}
 				}
@@ -750,7 +762,8 @@
 					height: 36upx;
 				}
 			}
-			.left_messageb{
+
+			.left_messageb {
 				color: #CC2636;
 			}
 
