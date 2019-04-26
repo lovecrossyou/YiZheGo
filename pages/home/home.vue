@@ -46,7 +46,7 @@
 				</view>
 				<view class="hot_sale_list">
 					<view class="hot_sale_product_item" v-for="(item, i) in timeLimit3" :key="i" @click="hotsales">
-						<view class="hot_sale_product_price">￥{{ item.oneDiscountPrice/100 }}</view>
+						<view class="hot_sale_product_price">￥{{item.oneDiscountPrice/100}}</view>
 						<view class="image">
 							<image :src="item.productImageUrl"></image>
 						</view>
@@ -104,6 +104,7 @@
 </template>
 
 <script>
+	import dataUtil from '@/util/dataUtil.js'
 	import {
 		mapState,
 		mapGetters

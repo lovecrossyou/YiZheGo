@@ -69,11 +69,11 @@ const mutations = {
 				var val1 = obj1[prop]
 				var val2 = obj2[prop]
 				if (val1 < val2) {
-					return rev * -1
+					return val1-val2
 				} else if (val1 > val2) {
-					return rev * 1
+					return val2-val1
 				}
-				return 0
+				// return 0
 			}
 		}
 		state.timeLimitList.sort(compare(data.filt, data.rev))

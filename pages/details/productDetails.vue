@@ -293,7 +293,6 @@
 	.product_details_wrapper {
 		width: 100%;
 		background-color: #F3F3F3;
-		padding-top: 20px;
 		padding-top: constant(safe-area-inset-top);
 
 		.header {
@@ -664,7 +663,7 @@
 
 		.detail_imgurllist {
 			width: 100%;
-			padding-bottom: 30upx;
+			padding-bottom: 98upx;
 
 			image {
 				width: 100%;
