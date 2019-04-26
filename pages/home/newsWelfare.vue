@@ -45,7 +45,7 @@
 			}
 		},
 		computed:{
-			...mapState('home',['newsBenefitList','timeLimitChoiceList'])
+			...mapState('home',['newsBenefitList'])
 		},
 		methods:{
 			goDetail(productId){
@@ -58,6 +58,11 @@
 		components:{
 			tabFiltrate,
 			product
+		},
+		data(){
+			return {
+				navBarListTit:['综合','价格','销量']
+			}
 		}
 	}
 </script>
