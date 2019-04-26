@@ -222,6 +222,7 @@
 			if (this.hasLogin) {
 				this.packets();
 				this.getVipModal();
+				this.vipInfo();
 			} else {
 				uni.navigateTo({
 					url: '/pages/login/WeChatLogin/WeChatLogin'
@@ -233,7 +234,7 @@
 			this.fetchByTimeLimitList()
 			this.fetchTimeLimitChoiceList();
 			this.fetchNewsBenefitList();
-			this.vipInfo();
+			
 			console.log('inviteId ', option.inviteId);
 			let inviteId = option.inviteId;
 
