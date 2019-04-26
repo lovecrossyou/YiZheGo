@@ -16,6 +16,8 @@ export default {
 		orderData: [],
 		orderDetail: {},
 		refundDetail: {},
+		loading:false,
+
 	},
 	getters: {
 		// 待付款：0，待揭晓：1,已揭晓：2,已取消：3
@@ -167,6 +169,7 @@ export default {
 	mutations: {
 		setOrderData(state, data) {
 			state.orderData = data;
+			state.loading = false;
 		},
 		addOrderData(state, payload) {
 			let {
@@ -197,6 +200,10 @@ export default {
 
 			state.refundDetail = data;
 		},
+		changeLoadingState(state) {
+		
+			state.loading = !state.loading;
+		},
 	},
 	actions: {
 		getOrderData({
@@ -204,7 +211,7 @@ export default {
 		}) {
 			//let orderTypes = ['allClientOrder','waitPayClientOrder','waitOpenResultClientOrder','waitCommentClientOrder','refundClientOrder','waitReceiveOrder'];
 			//let orderTypes = ['allClientOrder','waitPayClientOrder','waitOpenResultClientOrder','waitCommentClientOrder','refundClientOrder'];
-
+			commit('changeLoadingState');
 			let taskGroup = [];
 			for (let i = 0; i < orderTypes.length; i++) {
 				let promise = api.getMyOrder({

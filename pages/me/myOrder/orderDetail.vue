@@ -1,5 +1,9 @@
 <template>
 	<view class="page-content">
+		<block v-if="loading">
+			<LoadingTurn></LoadingTurn>
+		</block>
+		<block v-else>
 		<view class="info-content">
 			<!-- 订单状态 -->
 			<view class="state-content">
@@ -190,6 +194,7 @@
 				</view>
 			</scroll-view>
 		</view>
+		</block>
 	</view>
 </template>
 
@@ -200,11 +205,13 @@ import priceText from '../components/priceText.vue';
 import { mapActions, mapState, mapGetters, mapMutations } from 'vuex';
 import timeUtil from '@/util/timeUtil.js';
 import api from '@/util/api';
+import LoadingTurn from '@/pages/components/LoadingTurn.vue';
 export default {
 	components: {
 		uniIcon,
 		productInfo,
-		priceText
+		priceText,
+		LoadingTurn
 	},
 	data() {
 		return {
@@ -222,7 +229,8 @@ export default {
 			lastPayTimer: {},
 			closeIcon: '../../../static/me/code_close_icon.png',
 			showAllCode: false,
-			showShan: false
+			showShan: false,
+			loading:false,
 		};
 	},
 	onLoad(params) {
@@ -248,6 +256,7 @@ export default {
 			setOrderDetail: 'myOrder/setOrderDetail'
 		}),
 		getOrderDetail(platformOrderNo) {
+			this.loading = true;
 			api.clientOrderDetail({ platformOrderNo: platformOrderNo }).then(res => {
 				this.setOrderDetail(res);
 				if (res.lastPayTime !== '') {
@@ -320,6 +329,8 @@ export default {
 						this.downTimeShow = [hour, min, second]; */
 					}, 1000);
 				}
+				
+				this.loading = false;
 			});
 		},
 		cancelOrder(clientOrderId) {
@@ -350,7 +361,7 @@ export default {
 		enterProduct(productId) {
 			//console.log('啦all：：：：'+productId)
 
-			uni.redirectTo({
+			uni.navigateTo({
 				url: '../../details/productDetails?productId=' + productId
 			});
 		},
