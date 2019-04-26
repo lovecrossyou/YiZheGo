@@ -400,7 +400,7 @@
 								background:rgba(255,255,255,0.5);
 								line-height:48upx;
 								position: absolute;
-								bottom: 10upx;
+								bottom: 0;
 								left:0;
 								padding-left:10upx;
 								box-sizing: border-box;
