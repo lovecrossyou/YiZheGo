@@ -1,6 +1,6 @@
 <template>
 	<section class="main">
-		<PullUpReload :isLoading="loading" :on-infinite-load="onInfiniteLoad" :parent-pull-up-state="infiniteLoadData.pullUpState">
+		<PullUpReload :isLoading="loading" :on-infinite-load="onInfiniteLoad" :parent-pull-up-state="infiniteLoadData.pullUpState" backgroudcolor="#f7f7f7">
 			<div class="lucky-list">
 				<block v-for="(item,index) in luckyListA" :key="index">
 					<view class="lucky-item">
@@ -107,6 +107,7 @@
 					size: 10
 				}
 				this.loading=true;
+				// if (this.pageNo>0) return;
 				api.luckyList(params).then((res)=>{
 					console.log(res);
 					res.list.forEach(lucky=>{
