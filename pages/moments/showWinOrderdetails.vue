@@ -91,7 +91,10 @@
 				showOrderCommentId: 0,
 				content:"",
 				isPreview:false,
-				pic_url:""
+				pic_url:"",
+				praise_num:0,
+				comment_num:0,
+				type_id:1
 			}
 		},
 		computed: {
@@ -114,6 +117,7 @@
 			this.commentShowWinOrderModelList = res.commentShowWinOrderModelList;
 			this.praiseDetailModelList = res.praiseDetailModelList;
 			this.showWinOrderCommentModel = res.showWinOrderCommentModel;
+			this.type_id=options.type_id;
 		},
 		methods: {
 			gopraiseDetail() {
@@ -129,20 +133,62 @@
 				});
 				this.showWinOrderCommentModel.praise = res.praise;
 				this.showWinOrderCommentModel.praiseCount = res.praiseCount;
-				const listres = await api.showWinOrderDetail({
+				const praiseres = await api.showWinOrderDetail({
 					showOrderCommentId: this.showOrderCommentId
 				});
-				this.praiseDetailModelList = listres.praiseDetailModelList;
+				this.praiseDetailModelList = praiseres.praiseDetailModelList;
+				switch(this.type_id){
+					case '1':
+						this.$store.commit('recommend/updatelistpraise',{
+							praise:res.praise,
+							praiseCount:res.praiseCount
+						});
+						break;
+					case '2':
+						this.$store.commit('comment/updatelistpraise',{
+							praise:res.praise,
+							praiseCount:res.praiseCount
+						});
+						break;
+					case '3':
+						this.$store.commit('showWinOrder/updatelistpraise',{
+							praise:res.praise,
+							praiseCount:res.praiseCount
+						});
+						break;
+					default:
+						break;
+				}
 			},
 			async send(event){
 				const res = await api.commentShowWinOrder({
 					showWinOrderId: this.showOrderCommentId,
 					commentContent:event.detail.value
 				});
-				const listres = await api.showWinOrderDetail({
+				const commentCountres = await api.showWinOrderDetail({
 					showOrderCommentId: this.showOrderCommentId
 				});
-				this.commentShowWinOrderModelList = listres.commentShowWinOrderModelList;
+				this.showWinOrderCommentModel = commentCountres.showWinOrderCommentModel;
+				this.commentShowWinOrderModelList = commentCountres.commentShowWinOrderModelList;
+				switch(this.type_id){
+					case '1':
+						this.$store.commit('recommend/updatelistcommentCount',{
+							commentCount:this.showWinOrderCommentModel.commentCount 
+						});
+						break;
+					case '2':
+						this.$store.commit('comment/updatelistcommentCount',{
+							commentCount:this.showWinOrderCommentModel.commentCount 
+						});
+						break;
+					case '3':
+						this.$store.commit('showWinOrder/updatelistcommentCount',{
+							commentCount:this.showWinOrderCommentModel.commentCount 
+						});
+						break;
+					default:
+						break;
+				}
 			},
 			preview_pic(url){
 				this.isPreview=true;

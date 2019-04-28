@@ -3,7 +3,8 @@ const orderTypes = ['allClientOrder', 'waitPayClientOrder', 'waitOpenResultClien
 	'refundClientOrder'
 ];
 
-const hasShowed = 'waitingShowOrder,waitingRefund,waitingReceiveAndWaitingRefund,waitingReceiveAndHasRefund,waitingShowOrder,hasReceiveAndWaitingRefund,finished';
+const hasShowed =
+	'waitingShowOrder,waitingRefund,waitingReceiveAndWaitingRefund,waitingReceiveAndHasRefund,waitingShowOrder,hasReceiveAndWaitingRefund,finished';
 const waitShow = 'waitingOpenResult';
 const waitPay = 'waitingPay';
 const hasCancel = 'cancelOrder';
@@ -15,6 +16,8 @@ export default {
 		orderData: [],
 		orderDetail: {},
 		refundDetail: {},
+		loading:false,
+
 	},
 	getters: {
 		// 待付款：0，待揭晓：1,已揭晓：2,已取消：3
@@ -43,7 +46,7 @@ export default {
 		},
 		myCodeList(state) {
 			if (state.orderDetail.purchaseCode == null || state.orderDetail.purchaseCode == undefined) {
-				return ['0','0','0']
+				return ['0', '0', '0']
 			}
 			let length = state.orderDetail.purchaseCode.length;
 			length = length > 3 ? 3 : length;
@@ -53,16 +56,46 @@ export default {
 			});
 
 		},
-		
-		allCodeList(state){
+
+		allCodeList(state) {
 			if (state.orderDetail.purchaseCode == null || state.orderDetail.purchaseCode == undefined) {
-				return ['0','0','0']
+				return ['0', '0', '0']
 			}
-			
-			
+
+
+
+
 			return state.orderDetail.purchaseCode.map((cur, index) => {
 				return cur.split(',');
 			});
+		},
+		allCodeListFormat(state) {
+			if (state.orderDetail.purchaseCode == null || state.orderDetail.purchaseCode == undefined) {
+				return [
+					['0', '0', '0'],
+					['0', '0', '0'],
+					['0', '0', '0']
+				]
+			}
+
+			let allCodeListFormat = state.orderDetail.purchaseCode.slice(0);
+
+			let rowCount = Math.ceil(allCodeListFormat.length / 3);
+			let EmptySize = rowCount * 3 - allCodeListFormat.length;
+			for (let i = 0; i < EmptySize; i++) {
+				allCodeListFormat.push('-1,-1,-1');
+			}
+			let result = [];
+			for (let j = 0; j < rowCount; j++) {
+
+				let origin = allCodeListFormat.slice(j * 3, (j + 1) * 3);
+				let rowArr = origin.map((cur, index) => {
+					return cur.split(',');
+				});
+				result.push(rowArr);
+
+			}
+			return result;
 		},
 		groupListData(state) {
 
@@ -90,18 +123,18 @@ export default {
 				groupCount++;
 				emptyMember = 2;
 			}
-			
+
 			//groupCount = 4 ;
 			//emptyMember = 2;
-			
-			
+
+
 			let memberList = state.orderDetail.discountGameGroupModel.groupUserModelList.slice(0, state.orderDetail.discountGameGroupModel
 				.groupUserModelList.length);
-				
-				/* for(let aaa =0;aaa<8;aaa++){
-					memberList.push(memberList[0])
-				} */
-				
+
+			/* for(let aaa =0;aaa<8;aaa++){
+				memberList.push(memberList[0])
+			} */
+
 			for (let m = 0; m < emptyMember; m++) {
 				memberList.push({
 					iconUrl: ''
@@ -120,14 +153,14 @@ export default {
 				}
 				groupListData.push(groupData);
 			}
-			
-			if(groupListData.length > 1){
+
+			if (groupListData.length > 1) {
 				let temp = groupListData[0];
-				groupListData[0] = groupListData[groupListData.length -1];
-				groupListData[groupListData.length -1] = temp;
+				groupListData[0] = groupListData[groupListData.length - 1];
+				groupListData[groupListData.length - 1] = temp;
 			}
-			
-			
+
+
 			return groupListData;
 		}
 
@@ -136,6 +169,7 @@ export default {
 	mutations: {
 		setOrderData(state, data) {
 			state.orderData = data;
+			state.loading = false;
 		},
 		addOrderData(state, payload) {
 			let {
@@ -166,6 +200,10 @@ export default {
 
 			state.refundDetail = data;
 		},
+		changeLoadingState(state) {
+		
+			state.loading = !state.loading;
+		},
 	},
 	actions: {
 		getOrderData({
@@ -173,7 +211,7 @@ export default {
 		}) {
 			//let orderTypes = ['allClientOrder','waitPayClientOrder','waitOpenResultClientOrder','waitCommentClientOrder','refundClientOrder','waitReceiveOrder'];
 			//let orderTypes = ['allClientOrder','waitPayClientOrder','waitOpenResultClientOrder','waitCommentClientOrder','refundClientOrder'];
-
+			commit('changeLoadingState');
 			let taskGroup = [];
 			for (let i = 0; i < orderTypes.length; i++) {
 				let promise = api.getMyOrder({

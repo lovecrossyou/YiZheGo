@@ -1,6 +1,6 @@
 <template>
 	<view class="recommendwrapper">
-		<block v-for="(item,index) in list" :key="index">
+		<block v-for="(item,index) in recommendlist" :key="index">
 			<view class="recommendItem">
 				<view class="user">
 					<image class="user_icon" :src="item.userIconUrl"></image>
@@ -47,74 +47,41 @@
 <script>
 	import api from "@/util/api.js";
 	import PullUpReload from "@/pages/me/components/PullUpReload.vue"
+	import {mapState} from 'vuex'
 	export default{
 		data(){
 			return{
-				list:[],
-				pageNo:1,
-				pageSize:10,
-				totalCount:0,
-				loading: true,
-				pullUpState:2
 			}
 		},
 		components:{
 			PullUpReload
 		},
+		computed:{
+			...mapState('recommend',['recommendlist','pageNo','pageSize','totalCount','loading','pullUpState','index','type_id']),
+		},
 		methods:{
-			godetails(index){
-					uni.navigateTo({
-						url:"/pages/moments/showWinOrderdetails?id="+this.list[index].showWinOrderCommentId
-					})
+			async change_praise(item) {
+				this.$store.dispatch('recommend/change_praise',item);
+			},
+			async get_list(){
+				this.$store.dispatch('recommend/get_list');
 			},
 			onInfiniteLoad(done) {
-				console.log('正在加载'+this.pullUpState)
 				if (this.pullUpState === 2) {
-					this.get_list();
+					this.get_list()
 				}
 				done()
 			},
-			async change_praise(item){
-				const res = await api.praiseShowWinOrder({
-					showWinOrderId:item.showWinOrderCommentId,
-				});
-				item.praise=res.praise;
-				item.praiseCount=res.praiseCount;
-			},
-			async get_list(){
-				this.loading=true;
-				let param = {
-				pageNo:this.pageNo,
-				size:this.pageSize
-				};
-				api.discusRecommendList(param).then((res)=>{
-					this.totalCount=res.totalCount;
-					if(this.pageNo===1){
-						this.list = res.list;
-					}
-					else{
-						this.list = this.list.concat(res.list);
-					}
-					this.pageNo=res.pageNo+1;
-					this.loading=false;
-					if (this.pageNo === this.totalCount) {
-						this.pullUpState = 3;
-					} else {
-						this.pullUpState = 2;
-					}
-					
-					console.log(this.list)
-				});
-				
+			godetails(index){
+				this.$store.commit('recommend/change_index',index);
+				uni.navigateTo({
+					url:"/pages/moments/showWinOrderdetails?id="+this.recommendlist[index].showWinOrderCommentId+"&type_id="+this.type_id
+				})
 			}
 		},
 		onLoad() {
 			this.get_list()
-		},
-		// onShow() {
-		// 	this.pageNo=1;
-		// 	this.get_list()
-		// }
+		}
 	}
 </script>
 
