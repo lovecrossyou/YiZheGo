@@ -65,7 +65,7 @@
 				</block>
 			</view>
 			<view class="comment_bottom">
-				<input class="comment_input" type="text" placeholder="    恭喜你中签了！" v-model="content" v-on:confirm="send"/>
+				<input class="comment_input" v-model="input" type="text" placeholder="    恭喜你中签了！" v-on:confirm="send"/>
 				<view class="comment_praisewrapper" @click="change_praise">
 					<image class="comment_praise_img" v-if="showWinOrderCommentModel.praise" src="/static/moments/btn_like_red.png"></image>
 					<image class="comment_praise_img" v-else src="/static/moments/icon_illume.png"></image>
@@ -89,12 +89,12 @@
 					imageOrVideoUrl: []
 				},
 				showOrderCommentId: 0,
-				content:"",
 				isPreview:false,
 				pic_url:"",
 				praise_num:0,
 				comment_num:0,
-				type_id:1
+				type_id:1,
+				input:""
 			}
 		},
 		computed: {
@@ -189,6 +189,7 @@
 					default:
 						break;
 				}
+				this.input=""
 			},
 			preview_pic(url){
 				this.isPreview=true;
