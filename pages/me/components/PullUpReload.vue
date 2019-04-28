@@ -1,8 +1,8 @@
 <template lang="html">
-	<div :style="{transform: 'translate3d(0,' + top + 'px, 0)',backgroud:backgroudcolor} ">
+	<div class="load-more" :style="{transform: 'translate3d(0,' + top + 'px, 0)',background:backgroudcolor}">
 		<slot></slot>
-		<footer class="load-more">
-			<slot name="load-more">
+		<footer>
+			<!-- <slot name="load-more"> -->
 				<LoadingDiv v-if="pullUpState==1" :loadingText="pullUpStateText.moreDataTxt"></LoadingDiv>
 				<LoadingDiv v-if="pullUpState==2 || isLoading" :loadingText="pullUpStateText.loadingMoreDataTxt"></LoadingDiv>
 				<div class="loading-tip" v-if="pullUpState==3">
@@ -10,7 +10,7 @@
 					<span class="noMoreData-tip-text">{{pullUpStateText.noMoreDataTxt}}</span>
 					<span class="connectingLine"></span>
 				</div>
-			</slot>
+			<!-- </slot> -->
 		</footer>
 	</div>
 </template>
