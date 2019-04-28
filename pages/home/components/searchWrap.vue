@@ -1,17 +1,11 @@
 <template>
 	<view class="search_wrapper">
-		<!-- <view class="search_wrapper_item">
-			<image :src="fenlei" alt="" />
-		</view> -->
 		<view class="search_wrapper_center">
 			<view class="search_wrapper_center_input">
 				<image :src="home_search" alt="" />
 				<view>搜索商品</view>
 			</view>
 		</view>
-		<!-- <view class="search_wrapper_item">
-			<image :src="fenxiang" alt="" />
-		</view> -->
 	</view>
 </template>
 

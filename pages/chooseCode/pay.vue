@@ -21,7 +21,9 @@
 				</view>
 			</block>
 		</view>
-		<view class="confirm_footer" @click="toPay(payResult)">立即支付</view>
+		<view class="confirm_footer">
+			<view class="confirm_footer_pay" @click="toPay(payResult)">立即支付</view>
+		</view>
 		<pay-dialog title="请输入支付密码" ref="xyDialog" @confirmButton="clickConfirm" @showKeyboard="showKeyboard" :payOrderNo="payOrderNo"
 		 :totalPayRmb="totalPayRmb">
 
@@ -332,17 +334,23 @@
 		}
 
 		.confirm_footer {
+			width: 100%;
 			position: fixed;
 			bottom: 50upx;
-			width: 690upx;
-			height: 80upx;
-			background: rgba(204, 38, 54, 1);
-			font-size: 30upx;
-			font-family: PingFang-SC-Medium;
-			font-weight: 500;
-			color: rgba(255, 255, 255, 1);
-			line-height: 80upx;
-			text-align: center;
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			.confirm_footer_pay{
+				width: 690upx;
+				height: 80upx;
+				background: rgba(204, 38, 54, 1);
+				font-size: 30upx;
+				font-family: PingFang-SC-Medium;
+				font-weight: 500;
+				color: rgba(255, 255, 255, 1);
+				line-height: 80upx;
+				text-align: center;
+			}
 		}
 	}
 </style>

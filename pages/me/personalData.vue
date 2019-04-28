@@ -39,12 +39,12 @@
 		</view>
 		<view class="bottom_item_list">
 			<!-- <view @click="showSinglePicker"> -->
-				<selectItemList title="性别" :leftText="personalInfoList.userInfo.sex == 1 ? '男' : '女'"></selectItemList>
-				<!-- <selectItemList title="性别" :leftText="pickerText"></selectItemList> -->
-			</view>
-			<!-- <selectItemList title="星座" :leftText="personalInfoList.userInfo.constellation"></selectItemList> -->
-			<selectItemList page="/pages/me/address/address" title="送货地址"></selectItemList>
+			<selectItemList title="性别" :leftText="personalInfoList.userInfo.sex == 1 ? '男' : '女'"></selectItemList>
+			<!-- <selectItemList title="性别" :leftText="pickerText"></selectItemList> -->
 		</view>
+		<!-- <selectItemList title="星座" :leftText="personalInfoList.userInfo.constellation"></selectItemList> -->
+		<selectItemList page="/pages/me/address/address" title="送货地址"></selectItemList>
+		
 	</view>
 </template>
 
@@ -53,49 +53,47 @@ import api from '../../util/api.js';
 import selectItemList from './components/selectItemList.vue';
 import mpvuePicker from '@/components/mpvue-picker/mpvuePicker.vue';
 import mpvueCityPicker from '@/components/mpvue-citypicker/mpvueCityPicker.vue';
-
 export default {
 	data() {
 		return {
 			personalInfoList: null,
 			// formData:{
-				pickerSingleArray: [
-					{
-						label: '男'
-					},
-					{
-						label: '女'
-					}
-				],
-				// constellation:[
-				// 	{
-				// 		consItem:"水瓶座"
-				// 	},{
-				// 		consItem:"双鱼座"
-				// 	},{
-				// 		consItem:"白羊座"
-				// 	},{
-				// 		consItem:"金牛座"
-				// 	},{
-				// 		consItem:"双子座"
-				// 	},{
-				// 		consItem:"巨蟹座"
-				// 	},{
-				// 		consItem:"狮子座"
-				// 	},{
-				// 		consItem:"处女座"
-				// 	},{
-				// 		consItem:"天秤座"
-				// 	},{
-				// 		consItem:"天蝎座"
-				// 	},{
-				// 		consItem:"射手座"
-				// 	},{
-				// 		consItem:"射手座"
-				// 	}
-				// ]
+			pickerSingleArray: [
+				{
+					label: '男'
+				},
+				{
+					label: '女'
+				}
+			],
+			// constellation:[
+			// 	{
+			// 		consItem:"水瓶座"
+			// 	},{
+			// 		consItem:"双鱼座"
+			// 	},{
+			// 		consItem:"白羊座"
+			// 	},{
+			// 		consItem:"金牛座"
+			// 	},{
+			// 		consItem:"双子座"
+			// 	},{
+			// 		consItem:"巨蟹座"
+			// 	},{
+			// 		consItem:"狮子座"
+			// 	},{
+			// 		consItem:"处女座"
+			// 	},{
+			// 		consItem:"天秤座"
+			// 	},{
+			// 		consItem:"天蝎座"
+			// 	},{
+			// 		consItem:"射手座"
+			// 	},{
+			// 		consItem:"射手座"
+			// 	}
+			// ]
 			// },
-
 			// cityPickerValueDefault: [0, 0, 1],
 			themeColor: '#007AFF',
 			pickerText: '',
@@ -110,6 +108,7 @@ export default {
 		mpvueCityPicker
 	},
 	computed: {},
+
 	methods: {
 		changeIcon() {
 			uni.chooseImage({
@@ -138,7 +137,6 @@ export default {
 			this.deepLength = 1;
 			this.pickerValueDefault = [0];
 			this.$refs.mpvuePicker.show();
-
 			let res = await api.constellation({
 				// sex :this.formData.pickerSingleArray.label,
 				// constellation :"",
@@ -155,6 +153,86 @@ export default {
 </script>
 
 <style scoped>
+.personal_wrapper {
+	width: 100%;
+	background-color: #f5f5f5;
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+.header_img_wrapper {
+	width: 100%;
+	height: 140upx;
+	background-color: #fff;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	border-top: solid 1upx rgba(229, 229, 229, 1);
+	border-bottom: solid 1upx rgba(229, 229, 229, 1);
+	padding: 26upx;
+	box-sizing: border-box;
+	margin-top: 30upx;
+}
+.header_img_text {
+	color: #666666;
+	font-size: 28upx;
+	margin-left: 8upx;
+}
+.right_header_img {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+.header_img {
+	width: 100upx;
+	height: 100upx;
+	border-radius: 5upx;
+	margin-right: 22upx;
+}
+.next_icon {
+	width: 20upx;
+	height: 34upx;
+}
+.xt_num_area {
+	width: 100%;
+	height: 100upx;
+	background-color: #fff;
+	padding: 0 26upx;
+	box-sizing: border-box;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+.num_text {
+	color: #999;
+	font-size: 24upx;
+}
+.wx_code_wrapper {
+	width: 100%;
+	height: 100upx;
+	background-color: #fff;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	border-top: solid 1upx rgba(229, 229, 229, 1);
+	border-bottom: solid 1upx rgba(229, 229, 229, 1);
+	padding: 26upx;
+	box-sizing: border-box;
+}
+.xw_code_icon {
+	width: 33upx;
+	height: 33upx;
+	margin-right: 11upx;
+}
+.bottom_item_list {
+	margin-top: 27upx;
+	border-top: solid 1upx rgba(229, 229, 229, 1);
+}
 .personal_wrapper {
 	width: 100%;
 	background-color: #f5f5f5;

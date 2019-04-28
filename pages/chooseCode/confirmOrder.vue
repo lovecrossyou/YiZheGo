@@ -363,7 +363,7 @@
 						height: 31upx;
 					}
 					.address-name{
-						width:106upx;
+						width:120upx;
 					}
 					.address{
 						width:100%;

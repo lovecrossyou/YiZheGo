@@ -46,10 +46,10 @@
 				</view>
 				<view class="hot_sale_list">
 					<view class="hot_sale_product_item" v-for="(item, i) in timeLimit3" :key="i" @click="hotsales">
+						<view class="hot_sale_product_price">￥{{item.oneDiscountPrice/100}}</view>
 						<view class="image">
 							<image :src="item.productImageUrl"></image>
 						</view>
-						<view class="hot_sale_product_price">￥{{ item.oneDiscountPrice/100 }}</view>
 						<view class="hot_sale_product_name">{{ item.productName }}</view>
 						<view class="already_sale">已抢{{ item.participatePersonCount }}</view>
 					</view>
@@ -104,6 +104,7 @@
 </template>
 
 <script>
+	import dataUtil from '@/util/dataUtil.js'
 	import {
 		mapState,
 		mapGetters
@@ -222,7 +223,6 @@
 			if (this.hasLogin) {
 				this.packets();
 				this.getVipModal();
-				this.vipInfo();
 			} else {
 				uni.navigateTo({
 					url: '/pages/login/WeChatLogin/WeChatLogin'
@@ -234,7 +234,7 @@
 			this.fetchByTimeLimitList()
 			this.fetchTimeLimitChoiceList();
 			this.fetchNewsBenefitList();
-			
+			this.vipInfo();
 			console.log('inviteId ', option.inviteId);
 			let inviteId = option.inviteId;
 
@@ -401,7 +401,7 @@
 								background:rgba(255,255,255,0.5);
 								line-height:48upx;
 								position: absolute;
-								bottom: 10upx;
+								bottom: 0;
 								left:0;
 								padding-left:10upx;
 								box-sizing: border-box;
@@ -445,6 +445,7 @@
 			align-items: center;
 			padding-left: 32upx;
 			padding-right: 32upx;
+			font-weight: bold;
 
 			.tooopencom_title_right {
 				color: #e22537;
@@ -474,14 +475,14 @@
 
 				.hot_sale_product_item {
 					width: 222upx;
-					height: 304upx;
+					height: 324upx;
 					background: #f5f5f5;
-					position: relative;
 					display: flex;
 					flex-direction: column;
 					justify-content: center;
 					align-items: center;
-					padding-bottom: 14upx;
+					padding-top: 8upx;
+					padding-bottom: 10upx;
 					box-sizing: border-box;
 
 					&:nth-child(odd) {
@@ -489,10 +490,12 @@
 					}
 
 					.hot_sale_product_price {
-						position: absolute;
-						top: 4upx;
-						left: 4upx;
+						width:100%;
+						height:28upx;
+						line-height:28upx;
 						font-size: 32upx;
+						padding-left:10upx;
+						box-sizing: border-box;
 						font-family: PingFang-SC-Medium;
 						font-weight: 500;
 						color: rgba(226, 37, 55, 1);

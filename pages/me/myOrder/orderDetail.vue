@@ -1,199 +1,194 @@
 <template>
 	<view class="page-content">
-		<block v-if="loading">
-			<LoadingTurn></LoadingTurn>
-		</block>
+		<block v-if="loading"><LoadingTurn></LoadingTurn></block>
 		<block v-else>
-		<view class="info-content">
-			<!-- 订单状态 -->
-			<view class="state-content">
-				<view class="state-text">
-					<text class="state">{{ orderDealState === 0 ? '待付款' : orderDealState === 1 ? '待揭晓' : orderDealState === 2 ? '已揭晓' : '已取消' }}</text>
-					<text class="time">
-						{{
-							orderDealState === 0
-								? '剩' + downTimeShow.hour + ':' + downTimeShow.minute + ':' + downTimeShow.sec + '自动关闭'
-								: orderDealState === 1
-								? '距揭晓还剩' + downTimeShow.hour + ':' + downTimeShow.minute + ':' + downTimeShow.sec
-								: '中签立享1折，未中签全额退款'
-						}}
-					</text>
-				</view>
-				<view class="state-icon" v-if="orderDealState === 2">
-					<text class="count">中签{{ orderDetail.winCodeCount }}件</text>
-					<image class="state-img" :src="orderDetail.winCodeCount > 0 ? stateIconGold : stateIcon"></image>
-				</view>
-			</view>
-
-			<!-- 收货信息 -->
-			<view class="item-content line-content" v-if="orderDealState === 0 || orderDealState === 3">
-				<view class="person">
-					<text class="name phone">收&#8194;货&#8194;人：{{ orderDetail.deliveryAddressModel.recievName }}</text>
-					<text class="phone">{{ orderDetail.deliveryAddressModel.phoneNum }}</text>
-				</view>
-				<view class="address-content">
-					<image :src="positionIcon" class="position-icon"></image>
-					<text class="address-title">收货地址：</text>
-					<view class="default">默认</view>
-					<text class="address">
-						{{ '&#8195;&#8195;' }}{{ orderDetail.deliveryAddressModel.districtAddress }} {{ '&#8194;' }}{{ orderDetail.deliveryAddressModel.detailAddress }}
-					</text>
-				</view>
-			</view>
-			<image :src="lineIcon" class="line-icon" v-if="orderDealState === 0"></image>
-			<!-- 商品信息 -->
-			<view class="item-content">
-				<productInfo
-					:productImg="orderDetail.productImageUrl"
-					:productName="orderDetail.productName"
-					:currentPrice="(orderDetail.oneDiscountPrice / 100).toFixed(2)"
-					:originPrice="(orderDetail.originalPrice / 100).toFixed(2)"
-				></productInfo>
-				<view class="title-content price-content">
-					<text class="item-title">商品</text>
-					<view class="item-title">
-						￥
-						<priceText :price="(orderDetail.oneDiscountPrice*orderDetail.purchaseCount / 100).toFixed(2)"></priceText>
+			<view class="info-content">
+				<!-- 订单状态 -->
+				<view class="state-content">
+					<view class="state-text">
+						<text class="state">{{ orderDealState === 0 ? '待付款' : orderDealState === 1 ? '待揭晓' : orderDealState === 2 ? '已揭晓' : '已取消' }}</text>
+						<text class="time">
+							{{
+								orderDealState === 0
+									? '剩' + downTimeShow.hour + ':' + downTimeShow.minute + ':' + downTimeShow.sec + '自动关闭'
+									: orderDealState === 1
+									? '距揭晓还剩' + downTimeShow.hour + ':' + downTimeShow.minute + ':' + downTimeShow.sec
+									: '中签立享1折，未中签全额退款'
+							}}
+						</text>
 					</view>
-				</view>
-				<view class="title-content">
-					<text class="item-title">运费</text>
-					<view class="item-title">
-						￥
-						<priceText :price="(orderDetail.freight / 100).toFixed(2)"></priceText>
-					</view>
-				</view>
-				<view class="zongji">
-					共
-					<text class="color">{{ orderDetail.purchaseCount }}</text>
-					件 实付款：
-
-					<view class="color">
-						￥
-						<priceText :price="(orderDetail.totalPayPrice / 100).toFixed(2)"></priceText>
-					</view>
-				</view>
-			</view>
-			<!-- 本期中签号码 -->
-			<view class="item-content">
-				<view class="title-content">
-					<text class="item-title">本期中签号码(第{{ orderDetail.discountGameStage }}期)</text>
-				</view>
-
-				<view class="code-list">
-					<view class="ball" v-for="(code, index) in todayCode" :key="index">{{ code == -1 ? (index == 0 ? '待' : index == 1 ? '揭' : '晓') : code }}</view>
-				</view>
-			</view>
-			<!-- 我的幸运号码 -->
-			<view class="item-content" @click="changeShowAllCode(orderDetail.purchaseCount > 3)">
-				<view class="title-content">
-					<text class="item-title">我的幸运号码（{{ orderDetail.purchaseCount }}组）</text>
-					<uni-icon type="arrowright" color="#bbb" size="20" v-if="orderDetail.purchaseCount > 3"></uni-icon>
-				</view>
-				<view class="code-content">
-					<view class="code-array" v-for="(codeArray, index) in myCodeList" :key="index">
-						<view class="code" v-for="(code, index1) in codeArray" :key="index1">{{ code }}</view>
-					</view>
-				</view>
-			</view>
-			<!-- 退款路径 -->
-			<view class="item-content" v-if="orderDealState === 0 || orderDealState === 3">
-				<view class="title-content">
-					<text class="item-title">退款路径</text>
-					<text class="item-title">{{ orderDetail.refundWay === 'account' ? '喜币钱包' : '原路返还' }}</text>
-				</view>
-			</view>
-			<!-- 邀请拼团 -->
-			<view class="item-content" v-else>
-				<view class="title-content">
-					<view class="invite-title">
-						<image :src="inviteIcon" class="invite-img"></image>
-						<text class="item-title">邀请拼团</text>
+					<view class="state-icon" v-if="orderDealState === 2">
+						<text class="count">中签{{ orderDetail.winCodeCount }}件</text>
+						<image class="state-img" :src="orderDetail.winCodeCount > 0 ? stateIconGold : stateIcon"></image>
 					</view>
 				</view>
 
-				<view class="group-detail" v-for="(memberList, memberListIndex) in groupListData" :key="memberListIndex">
-					<view class="member" v-for="(member, index) in memberList.group" :key="index">
-						<image :src="member.iconUrl !== '' ? member.iconUrl : emptyMember" class="member-icon"></image>
-						<view class="tuan-zhang" v-if="member.identity === 'originator'">团长</view>
+				<!-- 收货信息 -->
+				<view class="item-content line-content" v-if="orderDealState === 0 || orderDealState === 3">
+					<view class="person">
+						<text class="name phone">收&#8194;货&#8194;人：{{ orderDetail.deliveryAddressModel.recievName }}</text>
+						<text class="phone">{{ orderDetail.deliveryAddressModel.phoneNum }}</text>
 					</view>
-
-					<view class="group-right">
-						<button class="group-button" v-if="memberList.state === 'done'" @click="scanRed">查看红包</button>
-						<button class="group-button" open-type="share" v-else>立即邀请</button>
+					<view class="address-content">
+						<image :src="positionIcon" class="position-icon"></image>
+						<text class="address-title">收货地址：</text>
+						<view class="default">默认</view>
+						<text class="address">
+							{{ '&#8195;&#8195;' }}{{ orderDetail.deliveryAddressModel.districtAddress }} {{ '&#8194;' }}{{ orderDetail.deliveryAddressModel.detailAddress }}
+						</text>
 					</view>
 				</view>
-			</view>
-			<!-- 订单信息 -->
-
-			<view class="order-more-info" v-if="showMoreInfo">
-				<view class="item-content buttom-address" v-if="orderDealState !== 0">
-					<view class="order-info">
-						收&#8194;货&#8194;人：{{ orderDetail.deliveryAddressModel.recievName }}{{ '&#8195;' }}{{ orderDetail.deliveryAddressModel.phoneNum }}
-					</view>
-					<view class="order-info">
-						地&#8195;&#8195;址：
-
-						<view class="order-info long-text">
-							{{ orderDetail.deliveryAddressModel.districtAddress }} {{ '&#8194;' }}{{ orderDetail.deliveryAddressModel.detailAddress }}
+				<image :src="lineIcon" class="line-icon" v-if="orderDealState === 0"></image>
+				<!-- 商品信息 -->
+				<view class="item-content">
+					<productInfo
+						:productImg="orderDetail.productImageUrl"
+						:productName="orderDetail.productName"
+						:currentPrice="(orderDetail.oneDiscountPrice / 100).toFixed(2)"
+						:originPrice="(orderDetail.originalPrice / 100).toFixed(2)"
+					></productInfo>
+					<view class="title-content price-content">
+						<text class="item-title">商品</text>
+						<view class="item-title">
+							￥
+							<priceText :price="((orderDetail.oneDiscountPrice * orderDetail.purchaseCount) / 100).toFixed(2)"></priceText>
 						</view>
 					</view>
-					<view class="line-gray"></view>
-				</view>
+					<view class="title-content">
+						<text class="item-title">运费</text>
+						<view class="item-title">
+							￥
+							<priceText :price="(orderDetail.freight / 100).toFixed(2)"></priceText>
+						</view>
+					</view>
+					<view class="zongji">
+						共
+						<text class="color">{{ orderDetail.purchaseCount }}</text>
+						件 实付款：
 
+						<view class="color">
+							￥
+							<priceText :price="(orderDetail.totalPayPrice / 100).toFixed(2)"></priceText>
+						</view>
+					</view>
+				</view>
+				<!-- 本期中签号码 -->
 				<view class="item-content">
-					<view class="order-info">下单时间：{{ orderDetail.clientOrderTime }}</view>
-					<view class="order-info">订&#8194;单&#8194;号：{{ orderDetail.platformOrderNo }}</view>
-					<view class="order-info">期&#8195;&#8195;数：{{ orderDetail.discountGameStage }}</view>
-					<view class="order-info">商品代码：{{ orderDetail.productNo }}</view>
-					<view class="order-info">
-						实付金额：￥
-						<priceText :price="(orderDetail.totalPayPrice / 100).toFixed(2)"></priceText>
+					<view class="title-content">
+						<text class="item-title">本期中签号码(第{{ orderDetail.discountGameStage }}期)</text>
 					</view>
 
-					<view v-if="orderDealState !== 0">
-						<view class="order-info">支付方式：{{ orderDetail.payChannel }}</view>
-						<view class="order-info">支付时间：{{ orderDetail.clientOrderTime }}</view>
-						<view class="order-info">退款路径：{{ orderDetail.refundWay === 'account' ? '喜币钱包' : '原路返还' }}</view>
-					</view>
-
-					<view class="more-info-content close-content" @click="changeMoreInfoState">
-						<text class="more-info-tips">收起</text>
-						<image :src="closeArrow" class="arrow-icon"></image>
+					<view class="code-list">
+						<view class="ball" v-for="(code, index) in todayCode" :key="index">{{ code == -1 ? (index == 0 ? '待' : index == 1 ? '揭' : '晓') : code }}</view>
 					</view>
 				</view>
-			</view>
-
-			<view class="more-info-content" @click="changeMoreInfoState" v-else>
-				<text class="more-info-tips">更多订单信息</text>
-				<image :src="openArrow" class="arrow-icon"></image>
-			</view>
-		</view>
-		<!-- 底部支付  《》：：：￥￥￥-->
-		<view class="pay-content">
-			<view class="button cancel-order" v-if="orderDetail.win" @click="enterRefundDetail(orderDetail.payOrderNo, false)">查看发货</view>
-			<view class="button cancel-order" v-if="orderDetail.refundDetailModel !== null" @click="enterRefundDetail(orderDetail.payOrderNo, true)">查看退款</view>
-			<view class="button cancel-order" v-if="orderDealState === 0" @click="cancelOrder(orderDetail.clientOrderId)">取消订单</view>
-			<view class="button pay-now" v-if="orderDealState === 0" @click="enterPay(orderDetail)">立即支付</view>
-			<view class="button pay-now" v-if="orderDealState !== 0" @click="enterProduct(orderDetail.discountGameId)">再抢一次</view>
-			<view class="button pay-now" v-if="orderDealState === 2 && showShan">去晒单</view>
-		</view>
-		<view class="code-pop" v-if="showAllCode">
-			<view class="pop-title-content">
-				<text class="pop-title">我的幸运号码</text>
-				<view class="pop-close" @click="changeShowAllCode(true)"><image :src="closeIcon" class="pop-icon"></image></view>
-			</view>
-			<scroll-view class="pop-code-content" scroll-y>
-				<view class="pop-code-array" v-for="(codeArray, index) in allCodeListFormat" :key="index">
-					
-					<view class="pop-code-item" v-for="(codeItem,index1) in codeArray" :key="index1">
-						<view :class="code=='-1'?'blank-code': 'pop-code'" v-for="(code, index2) in codeItem" :key="index2">{{ code }}</view>
+				<!-- 我的幸运号码 -->
+				<view class="item-content" @click="changeShowAllCode(orderDetail.purchaseCount > 3)">
+					<view class="title-content">
+						<text class="item-title">我的幸运号码（{{ orderDetail.purchaseCount }}组）</text>
+						<uni-icon type="arrowright" color="#bbb" size="20" v-if="orderDetail.purchaseCount > 3"></uni-icon>
 					</view>
-					
-					
+					<view class="code-content">
+						<view class="code-array" v-for="(codeArray, index) in myCodeList" :key="index">
+							<view class="code" v-for="(code, index1) in codeArray" :key="index1">{{ code }}</view>
+						</view>
+					</view>
 				</view>
-			</scroll-view>
-		</view>
+				<!-- 退款路径 -->
+				<view class="item-content" v-if="orderDealState === 0 || orderDealState === 3">
+					<view class="title-content">
+						<text class="item-title">退款路径</text>
+						<text class="item-title">{{ orderDetail.refundWay === 'account' ? '喜币钱包' : '原路返还' }}</text>
+					</view>
+				</view>
+				<!-- 邀请拼团 -->
+				<view class="item-content" v-else>
+					<view class="title-content">
+						<view class="invite-title">
+							<image :src="inviteIcon" class="invite-img"></image>
+							<text class="item-title">邀请拼团</text>
+						</view>
+					</view>
+
+					<view class="group-detail" v-for="(memberList, memberListIndex) in groupListData" :key="memberListIndex">
+						<view class="member" v-for="(member, index) in memberList.group" :key="index">
+							<image :src="member.iconUrl !== '' ? member.iconUrl : emptyMember" class="member-icon"></image>
+							<view class="tuan-zhang" v-if="member.identity === 'originator'">团长</view>
+						</view>
+
+						<view class="group-right">
+							<button class="group-button" v-if="memberList.state === 'done'" @click="scanRed">查看红包</button>
+							<button class="group-button" open-type="share" v-else>立即邀请</button>
+						</view>
+					</view>
+				</view>
+				<!-- 订单信息 -->
+
+				<view class="order-more-info" v-if="showMoreInfo">
+					<view class="item-content buttom-address" v-if="orderDealState !== 0">
+						<view class="order-info">
+							收&#8194;货&#8194;人：{{ orderDetail.deliveryAddressModel.recievName }}{{ '&#8195;' }}{{ orderDetail.deliveryAddressModel.phoneNum }}
+						</view>
+						<view class="order-info">
+							地&#8195;&#8195;址：
+
+							<view class="order-info long-text">
+								{{ orderDetail.deliveryAddressModel.districtAddress }} {{ '&#8194;' }}{{ orderDetail.deliveryAddressModel.detailAddress }}
+							</view>
+						</view>
+						<view class="line-gray"></view>
+					</view>
+
+					<view class="item-content">
+						<view class="order-info">下单时间：{{ orderDetail.clientOrderTime }}</view>
+						<view class="order-info">订&#8194;单&#8194;号：{{ orderDetail.platformOrderNo }}</view>
+						<view class="order-info">期&#8195;&#8195;数：{{ orderDetail.discountGameStage }}</view>
+						<view class="order-info">商品代码：{{ orderDetail.productNo }}</view>
+						<view class="order-info">
+							实付金额：￥
+							<priceText :price="(orderDetail.totalPayPrice / 100).toFixed(2)"></priceText>
+						</view>
+
+						<view v-if="orderDealState !== 0">
+							<view class="order-info">支付方式：{{ orderDetail.payChannel }}</view>
+							<view class="order-info">支付时间：{{ orderDetail.clientOrderTime }}</view>
+							<view class="order-info">退款路径：{{ orderDetail.refundWay === 'account' ? '喜币钱包' : '原路返还' }}</view>
+						</view>
+
+						<view class="more-info-content close-content" @click="changeMoreInfoState">
+							<text class="more-info-tips">收起</text>
+							<image :src="closeArrow" class="arrow-icon"></image>
+						</view>
+					</view>
+				</view>
+
+				<view class="more-info-content" @click="changeMoreInfoState" v-else>
+					<text class="more-info-tips">更多订单信息</text>
+					<image :src="openArrow" class="arrow-icon"></image>
+				</view>
+			</view>
+			<!-- 底部支付  《》：：：￥￥￥-->
+			<view class="pay-content">
+				<view class="button cancel-order" v-if="orderDetail.win" @click="enterRefundDetail(orderDetail.payOrderNo, false)">查看发货</view>
+				<view class="button cancel-order" v-if="orderDetail.refundDetailModel !== null" @click="enterRefundDetail(orderDetail.payOrderNo, true)">查看退款</view>
+				<view class="button cancel-order" v-if="orderDealState === 0" @click="cancelOrder(orderDetail.clientOrderId)">取消订单</view>
+				<view class="button pay-now" v-if="orderDealState === 0" @click="enterPay(orderDetail)">立即支付</view>
+				<view class="button pay-now" v-if="orderDealState !== 0" @click="enterProduct(orderDetail.discountGameId)">再抢一次</view>
+				<view class="button pay-now" v-if="orderDealState === 2 && showShan">去晒单</view>
+			</view>
+			<view class="code-pop" v-if="showAllCode">
+				<view class="pop-title-content">
+					<text class="pop-title">我的幸运号码</text>
+					<view class="pop-close" @click="changeShowAllCode(true)"><image :src="closeIcon" class="pop-icon"></image></view>
+				</view>
+				<scroll-view class="pop-code-content" scroll-y>
+					<view class="pop-code-array" v-for="(codeArray, index) in allCodeListFormat" :key="index">
+						<view class="pop-code-item" v-for="(codeItem, index1) in codeArray" :key="index1">
+							<view :class="code == '-1' ? 'blank-code' : 'pop-code'" v-for="(code, index2) in codeItem" :key="index2">{{ code }}</view>
+						</view>
+					</view>
+				</scroll-view>
+			</view>
 		</block>
 	</view>
 </template>
@@ -230,7 +225,7 @@ export default {
 			closeIcon: '../../../static/me/code_close_icon.png',
 			showAllCode: false,
 			showShan: false,
-			loading:false,
+			loading: false
 		};
 	},
 	onLoad(params) {
@@ -239,6 +234,20 @@ export default {
 	},
 	onUnload() {
 		this.lastPayTimer && clearInterval(this.lastPayTimer);
+	},
+	onShareAppMessage(obj) {
+		let userInfo = this.userInfo;
+		const groupId = this.orderDetail.discountGameGroupModel.groupId;
+		const productId = this.orderDetail.discountGameId;
+		const payOrderNo = this.orderDetail.payOrderNo;
+		console.log('productId ', productId);
+
+		const path = '/pages/home/home?inviteId=' + userInfo.userId + '&groupId=' + groupId + '&productId=' + productId + '&payOrderNo=' + payOrderNo;
+		return {
+			title: '发现一个好物,在这抢购仅需一折,一起来拼运气、拼人品.',
+			path: path,
+			imageUrl: this.orderDetail.productImageUrl
+		};
 	},
 	methods: {
 		changeShowAllCode(canChange) {
@@ -329,7 +338,7 @@ export default {
 						this.downTimeShow = [hour, min, second]; */
 					}, 1000);
 				}
-				
+
 				this.loading = false;
 			});
 		},
@@ -372,14 +381,14 @@ export default {
 		}
 	},
 	computed: {
+		...mapState(['userInfo']),
 		...mapGetters({
 			orderDealState: 'myOrder/orderDealState',
 			todayCode: 'myOrder/todayCode',
 			myCodeList: 'myOrder/myCodeList',
 			groupListData: 'myOrder/groupListData',
 			allCodeList: 'myOrder/allCodeList',
-			allCodeListFormat: 'myOrder/allCodeListFormat',
-			
+			allCodeListFormat: 'myOrder/allCodeListFormat'
 
 			//myCodeListLength: 'myOrder/myCodeListLength'
 		}),
@@ -537,7 +546,7 @@ export default {
 					font-family: PingFang-SC-Medium;
 					font-weight: 500;
 					color: rgba(255, 41, 41, 1);
-					
+
 					padding-left: 6upx;
 					padding-right: 6upx;
 					margin-top: 8upx;
@@ -547,7 +556,6 @@ export default {
 					display: flex;
 					justify-content: center;
 					align-items: center;
-					
 				}
 				.address {
 					font-size: 30upx;
@@ -579,7 +587,6 @@ export default {
 					color: rgba(51, 51, 51, 1);
 					line-height: 46upx;
 					display: flex;
-					
 				}
 			}
 			.zongji {
@@ -796,7 +803,7 @@ export default {
 				margin-top: 40upx;
 				justify-content: space-around;
 				width: 100%;
-				.pop-code-item{
+				.pop-code-item {
 					display: flex;
 					flex-direction: row;
 					.pop-code {
@@ -814,7 +821,7 @@ export default {
 						justify-content: center;
 						align-items: center;
 					}
-					.blank-code{
+					.blank-code {
 						width: 50upx;
 						height: 50upx;
 						border-radius: 50%;
@@ -830,7 +837,6 @@ export default {
 						align-items: center;
 					}
 				}
-				
 			}
 		}
 	}
