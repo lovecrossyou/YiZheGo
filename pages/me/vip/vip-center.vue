@@ -115,7 +115,7 @@
 			align-items: flex-end;
 			width: 100%;
 			height: 628upx;
-			background: url("http://qnimage.xiteng.com/vip_top_img.png") no-repeat;
+			background: url("http://qnimage.xiteng.com/image_vip_head.png") no-repeat;
 			background-size: 100% 100%;
 			
 			.attention-text {

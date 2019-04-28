@@ -72,7 +72,7 @@
 				}
 
 				let orderInfo;
-				let payChannel;
+				let payChannel = this.paychannels[this.selectIndex].payChannel;
 				// #ifdef MP-WEIXIN
 				uni.showLoading({
 					mask: true
@@ -87,9 +87,9 @@
 				// #endif
 
 				// #ifdef APP-PLUS
-				payChannel = 'WeixinPay';
+				// payChannel = 'WeixinPay';
 				orderInfo = await api.commitPay({
-					openId: this.openid,
+					// openId: this.openid,
 					payChannel: payChannel,
 					payOrderNo: this.payOrderNo,
 					refundWay: this.refundWay.refundWay,
