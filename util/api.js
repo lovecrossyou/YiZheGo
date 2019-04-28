@@ -118,6 +118,10 @@ const api = {
 	
 	//修改星座 & 性别
 	constellation:params => request.post("/user/modify/constellation",params),
+	
+	// 二维码
+	qrCode:params => request.post("/user/qrcode",params),
+
 
 	//上传
 	uploader: (file, callback) => {

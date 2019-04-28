@@ -52,7 +52,7 @@
 				"navigationBarTitleText": "晒单",
 				"navigationBarTextStyle": "black",
 				"navigationBarBackgroundColor": "#ffffff"
-				
+
 			}
 		},
 		{
@@ -61,7 +61,7 @@
 				"navigationBarTitleText": "动态",
 				"navigationBarTextStyle": "black",
 				"navigationBarBackgroundColor": "#ffffff"
-				
+
 			}
 		},
 		{
@@ -80,7 +80,7 @@
 				"navigationBarBackgroundColor": "#ffffff"
 			}
 		},
-			{
+		{
 			"path": "pages/moments/creatdiscuss",
 			"style": {
 				"navigationBarTitleText": "发表评论",
@@ -362,27 +362,33 @@
 				"navigationBarTextStyle": "black"
 			}
 		}
-	    
-        ,{
-            "path" : "pages/shareqrcode/shareqrcode",
-            "style" : {
+
+		, {
+			"path": "pages/shareqrcode/shareqrcode",
+			"style": {
 				"navigationBarTitleText": "",
 				"navigationBarBackgroundColor": "#ffffff",
 				"navigationBarTextStyle": "black"
 			}
-        },
+		},
 		{
-            "path" : "pages/xtgoods/xtgoods",
-            "style" : {
+			"path": "pages/xtgoods/xtgoods",
+			"style": {
 				"navigationBarTitleText": "热销榜单"
 			}
-        } ,
+		},
 		{
-            "path" : "pages/me/attention/attentionList",
-            "style" : {
+			"path": "pages/me/attention/attentionList",
+			"style": {
 				"navigationBarTitleText": "关注列表"
 			}
-        } 
+		},
+		{
+			"path": "pages/me/QRcode/QRcode",
+			"style": {
+				"navigationBarTitleText": "我的二维码"
+			}
+		}
 	],
 	"tabBar": {
 		"color": "#7a7e83",
