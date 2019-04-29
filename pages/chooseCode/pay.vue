@@ -74,11 +74,11 @@
 				}
 
 				let orderInfo;
-				let payChannel;
-				// #ifdef MP-WEIXIN
+				let payChannel = this.paychannels[this.selectIndex].payChannel;
 				uni.showLoading({
 					mask: true
 				});
+				// #ifdef MP-WEIXIN
 				payChannel = 'WeixinMiniProgramPay';
 				orderInfo = await api.commitPay({
 					openId: this.openid,
@@ -89,9 +89,9 @@
 				// #endif
 
 				// #ifdef APP-PLUS
-				payChannel = 'WeixinPay';
+				// payChannel = 'WeixinPay';
 				orderInfo = await api.commitPay({
-					openId: this.openid,
+					// openId: this.openid,
 					payChannel: payChannel,
 					payOrderNo: this.payOrderNo,
 					refundWay: this.refundWay.refundWay,
@@ -107,9 +107,6 @@
 
 			},
 			payResult(payStatus) {
-// 				console.log('this.directBuy############## ', this.directBuy);
-// 				console.log('this.payStatus############## ', payStatus);
-				
 				uni.hideLoading();
 				if (this.productType === 'vipProduct') {
 					//会员商品
@@ -160,7 +157,7 @@
 			handleActionShow() {
 				this.$refs.xyDialog.show()
 			},
-            refundRoute() {
+			refundRoute() {
 				uni.navigateTo({
 					url: './refundRoute'
 				});
@@ -239,12 +236,13 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-	    flex: 1;
+		flex: 1;
 		position: absolute;
 		top: 0;
 		left: 0;
 		right: 0;
 		bottom: 0;
+
 		.order_content {
 			height: 250upx;
 			width: 100%;
@@ -271,7 +269,8 @@
 					color: rgba(153, 153, 153, 1);
 					margin-top: 5upx;
 				}
-				.order_pay_top_refundWay{
+
+				.order_pay_top_refundWay {
 					color: #FFB540;
 					font-size: 26upx;
 					font-family: PingFang-SC-Medium;
@@ -292,7 +291,7 @@
 				color: rgba(51, 51, 51, 1);
 				background: #ffffff;
 				padding: 20upx;
-				border-bottom: 1px solid rgba(227,227,227,1);
+				border-bottom: 1px solid rgba(227, 227, 227, 1);
 			}
 
 			.p_option {
@@ -301,6 +300,7 @@
 				justify-content: space-between;
 				align-items: center;
 				background: #ffffff;
+
 				.p_option_left {
 					display: flex;
 					flex-direction: row;
@@ -340,7 +340,8 @@
 			display: flex;
 			flex-direction: row;
 			justify-content: center;
-			.confirm_footer_pay{
+
+			.confirm_footer_pay {
 				width: 690upx;
 				height: 80upx;
 				background: rgba(204, 38, 54, 1);
