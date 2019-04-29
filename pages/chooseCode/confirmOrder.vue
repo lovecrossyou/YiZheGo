@@ -173,7 +173,6 @@
 					size: 10,
 					pageNo: 0
 				});
-				console.log('收货地址-----------' + JSON.stringify(res));
 				this.$store.commit('confirmPay/setAddressList', res.content);
 			},
 			async getConfirmOrderInfo(discountGameId) {

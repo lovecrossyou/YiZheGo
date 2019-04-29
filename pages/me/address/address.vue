@@ -20,7 +20,13 @@
 		},
 		methods: {
 			EventHandler: function(e) {
-				const addr_id = e.detail.data[0];
+				const platfrom = uni.getSystemInfoSync().platform;
+				var addr_id=0;
+				if(platfrom=='android'){
+					addr_id=e.detail.data[0].data;
+				}else{
+					addr_id=e.detail.data[0];
+				}
 				this.$store.commit('confirmPay/setAddrId', addr_id);
 			}
 		}

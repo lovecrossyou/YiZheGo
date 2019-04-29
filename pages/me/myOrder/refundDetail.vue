@@ -14,7 +14,7 @@
 				<text class="item-title">商品</text>
 				<view class="item-title">
 					￥
-					<priceText :price="(orderDetail.totalPrice / 100).toFixed(2)"></priceText>
+					<priceText :price="(orderDetail.oneDiscountPrice*orderDetail.purchaseCount / 100).toFixed(2)"></priceText>
 				</view>
 			</view>
 			<view class="title-content">
@@ -138,7 +138,10 @@ export default {
 						cur.done = true;
 					})
 				}else{
-					 startRefundTime = new Date(res.createRefundTime).getTime();
+					 startRefundTime = new Date(res.createRefundTime.replace(/-/g, '/')).getTime();
+					 
+					
+					 
 					 currentTime = new Date().getTime();
 					 hours = (currentTime - startRefundTime)/1000/60/60;
 					if(hours > 2){
@@ -169,7 +172,7 @@ export default {
 						cur.done = true;
 					})
 				}else{
-					 startRefundTime = new Date(res.createRefundTime).getTime();
+					 startRefundTime = new Date(res.createRefundTime.replace(/-/g, '/')).getTime();
 					 currentTime = new Date().getTime();
 					 hours = (currentTime - startRefundTime)/1000/60/60;
 					if(hours > 2){

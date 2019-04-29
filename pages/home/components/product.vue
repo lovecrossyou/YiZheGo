@@ -76,6 +76,7 @@
 
 				.recommend_item_title {
 					width: 100%;
+					height:76upx;
 					overflow: hidden;
 					text-overflow: ellipsis;
 					display:-webkit-box;               
