@@ -14,7 +14,7 @@
 					</block>
 				</view>
 			</view>
-			<button class="commitbtn" type="primary" @tap="getUpImgInfo" @click="createDis">发送</button>
+			<button class="commitbtn" type="primary" @tap="getUpImgInfo" @click="createDis" :disabled="isDisable">发送</button>
 		</view>
 	</view>
 </template>
@@ -30,7 +30,8 @@ export default {
 				width:'120upx',
 				height:'120upx'
 			},
-			imglist: []
+			imglist: [],
+			isDisable:false
 		};
 	},
 	methods: {
@@ -47,42 +48,42 @@ export default {
 				
 			} else {
 				api.createShowWinOrder(param).then((res)=>{
-					console.log(res);
 					if (res.respMsg==="successful") {
 						uni.navigateBack();
 					}
 				})
 			}
+			this.isDisable=true;
 		},
-		  chooseImageFromFile(){
-			var that = this;
-			uni.chooseImage({
-			  count: 9,
-			  success: function (res) {
-				// 无论用户是从相册选择还是直接用相机拍摄，路径都是在这里面
-				var filePath = res.tempFilePaths[0];
-				
-				api.uploader(filePath, res => {
-						console.log(JSON.stringify(res));
-						
+// 		  chooseImageFromFile(){
+// 			var that = this;
+// 			uni.chooseImage({
+// 			  count: 9,
+// 			  success: function (res) {
+// 				// 无论用户是从相册选择还是直接用相机拍摄，路径都是在这里面
+// 				var filePath = res.tempFilePaths[0];
+// 				
+// 				api.uploader(filePath, res => {
+// 						console.log(JSON.stringify(res));
+// 						
 // 						that.imglist.push(filePath);
 // 						that.addBtnShow=that.imglist.length<9;
-					});
-				
-				
-				
+// 					});
+// 				
+// 				
+// 				
 // 				console.log(res);
 // 				console.log(that.imglist);
-			  },
-			  fail: function (error) {
-				console.error("调用本地相册文件时出错")
-				console.warn(error)
-			  },
-			  complete: function () {
-
-			  },
-			});
-		}
+// 			  },
+// 			  fail: function (error) {
+// 				console.error("调用本地相册文件时出错")
+// 				console.warn(error)
+// 			  },
+// 			  complete: function () {
+// 
+// 			  },
+// 			});
+// 		}
 	},
 	onReady() {
 		let that = this;
@@ -128,25 +129,25 @@ export default {
 			box-sizing: border-box;
 		}
 
-		.imgwrapper {
-			width: 100%;
-			display: flex;
-			flex-direction: row;
-			margin: 60upx 15upx 15upx 15upx;
-			flex-wrap: wrap;
-			.upbtn {
-				background: url('../../static/moments/add_icon.png') no-repeat;
-				background-size: 100% 100%;
-			}
-			.imgBack {
-				display: flex;
-				justify-content: center;
-				justify-items: center;
-				margin-top: 20upx;
-				margin-bottom: 20upx;
-			}
-			
-		}
+		// .imgwrapper {
+		// 	width: 100%;
+		// 	display: flex;
+		// 	flex-direction: row;
+		// 	margin: 60upx 15upx 15upx 15upx;
+		// 	flex-wrap: wrap;
+		// 	.upbtn {
+		// 		background: url('../../static/moments/add_icon.png') no-repeat;
+		// 		background-size: 100% 100%;
+		// 	}
+		// 	.imgBack {
+		// 		display: flex;
+		// 		justify-content: center;
+		// 		justify-items: center;
+		// 		margin-top: 20upx;
+		// 		margin-bottom: 20upx;
+		// 	}
+		// 	
+		// }
 	}
 
 	.commitbtn {

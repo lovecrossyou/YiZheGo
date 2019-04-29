@@ -1,19 +1,29 @@
 <template>
-	<view class="moments">
+	<view class="moments">		
 		<view class="top_wrapper">
 			<view class="navigation">
-				<block v-for="(item,index) in navigationlist" :key=index>
-					<view class="navigationtext" :class="{'navigationclicktext':isOnclick===index}" @click="navigationclick(index)">{{item}}</view>
-				</block>
+				<view class="navigationtext_left">
+					<view class="left_text" :class="{'left_click_text':isOnclick===0}">推荐</view>
+				</view>
+				<view class="navigationtext_right">
+					<view class="right_text" :class="{'right_click_text':isOnclick===1}">讨论</view>
+				</view>
 			</view>
 			<view class="notice_bar"  @click="goluckylist">
 				<noticebar></noticebar>
 			</view>
 		</view>
 		<view class="contentlist">
-			<recommend v-if="isOnclick===0"></recommend>
-			<comment v-if="isOnclick===1"></comment>
+			<swiper class="swiper-box"  @change="change_isOnclick">
+				<swiper-item class="swiper-item">
+					<recommend></recommend>
+				</swiper-item>
+				<swiper-item class="swiper-item">
+					<comment></comment>
+				</swiper-item>
+			</swiper>
 		</view>
+		<image class="creat_discuss_btn" v-if="isOnclick===1" src="/static/moments/icon_add.png" @click="gocreatdiscuss"></image>
 	</view>
 </template>
 
@@ -25,18 +35,22 @@
 	export default {
 		data() {
 			return {
-				isOnclick: 0,
-				navigationlist: ["推荐", "讨论"],
+				isOnclick: 0
 			}
 		},
 		methods: {
-			navigationclick(index){
-				this.isOnclick=index;
-			},
 			goluckylist(){
 				uni.navigateTo({
 					url:"/pages/me/vip/lucky-list"
 				})
+			},
+			gocreatdiscuss(){
+				uni.navigateTo({
+					url:"/pages/moments/creatdiscuss"
+				})
+			},
+			change_isOnclick(e){
+				this.isOnclick=this.isOnclick===0?1:0;
 			}
 		},
 		components:{
@@ -63,26 +77,61 @@
 			
 			.navigation {
 				width: 100%;
-				height: 100upx;
+				height: 81upx;
 				display: flex;
 				flex-direction: row;
 				justify-content: space-around;
 				background:white;
 			
-			
-				.navigationtext {
-					font-size: 30upx;
-					font-family: PingFang-SC-Medium;
-					font-weight: 500;
-					color: rgba(51, 51, 51, 1);
+				.navigationtext_left {
+					width: 50%;
+					display: flex;
+					flex-direction: row-reverse;
+					padding-right: 35upx;
+					
+					.left_text{
+						width: 60upx;
+						font-size: 30upx;
+						font-family:PingFang-SC-Regular;
+						font-weight:400;
+						color: rgba(51, 51, 51, 1);
+						margin-top: 10upx;
+					}
+					
+					.left_click_text {
+						width: 80upx;
+						font-size: 40upx;
+						font-family:PingFang-SC-Medium;
+						font-weight:500;
+						color: rgba(205, 46, 63, 1);
+						border-bottom: solid 2upx rgba(205,46,63,1);
+						margin-top: 0upx;
+					}
 				}
 			
-				.navigationclicktext {
-					font-size: 30upx;
-					font-family: PingFangSC-Regular;
-					font-weight: 400;
-					color: rgba(205, 46, 63, 1);
-					border-bottom: solid 2upx rgba(205,46,63,1);
+				.navigationtext_right {
+					width: 50%;
+					display: flex;
+					padding-left: 35upx;
+					
+					.right_text{
+						width:60upx;
+						font-size: 30upx;
+						font-family:PingFang-SC-Regular;
+						font-weight:400;
+						color: rgba(51, 51, 51, 1);
+						margin-top: 10upx;
+					}
+					
+					.right_click_text {
+						width: 80upx;
+						font-size: 40upx;
+						font-family:PingFang-SC-Medium;
+						font-weight:500;
+						color:rgba(205,46,63,1);
+						border-bottom: solid 2upx rgba(205,46,63,1);
+						margin-top: 0upx;
+					}
 				}
 			}
 			
@@ -96,7 +145,28 @@
 		
 		.contentlist{
 			width: 100%;
+			height: 100%;
 			margin-top: 170upx;
+			
+			.swiper-box{
+				width: 100%;
+				height: 100%;
+				
+				.swiper-item{
+					width: 100%;
+					overflow-y: scroll;
+				}
+			}
 		}
+		
+		.creat_discuss_btn {
+			width: 93upx;
+			height: 93upx;
+			position: fixed;
+			right: 24upx;
+			bottom: 76upx;
+			z-index: 9;
+		}
+		
 	}
 </style>

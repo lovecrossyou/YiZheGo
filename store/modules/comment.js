@@ -2,7 +2,7 @@ import api from '@/util/api.js';
  
 const state={
 	commentlist:[],
-	pageNo:1,
+	pageNo:0,
 	pageSize:10,
 	totalCount:0,
 	loading: true,
@@ -27,7 +27,7 @@ const mutations={
 		};
 		api.discusCommentList(param).then((res)=>{
 			state.totalCount=res.totalCount;
-			if(state.pageNo===1){
+			if(state.pageNo===0){
 				state.commentlist = res.list;
 			}
 			else{
@@ -35,7 +35,7 @@ const mutations={
 			}
 			state.pageNo=res.pageNo+1;
 			state.loading=false;
-			if (state.pageNo === state.totalCount) {
+			if (state.pageNo === state.totalCount-1) {
 				state.pullUpState = 3;
 			} else {
 				state.pullUpState = 2;

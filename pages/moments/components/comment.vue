@@ -1,6 +1,5 @@
 <template> 
 	<view class="commentwrapper">
-		<image class="creat_discuss_btn" src="/static/moments/icon_add.png" @click="gocreatdiscuss"></image>
 		<block v-for="(item, index) in commentlist" :key="index">
 			<view class="commentItem">
 				<view class="user">
@@ -91,16 +90,7 @@ export default {
 	padding: 20upx 30upx;
 	box-sizing: border-box;
 	background: #eeeeee;
-
-	.creat_discuss_btn {
-		width: 93upx;
-		height: 93upx;
-		position: fixed;
-		right: 24upx;
-		bottom: 76upx;
-		z-index: 9;
-	}
-
+	
 	.commentItem {
 		display: flex;
 		flex-direction: column;
