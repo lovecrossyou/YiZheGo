@@ -2,7 +2,7 @@ import api from '../../util/api'
 const orderTypes = ['allClientOrder', 'waitPayClientOrder', 'waitOpenResultClientOrder', 'waitCommentClientOrder',
 	'refundClientOrder'
 ];
-
+//let orderTypes = ['allClientOrder','waitPayClientOrder','waitOpenResultClientOrder','waitCommentClientOrder','refundClientOrder','waitReceiveOrder'];
 const hasShowed =
 	'waitingShowOrder,waitingRefund,waitingReceiveAndWaitingRefund,waitingReceiveAndHasRefund,waitingShowOrder,hasReceiveAndWaitingRefund,finished';
 const waitShow = 'waitingOpenResult';
@@ -13,10 +13,10 @@ const hasCancel = 'cancelOrder';
 export default {
 	namespaced: true,
 	state: {
-		orderData: [],
+		orderData: [{}, {}, {}, {}, {}],
 		orderDetail: {},
 		refundDetail: {},
-		loading:false,
+		loading: false,
 
 	},
 	getters: {
@@ -124,16 +124,13 @@ export default {
 				emptyMember = 2;
 			}
 
-			//groupCount = 4 ;
-			//emptyMember = 2;
+
 
 
 			let memberList = state.orderDetail.discountGameGroupModel.groupUserModelList.slice(0, state.orderDetail.discountGameGroupModel
 				.groupUserModelList.length);
 
-			/* for(let aaa =0;aaa<8;aaa++){
-				memberList.push(memberList[0])
-			} */
+
 
 			for (let m = 0; m < emptyMember; m++) {
 				memberList.push({
@@ -167,22 +164,31 @@ export default {
 
 	},
 	mutations: {
-		setOrderData(state, data) {
-			state.orderData = data;
+		setOrderData(state, payload) {
+
+			state.orderData[payload.pageNo] = payload.order;
 			state.loading = false;
+			console.log(state.orderData);
 		},
+		initOrderData(state) {
+			state.orderData = [{}, {}, {}, {}, {}];
+		},
+
+
+
 		addOrderData(state, payload) {
 			let {
 				pageNo,
 				orderData
 			} = payload;
-			//console.log(state.orderData[pageNo]);
-			//console.log(newOrder);
+
 
 			state.orderData[pageNo].list = state.orderData[pageNo].list.concat(orderData.list);
 			state.orderData[pageNo].pageNo = orderData.pageNo;
-			console.log(state.orderData);
+
 			state.orderData[pageNo].loadingType = 0;
+			state.orderData = state.orderData.slice(0);
+			console.log(state.orderData);
 
 		},
 		changeBottomLoading(state, payload) {
@@ -201,35 +207,27 @@ export default {
 			state.refundDetail = data;
 		},
 		changeLoadingState(state) {
-		
+
 			state.loading = !state.loading;
 		},
 	},
 	actions: {
 		getOrderData({
 			commit
-		}) {
-			//let orderTypes = ['allClientOrder','waitPayClientOrder','waitOpenResultClientOrder','waitCommentClientOrder','refundClientOrder','waitReceiveOrder'];
-			//let orderTypes = ['allClientOrder','waitPayClientOrder','waitOpenResultClientOrder','waitCommentClientOrder','refundClientOrder'];
+		}, pageNo) {
 			commit('changeLoadingState');
-			let taskGroup = [];
-			for (let i = 0; i < orderTypes.length; i++) {
-				let promise = api.getMyOrder({
-					clientOrderType: orderTypes[i],
-					pageNo: 0,
-					size: 10
+			api.getMyOrder({
+				clientOrderType: orderTypes[pageNo],
+				pageNo: 0,
+				size: 10
+			}).then((res) => {
+				let order = JSON.parse(JSON.stringify(res));
+				order.loadingType = 0;
+				console.log(pageNo);
+				commit('setOrderData', {
+					order: order,
+					pageNo: pageNo
 				});
-				taskGroup.push(promise);
-			}
-			Promise.all(taskGroup).then((res) => {
-				let formatData = res.map((cur, index) => {
-					let order = JSON.parse(JSON.stringify(cur));
-					order.loadingType = 0;
-
-					return order;
-				})
-				commit('setOrderData', formatData);
-
 			})
 		},
 		addData({
@@ -240,9 +238,6 @@ export default {
 				pageNo: pageNo,
 				loadingType: 1
 			});
-
-
-
 
 			if (state.orderData[pageNo].pageNo * 10 >= state.orderData[pageNo].totalCount) {
 				commit('changeBottomLoading', {
@@ -256,7 +251,6 @@ export default {
 				pageNo: ++state.orderData[pageNo].pageNo,
 				size: 10
 			}).then((res) => {
-
 				//console.log(res);
 				commit('addOrderData', {
 					pageNo: pageNo,

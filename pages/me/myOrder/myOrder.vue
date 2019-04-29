@@ -1,56 +1,52 @@
 <template>
 	<view class="uni-tab-bar">
-		<block v-if="loading">
-			<LoadingTurn></LoadingTurn>
-		</block>
+		<block v-if="loading"><LoadingTurn></LoadingTurn></block>
 		<block v-else>
-		<view id="tab-bar" class="uni-swiper-tab">
-			<view
-				v-for="(tab, index) in tabBars"
-				:key="tab.id"
-				:class="['swiper-tab-list', tabIndex == index ? 'active' : '']"
-				:id="tab.id"
-				:data-current="index"
-				@click="tapTab(index)"
-			>
-				{{ tab.name }}
+			<view id="tab-bar" class="uni-swiper-tab">
+				<view
+					v-for="(tab, index) in tabBars"
+					:key="tab.id"
+					:class="['swiper-tab-list', tabIndex == index ? 'active' : '']"
+					:id="tab.id"
+					:data-current="index"
+					@click="tapTab(index)"
+				>
+					{{ tab.name }}
+				</view>
 			</view>
-		</view>
-		<swiper :current="tabIndex" class="swiper-box" duration="300" @change="changeTab">
-			<swiper-item v-for="(tab, index1) in orderData" :key="index1">
-				<scroll-view class="list" scroll-y @scrolltolower="getMoreOrder(index1)" v-if="tab.list.length > 0">
-					<block v-for="(orderItem, index2) in tab.list" :key="index2">
-						<view class="order-item" @click="goDetail(orderItem.platformOrderNo)">
-							<view class="top">
-								<text class="time">下单时间：{{ orderItem.orderTime }}</text>
-								<text class="state">{{ orderItem.orderStatus }}</text>
-							</view>
-							<productInfo
-								:productImg="orderItem.productImageUrl"
-								:productName="orderItem.productName"
-								:currentPrice="(orderItem.oneDiscountPrice / 100).toFixed(2)"
-								:originPrice="(orderItem.originalPrice / 100).toFixed(2)"
-							></productInfo>
+			<swiper :current="tabIndex" class="swiper-box" duration="300" @change="changeTab">
+				<swiper-item v-for="(tab, index1) in orderData" :key="index1">
+					<scroll-view class="list" scroll-y @scrolltolower="getMoreOrder(index1)" v-if="tab.list !== undefined && tab.list.length > 0">
+						<block v-for="(orderItem, index2) in tab.list" :key="index2">
+							<view class="order-item" @click="goDetail(orderItem.platformOrderNo)">
+								<view class="top">
+									<text class="time">下单时间：{{ orderItem.orderTime }}</text>
+									<text class="state">{{ orderItem.orderStatus }}</text>
+								</view>
+								<productInfo
+									:productImg="orderItem.productImageUrl"
+									:productName="orderItem.productName"
+									:currentPrice="(orderItem.oneDiscountPrice / 100).toFixed(2)"
+									:originPrice="(orderItem.originalPrice / 100).toFixed(2)"
+								></productInfo>
 
-							<view class="bottom">
-								
-								<view class="count">共{{ orderItem.purchaseCount }}件{{ '&#8195;' }}实付款：￥
-								<priceText
-								:price="(orderItem.totalPayPrice / 100).toFixed(2)"
-								></priceText>
+								<view class="bottom">
+									<view class="count">
+										共{{ orderItem.purchaseCount }}件{{ '&#8195;' }}实付款：￥
+										<priceText :price="(orderItem.totalPayPrice / 100).toFixed(2)"></priceText>
+									</view>
 								</view>
 							</view>
-						</view>
-					</block>
+						</block>
 
-					<view class="uni-tab-bar-loading"><uni-load-more :loadingType="tab.loadingType" :contentText="loadingText"></uni-load-more></view>
-				</scroll-view>
-				<view class="empty-content" v-else>
-					<image class="empty-img" :src="emptyIcon"></image>
-					<text class="empty-tips">您还没有相关的订单</text>
-				</view>
-			</swiper-item>
-		</swiper>
+						<view class="uni-tab-bar-loading"><uni-load-more :loadingType="tab.loadingType" :contentText="loadingText"></uni-load-more></view>
+					</scroll-view>
+					<view class="empty-content" v-else>
+						<image class="empty-img" :src="emptyIcon"></image>
+						<text class="empty-tips">您还没有相关的订单</text>
+					</view>
+				</swiper-item>
+			</swiper>
 		</block>
 	</view>
 </template>
@@ -59,8 +55,8 @@ import mediaList from '../components/mediaList.vue';
 import uniLoadMore from '../components/uni-load-more.vue';
 import productInfo from '../components/productInfo.vue';
 import priceText from '../components/priceText.vue';
-import { mapActions, mapState } from 'vuex';
-	import LoadingTurn from '@/pages/components/LoadingTurn.vue';
+import { mapActions, mapState, mapMutations } from 'vuex';
+import LoadingTurn from '@/pages/components/LoadingTurn.vue';
 export default {
 	components: {
 		mediaList,
@@ -68,15 +64,13 @@ export default {
 		productInfo,
 		priceText,
 		LoadingTurn
-		
 	},
 
 	computed: {
 		...mapState({
 			orderData: state => state.myOrder.orderData,
-			loading: state => state.myOrder.loading,
-		}),
-		
+			loading: state => state.myOrder.loading
+		})
 	},
 
 	data() {
@@ -115,22 +109,23 @@ export default {
 		};
 	},
 	onLoad: function(obj) {
-		//this.getOrderData();
+		this.initOrderData();
+		this.tabIndex = +obj.pageNo;
+		this.getOrderData(this.tabIndex);
 		//this.addDataes(16);
-		this.tabIndex =  +obj.pageNo;
+
 		//console.log(obj);
-	//	this.tapTab(+obj.pageNo)
-	},
-	onShow() {
-		this.getOrderData();
+		//	this.tapTab(+obj.pageNo)
 	},
 	methods: {
 		...mapActions({
 			getOrderData: 'myOrder/getOrderData',
 			getMoreOrder: 'myOrder/addData'
 		}),
+		...mapMutations({
+			initOrderData: 'myOrder/initOrderData'
+		}),
 
-		
 		goDetail(platformOrderNo) {
 			uni.navigateTo({
 				url: './orderDetail?platformOrderNo=' + platformOrderNo
@@ -153,25 +148,35 @@ export default {
 			this.newsitems[e].loadingType = 1;
 		},
 		async changeTab(e) {
+			console.log('changeTab');
 			let index = e.detail.current;
 			if (this.isClickChange) {
 				this.tabIndex = index;
 				this.isClickChange = false;
+				if (this.orderData[index].list == undefined) {
+					this.getOrderData(index);
+				}
 				return;
 			}
 			this.isClickChange = false;
 			this.tabIndex = index; //一旦访问data就会出问题
+			if (this.orderData[index].list == undefined) {
+				this.getOrderData(index);
+			}
 		},
 		async tapTab(index) {
 			//点击tab-bar
+			console.log('tapTab');
 			if (this.tabIndex === index) {
 				return false;
 			} else {
 				this.isClickChange = true;
 				this.tabIndex = index;
+				if (this.orderData[index].list == undefined) {
+					this.getOrderData(index);
+				}
 			}
-		},
-	
+		}
 	}
 };
 </script>
@@ -183,7 +188,7 @@ export default {
 	flex: 1;
 	flex-direction: column;
 	height: 100%;
-	
+
 	.uni-swiper-tab {
 		width: 100%;
 		display: flex;
@@ -207,11 +212,11 @@ export default {
 
 	.swiper-box {
 		flex: 1;
-		display:flex;
+		display: flex;
 		width: 100%;
 		position: fixed;
-		top:100upx;
-		height:100%;
+		top: 100upx;
+		height: 100%;
 		.list {
 			width: 100%;
 			height: 100%;
@@ -242,7 +247,7 @@ export default {
 						color: rgba(204, 38, 55, 1);
 					}
 				}
-				
+
 				.bottom {
 					display: flex;
 					flex-direction: row;

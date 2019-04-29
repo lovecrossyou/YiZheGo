@@ -138,7 +138,10 @@ export default {
 						cur.done = true;
 					})
 				}else{
-					 startRefundTime = new Date(res.createRefundTime).getTime();
+					 startRefundTime = new Date(res.createRefundTime.replace(/-/g, '/')).getTime();
+					 
+					
+					 
 					 currentTime = new Date().getTime();
 					 hours = (currentTime - startRefundTime)/1000/60/60;
 					if(hours > 2){
@@ -169,7 +172,7 @@ export default {
 						cur.done = true;
 					})
 				}else{
-					 startRefundTime = new Date(res.createRefundTime).getTime();
+					 startRefundTime = new Date(res.createRefundTime.replace(/-/g, '/')).getTime();
 					 currentTime = new Date().getTime();
 					 hours = (currentTime - startRefundTime)/1000/60/60;
 					if(hours > 2){

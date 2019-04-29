@@ -269,7 +269,7 @@ export default {
 			api.clientOrderDetail({ platformOrderNo: platformOrderNo }).then(res => {
 				this.setOrderDetail(res);
 				if (res.lastPayTime !== '') {
-					let endTime = new Date(res.lastPayTime).getTime();
+					let endTime = new Date(res.lastPayTime.replace(/-/g, '/')).getTime();
 
 					this.lastPayTimer = setInterval(() => {
 						let startTime = new Date().getTime();
@@ -304,7 +304,7 @@ export default {
 						this.downTimeShow = [hour, min, second]; */
 					}, 1000);
 				} else if (res.orderRealStatus === 'waitingOpenResult') {
-					let endTime = new Date(res.openResultTime).getTime();
+					let endTime = new Date(res.openResultTime.replace(/-/g, '/')).getTime();
 
 					this.lastPayTimer = setInterval(() => {
 						let startTime = new Date().getTime();
