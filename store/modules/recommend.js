@@ -36,7 +36,7 @@ const mutations={
 			}
 			state.pageNo=res.pageNo+1;
 			state.loading=false;
-			if (state.pageNo === state.totalCount-1) {
+			if (state.recommendlist.length>=res.totalCount) {
 				state.pullUpState = 3;
 			} else {
 				state.pullUpState = 2;

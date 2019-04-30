@@ -77,9 +77,9 @@ export default {
 				url: '/pages/moments/showWinOrderdetails?id=' + this.commentlist[index].discussCommentId+"&type_id="+this.type_id
 			})
 		}
-	},
+	}, 
 	onLoad() {
-		this.get_list();
+			this.get_list();
 	}
 };
 </script>

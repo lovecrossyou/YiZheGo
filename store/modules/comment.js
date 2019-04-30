@@ -35,7 +35,7 @@ const mutations={
 			}
 			state.pageNo=res.pageNo+1;
 			state.loading=false;
-			if (state.pageNo === state.totalCount-1) {
+			if (state.commentlist.length>=res.totalCount) {
 				state.pullUpState = 3;
 			} else {
 				state.pullUpState = 2;
@@ -48,6 +48,10 @@ const mutations={
 	},
 	updatelistcommentCount(state,date){
 		state.commentlist[state.index].commentCount =date.commentCount ;
+	},
+	updatelist(state){
+		state.pageNo=0;
+		state.commentlist=[];
 	}
 }
 

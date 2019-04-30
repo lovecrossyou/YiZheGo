@@ -1,11 +1,11 @@
 <template>
-	<view class="moments">		
+	<view class="moments">
 		<view class="top_wrapper">
 			<view class="navigation">
-				<view class="navigationtext_left">
+				<view class="navigationtext_left" @click="change_isOnclick">
 					<view class="left_text" :class="{'left_click_text':isOnclick===0}">推荐</view>
 				</view>
-				<view class="navigationtext_right">
+				<view class="navigationtext_right" @click="change_isOnclick">
 					<view class="right_text" :class="{'right_click_text':isOnclick===1}">讨论</view>
 				</view>
 			</view>
@@ -14,14 +14,8 @@
 			</view>
 		</view>
 		<view class="contentlist">
-			<swiper class="swiper-box"  @change="change_isOnclick">
-				<swiper-item class="swiper-item">
-					<recommend></recommend>
-				</swiper-item>
-				<swiper-item class="swiper-item">
-					<comment></comment>
-				</swiper-item>
-			</swiper>
+			<recommend v-if="isOnclick===0"></recommend>
+			<comment v-if="isOnclick===1"></comment>
 		</view>
 		<image class="creat_discuss_btn" v-if="isOnclick===1" src="/static/moments/icon_add.png" @click="gocreatdiscuss"></image>
 	</view>
@@ -39,6 +33,9 @@
 			}
 		},
 		methods: {
+			change_isOnclick(){
+				this.isOnclick=this.isOnclick===0?1:0;
+			},
 			goluckylist(){
 				uni.navigateTo({
 					url:"/pages/me/vip/lucky-list"
@@ -48,9 +45,6 @@
 				uni.navigateTo({
 					url:"/pages/moments/creatdiscuss"
 				})
-			},
-			change_isOnclick(e){
-				this.isOnclick=this.isOnclick===0?1:0;
 			}
 		},
 		components:{
@@ -75,7 +69,7 @@
 			top: 0upx;
 			z-index: 10;
 			
-			.navigation {
+				.navigation {
 				width: 100%;
 				height: 81upx;
 				display: flex;
@@ -145,18 +139,7 @@
 		
 		.contentlist{
 			width: 100%;
-			height: 100%;
 			margin-top: 170upx;
-			
-			.swiper-box{
-				width: 100%;
-				height: 100%;
-				
-				.swiper-item{
-					width: 100%;
-					overflow-y: scroll;
-				}
-			}
 		}
 		
 		.creat_discuss_btn {
@@ -166,7 +149,7 @@
 			right: 24upx;
 			bottom: 76upx;
 			z-index: 9;
+			background: rgba(205,46,63,0);
 		}
-		
 	}
 </style>

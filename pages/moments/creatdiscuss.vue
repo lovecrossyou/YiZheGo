@@ -14,7 +14,7 @@
 					</block>
 				</view>
 			</view>
-			<button class="commitbtn" type="primary" @tap="getUpImgInfo" @click="createDis" :disabled="isDisable">发送</button>
+			<button class="commitbtn" @tap="getUpImgInfo" @click="createDis" :disabled="isDisable">发送</button>
 		</view>
 	</view>
 </template>
@@ -52,8 +52,8 @@ export default {
 						uni.navigateBack();
 					}
 				})
+				this.isDisable=true;
 			}
-			this.isDisable=true;
 		},
 // 		  chooseImageFromFile(){
 // 			var that = this;
@@ -97,6 +97,10 @@ export default {
 			}
 			console.log(that.imgStyle);
 		}})
+	},
+	onUnload() {
+		this.$store.commit('comment/updatelist');
+		this.$store.commit('comment/get_list');
 	}
 };
 </script>
