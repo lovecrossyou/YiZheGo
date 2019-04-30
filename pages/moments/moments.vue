@@ -2,10 +2,10 @@
 	<view class="moments">
 		<view class="top_wrapper">
 			<view class="navigation">
-				<view class="navigationtext_left" @click="change_isOnclick">
+				<view class="navigationtext_left" @click="left_change_isOnclick">
 					<view class="left_text" :class="{'left_click_text':isOnclick===0}">推荐</view>
 				</view>
-				<view class="navigationtext_right" @click="change_isOnclick">
+				<view class="navigationtext_right" @click="right_change_isOnclick">
 					<view class="right_text" :class="{'right_click_text':isOnclick===1}">讨论</view>
 				</view>
 			</view>
@@ -33,8 +33,11 @@
 			}
 		},
 		methods: {
-			change_isOnclick(){
-				this.isOnclick=this.isOnclick===0?1:0;
+			left_change_isOnclick(){
+				this.isOnclick=0;
+			},
+			right_change_isOnclick(){
+				this.isOnclick=1;
 			},
 			goluckylist(){
 				uni.navigateTo({
