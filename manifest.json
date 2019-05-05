@@ -74,7 +74,13 @@
                         "appsecret" : "0c749a979ae87b02a3be406bb889445e"
                     }
                 },
-                "push" : {}
+                "push" : {},
+                "share" : {
+                    "weixin" : {
+                        "appid" : "wxa456b7c393c74a35",
+                        "appsecret" : "0c749a979ae87b02a3be406bb889445e"
+                    }
+                }
             },
             "icons" : {
                 "ios" : {

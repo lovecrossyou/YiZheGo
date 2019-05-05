@@ -152,10 +152,10 @@
 		</view>
 		<!-- 底部菜单 -->
 		<view class="footer">
-			<view class="left_message">
-				<image class="top" :src="btn_message"></image>
-				<view class="name">客服</view>
-			</view>
+			<button class="left_message" open-type="contact">
+				<image class="top" :src="btn_message" open-type="contact"></image>
+				<view  class="name">客服</view>
+			</button>
 			<view v-bind:class="{left_message:true,left_messageb:isBg}" @click="collectProduct(productDetail.discountGameId)">
 				<image v-if="isBg" class="top" :src="btn_collection_red"></image>
 				<image v-else class="top" :src="btn_collection"></image>
@@ -755,12 +755,25 @@
 				font-family: HiraginoSansGB-W3;
 				font-weight: normal;
 				color: rgba(51, 51, 51, 1);
-
+				
+				.name{
+					font-size: 18upx;
+				}
+				
 				image {
 					width: 36upx;
 					height: 36upx;
 				}
 			}
+			
+			button::after{
+					border: none;
+					// background-color: #fff;
+				}
+				button{
+					// padding-top: 5upx;
+					line-height: 1.5 ;
+				}
 
 			.left_messageb {
 				color: #CC2636;
