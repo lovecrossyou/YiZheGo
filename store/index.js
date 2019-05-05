@@ -16,8 +16,19 @@ import showWinOrder from './modules/showWinOrder.js'
 
 const urlParams = () => {
 	const accessInfo = createAccessInfo();
-	const urlParams = 'app_key=' + accessInfo.app_key + '&signature=' + accessInfo.signature + '&access_token=' +
+
+	let urlParams = '';
+	
+	// #ifdef MP-WEIXIN
+	urlParams = 'app_key=' + accessInfo.app_key + '&signature=' + accessInfo.signature + '&access_token=' +
 		accessInfo.access_token + '&wechat_redirect';
+	// #endif
+	
+	// #ifdef APP-PLUS
+	urlParams = 'app_key=' + accessInfo.app_key + '&signature=' + accessInfo.signature + '&access_token=' +
+		accessInfo.access_token;
+	// #endif
+	
 	return urlParams;
 }
 
@@ -140,7 +151,7 @@ const store = new Vuex.Store({
 			commit('setH5Url', urlParams());
 
 			acceptInvite();
-
+		
 			// 检测是否绑定过手机号
 			if (userInfo.phoneNumber == null || userInfo.phoneNumber.length == 0) {
 				// 继续绑定手机号
@@ -183,9 +194,12 @@ const store = new Vuex.Store({
 			commit('saveUserInfo', userInfo);
 			service.addToken(token);
 			let userInfo = await api.userInfo({});
-			
+
 			service.addInfo(userInfo);
 			commit('login', userInfo);
+			
+			console.log('userInfo## ',JSON.stringify(userInfo));
+
 			// 检测是否绑定过手机号
 			if (userInfo.phoneNumber == null || userInfo.phoneNumber.length == 0) {
 				// 继续绑定手机号

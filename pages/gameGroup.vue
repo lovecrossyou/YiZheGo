@@ -12,7 +12,7 @@
 		</view>
 		<view class="orderwrapper">
 			<view class="group_endtime" v-if="lastTime">
-				<view class="group_endtime_text">揭晓中签：22:00  还剩：</view>
+				<view class="group_endtime_text">揭晓中签：22:00 还剩：</view>
 				<view class="counttime">{{lastTime.hour}}</view>
 				<view class="colon">:</view>
 				<view class="counttime">{{lastTime.minute}}</view>
@@ -59,13 +59,22 @@
 				</block>
 			</view>
 		</view>
+
+		<!-- 微信小程序 -->
+		<!-- #ifdef MP-WEIXIN -->
 		<button class="invite_btn" open-type="share">邀请拼团</button>
+		<!-- #endif -->
+		<!-- app分享 -->
+		<!-- #ifdef APP-PLUS -->
+		<button class="invite_btn" @click="share">邀请拼团</button>
+		<!-- #endif -->
+
 	</view>
 </template>
 
 <script>
 	import api from '@/util/api.js';
-	import timeUtil from'@/util/timeUtil.js';
+	import timeUtil from '@/util/timeUtil.js';
 	import {
 		mapState
 	} from 'vuex';
@@ -75,14 +84,18 @@
 				OrderDetail: {
 					purchaseCode: []
 				},
-				GameGroup: {groupUserModelList:[]},
+				GameGroup: {
+					groupUserModelList: []
+				},
 				visibility: true,
 				pack_up_icon: '/static/gameGroup/icon_up.png',
-				lastTime:{day: 0,
-		hour: 0,
-		minute: 0,
-		sec: 0,},
-				timer:null,
+				lastTime: {
+					day: 0,
+					hour: 0,
+					minute: 0,
+					sec: 0,
+				},
+				timer: null,
 			};
 		},
 		async onLoad(options) {
@@ -91,10 +104,9 @@
 			});
 			this.OrderDetail = res;
 			this.GameGroup = res.discountGameGroupModel;
-			console.log('订单----'+JSON.stringify(res))
 			this.timerCountDown();
 		},
-		onUnload(){
+		onUnload() {
 			clearInterval(this.timer);
 		},
 		onShareAppMessage(obj) {
@@ -102,13 +114,14 @@
 			const groupId = this.OrderDetail.discountGameGroupModel.groupId;
 			const productId = this.OrderDetail.discountGameId;
 			const payOrderNo = this.OrderDetail.payOrderNo;
-			console.log('productId ',productId)
-		
-			const path =  '/pages/home/home?inviteId=' + userInfo.userId + '&groupId=' + groupId + '&productId=' + productId +'&payOrderNo=' + payOrderNo;
+
+			const path = '/pages/home/home?inviteId=' + userInfo.userId + '&groupId=' + groupId + '&productId=' + productId +
+				'&payOrderNo=' + payOrderNo;
+
 			return {
 				title: '发现一个好物,在这抢购仅需一折,一起来拼运气、拼人品.',
 				path: path,
-				imageUrl:this.OrderDetail.productImageUrl
+				imageUrl: this.OrderDetail.productImageUrl
 			}
 		},
 
@@ -119,32 +132,57 @@
 				for (var i = 0; i < this.OrderDetail.purchaseCode.length; i++) list.push(this.OrderDetail.purchaseCode[i].split(','));
 				return list;
 			},
-			groupUserList(){
-				var n =this.GameGroup.groupUserModelList.length%3;
-				var list=this.GameGroup.groupUserModelList;
-				if(n!==0){
-					for(var i=0;i<3-n;i++){
-						list.push({"iconUrl":"/static/gameGroup/user_default_icon.png"})
+			groupUserList() {
+				var n = this.GameGroup.groupUserModelList.length % 3;
+				var list = this.GameGroup.groupUserModelList;
+				if (n !== 0) {
+					for (var i = 0; i < 3 - n; i++) {
+						list.push({
+							"iconUrl": "/static/gameGroup/user_default_icon.png"
+						})
 					}
 				}
-				var user_finallist=[];
-				for(var j=1;j<=list.length/3;j++){
-					user_finallist.push(list.slice(3*j-3,3*j))
+				var user_finallist = [];
+				for (var j = 1; j <= list.length / 3; j++) {
+					user_finallist.push(list.slice(3 * j - 3, 3 * j))
 				}
 				return user_finallist;
 			}
 		},
 		methods: {
+			share() {
+				const userInfo = this.userInfo;
+				const groupId = this.OrderDetail.discountGameGroupModel.groupId;
+				const productId = this.OrderDetail.discountGameId;
+				const payOrderNo = this.OrderDetail.payOrderNo;
+				const path = '/pages/home/home?inviteId=' + userInfo.userId + '&groupId=' + groupId + '&productId=' + productId +
+					'&payOrderNo=' + payOrderNo;
+				uni.share({
+					provider: 'weixin',
+					type: 5,
+					imageUrl: this.OrderDetail.productImageUrl,
+					title: '发现一个好物,在这抢购仅需一折,一起来拼运气、拼人品.',
+					miniProgram: {
+						id: 'gh_adbc330458d1',
+						path: path,
+						type: 0,
+						webUrl: 'https://www.xiteng.com/xitenggamejar/#/'
+					},
+					success: ret => {
+						console.log(JSON.stringify(ret));
+					}
+				});
+			},
 			pack_up_btn() {
 				this.visibility = !this.visibility;
 				this.pack_up_icon = this.visibility ? '/static/gameGroup/icon_up.png' : '/static/gameGroup/icon_down.png';
 			},
-			countDown(){
-				console.log('开奖----'+this.OrderDetail.openResultTime)
-			    this.lastTime = timeUtil.showTickTime(this.OrderDetail.openResultTime);
+			countDown() {
+				console.log('开奖----' + this.OrderDetail.openResultTime)
+				this.lastTime = timeUtil.showTickTime(this.OrderDetail.openResultTime);
 			},
-			timerCountDown(){
-				this.timer = setInterval(this.countDown,1000);
+			timerCountDown() {
+				this.timer = setInterval(this.countDown, 1000);
 			},
 		}
 	};
@@ -358,34 +396,34 @@
 				flex-direction: column;
 				margin-top: 10upx;
 				padding-bottom: 178upx;
-				
-				.groupitem{
+
+				.groupitem {
 					display: flex;
 					flex-direction: row;
 					justify-content: space-between;
 					padding-top: 21upx;
 					position: relative;
-					
+
 					.user_icon {
 						width: 100upx;
 						height: 100upx;
 						border-radius: 50%;
-						
+
 					}
-					
-					.groupleader{
-						width:56upx;
-						height:32upx;
-						background:rgba(204,38,55,1);
-						border-radius:2upx;
-						font-size:20upx;
-						font-family:MicrosoftYaHei;
-						font-weight:400;
-						color:rgba(255,255,255,1);
-						line-height:32upx;
+
+					.groupleader {
+						width: 56upx;
+						height: 32upx;
+						background: rgba(204, 38, 55, 1);
+						border-radius: 2upx;
+						font-size: 20upx;
+						font-family: MicrosoftYaHei;
+						font-weight: 400;
+						color: rgba(255, 255, 255, 1);
+						line-height: 32upx;
 						text-align: center;
 						position: absolute;
-						top:98upx;
+						top: 98upx;
 						left: 21upx;
 					}
 				}
