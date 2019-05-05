@@ -109,7 +109,6 @@ export default {
 			});
 		},
 		goBuying(){
-			console.log('this.productDetail ', this.productDetail);
 			uni.navigateTo({
 				url:"/pages/buying/buying?discountGameId="+this.productDetail.discountGameId
 			})

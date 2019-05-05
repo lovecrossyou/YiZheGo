@@ -202,7 +202,6 @@
 				this.fetchCollectProduct(discountGameId)
 			},
 			goBuying() {
-				console.log('this.productDetail ', this.productDetail);
 				uni.navigateTo({
 					url: "/pages/buying/buying?productId=" + this.productDetail.discountGameId
 				})
