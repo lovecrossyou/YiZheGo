@@ -17,7 +17,10 @@
 			<view class="order_status_wrapper">
 				<view class="order_status">
 					<orderStatus img="../../static/me/me_order_btn_obligation@2x.png" statusText="待付款" pageNo="1"></orderStatus>
-					<orderStatus img="../../static/me/me_order_btn_announce_tobe@2x.png" statusText="待揭晓" pageNo="2"></orderStatus>
+					<view class="wait_announce">
+						<orderStatus img="../../static/me/me_order_btn_announce_tobe@2x.png" statusText="待揭晓" pageNo="2"></orderStatus>
+						<view class="red_circle" v-if="redCircle">{{getMyOrderNum.totalCount}}</view>
+					</view>
 					<orderStatus img="../../static/me/me_order_btn_announce_hasbeen@2x.png" statusText="已揭晓" pageNo="3"></orderStatus>
 				</view>
 				<view class="right_item"><orderStatus img="../../static/me/me_order_btn_refund@2x.png" statusText="中签/退款" pageNo="4"></orderStatus></view>
@@ -54,7 +57,8 @@ export default {
 			personalInfoList: null,
 			vipUserStatus: false,
 			vipIdentity: false,
-			getMyOrderNum: {}
+			getMyOrderNum: {},
+			redCircle:true,
 		};
 	},
 
@@ -103,20 +107,23 @@ export default {
 		},
 		async getMyOrder() {
 			let res = await api.getMyOrder({
-				clientOrderType: 'waitPayClientOrder'
-				// clientOrderType :"waitOpenResultClientOrder",
+				// clientOrderType: 'waitPayClientOrder'
+				clientOrderType :"waitOpenResultClientOrder",
 				// clientOrderType :"waitCommentClientOrder",
 				// clientOrderType :"refundClientOrder",
 			});
 			this.getMyOrderNum = res;
+			if(res.totalCount == 0){
+				this.redCircle = false
+			}
 		}
+		
 	},
 	onShow() {
 		this.personalInfo();
 		this.vipUser();
-	},
-	onLoad() {
 		this.getMyOrder();
+
 	}
 };
 </script>
@@ -202,7 +209,7 @@ export default {
 .order_status {
 	width: 75%;
 	background-color: #fff;
-	padding: 30upx 0;
+	padding: 30upx 15upx 30upx 0;
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: row;
@@ -241,5 +248,22 @@ export default {
 	width: 30upx;
 	height: 35upx;
 	margin: 5upx 0 0 10upx;
+}
+.wait_announce{
+	flex: 1;
+	position: relative;
+}
+.red_circle{
+	width: 30upx;
+	height: 30upx;
+	border-radius: 50%;
+	background-color: #F23030;
+	font-size: 20upx;
+	color: #fff;
+	text-align: center;
+	line-height: 30upx;
+	position: absolute;
+	top: -10upx;
+	right: 62upx;
 }
 </style>
