@@ -134,6 +134,9 @@ const store = new Vuex.Store({
 			commit,
 			state
 		}, params) {
+			uni.showLoading({
+				mask: true
+			});
 			const {
 				token,
 				userInfo,
@@ -151,7 +154,7 @@ const store = new Vuex.Store({
 			commit('setH5Url', urlParams());
 
 			acceptInvite();
-		
+			uni.hideLoading();
 			// 检测是否绑定过手机号
 			if (userInfo.phoneNumber == null || userInfo.phoneNumber.length == 0) {
 				// 继续绑定手机号
