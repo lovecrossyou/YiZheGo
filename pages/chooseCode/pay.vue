@@ -258,7 +258,7 @@
 					margin-top: 39upx;
 					font-size: 60upx;
 					font-family: PingFang-SC-Bold;
-					color: rgba(204, 38, 54, 1);
+					color: #333333;
 					line-height: 73upx;
 				}
 
