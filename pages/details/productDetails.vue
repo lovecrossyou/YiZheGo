@@ -194,11 +194,12 @@
 		},
 		methods: {
 			async formSubmit(e) {
-				console.log('form发生了submit事件，携带数据为：' + JSON.stringify(e.detail));
+				uni.showLoading();
 				await api.WeChatUserFormId({
 					formId:e.detail.formId
 				});
 				this.confirmOrder(false);
+				uni.hideLoading();
 			},
 			async fetchCollectProduct(productId) {
 				const res = await api.collectProduct({
