@@ -4,7 +4,6 @@
 			<img :src="img" alt="" class="top_img" />
 			<view class="status_text">{{ statusText }}</view>
 		</view>
-		<!-- <view class="title_hint"></view> -->
 	</view>
 </template>
 
@@ -30,10 +29,9 @@ export default {
 
 <style scoped>
 .wrapper {
-	width: 100%;
+	width: 180upx;
 }
 .item_wrapper {
-	/* width: 25%; */
 	height: 80upx;
 	background-color: #fff;
 	display: flex;
@@ -50,11 +48,4 @@ export default {
 	color: #666;
 	font-size: 24upx;
 }
-/* .title_hint{
-	width: 30upx;
-	height: 30upx;
-	background-color: #F23030;
-	position: absolute;
-	border-radius: 50%;
-} */
 </style>
