@@ -244,7 +244,7 @@
 		bottom: 0;
 
 		.order_content {
-			height: 250upx;
+			height: 280upx;
 			width: 100%;
 			background: #ffffff;
 
@@ -256,7 +256,7 @@
 
 				.order_pay_top_amount {
 					margin-top: 39upx;
-					font-size: 50upx;
+					font-size: 60upx;
 					font-family: PingFang-SC-Bold;
 					color: rgba(204, 38, 54, 1);
 					line-height: 73upx;
@@ -272,7 +272,7 @@
 
 				.order_pay_top_refundWay {
 					color: #FFB540;
-					font-size: 26upx;
+					font-size: 30upx;
 					font-family: PingFang-SC-Medium;
 					margin-top: 40upx;
 				}
