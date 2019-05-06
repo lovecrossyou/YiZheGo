@@ -121,7 +121,9 @@ const api = {
 	
 	// 二维码
 	qrCode:params => request.post("/user/qrcode",params),
-
+	
+	//上传formid
+	WeChatUserFormId: params => request.post("/user/WeChatUserFormId",params),
 
 	//上传
 	uploader: (file, callback) => {

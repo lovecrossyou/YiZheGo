@@ -114,7 +114,7 @@
 					discountGameId: discountGameId,
 					purchaseAmount: this.buyCount
 				});
-				console.log("确认订单信息-----------" + JSON.stringify(res));
+				
 				this.$store.commit('confirmPay/setOrderInfo', res)
 			},
 

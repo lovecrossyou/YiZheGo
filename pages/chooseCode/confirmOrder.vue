@@ -181,7 +181,7 @@
 					purchaseAmount: this.purchaseAmount,
 					originalPriceBuy: this.directBuy
 				});
-				console.log('确认订单信息-----------' + JSON.stringify(res));
+				
 				this.$store.commit('confirmPay/setOrderInfo', res);
 			},
 			async getOrder() {

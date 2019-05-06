@@ -154,7 +154,7 @@
 		<view class="footer">
 			<button class="left_message" open-type="contact">
 				<image class="top" :src="btn_message" open-type="contact"></image>
-				<view  class="name">客服</view>
+				<view class="name">客服</view>
 			</button>
 			<view v-bind:class="{left_message:true,left_messageb:isBg}" @click="collectProduct(productDetail.discountGameId)">
 				<image v-if="isBg" class="top" :src="btn_collection_red"></image>
@@ -165,10 +165,11 @@
 				<view class="top">￥{{productDetail.productItemModel.originalPrice/100}}</view>
 				<view class="big">全价购买</view>
 			</view>
-			<view class="right_buy bgr" @click="confirmOrder(false)">
-				<view class="top">￥{{productDetail.productItemModel.oneDiscountPrice/100}}</view>
-				<view class="big">一折抢购</view>
-			</view>
+			<form class="right_buy bgr" @submit="formSubmit" report-submit="true">
+				<!-- <view class="top">￥{{productDetail.productItemModel.oneDiscountPrice/100}}</view> -->
+				<button class="top contact-button" form-type="submit">￥{{productDetail.productItemModel.oneDiscountPrice/100}}</button>
+				<button class="contact-button" form-type="submit">一折抢购</button>
+			</form>
 		</view>
 	</view>
 </template>
@@ -192,6 +193,14 @@
 			}
 		},
 		methods: {
+			async formSubmit(e) {
+				uni.showLoading();
+				await api.WeChatUserFormId({
+					formId:e.detail.formId
+				});
+				this.confirmOrder(false);
+				uni.hideLoading();
+			},
 			async fetchCollectProduct(productId) {
 				const res = await api.collectProduct({
 					discountGameId: productId
@@ -202,7 +211,6 @@
 				this.fetchCollectProduct(discountGameId)
 			},
 			goBuying() {
-				console.log('this.productDetail ', this.productDetail);
 				uni.navigateTo({
 					url: "/pages/buying/buying?productId=" + this.productDetail.discountGameId
 				})
@@ -755,25 +763,26 @@
 				font-family: HiraginoSansGB-W3;
 				font-weight: normal;
 				color: rgba(51, 51, 51, 1);
-				
-				.name{
+
+				.name {
 					font-size: 18upx;
 				}
-				
+
 				image {
 					width: 36upx;
 					height: 36upx;
 				}
 			}
-			
-			button::after{
-					border: none;
-					// background-color: #fff;
-				}
-				button{
-					// padding-top: 5upx;
-					line-height: 1.5 ;
-				}
+
+			button::after {
+				border: none;
+				// background-color: #fff;
+			}
+
+			button {
+				// padding-top: 5upx;
+				line-height: 1.5;
+			}
 
 			.left_messageb {
 				color: #CC2636;
@@ -794,6 +803,20 @@
 
 			.bgr {
 				background: #CC2636;
+				.top{
+					text-align: center;
+				}
+				.contact-button {
+					background: none;
+					border: none;
+					color: #fff;
+					font-size: 24rpx;
+				}
+				
+				.contact-button::after{
+					border: none;
+					color: #fff;
+				}
 			}
 
 			.left_message,
@@ -803,6 +826,8 @@
 				flex-direction: column;
 				align-items: center;
 				justify-content: center;
+
+
 
 				.top {
 					margin-bottom: 10upx;

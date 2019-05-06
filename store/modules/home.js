@@ -46,7 +46,6 @@ const actions = {
 
 const mutations = {
 	setHomeBannerLists(state, data) {
-		console.log('data==', data)
 		state.homeBannerLists = data
 	},
 	setByTimeLimitList(state, data) {
