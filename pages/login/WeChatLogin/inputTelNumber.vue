@@ -1,6 +1,6 @@
 <template>
 	<view class="tel_number_wrapper">
-		<view class="title_text">输入手机号，快速注册</view>
+		<view class="title_text">输入手机号，快速注册/绑定</view>
 		<view class="main_content">
 			<view class="mainland_tel">
 				<view class="left_text">中国</view>

@@ -148,6 +148,8 @@ const api = {
 	vipProducts: params => request.post('/discountGame/vipProduct', params),
 
 	bindPhone: params => request.post('/bindPhone', params),
+	checkBindPhone: params => request.post('/checkBind', params),
+
 	findPayPassword: params => request.post('/client/bankCard/findPayPassword', params)
 }
 export default api

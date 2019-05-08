@@ -1,37 +1,40 @@
 <template>
 	<view class="main" :style='{background:backColor}'>
-		 <block v-if="loading"> 
+		<block v-if="loading">
 			<LoadingTurn></LoadingTurn>
-		 </block> 
-		 <block v-else>
-			 <view class="header">
-			 	<view class="ordinal-date">
-			 		<view class="ordinal">第 {{detailParam.lotteryStage}} 期中签号码</view>
-			 		<view class="date">{{detailParam.openResultTime}}</view>
-			 	</view>
-			 
-			 	<luckyBallItem :numbers="winCode"></luckyBallItem>
-			 
-			 	<view class="numbers-count">
-			 		<view class="item">中签人数：{{detailParam.winUserCount}}人</view>
-			 		<view class="sep-line"></view>
-			 		<view class="item">中签注数：{{detailParam.winCodeCount}}注</view>
-			 	</view>
-			 </view>
-			 
-			 <view class="numbers-list" v-if="winUserA!==null&&winUserA.length!==0">
-			 	<block v-for="(user,index) in winUserA" :key="index">
-			 		<userPrizeItem :item="user" :backColor="itemColor"></userPrizeItem>
-			 	</block>
-			 </view>
-			 
-			 <view class="empty-list" :style="{background:itemColor}" v-if="winUserA===null||winUserA.length===0">
-			 	<view class="empty-text" style="margin-top: -50">本期没有中奖用户</view>
-			 	<view class="empty-text">参与越多中奖几率越高</view>
-			 	<view class="empty-text">快去参与新一期吧~</view>
-			 </view>
-		 </block>
-		 
+		</block>
+		<block v-else>
+			<view class="header">
+				<view class="ordinal-date">
+					<view class="ordinal">第 {{detailParam.lotteryStage}} 期中签号码</view>
+					<view class="date">{{detailParam.openResultTime}}</view>
+				</view>
+
+				<luckyBallItem :numbers="winCode"></luckyBallItem>
+
+				<view class="numbers-count">
+					<view class="item">中签人数：{{detailParam.winUserCount}}人</view>
+					<view class="sep-line"></view>
+					<view class="item">中签注数：{{detailParam.winCodeCount}}注</view>
+				</view>
+			</view>
+
+			<view class="numbers-list" v-if="winUserA!==null&&winUserA.length!==0">
+				<block v-for="(user,index) in winUserA" :key="index">
+					<userPrizeItem :item="user" :backColor="itemColor"></userPrizeItem>
+				</block>
+			</view>
+
+			<view class="empty-list" :style="{background:itemColor}" v-if="winUserA===null||winUserA.length===0">
+				<view class="empty-text" style="margin-top: -50">本期没有中奖用户</view>
+				<view class="empty-text">参与越多中奖几率越高</view>
+				<view class="empty-text">快去参与新一期吧~</view>
+			</view>
+
+			<view class="main" v-if="winUserA===null||winUserA.length===0">
+
+			</view>
+		</block>
 	</view>
 </template>
 
@@ -47,12 +50,12 @@
 				loading: true,
 				backColor: '',
 				itemColor: '',
-				winCode:'',
+				winCode: '',
 				detailParam: {
 					lotteryStage: 0,
 					openResultTime: '',
-					winCodeCount: 0,//中签注数
-					winUserCount: 0,//中签人数
+					winCodeCount: 0, //中签注数
+					winUserCount: 0, //中签人数
 				},
 				winUserA: [],
 			}
@@ -64,14 +67,11 @@
 		},
 		methods: {
 			async getLuckyDetail(params) {
-				console.log(params);
-				api.luckyDetail(params).then((res)=>{
-					console.log(res)
-					res.openResultTime = res.openResultTime.substring(0,10);
-					this.detailParam = res;
-					this.winUserA = res.winUserInfoModelList;
-					this.loading=false;
-				})
+				const res = await api.luckyDetail(params);
+				res.openResultTime = res.openResultTime.substring(0, 10);
+				this.detailParam = res;
+				this.winUserA = res.winUserInfoModelList;
+				this.loading = false;
 			},
 		},
 		onLoad: function(option) {
@@ -90,13 +90,14 @@
 
 <style lang="scss">
 	.main {
-		display: flex;
+		// display: flex;
 		flex: 1;
 		flex-direction: column;
-		width: 100%;
-		// height: 100%;
-		position: absolute;
-
+		// width: 100%;
+		height: 100%;
+		// position: fixed;
+		// top: 0;
+		// bottom: 0;
 
 		.header {
 			display: flex;
@@ -154,6 +155,7 @@
 			width: 100%;
 			padding-bottom: 20upx;
 		}
+
 		.empty-list {
 			display: flex;
 			flex: 1;
@@ -164,9 +166,20 @@
 			// height: 100%;
 			margin: 30upx 40upx;
 			border-radius: 10upx;
+
 			.empty-text {
 				font-size: 28upx;
 				color: #FFFFFF;
+			}
+
+			.main {
+				width: 100%;
+				display: flex;
+				flex: 1;
+				position: relative;
+				bottom: 0;
+				left: 0;
+				right: 0;
 			}
 		}
 	}

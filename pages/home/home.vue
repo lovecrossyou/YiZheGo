@@ -180,6 +180,14 @@
 					this.modalStatus = true;
 				}
 			},
+			async checkBindPhone(){
+				let res = await api.checkBindPhone({});
+				if(res.statue!= 'in_bind'){
+					wx.redirectTo({
+					url: '/pages/login/WeChatLogin/inputTelNumber'
+				})
+				}
+			},
 			goNewsWelfare() {
 				uni.navigateTo({
 					url: './newsWelfare'
@@ -243,6 +251,7 @@
 			if (this.hasLogin) {
 				this.packets();
 				this.getVipModal();
+				this.checkBindPhone();
 			} else {
 				this.goLogin();
 			}

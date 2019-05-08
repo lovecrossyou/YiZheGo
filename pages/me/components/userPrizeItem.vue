@@ -25,16 +25,9 @@
 
 <script>
 	export default {
-		data() {
-			
-		},
 		props: {
 			backColor: '',
-			item: {},
-			
-		},
-		onLoad() {
-			console.log(this.item);
+			item: {}
 		}
 	}
 </script>

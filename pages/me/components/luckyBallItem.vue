@@ -18,9 +18,6 @@
 				return this.numbers.split(',')
 			}
 
-		},
-		onLoad() {
-			console.log(this.numbers);
 		}
 	}
 </script>
