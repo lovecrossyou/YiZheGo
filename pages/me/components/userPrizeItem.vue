@@ -63,7 +63,7 @@
 					width: 58upx;
 					height: 58upx;
 					border-radius: 29upx;
-					background-color: #E73746;
+					// background-color: #E73746;
 				}
 
 				.user-name {
