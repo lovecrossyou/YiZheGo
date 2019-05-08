@@ -1,13 +1,12 @@
-
 <template>
-<view>
-	<view class="creatdiscusswrapper">
-		<view class="discuss_input_wrapper">
-			<textarea ref="disarea" class="discuss_input" placeholder="请输入讨论内容" @input="getComemnt" />
-			<view class="imgwrapper">
-					<view v-if="addBtnShow" class="imgBack" :style="{width:imgStyle.width+15+'px',height:imgStyle.height+15+'px'}">
+	<view>
+		<view class="creatdiscusswrapper">
+			<view class="discuss_input_wrapper">
+				<textarea ref="disarea" class="discuss_input" placeholder="请输入讨论内容" @input="getComemnt" />
+				<view class="imgwrapper">
+					<!-- <view v-if="addBtnShow" class="imgBack" :style="{width:imgStyle.width+15+'px',height:imgStyle.height+15+'px'}">
 						<view class="upbtn" :style="{width:imgStyle.width+'px',height:imgStyle.height+'px'}" @click="chooseImageFromFile"></view>
-					</view> 
+					</view> -->
 					<block v-for="(item, index) in imglist" :key="index">
 						<view class="imgBack" :style="{width:imgStyle.width+15+'px',height:imgStyle.height+15+'px'}">
 							<image :style="{width:imgStyle.width+'px',height:imgStyle.height+'px'}" :src="item"></image>
@@ -15,7 +14,7 @@
 					</block>
 				</view>
 			</view>
-			<button class="commitbtn" type="primary" @tap="getUpImgInfo" @click="createDis" :disabled="isDisable">发送</button>
+			<button class="commitbtn" @tap="getUpImgInfo" @click="createDis" :disabled="isDisable">发送</button>
 		</view>
 	</view>
 </template>
@@ -40,7 +39,6 @@ export default {
 			this.comment = e.target.value;
 		},
 		async createDis() {
-			console.log('createDis');
 			let param = {
 					comment: this.comment,
 					commentSource: 'discuss',
@@ -54,39 +52,38 @@ export default {
 						uni.navigateBack();
 					}
 				})
+				this.isDisable=true;
 			}
-			this.isDisable=true;
 		},
-		  chooseImageFromFile(){
-			var that = this;
-			
-			uni.chooseImage({
-			  count: 9,
-			  success: function (res) {
-				// 无论用户是从相册选择还是直接用相机拍摄，路径都是在这里面
-				var filePath = res.tempFilePaths[0];
-				let params = {
-                    filePath: filePath,
-					"qiNiuKey": "@@256**qniu",
-				}
-				console.log(params);
-				api.uploadImgToQN(params).then((res)=>{
-					console.log(res);
-					// 						that.imglist.push(filePath);
-					// 						that.addBtnShow=that.imglist.length<9;
-				}).catch(error=>{
-					console.log(error);
-				})
-			  },
-			  fail: function (error) {
-				console.error("调用本地相册文件时出错")
-				console.warn(error)
-			  },
-			  complete: function () {
-
-			  },
-			});
-		},
+// 		  chooseImageFromFile(){
+// 			var that = this;
+// 			uni.chooseImage({
+// 			  count: 9,
+// 			  success: function (res) {
+// 				// 无论用户是从相册选择还是直接用相机拍摄，路径都是在这里面
+// 				var filePath = res.tempFilePaths[0];
+// 				
+// 				api.uploader(filePath, res => {
+// 						console.log(JSON.stringify(res));
+// 						
+// 						that.imglist.push(filePath);
+// 						that.addBtnShow=that.imglist.length<9;
+// 					});
+// 				
+// 				
+// 				
+// 				console.log(res);
+// 				console.log(that.imglist);
+// 			  },
+// 			  fail: function (error) {
+// 				console.error("调用本地相册文件时出错")
+// 				console.warn(error)
+// 			  },
+// 			  complete: function () {
+// 
+// 			  },
+// 			});
+// 		}
 	},
 	onReady() {
 		let that = this;
@@ -100,6 +97,10 @@ export default {
 			}
 			console.log(that.imgStyle);
 		}})
+	},
+	onUnload() {
+		this.$store.commit('comment/updatelist');
+		this.$store.commit('comment/get_list');
 	}
 };
 </script>
@@ -132,25 +133,25 @@ export default {
 			box-sizing: border-box;
 		}
 
-		.imgwrapper {
-			width: 100%;
-			display: flex;
-			flex-direction: row;
-			margin: 60upx 15upx 15upx 15upx;
-			flex-wrap: wrap;
-			.upbtn {
-				background: url('../../static/moments/add_icon.png') no-repeat;
-				background-size: 100% 100%;
-			}
-			.imgBack {
-				display: flex;
-				justify-content: center;
-				justify-items: center;
-				margin-top: 20upx;
-				margin-bottom: 20upx;
-			}
-			
-		}
+		// .imgwrapper {
+		// 	width: 100%;
+		// 	display: flex;
+		// 	flex-direction: row;
+		// 	margin: 60upx 15upx 15upx 15upx;
+		// 	flex-wrap: wrap;
+		// 	.upbtn {
+		// 		background: url('../../static/moments/add_icon.png') no-repeat;
+		// 		background-size: 100% 100%;
+		// 	}
+		// 	.imgBack {
+		// 		display: flex;
+		// 		justify-content: center;
+		// 		justify-items: center;
+		// 		margin-top: 20upx;
+		// 		margin-bottom: 20upx;
+		// 	}
+		// 	
+		// }
 	}
 
 	.commitbtn {

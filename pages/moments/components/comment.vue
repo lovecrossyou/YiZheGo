@@ -1,6 +1,5 @@
 <template> 
 	<view class="commentwrapper">
-		
 		<block v-for="(item, index) in commentlist" :key="index">
 			<view class="commentItem">
 				<view class="user">
@@ -49,9 +48,6 @@ import api from '@/util/api.js';
 import PullUpReload from '@/pages/me/components/PullUpReload.vue';
 import {mapState} from 'vuex'
 export default {
-	props: {
-		isOnclick: 0
-	},
 	data() {
 		return {
 		};
@@ -70,9 +66,7 @@ export default {
 			this.$store.dispatch('comment/get_list');
 		},
 		onInfiniteLoad(done) {
-			console.log(this.isOnclick+'comment');
-			if (this.pullUpState === 2&&this.isOnclick===1) {
-				
+			if (this.pullUpState === 2) {
 				this.get_list()
 			}
 			done()
@@ -83,9 +77,9 @@ export default {
 				url: '/pages/moments/showWinOrderdetails?id=' + this.commentlist[index].discussCommentId+"&type_id="+this.type_id
 			})
 		}
-	},
+	}, 
 	onLoad() {
-		this.get_list();
+			this.get_list();
 	}
 };
 </script>

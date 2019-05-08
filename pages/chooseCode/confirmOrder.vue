@@ -102,6 +102,13 @@
 				<image class="cancelBtn" :src="cancelBtn" @click="cancelToast"></image>
 			</view>
 		</view>
+		<!--选号弹出框-->
+		<view v-if="showChooseCodeModal" class="news_welfare_wrapper">
+			<image class="card" :src="chooseCodeIcon" @click="chooseCode" mode="aspectFit"></image>
+			<view>
+				<image class="cancelBtn" :src="cancelBtn" @click="cancelChooseCode"></image>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -142,7 +149,9 @@
 				xinren_icon_fuli: "http://qnimage.xiteng.com/1@2x.png",
 				cancelBtn: "../../static/pay/cancel.png",
 				showUpgradeModal:false,
-				xinren_upgrade_icon:'../../static/pay/xinren_icon_fuli@2x.png'
+				xinren_upgrade_icon:'../../static/pay/xinren_icon_fuli@2x.png',
+				showChooseCodeModal:false,
+				chooseCodeIcon:'../../static/pay/choseCode@2x.png',
 			};
 		},
 		components: {
@@ -181,7 +190,7 @@
 					purchaseAmount: this.purchaseAmount,
 					originalPriceBuy: this.directBuy
 				});
-				console.log('确认订单信息-----------' + JSON.stringify(res));
+				
 				this.$store.commit('confirmPay/setOrderInfo', res);
 			},
 			async getOrder() {
@@ -215,11 +224,7 @@
 			},
 			async commitOrder() {
 				if (!this.allFinished && this.directBuy == 'false') {
-					uni.showToast({
-						title: '请完成选号',
-						mask: false,
-						duration: 1500
-					});
+					this.showChooseCode();
 					return;
 				}
 				if(this.directBuy=='false'){
@@ -249,7 +254,7 @@
 			}),
 
 			chooseCode() {
-				this.cancelToast();
+				this.cancelChooseCode();
 				uni.navigateTo({
 					url: './chooseCode'
 				});
@@ -278,6 +283,12 @@
 			},
 			async vipInfo(){
 				return api.vipInfo({});
+			},
+			showChooseCode(){
+				this.showChooseCodeModal = true;
+			},
+			cancelChooseCode(){
+				this.showChooseCodeModal = false;
 			}
 		}
 	};

@@ -124,6 +124,9 @@ const api = {
 
     //上传图片
 	uploadImgToQN:params => request.post("/discountGame/qiniu/uploadFile", params),
+	
+	//上传formid
+	WeChatUserFormId: params => request.post("/user/WeChatUserFormId",params),
 
 	//上传
 	uploader: (file, callback) => {

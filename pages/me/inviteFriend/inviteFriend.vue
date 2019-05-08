@@ -1,6 +1,6 @@
 <template>
 	<view class="invite_friend_wrapper">
-		 <view class="banner" v-if="userProfitInfo" @click="turnToWallet">
+		<view class="banner" v-if="userProfitInfo" @click="turnToWallet">
 			<view class="banner_item">
 				<view class="tit">我的好友</view>
 				<view class="intro"><span class="count">{{userProfitInfo.userFriendAmount}}</span>人</view>
@@ -13,7 +13,7 @@
 				<view class="tit">会员返现</view>
 				<view class="intro"><span class="count">{{userProfitInfo.shareSellProfitRmbAmount}}</span>元</view>
 			</view>
-		</view> 
+		</view>
 		<view class="invite">
 			<view class="rule">亲，送你2个红包，一起来玩1折抢购吧!从0~9选3个号码,选中立享1折。全场1折、正品保证、公开透明!</view>
 			<image :src="yaoqing_bg"></image>
@@ -30,18 +30,30 @@
 		</view>
 		<view class="share_wx_friend_wrapper" v-if="isShare">
 			<view class="share_wx_friend">
-				 <view class="share">
-					 <view class="share_item">
+				<view class="share">
+					<view class="share_item">
+
+						<!-- 微信小程序 -->
+						<!-- #ifdef MP-WEIXIN -->
 						<button open-type="share" class="share_weixin">
 							<image :src="yaoqing_icon_weixin"></image>
 							<view>微信</view>
 						</button>
-					 </view>
+						<!-- #endif -->
+						<!-- app分享 -->
+						<!-- #ifdef APP-PLUS -->
+						<button @click="share" class="share_weixin">
+							<image :src="yaoqing_icon_weixin"></image>
+							<view>微信</view>
+						</button>
+						<!-- #endif -->
+
+					</view>
 					<view class="share_item" v-for="(item,i) in shareList" :key="i" @click="shareWxFriend(item.tit)">
 						<image :src="item.img"></image>
 						<view>{{item.tit}}</view>
-					</view> 
-				</view> 
+					</view>
+				</view>
 				<view class="cancel" @click.stop="cancelBtn">取消</view>
 			</view>
 		</view>
@@ -56,10 +68,9 @@
 		data() {
 			return {
 				yaoqing_bg: 'http://qnimage.xiteng.com/yaoqing_bg.png',
-				yaoqing_icon_weixin:"../../../static/me/yaoqing_icon_weixin.png",
+				yaoqing_icon_weixin: "../../../static/me/yaoqing_icon_weixin.png",
 				isShare: false,
-				shareList: [
-					{
+				shareList: [{
 					img: "../../../static/me/yaoqing_icon_pengyouquan.png",
 					tit: "朋友圈"
 				}, {
@@ -72,21 +83,38 @@
 			}
 		},
 		onShareAppMessage() {
-			console.log('userInfo.userId ',this.userInfo.userId);
+			console.log('userInfo.userId ', this.userInfo.userId);
 			return {
 				title: '亲,送你2个红包,专享1折抢购!优质名品,全场1折!',
-				path: '/pages/home/home?inviteId='+this.userInfo.userId,
-				imageUrl:'http://qnimage.xiteng.com/yaoqing_bg.png'
+				path: '/pages/home/home?inviteId=' + this.userInfo.userId,
+				imageUrl: 'http://qnimage.xiteng.com/yaoqing_bg.png'
 			}
 		},
 		computed: {
 			...mapState(['userInfo']),
-			...mapState('inviteFriend',['userProfitInfo'])
+			...mapState('inviteFriend', ['userProfitInfo'])
 		},
 		methods: {
+			share() {
+				uni.share({
+					provider: 'weixin',
+					type: 5,
+					imageUrl: 'http://qnimage.xiteng.com/yaoqing_bg.png',
+					title: '亲,送你2个红包,专享1折抢购!优质名品,全场1折!',
+					miniProgram: {
+						id: 'gh_adbc330458d1',
+						path: 'pages/home/home?inviteId=' + this.userInfo.userId,
+						type: 0,
+						webUrl: 'https://www.xiteng.com/xitenggamejar/#/'
+					},
+					success: ret => {
+						console.log(JSON.stringify(ret));
+					}
+				});
+			},
 			turnToWallet() {
 				uni.navigateTo({
-					url:"/pages/me/wallet/wallet"
+					url: "/pages/me/wallet/wallet"
 				})
 			},
 			inviteBtn() {
@@ -106,12 +134,12 @@
 						url: "/pages/shareqrcode/shareqrcode"
 					})
 				}
-			this.isShare = false
+				this.isShare = false
 			},
 			fetchUserProfitInfo() {
 				this.$store.dispatch('inviteFriend/fetchUserProfitInfo')
 			},
-			fetchInviteUser(){
+			fetchInviteUser() {
 				this.$store.dispatch('inviteFriend/fetchInviteUser')
 			},
 		},
@@ -245,6 +273,7 @@
 				bottom: -2upx;
 				left: 0;
 				z-index: 99;
+
 				.share {
 					width: 100%;
 					height: 230upx;
@@ -253,32 +282,35 @@
 					justify-content: space-around;
 					align-items: center;
 					text-align: center;
-					.share_item{
-						line-height:1.5;
+
+					.share_item {
+						line-height: 1.5;
 						background: #ECECEC;
 						font-size: 24upx;
 						font-family: PingFang-SC-Regular;
 						font-weight: 400;
 						color: rgba(51, 51, 51, 1);
-						.share_weixin{
-							width:140upx;
+
+						.share_weixin {
+							width: 140upx;
 							height: 230upx;
-							line-height:1.5;
+							line-height: 1.5;
 							background: #ECECEC;
 							font-size: 24upx;
 							font-family: PingFang-SC-Regular;
 							font-weight: 400;
 							color: rgba(51, 51, 51, 1);
-							display:flex;
-							flex-direction:column;
-							align-items:center;
-							justify-content:center;
+							display: flex;
+							flex-direction: column;
+							align-items: center;
+							justify-content: center;
 						}
-						button::after{
-							border:none;
+
+						button::after {
+							border: none;
 						}
 					}
-					
+
 					image {
 						width: 104upx;
 						height: 104upx;

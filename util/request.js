@@ -7,6 +7,7 @@ const request = new Fly()
 export const baseURL = 'https://www.xiteng.com/xitenggamejar/'
 
 
+
 // export const baseURL = 'http://123.57.161.212:9939/xitenggamejar/'
 
 
@@ -68,21 +69,15 @@ request.interceptors.request.use((request) => {
 		}
 	}
 	request.body = body;
-	// uni.showLoading();
 	return request
 })
 
 request.interceptors.response.use((response, promise) => {
-	// uni.hideLoading()
 	if (!(response.status === 200)) {
 		errorPrompt(response);
 	}
 	return promise.resolve(response.data)
 }, (err, promise) => {
-	// uni.hideLoading()
-
-	console.log('xxxxxx', JSON.stringify(err));
-
 	var message = err.response.data.message;
 	if (message && message.indexOf('升级会员') != -1) {
 		return promise.resolve(message);
