@@ -122,6 +122,8 @@ const api = {
 	// 二维码
 	qrCode:params => request.post("/user/qrcode",params),
 
+    //上传图片
+	uploadImgToQN:params => request.post("/discountGame/qiniu/uploadFile", params),
 
 	//上传
 	uploader: (file, callback) => {

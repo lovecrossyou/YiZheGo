@@ -34,7 +34,7 @@
 			
 		},
 		onLoad() {
-			console.log((this.item.winUserInfoModelList!==null&&this.item.winUserInfoModelList.length!==0));
+			console.log(this.item);
 		}
 	}
 </script>
