@@ -49,6 +49,9 @@
 	import PullUpReload from "@/pages/me/components/PullUpReload.vue"
 	import {mapState} from 'vuex'
 	export default{
+		props: {
+			isOnclick: 0
+		},
 		data(){
 			return{
 			}
@@ -56,6 +59,7 @@
 		components:{
 			PullUpReload
 		},
+
 		computed:{
 			...mapState('recommend',['recommendlist','pageNo','pageSize','totalCount','loading','pullUpState','index','type_id']),
 		},
@@ -67,7 +71,9 @@
 				this.$store.dispatch('recommend/get_list');
 			},
 			onInfiniteLoad(done) {
-				if (this.pullUpState === 2) {
+				console.log(this.isOnclick+'recommend');
+				if (this.pullUpState === 2&&this.isOnclick===0) {
+					console.log('推荐加载...')
 					this.get_list()
 				}
 				done()

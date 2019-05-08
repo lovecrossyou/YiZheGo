@@ -20,6 +20,7 @@ const mutations={
 		date[0].praiseCount=date[1].praiseCount;
 	},
 	get_list(state){
+		console.log('讨论加载...')
 		state.loading=true;
 		let param = {
 		pageNo:state.pageNo,
@@ -35,6 +36,7 @@ const mutations={
 			}
 			state.pageNo=res.pageNo+1;
 			state.loading=false;
+			console.log(res);
 			if (state.pageNo === state.totalCount-1) {
 				state.pullUpState = 3;
 			} else {
