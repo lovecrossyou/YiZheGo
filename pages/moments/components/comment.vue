@@ -147,6 +147,8 @@ export default {
 
 		.momentcontent {
 			width: 100%;
+			padding: 0upx 32upx;
+			box-sizing: border-box;
 
 			.moment_text {
 				font-size: 28upx;
@@ -154,7 +156,7 @@ export default {
 				font-weight: 400;
 				color: rgba(51, 51, 51, 1);
 				line-height: 36upx;
-				margin: 31upx 32upx 18upx 32upx;
+				margin: 31upx 0upx 18upx 0upx;
 				box-sizing: border-box;
 			}
 
@@ -164,9 +166,8 @@ export default {
 				position: relative;
 
 				.moment_image {
-					width: 630upx;
+					width:  100%;
 					height: 100%;
-					margin-left: 30upx;
 					position: absolute;
 				}
 
