@@ -284,7 +284,7 @@ export default {
 	position: absolute;
 	top: -10upx;
 	right: 58upx;
-	padding: 0 5upx;
+	/* padding: 0 5upx; */
 	box-sizing: border-box;
 }
 </style>
