@@ -36,7 +36,8 @@
 				<view class="order_detail_text">实付金额： ¥{{ OrderDetail.totalPrice/100 }}</view>
 				<view class="order_detail_text">支付方式： {{ OrderDetail.payChannel }}</view>
 				<view class="order_detail_text">支付时间： {{ OrderDetail.clientOrderTime}}</view>
-				<view class="order_detail_text">退款路径： 喜腾钱包</view>
+				<view class="order_detail_text" v-if="OrderDetail.refundWay==='account'">退款路径： 喜币钱包</view>
+				<view class="order_detail_text" v-else >退款路径： 原路返还</view>
 			</view>
 			<view class="pack_up" @click="pack_up_btn">
 				<view class="pack_up_text">收起</view>
