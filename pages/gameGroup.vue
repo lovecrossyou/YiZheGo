@@ -1,80 +1,85 @@
 <template>
 	<view v-if="OrderDetail" class="gameGroupwrapper">
-		<view class="productwrapper">
-			<image class="product_icon" :src="OrderDetail.productImageUrl"></image>
-			<view class="product_icon_right">
-				<view class="product_name">{{ OrderDetail.productName }}</view>
-				<view class="product_price">
-					<view class="product_onediscountprice">¥{{ OrderDetail.oneDiscountPrice/100 }}</view>
-					<view class="product_originalprice">市场价 ¥{{ OrderDetail.originalPrice/100 }}</view>
-				</view>
-			</view>
-		</view>
-		<view class="orderwrapper">
-			<view class="group_endtime" v-if="lastTime">
-				<view class="group_endtime_text">揭晓中签：22:00 还剩：</view>
-				<view class="counttime">{{lastTime.hour}}</view>
-				<view class="colon">:</view>
-				<view class="counttime">{{lastTime.minute}}</view>
-				<view class="colon">:</view>
-				<view class="counttime">{{lastTime.sec}}</view>
-			</view>
-			<view class="purchase_count">你的幸运号码：{{ OrderDetail.purchaseCount }}组</view>
-			<view class="purchase_code">
-				<view class="purchase_code_row" v-for="(number, number_index) in stringToList" :key="number_index">
-					<view class="purchase_code_item" v-for="(item, index) in number" :key="index">
-						<view class="purchase_code_item_text">{{ item }}</view>
+		<block v-if="loading">
+			<LoadingTurn></LoadingTurn>
+		</block>
+		<block v-else>
+			<view class="productwrapper">
+				<image class="product_icon" :src="OrderDetail.productImageUrl"></image>
+				<view class="product_icon_right">
+					<view class="product_name">{{ OrderDetail.productName }}</view>
+					<view class="product_price">
+						<view class="product_onediscountprice">¥{{ OrderDetail.oneDiscountPrice/100 }}</view>
+						<view class="product_originalprice">市场价 ¥{{ OrderDetail.originalPrice/100 }}</view>
 					</view>
 				</view>
 			</view>
-			<view class="order_detail" v-if="visibility">
-				<view class="order_detail_text">下单时间： {{ OrderDetail.clientOrderTime }}</view>
-				<view class="order_detail_text">订单号：{{ OrderDetail.payOrderNo }}</view>
-				<view class="order_detail_text">期数： {{ OrderDetail.discountGameStage }}</view>
-				<view class="order_detail_text">商品代码： {{ OrderDetail.productId }}</view>
-				<view class="order_detail_text">抢购数量： {{ OrderDetail.purchaseCount }}</view>
-				<view class="order_detail_text">实付金额： ¥{{ OrderDetail.totalPrice/100 }}</view>
-				<view class="order_detail_text">支付方式： {{ OrderDetail.payChannel }}</view>
-				<view class="order_detail_text">支付时间： {{ OrderDetail.clientOrderTime}}</view>
-				<view class="order_detail_text" v-if="OrderDetail.refundWay==='account'">退款路径： 喜币钱包</view>
-				<view class="order_detail_text" v-else >退款路径： 原路返还</view>
-			</view>
-			<view class="pack_up" @click="pack_up_btn">
-				<view class="pack_up_text">收起</view>
-				<image class="pack_up_icon" :src="pack_up_icon"></image>
-			</view>
-		</view>
-		<view class="groupwrapper">
-			<view class="group_text">
-				<view class="group_text1">邀请好友参与3D抢购</view>
-				<view>成功发起拼团奖励喜币红包</view>
-			</view>
-			<view class="group_user">
-				<block v-for="(group_item,group_index) in groupUserList" :key="group_index">
-					<view class="groupitem">
-						<block v-for="(row_item,row_index) in group_item" :key="row_index">
-							<image class="user_icon" :src="row_item.iconUrl"></image>
-							<view v-if="row_item.identity==='originator'" class="groupleader">团长</view>
-						</block>
+			<view class="orderwrapper">
+				<view class="group_endtime" v-if="lastTime">
+					<view class="group_endtime_text">揭晓中签：22:00 还剩：</view>
+					<view class="counttime">{{lastTime.hour}}</view>
+					<view class="colon">:</view>
+					<view class="counttime">{{lastTime.minute}}</view>
+					<view class="colon">:</view>
+					<view class="counttime">{{lastTime.sec}}</view>
+				</view>
+				<view class="purchase_count">你的幸运号码：{{ OrderDetail.purchaseCount }}组</view>
+				<view class="purchase_code">
+					<view class="purchase_code_row" v-for="(number, number_index) in stringToList" :key="number_index">
+						<view class="purchase_code_item" v-for="(item, index) in number" :key="index">
+							<view class="purchase_code_item_text">{{ item }}</view>
+						</view>
 					</view>
-				</block>
+				</view>
+				<view class="order_detail" v-if="visibility">
+					<view class="order_detail_text">下单时间： {{ OrderDetail.clientOrderTime }}</view>
+					<view class="order_detail_text">订单号：{{ OrderDetail.payOrderNo }}</view>
+					<view class="order_detail_text">期数： {{ OrderDetail.discountGameStage }}</view>
+					<view class="order_detail_text">商品代码： {{ OrderDetail.productId }}</view>
+					<view class="order_detail_text">抢购数量： {{ OrderDetail.purchaseCount }}</view>
+					<view class="order_detail_text">实付金额： ¥{{ OrderDetail.totalPrice/100 }}</view>
+					<view class="order_detail_text">支付方式： {{ OrderDetail.payChannel }}</view>
+					<view class="order_detail_text">支付时间： {{ OrderDetail.clientOrderTime}}</view>
+					<view class="order_detail_text" v-if="OrderDetail.refundWay==='account'">退款路径： 喜币钱包</view>
+					<view class="order_detail_text" v-else >退款路径： 原路返还</view>
+				</view>
+				<view class="pack_up" @click="pack_up_btn">
+					<view class="pack_up_text">收起</view>
+					<image class="pack_up_icon" :src="pack_up_icon"></image>
+				</view>
 			</view>
-		</view>
-
-		<!-- 微信小程序 -->
-		<!-- #ifdef MP-WEIXIN -->
-		<button class="invite_btn" open-type="share">邀请拼团</button>
-		<!-- #endif -->
-		<!-- app分享 -->
-		<!-- #ifdef APP-PLUS -->
-		<button class="invite_btn" @click="share">邀请拼团</button>
-		<!-- #endif -->
-
+			<view class="groupwrapper">
+				<view class="group_text">
+					<view class="group_text1">邀请好友参与3D抢购</view>
+					<view>成功发起拼团奖励喜币红包</view>
+				</view>
+				<view class="group_user">
+					<block v-for="(group_item,group_index) in groupUserList" :key="group_index">
+						<view class="groupitem">
+							<block v-for="(row_item,row_index) in group_item" :key="row_index">
+								<image class="user_icon" :src="row_item.iconUrl"></image>
+								<view v-if="row_item.identity==='originator'" class="groupleader">团长</view>
+							</block>
+						</view>
+					</block>
+				</view>
+			</view>
+			
+			<!-- 微信小程序 -->
+			<!-- #ifdef MP-WEIXIN -->
+			<button class="invite_btn" open-type="share">邀请拼团</button>
+			<!-- #endif -->
+			<!-- app分享 -->
+			<!-- #ifdef APP-PLUS -->
+			<button class="invite_btn" @click="share">邀请拼团</button>
+			<!-- #endif -->
+		</block>	
 	</view>
 </template>
 
 <script>
 	import api from '@/util/api.js';
+	import LoadingTurn from './components/LoadingTurn.vue';
 	import timeUtil from '@/util/timeUtil.js';
 	import {
 		mapState
@@ -89,6 +94,7 @@
 					groupUserModelList: []
 				},
 				visibility: true,
+				loading:true,
 				pack_up_icon: '/static/gameGroup/icon_up.png',
 				lastTime: {
 					day: 0,
@@ -99,6 +105,9 @@
 				timer: null,
 			};
 		},
+		components:{
+			LoadingTurn
+		},
 		async onLoad(options) {
 			const res = await api.clientOrderDetail({
 				payOrderNo: options.payOrderNo
@@ -106,6 +115,7 @@
 			this.OrderDetail = res;
 			this.GameGroup = res.discountGameGroupModel;
 			this.timerCountDown();
+			this.loading=false;
 		},
 		onUnload() {
 			clearInterval(this.timer);

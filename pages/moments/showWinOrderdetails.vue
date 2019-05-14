@@ -1,85 +1,91 @@
 <template>
 	<view class="momentdetailwrapper">
-		<view class="user">
-			<image class="user_icon" :src="showWinOrderCommentModel.userIconUrl"></image>
-			<view class="user_icon_right">
-				<view class="user_wrapper">
-					<view class="user_name">{{showWinOrderCommentModel.userName}}</view>
-					<image class="user_sex" v-if="showWinOrderCommentModel.userSex==='男'" src="/static/moments/icon_man.png"></image>
-					<image class="user_sex" v-else src="/static/moments/icon_woman.png"></image>
-				</view>
-				<view class="time">{{showWinOrderCommentModel.createTime}}</view>
-			</view>
-		</view>
-		<view class="moment_text">{{showWinOrderCommentModel.commentContent}}</view>
-		<view class="moment_image_wrapper" v-if="showWinOrderCommentModel.imageOrVideoUrl.length!==0">
-			<image class="moment_image_big" mode="widthFix" :src="showWinOrderCommentModel.imageOrVideoUrl[0]" @click="preview_pic(showWinOrderCommentModel.imageOrVideoUrl[0])"></image>
-			<view class="moment_image_small_list" v-if="showWinOrderCommentModel.imageOrVideoUrl.length>1">
-				<scroll-view scroll-x="true" @scroll="scroll" scroll-left="120">
-					<block v-for="(item,index) in image_small_list" :key="index">
-						<image class="moment_image_small" :src="item" @click="preview_pic(item)" mode="aspectFill"></image>
-					</block>
-				</scroll-view>
-			</view>
-			<view class="previewpic" v-if="isPreview" @click="close_pic">
-				<image class="pic" :src="pic_url" mode="widthFix"></image>
-			</view>
-		</view>
-		<view class="product" v-if="showWinOrderCommentModel.discountGameStage">
-			<image class="product_icon" :src="showWinOrderCommentModel.productImageUrl"></image>
-			<view class="product_icon_right">
-				<view class="product_name">{{showWinOrderCommentModel.productName}}</view>
-				<view class="gameStage">期数: {{showWinOrderCommentModel.discountGameStage}}</view>
-			</view>
-		</view>
-		<view class="praise">
-			<view class="praisewrapper" @click="change_praise">
-				<image class="praise_img" v-if="showWinOrderCommentModel.praise" src="/static/moments/btn_like_red.png"></image>
-				<image class="praise_img" v-else src="/static/moments/icon_illume.png"></image>
-				<view class="praise_num">{{showWinOrderCommentModel.praiseCount}}</view>
-			</view>
-			<view class="praise_user" @click="gopraiseDetail">
-				<block v-for="(item,index) in praise_user_list" :key="index">
-					<image class="praise_user_img" :src="item.userIconUrl"></image>
-				</block>
-				<view class="more_praise" v-if="praiseDetailModelList.length>12">更多</view>
-			</view>
-		</view>
-		<view class="commentwrapper">
-			<view class="commentcount">
-				<view class="commenttitle">评论</view>
-				<view class="comment_num">({{showWinOrderCommentModel.commentCount}})</view>
-			</view>
-			<view class="comment">
-				<block v-for="(item,index) in commentShowWinOrderModelList" :key="index">
-					<view class="commentitem">
-						<image class="comment_user_icon" :src="item.commentUserIconUrl"></image>
-						<view class="comment_user_icon_right">
-							<view class="comment_user_wrapper">
-								<view class="comment_user_name">{{item.commentUserName}}</view>
-								<image class="comment_user_sex" v-if="item.commentUserSex==='男'" src="/static/moments/icon_man.png"></image>
-								<image class="comment_user_sex" v-else src="/static/moments/icon_woman.png"></image>
-							</view>
-							<view class="comment_time">{{item.commentTime}}</view>
-							<view class="commentcontent">{{item.commentContent}}</view>
-						</view>
+		<block v-if="loading">
+			<LoadingTurn></LoadingTurn>
+		</block>
+		<block v-else>
+			<view class="user">
+				<image class="user_icon" :src="showWinOrderCommentModel.userIconUrl"></image>
+				<view class="user_icon_right">
+					<view class="user_wrapper">
+						<view class="user_name">{{showWinOrderCommentModel.userName}}</view>
+						<image class="user_sex" v-if="showWinOrderCommentModel.userSex==='男'" src="/static/moments/icon_man.png"></image>
+						<image class="user_sex" v-else src="/static/moments/icon_woman.png"></image>
 					</view>
-				</block>
-			</view>
-			<view class="comment_bottom">
-				<input class="comment_input" v-model="input" type="text" placeholder="    恭喜你中签了！" v-on:confirm="send"/>
-				<view class="comment_praisewrapper" @click="change_praise">
-					<image class="comment_praise_img" v-if="showWinOrderCommentModel.praise" src="/static/moments/btn_like_red.png"></image>
-					<image class="comment_praise_img" v-else src="/static/moments/icon_illume.png"></image>
-					<view class="comment_praise_num">{{showWinOrderCommentModel.praiseCount}}</view>
+					<view class="time">{{showWinOrderCommentModel.createTime}}</view>
 				</view>
 			</view>
-		</view>
+			<view class="moment_text">{{showWinOrderCommentModel.commentContent}}</view>
+			<view class="moment_image_wrapper" v-if="showWinOrderCommentModel.imageOrVideoUrl.length!==0">
+				<image class="moment_image_big" mode="widthFix" :src="showWinOrderCommentModel.imageOrVideoUrl[0]" @click="preview_pic(showWinOrderCommentModel.imageOrVideoUrl[0])"></image>
+				<view class="moment_image_small_list" v-if="showWinOrderCommentModel.imageOrVideoUrl.length>1">
+					<scroll-view scroll-x="true" @scroll="scroll" scroll-left="120">
+						<block v-for="(item,index) in image_small_list" :key="index">
+							<image class="moment_image_small" :src="item" @click="preview_pic(item)" mode="aspectFill"></image>
+						</block>
+					</scroll-view>
+				</view>
+				<view class="previewpic" v-if="isPreview" @click="close_pic">
+					<image class="pic" :src="pic_url" mode="widthFix"></image>
+				</view>
+			</view>
+			<view class="product" v-if="showWinOrderCommentModel.discountGameStage">
+				<image class="product_icon" :src="showWinOrderCommentModel.productImageUrl"></image>
+				<view class="product_icon_right">
+					<view class="product_name">{{showWinOrderCommentModel.productName}}</view>
+					<view class="gameStage">期数: {{showWinOrderCommentModel.discountGameStage}}</view>
+				</view>
+			</view>
+			<view class="praise">
+				<view class="praisewrapper" @click="change_praise">
+					<image class="praise_img" v-if="showWinOrderCommentModel.praise" src="/static/moments/btn_like_red.png"></image>
+					<image class="praise_img" v-else src="/static/moments/icon_illume.png"></image>
+					<view class="praise_num">{{showWinOrderCommentModel.praiseCount}}</view>
+				</view>
+				<view class="praise_user" @click="gopraiseDetail">
+					<block v-for="(item,index) in praise_user_list" :key="index">
+						<image class="praise_user_img" :src="item.userIconUrl"></image>
+					</block>
+					<view class="more_praise" v-if="praiseDetailModelList.length>12">更多</view>
+				</view>
+			</view>
+			<view class="commentwrapper">
+				<view class="commentcount">
+					<view class="commenttitle">评论</view>
+					<view class="comment_num">({{showWinOrderCommentModel.commentCount}})</view>
+				</view>
+				<view class="comment">
+					<block v-for="(item,index) in commentShowWinOrderModelList" :key="index">
+						<view class="commentitem">
+							<image class="comment_user_icon" :src="item.commentUserIconUrl"></image>
+							<view class="comment_user_icon_right">
+								<view class="comment_user_wrapper">
+									<view class="comment_user_name">{{item.commentUserName}}</view>
+									<image class="comment_user_sex" v-if="item.commentUserSex==='男'" src="/static/moments/icon_man.png"></image>
+									<image class="comment_user_sex" v-else src="/static/moments/icon_woman.png"></image>
+								</view>
+								<view class="comment_time">{{item.commentTime}}</view>
+								<view class="commentcontent">{{item.commentContent}}</view>
+							</view>
+						</view>
+					</block>
+				</view>
+				<view class="comment_bottom">
+					<input class="comment_input" v-model="input" type="text" placeholder="    恭喜你中签了！" v-on:confirm="send"/>
+					<view class="comment_praisewrapper" @click="change_praise">
+						<image class="comment_praise_img" v-if="showWinOrderCommentModel.praise" src="/static/moments/btn_like_red.png"></image>
+						<image class="comment_praise_img" v-else src="/static/moments/icon_illume.png"></image>
+						<view class="comment_praise_num">{{showWinOrderCommentModel.praiseCount}}</view>
+					</view>
+				</view>
+			</view>
+		</block>
 	</view>
 </template>
 
 <script>
 	import api from "@/util/api.js"
+	import LoadingTurn from '../components/LoadingTurn.vue';
 	export default {
 		data() {
 			return {
@@ -96,8 +102,12 @@
 				praise_num:0,
 				comment_num:0,
 				type_id:1,
-				input:""
+				input:"",
+				loading:true
 			}
+		},
+		components:{
+			LoadingTurn
 		},
 		computed: {
 			image_small_list() {
@@ -120,6 +130,7 @@
 			this.praiseDetailModelList = res.praiseDetailModelList;
 			this.showWinOrderCommentModel = res.showWinOrderCommentModel;
 			this.type_id=options.type_id;
+			this.loading=false;
 		},
 		methods: {
 			gopraiseDetail() {
