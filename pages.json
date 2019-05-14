@@ -14,7 +14,7 @@
 		{
 			"path": "pages/home/home",
 			"style": {
-				"navigationBarTitleText": "抢购"
+				"navigationBarTitleText": "幸福购"
 
 			}
 		}, {
@@ -396,27 +396,27 @@
 		"backgroundColor": "#ffffff",
 		"list": [{
 				"pagePath": "pages/home/home",
-				"text": "首页",
-				"iconPath": "static/tab/tab_shouye_d@2x.png",
-				"selectedIconPath": "static/tab/tab_shouye_s@2x.png"
+				"text": "幸福购",
+				"iconPath": "static/tab/home_icon_1@2x.png",
+				"selectedIconPath": "static/tab/home_icon_1_1@2x.png"
 			},
 			{
 				"pagePath": "pages/moments/moments",
-				"text": "动态",
-				"iconPath": "static/tab/tab_dongtai_d@2x.png",
-				"selectedIconPath": "static/tab/tab_dongtai_s@2x.png"
+				"text": "幸福榜",
+				"iconPath": "static/tab/home_icon_2@2x.png",
+				"selectedIconPath": "static/tab/home_icon_2_2@2x.png"
 			},
 			{
 				"pagePath": "pages/message/message",
-				"text": "喜信",
-				"iconPath": "static/tab/tab_xixin_d@2x.png",
-				"selectedIconPath": "static/tab/tab_xixin_s@2x.png"
+				"text": "动态",
+				"iconPath": "static/tab/home_icon_3@2x.png",
+				"selectedIconPath": "static/tab/home_icon_3_3@2x.png"
 			},
 			{
 				"pagePath": "pages/me/me",
-				"text": "我的",
-				"iconPath": "static/tab/tab_me_d@2x.png",
-				"selectedIconPath": "static/tab/tab_me_s@2x.png"
+				"text": "我",
+				"iconPath": "static/tab/home_icon_4@2x.png",
+				"selectedIconPath": "static/tab/home_icon_4_4@2x.png"
 			}
 		]
 	},

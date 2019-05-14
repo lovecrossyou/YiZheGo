@@ -15,14 +15,14 @@
 						<view>{{ item.name }}</view>
 					</view>
 				</view>
-				<image :src="home_huiyuan" @click="goVIP"></image>
+				<!-- <image :src="home_huiyuan" @click="goVIP"></image> -->
 			</view>
 			<view class="tooopencom">
 				<view class="tooopencom_content">
 					<view class="tooopencom_title" @click="goNewsWelfare">
-						<view>喜腾好物</view>
+						<view>新人专区</view>
 						<view class="tooopencom_title_right">
-							<image :src="home_gengduo_icon"></image>
+							<!-- <image :src="home_gengduo_icon"></image> -->
 						</view>
 					</view>
 					<view class="tooopencom_product_list">
@@ -36,9 +36,9 @@
 					</view>
 				</view>
 			</view>
-			<view class="hot_sale">
+			<!-- <view class="hot_sale">
 				<view class="tooopencom_title" @click="hotsales">
-					<view>热销榜单</view>
+					<view>新人专区</view>
 					<view class="tooopencom_title_right">
 						<view>抢更多精选好物</view>
 						<image :src="home_gengduo_icon"></image>
@@ -54,7 +54,7 @@
 						<view class="already_sale">已抢{{ item.participatePersonCount }}</view>
 					</view>
 				</view>
-			</view>
+			</view> -->
 			<view class="tab_filtrate_wrapper">
 				<tabFiltrate :data="navBarListTit"></tabFiltrate>
 				<product></product>
@@ -143,11 +143,7 @@
 					url: '/pages/xtgoods/xtgoods'
 				});
 			},
-			goVIP() {
-				uni.navigateTo({
-					url: '/pages/me/vip/vip-center'
-				});
-			},
+			
 			goNext(item) {
 				uni.navigateTo({
 					url: item.page
@@ -320,23 +316,23 @@
 				xinren_fuli_icon: '../../static/pay/xinyonghu_photo_fuli@2x.png',
 				cancelBtn: '../../static/pay/cancel.png',
 				navList: [{
-						img: '../../static/home/home_nav_zhongqian.png',
-						name: '中签',
+						img: '../../static/home/home_nav_1.png',
+						name: '幸福榜单',
 						page: '/pages/me/vip/lucky-list'
 					},
 					{
-						img: '../../static/home/home_nav_shaidan.png',
-						name: '晒单',
+						img: '../../static/home/home_nav_2.png',
+						name: '梦想屋',
 						page: '/pages/moments/components/showWinOrder'
 					},
 					{
-						img: '../../static/home/home_nav_bangdan.png',
-						name: '榜单',
+						img: '../../static/home/home_nav_3.png',
+						name: '一起赚钱',
 						page: '/pages/ranklist/ranklist'
 					},
 					{
-						img: '../../static/home/home_nav_fenlei.png',
-						name: '分类',
+						img: '../../static/home/home_nav_4.png',
+						name: '幸福银行',
 						page: '/pages/category/category'
 					}
 				]
@@ -391,8 +387,8 @@
 					color: rgba(29, 29, 29, 1);
 
 					image {
-						width: 52upx;
-						height: 52upx;
+						width: 137upx;
+						height: 139upx;
 					}
 				}
 			}
@@ -406,7 +402,7 @@
 
 			.tooopencom_content {
 				border-radius: 8upx;
-				background: url('http://qnimage.xiteng.com/home_new_bg@2x.png') no-repeat;
+				// background: url('http://qnimage.xiteng.com/home_new_bg@2x.png') no-repeat;
 				background-size: 100%;
 
 				.tooopencom_product_list {

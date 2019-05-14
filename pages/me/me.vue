@@ -43,7 +43,6 @@
 			<view @click="turnToVip"><itemList img="../../static/me/me_icon_vip@2x.png" title="会员中心"></itemList></view>
 		</view>
 		<view class="other_unctions end_item" @click="paymentCode"><itemList img="../../static/me/me_icon_currency@2x.png" title="设置"></itemList></view>
-		<view class="contact"><button type="primary" open-type="contact">联系客服</button></view>
 	</view>
 </template>
 

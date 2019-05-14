@@ -104,7 +104,7 @@
 		</view>
 		<!--选号弹出框-->
 		<view v-if="showChooseCodeModal" class="news_welfare_wrapper">
-			<image class="card" :src="chooseCodeIcon" @click="chooseCode" mode="aspectFit"></image>
+			<image class="card" src="http://qnimage.xiteng.com/choseCode@2x.png" @click="chooseCode" mode="aspectFit"></image>
 			<view>
 				<image class="cancelBtn" :src="cancelBtn" @click="cancelChooseCode"></image>
 			</view>
@@ -150,8 +150,7 @@
 				cancelBtn: "../../static/pay/cancel.png",
 				showUpgradeModal:false,
 				xinren_upgrade_icon:'../../static/pay/xinren_icon_fuli@2x.png',
-				showChooseCodeModal:false,
-				chooseCodeIcon:'../../static/pay/choseCode@2x.png',
+				showChooseCodeModal:false
 			};
 		},
 		components: {
