@@ -168,7 +168,7 @@
 			<form class="right_buy bgr" @submit="formSubmit" report-submit="true">
 				<!-- <view class="top">￥{{productDetail.productItemModel.oneDiscountPrice/100}}</view> -->
 				<button class="top contact-button" form-type="submit">￥{{productDetail.productItemModel.oneDiscountPrice/100}}</button>
-				<button class="contact-button" form-type="submit">一折抢购</button>
+				<button class="contact-button" form-type="submit">幸福购</button>
 			</form>
 		</view>
 	</view>
