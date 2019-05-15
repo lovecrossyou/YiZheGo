@@ -88,6 +88,11 @@
 		width: 100%;
 		top: 125upx;
 		height: 186upx;
+		
+	}
+	
+	.ad>image{
+		width: 684upx;
 	}
 	
 	.vip{
