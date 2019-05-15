@@ -23,22 +23,22 @@
 				<view class="balck_text">我有一个梦想</view>
 				<view class="gray_text">梦想还是要有的，万一实现了呢</view>
 			</view>
-			<block v-for="(publish, index) in publishList" :key="index">
+			<block v-for="(item, index) in publishList" :key="index">
 				<view class="dream_content_details">
 					<view class="user_info">
-						<image src="http://img4.imgtn.bdimg.com/it/u=3693921363,2905296887&fm=26&gp=0.jpg" class="user_img" mode=""></image>
-						<view class="user_name">张韶涵</view>
+						<image :src="item.img" class="user_img" mode=""></image>
+						<view class="user_name">{{ item.name }}</view>
 					</view>
-					<view class="publish_time">9个小时之前</view>
+					<view class="publish_time">{{ item.publishTime }}个小时之前</view>
 				</view>
 				<image src="http://qnimage.xiteng.com/dream_pic@2x.png" class="publish_img" mode="aspectFit"></image>
 				<view class="publish_content">希望有一个P30手机，记录生活的点点滴滴，希望平台早日用户过万</view>
 				<!-- 点赞 & 转发 & 评论 -->
 				<view class="operation_list">
-					<view class="bottom_operation">
-						<view class="operation_icon" @click="givePraise(index)">
-							<image v-if="isPraise" src="http://qnimage.xiteng.com/dream_xin_dianji@2x.png"></image>
-							<image  v-else src="http://qnimage.xiteng.com/dream_xin@2x.png" mode=""></image>
+					<view class="bottom_operation" @click="givePraise(index)">
+						<view class="operation_icon">
+							<image v-if="item.isPraise" src="http://qnimage.xiteng.com/dream_xin_dianji@2x.png"></image>
+							<image v-else src="http://qnimage.xiteng.com/dream_xin@2x.png" mode=""></image>
 						</view>
 						<view class="operation_num">1.5W</view>
 					</view>
@@ -53,6 +53,16 @@
 				</view>
 			</block>
 		</view>
+		<!-- 发布 -->
+		<image src="http://qnimage.xiteng.com/dream_jia@2x.png" mode="" class="publish_content_area"></image>
+
+		<view class="top_notice">
+			<image src="http://img0.imgtn.bdimg.com/it/u=785035511,1243398691&fm=26&gp=0.jpg" class="header_img"></image>
+			<view class="notice_content">
+				<view>王明浩小朋友实现</view>
+				<view>获得一个山地车的梦想</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -60,13 +70,25 @@
 export default {
 	data() {
 		return {
-			publishList: [1, 2],
-			isPraise:false,
+			publishList: [
+				{
+					isPraise: false,
+					name: '张韶涵',
+					publishTime: 9,
+					img: 'http://img4.imgtn.bdimg.com/it/u=1671816861,451680427&fm=26&gp=0.jpg'
+				},
+				{
+					isPraise: false,
+					name: '朱理哲',
+					publishTime: 1,
+					img: 'http://img2.imgtn.bdimg.com/it/u=350479878,4015742982&fm=26&gp=0.jpg'
+				}
+			]
 		};
 	},
 	methods: {
-		givePraise(index){
-			this.isPraise = !this.isPraise
+		givePraise(index) {
+			this.publishList[index].isPraise = !this.publishList[index].isPraise;
 		}
 	}
 };
@@ -75,6 +97,7 @@ export default {
 <style>
 .wrapper {
 	width: 100%;
+	position: relative;
 }
 .dream_header {
 	width: 100%;
@@ -82,7 +105,6 @@ export default {
 	border-bottom: 20upx solid #f9f9f9;
 }
 .dream_bg {
-	/* background: linear-gradient(#FCCBDB, 50%, #FEFCFC); */
 	height: 470upx;
 	width: 100%;
 	padding: 0 33upx;
@@ -219,5 +241,40 @@ export default {
 .operation_icon image {
 	width: 29upx;
 	height: 24upx;
+}
+.publish_content_area {
+	width: 106upx;
+	height: 106upx;
+	position: fixed;
+	right: 38upx;
+	bottom: 235upx;
+}
+.top_notice {
+	width: 300upx;
+	height: 72upx;
+	background: rgba(19, 29, 59, 0.3);
+	border-radius: 35upx;
+	position: fixed;
+	top: 50upx;
+	left: 20upx;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	padding: 10upx;
+	box-sizing: border-box;
+}
+.header_img{
+	width: 50upx;
+	height: 50upx;
+	border: 1upx solid #fff;
+	border-radius: 50%;
+}
+.notice_content{
+	color: #fff;
+	font-size: 20upx;
+	flex: 1;
+	margin-left: 10upx;
+	display: flex;
+	flex-direction: column;
 }
 </style>
