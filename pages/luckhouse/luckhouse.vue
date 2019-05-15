@@ -24,7 +24,7 @@
 
 <style>
 .dream_header{
-	background: linear-gradient(blue, 10%, pink);
+	background: linear-gradient(pink, 50%, white);
 	height: 470upx;
 }
 </style>
