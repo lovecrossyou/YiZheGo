@@ -392,7 +392,7 @@
 	    ,{
             "path" : "pages/luckhouse/luckhouse",
             "style": {
-				"navigationBarTitleText": "幸福屋"
+				"navigationBarTitleText": "梦想屋"
 			}
         }
     ],
