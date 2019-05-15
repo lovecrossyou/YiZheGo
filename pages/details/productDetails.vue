@@ -33,7 +33,7 @@
 		<view class="product-info">
 			<view class="product-info-title-wrap">
 				<view class="product-info-title">
-					<span class="pinkage">1折购</span>{{productDetail.productItemModel.productName}}
+					<!-- <span class="pinkage">1折购</span>{{productDetail.productItemModel.productName}} -->
 				</view>
 			</view>
 			<view class="rule">

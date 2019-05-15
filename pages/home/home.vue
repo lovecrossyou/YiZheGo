@@ -29,22 +29,41 @@
 						<view class="tooopencom_product_item" v-for="(item, i) in newsBenefitList3" :key="i" @click="goNewsWelfare">
 							<view class="image">
 								<image :src="item.productImageUrl" mode="aspectFill"></image>
-								<view class="tooopencom_product_price">￥{{ item.oneDiscountPrice / 100 }}</view>
 							</view>
 							<view class="tooopencom_product_name">{{ item.productName }}</view>
+							<view class="tooopencom_product_price">￥{{ item.oneDiscountPrice / 100 }}</view>
 						</view>
 					</view>
 				</view>
 			</view>
-			<!-- <view class="hot_sale">
+			<view class="hot_sale">
 				<view class="tooopencom_title" @click="hotsales">
-					<view>新人专区</view>
-					<view class="tooopencom_title_right">
-						<view>抢更多精选好物</view>
-						<image :src="home_gengduo_icon"></image>
+					<view>幸福热销榜</view>
+				</view>
+				<view class="luck_hot">
+					<view class="tips_1">
+						让你感到幸福的小幸运
+					</view>
+					<view class="tips_2">
+						居家必备单品
+					</view>
+
+					<view class="tooopencom_product_list">
+						<view class="tooopencom_product_item" v-for="(item, i) in newsBenefitList3" :key="i" @click="goNewsWelfare">
+							<view class="image">
+								<image :src="item.productImageUrl" mode="aspectFill"></image>
+							</view>
+							<view class="tooopencom_product_name">{{ item.productName }}</view>
+
+							<view class="sale_amount">
+								已售245万
+							</view>
+							<!-- <view class="tooopencom_product_price">￥{{ item.oneDiscountPrice / 100 }}</view> -->
+						</view>
 					</view>
 				</view>
-				<view class="hot_sale_list">
+
+				<!-- <view class="hot_sale_list">
 					<view class="hot_sale_product_item" v-for="(item, i) in timeLimit3" :key="i" @click="hotsales">
 						<view class="hot_sale_product_price">￥{{ item.oneDiscountPrice / 100 }}</view>
 						<view class="image">
@@ -53,8 +72,8 @@
 						<view class="hot_sale_product_name">{{ item.productName }}</view>
 						<view class="already_sale">已抢{{ item.participatePersonCount }}</view>
 					</view>
-				</view>
-			</view> -->
+				</view> -->
+			</view>
 			<view class="tab_filtrate_wrapper">
 				<tabFiltrate :data="navBarListTit"></tabFiltrate>
 				<product></product>
@@ -143,7 +162,7 @@
 					url: '/pages/xtgoods/xtgoods'
 				});
 			},
-			
+
 			goNext(item) {
 				uni.navigateTo({
 					url: item.page
@@ -176,12 +195,12 @@
 					this.modalStatus = true;
 				}
 			},
-			async checkBindPhone(){
+			async checkBindPhone() {
 				let res = await api.checkBindPhone({});
-				if(res.statue!= 'in_bind'){
+				if (res.statue != 'in_bind') {
 					wx.redirectTo({
-					url: '/pages/login/WeChatLogin/inputTelNumber'
-				})
+						url: '/pages/login/WeChatLogin/inputTelNumber'
+					})
 				}
 			},
 			goNewsWelfare() {
@@ -417,21 +436,7 @@
 							height: 276upx;
 							position: relative;
 
-							.tooopencom_product_price {
-								width: 100%;
-								height: 48upx;
-								background: rgba(255, 255, 255, 0.5);
-								line-height: 48upx;
-								position: absolute;
-								bottom: 0;
-								left: 0;
-								padding-left: 10upx;
-								box-sizing: border-box;
-								font-size: 32upx;
-								font-family: PingFang-SC-Medium;
-								font-weight: 500;
-								color: rgba(226, 37, 55, 1);
-							}
+
 
 							image {
 								width: 220upx;
@@ -439,12 +444,28 @@
 							}
 						}
 
-						.tooopencom_product_name {
-							width: 220upx;
-							font-size: 24upx;
+						.tooopencom_product_price {
+							width: 100%;
+							height: 48upx;
+							// background: rgba(255, 255, 255, 0.5);
+							line-height: 48upx;
+							// position: absolute;
+							// bottom: 0;
+							// left: 0;
+							padding-left: 10upx;
+							box-sizing: border-box;
+							font-size: 28upx;
 							font-family: PingFang-SC-Medium;
 							font-weight: 500;
-							color: rgba(51, 51, 51, 1);
+							color: #E71C07;
+						}
+
+						.tooopencom_product_name {
+							width: 220upx;
+							font-size: 28upx;
+							font-family: PingFang-SC-Medium;
+							font-weight: 500;
+							color: #1F1F1F;
 							line-height: 1.5;
 							margin-top: 18upx;
 							overflow: hidden;
@@ -480,6 +501,114 @@
 					margin-left: 10upx;
 				}
 			}
+		}
+
+		.luck_hot {
+			margin: 0 32upx;
+			background: url('http://qnimage.xiteng.com/home_rexiao_bk.png') no-repeat center;
+			background-size: 685upx 433upx;
+			height: 433upx;
+			width: 685upx;
+
+			.tips_1 {
+				position: relative;
+				left: 36upx;
+				top: 28upx;
+
+				font-size: 30upx;
+				font-family: PingFang-SC-Bold;
+				font-weight: bold;
+				color: rgba(255, 255, 255, 1);
+			}
+
+			.tips_2 {
+				position: relative;
+				left: 36upx;
+				top: 76upx;
+
+				width: 162upx;
+				height: 32upx;
+				background: #FFB51E;
+				border-radius: 16upx;
+				font-size: 22upx;
+
+				font-family: PingFang-SC-Bold;
+				font-weight: bold;
+				color: #1F1F1F;
+				text-align: center;
+			}
+
+			.tooopencom_product_list {
+				position: relative;
+				top: 90upx;
+				height: 260upx;
+
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+
+				.tooopencom_product_item {
+					background: #ffffff;
+					width: 188upx;
+					height: 260upx;
+					border-radius: 8upx;
+					
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					
+
+					.image {
+						width: 167upx;
+						height: 159upx;
+						position: relative;
+
+						image {
+							width: 167upx;
+							height: 159upx;
+						}
+					}
+
+					.tooopencom_product_price {
+						width: 100%;
+						padding-left: 10upx;
+						box-sizing: border-box;
+						font-size: 24upx;
+						font-family: PingFang-SC-Medium;
+						font-weight: 500;
+						color: #E71C07;
+						text-align: center;
+					}
+
+					.sale_amount {
+						margin-top: 12upx;
+						width: 111upx;
+						height: 30upx;
+						background: rgba(255, 221, 161, 1);
+						border-radius: 15upx;
+						color: #1F1F1F;
+						font-size: 18upx;
+						text-align: center;
+					}
+
+					.tooopencom_product_name {
+						margin: 0 5upx;
+						overflow: hidden;
+						box-sizing: border-box;
+						// width: 220upx;
+						font-size: 24upx;
+						font-family: PingFang-SC-Medium;
+						font-weight: 500;
+						color: #1F1F1F;
+						overflow: hidden;
+						text-overflow: ellipsis;
+						display: -webkit-box;
+						-webkit-box-orient: vertical;
+						-webkit-line-clamp: 1;
+					}
+				}
+			}
+
 		}
 
 		.hot_sale {

@@ -6,7 +6,7 @@
 			</view>
 			<view class="recommend_item_intro">
 				<view class="recommend_item_title">
-					<span class="discount">1折购</span>
+					<!-- <span class="discount">1折购</span> -->
 					<span>{{item.productName}}</span>
 				</view>
 				<view class="recommend_item_intro_sale">
