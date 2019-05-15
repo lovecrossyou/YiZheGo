@@ -22,7 +22,7 @@
 					<view class="tooopencom_title" @click="goNewsWelfare">
 						<view>新人专区</view>
 						<view class="tooopencom_title_right">
-							<!-- <image :src="home_gengduo_icon"></image> -->
+							<image :src="home_gengduo_icon"></image>
 						</view>
 					</view>
 					<view class="tooopencom_product_list">
