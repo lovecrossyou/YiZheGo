@@ -323,7 +323,7 @@
 					{
 						img: '../../static/home/home_nav_2.png',
 						name: '梦想屋',
-						page: '/pages/moments/components/showWinOrder'
+						page: '/pages/luckhouse/luckhouse'
 					},
 					{
 						img: '../../static/home/home_nav_3.png',

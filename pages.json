@@ -389,7 +389,13 @@
 				"navigationBarTitleText": "我的二维码"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/luckhouse/luckhouse",
+            "style": {
+				"navigationBarTitleText": "幸福屋"
+			}
+        }
+    ],
 	"tabBar": {
 		"color": "#7a7e83",
 		"selectedColor": "#FE594B",
