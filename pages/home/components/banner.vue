@@ -119,7 +119,7 @@
 	
 	.ad_wrapper>image{
 		width: 684upx;
-		height: 186upx;;
+		height: 186upx;
 	}
 
 	.banner_bg {
