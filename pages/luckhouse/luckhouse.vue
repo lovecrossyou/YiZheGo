@@ -90,10 +90,21 @@ export default {
 		givePraise(index) {
 			this.publishList[index].isPraise = !this.publishList[index].isPraise;
 		},
-		gocreatdiscuss(){
-				uni.navigateTo({
-					url:"/pages/moments/creatdiscuss"
-				})
+		gocreatdiscuss() {
+			uni.showActionSheet({
+				itemList: ['拍摄', '从手机相册选择', '直接发布'],
+				success: function(res) {
+					// console.log('选中了第' + (res.tapIndex + 1) + '个按钮');
+					if(res.tapIndex == 2){
+						uni.navigateTo({
+							url: '/pages/moments/creatdiscuss'
+						});
+					}
+				},
+				fail: function(res) {
+					console.log(res.errMsg);
+				}
+			});
 		}
 	}
 };
@@ -268,13 +279,13 @@ export default {
 	padding: 10upx;
 	box-sizing: border-box;
 }
-.header_img{
+.header_img {
 	width: 50upx;
 	height: 50upx;
 	border: 1upx solid #fff;
 	border-radius: 50%;
 }
-.notice_content{
+.notice_content {
 	color: #fff;
 	font-size: 20upx;
 	flex: 1;
