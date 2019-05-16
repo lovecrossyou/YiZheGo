@@ -44,7 +44,7 @@
 <style lang="less">
 	.recommend_wrapper {
 		width: 100%;
-		background: rgba(244, 248, 251, 1);
+		// background: rgba(244, 248, 251, 1);
 		display: flex;
 		justify-content: space-between;
 		flex-wrap: wrap;

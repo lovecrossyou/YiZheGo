@@ -66,6 +66,7 @@
 				box-sizing: border-box;
 				position: absolute;
 				right: 20upx;
+				top: 40rpx;
 				background-repeat: no-repeat;
 				background-size: 45upx 44upx;
 			}
@@ -76,7 +77,8 @@
 
 
 			.search_wrapper_center_input {
-				margin-left: 20upx;
+				margin-left: 30upx;
+				margin-top: 32upx;
 				width: 80%;
 				height: 64upx;
 				background: rgba(255, 255, 255, 0.4);
@@ -90,13 +92,13 @@
 				color: #FFFFFF;
 				display: flex;
 				flex-direction: row;
-
 				align-items: center;
 
 				image {
 					width: 24upx;
 					height: 24upx;
 					margin-right: 10upx;
+					margin-top: 32upx;
 					box-sizing: border-box;
 				}
 

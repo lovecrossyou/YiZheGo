@@ -103,7 +103,7 @@
 			height: 88upx;
 			line-height: 88upx;
 			border-bottom: 1upx solid #f5f5f5;
-			background: #FFFFFF;
+			// background: #FFFFFF;
 			font-size: 28upx;
 			font-family: PingFang-SC-Bold;
 			display: flex;

@@ -62,17 +62,6 @@
 						</view>
 					</view>
 				</view>
-
-				<!-- <view class="hot_sale_list">
-					<view class="hot_sale_product_item" v-for="(item, i) in timeLimit3" :key="i" @click="hotsales">
-						<view class="hot_sale_product_price">￥{{ item.oneDiscountPrice / 100 }}</view>
-						<view class="image">
-							<image :src="item.productImageUrl"></image>
-						</view>
-						<view class="hot_sale_product_name">{{ item.productName }}</view>
-						<view class="already_sale">已抢{{ item.participatePersonCount }}</view>
-					</view>
-				</view> -->
 			</view>
 			<view class="tab_filtrate_wrapper">
 				<tabFiltrate :data="navBarListTit"></tabFiltrate>
@@ -417,7 +406,7 @@
 			padding: 32upx 20upx 36upx;
 			box-sizing: border-box;
 			background: #ffffff;
-			margin-top: 20upx;
+			// margin-top: 20upx;
 
 			.tooopencom_content {
 				border-radius: 8upx;
@@ -480,14 +469,15 @@
 		}
 
 		.tooopencom_title {
-			height: 94upx;
-			line-height: 94upx;
+			// height: 94upx;
+			// line-height: 94upx;
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
 			padding-left: 32upx;
 			padding-right: 32upx;
 			font-weight: bold;
+			font-size: 40upx;
 
 			.tooopencom_title_right {
 				color: #e22537;
@@ -613,7 +603,17 @@
 
 		.hot_sale {
 			background: #ffffff;
-			margin-top: 20upx;
+			padding-bottom: 32upx;
+			box-sizing: border-box;
+			// margin-top: 20upx;
+			// height: 94upx;
+			// line-height: 94upx;
+			
+			.tooopencom_title{
+				padding: 40upx 0 40upx 40upx ;
+				box-sizing: border-box;
+				font-size: 40upx;
+			}
 
 			.hot_sale_list {
 				padding: 0 20upx 38upx;
@@ -693,7 +693,9 @@
 
 		.tab_filtrate_wrapper {
 			width: 100%;
-			margin-top: 20upx;
+			// margin-top: 20upx;
+			background: #F2F0F3;
+			border-radius: 20upx;
 		}
 
 		.registe_success_modal {
