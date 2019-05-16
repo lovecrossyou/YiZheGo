@@ -1,17 +1,24 @@
 <template>
 	<view>
+		<view class="tips">
+			填写梦想，平台用户过百万既有机会美梦成真
+		</view>
 		<view class="creatdiscusswrapper">
 			<view class="discuss_input_wrapper">
 				<textarea ref="disarea" class="discuss_input" placeholder="请输入讨论内容" @input="getComemnt" />
 				<view class="imgwrapper">
+					<robby-image-upload v-model="imglist" @delete="deleteImage" @add="addImage"  :enable-del="enableDel" :enable-add="enableAdd" :limit="limitNumber"></robby-image-upload>
+
 					<!-- <view v-if="addBtnShow" class="imgBack" :style="{width:imgStyle.width+15+'px',height:imgStyle.height+15+'px'}">
-						<view class="upbtn" :style="{width:imgStyle.width+'px',height:imgStyle.height+'px'}" @click="chooseImageFromFile"></view>
+						<view class="upbtn" :style="{width:imgStyle.width+'px',height:imgStyle.height+'px'}" @click="chooseImageFromFile">
+							
+						</view>
 					</view> -->
-					<block v-for="(item, index) in imglist" :key="index">
+					<!-- <block v-for="(item, index) in imglist" :key="index">
 						<view class="imgBack" :style="{width:imgStyle.width+15+'px',height:imgStyle.height+15+'px'}">
 							<image :style="{width:imgStyle.width+'px',height:imgStyle.height+'px'}" :src="item"></image>
 						</view>	
-					</block>
+					</block> -->
 				</view>
 			</view>
 			<button class="commitbtn" @tap="getUpImgInfo" @click="createDis" :disabled="isDisable">发送</button>
@@ -21,6 +28,8 @@
 
 <script>
 	import api from "@/util/api.js"
+		import robbyImageUpload from '@/components/robby-image-upload/robby-image-upload.vue';
+
 export default {
 	data() {
 		return {
@@ -31,12 +40,24 @@ export default {
 				height:'120upx'
 			},
 			imglist: [],
-			isDisable:false
+			isDisable:false,
+			enableDel:true,
+			enableAdd:true,
+			limitNumber:6
 		};
 	},
+	components: {
+			robbyImageUpload
+		},
 	methods: {
 		getComemnt(e) {
 			this.comment = e.target.value;
+		},
+		deleteImage(){
+			
+		},
+		addImage(){
+			
 		},
 		async createDis() {
 			let param = {
@@ -106,6 +127,16 @@ export default {
 </script>
 
 <style lang="scss">
+	.tips {
+		// width: 558upx;
+		// height: 30upx;
+		font-size: 28upx;
+		font-family: PingFang-SC-Bold;
+		font-weight: bold;
+		color: rgba(41, 41, 41, 1);
+		padding: 50upx 0 30upx 32upx;
+		
+	}
 .creatdiscusswrapper {
 	display: flex;
 	flex: 1;

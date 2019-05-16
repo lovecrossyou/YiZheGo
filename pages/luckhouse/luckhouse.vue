@@ -54,7 +54,7 @@
 			</block>
 		</view>
 		<!-- 发布 -->
-		<image src="http://qnimage.xiteng.com/dream_jia@2x.png" mode="" class="publish_content_area"></image>
+		<image @click="gocreatdiscuss" src="http://qnimage.xiteng.com/dream_jia@2x.png" mode="" class="publish_content_area"></image>
 
 		<view class="top_notice">
 			<image src="http://img0.imgtn.bdimg.com/it/u=785035511,1243398691&fm=26&gp=0.jpg" class="header_img"></image>
@@ -89,6 +89,11 @@ export default {
 	methods: {
 		givePraise(index) {
 			this.publishList[index].isPraise = !this.publishList[index].isPraise;
+		},
+		gocreatdiscuss(){
+				uni.navigateTo({
+					url:"/pages/moments/creatdiscuss"
+				})
 		}
 	}
 };
