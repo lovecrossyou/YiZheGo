@@ -8,7 +8,7 @@
 					<!-- adv -->
 					<view class="ad">
 						<view class="ad_wrapper">
-							<image src="http://qnimage.xiteng.com/home_banner@2x.png" mode="widthFix"></image>
+							<image src="http://qnimage.xiteng.com/home_banner@2x.png" mode="aspectFill"></image>
 						</view>
 					</view>
 					<!-- vip  -->
@@ -87,7 +87,7 @@
 		position: absolute;
 		width: 100%;
 		top: 125upx;
-		height: 186upx;
+		/* height: 186upx; */
 		
 	}
 	
@@ -115,6 +115,11 @@
 	.ad_wrapper {
 		display: flex;
 		justify-content: center;
+	}
+	
+	.ad_wrapper>image{
+		width: 684upx;
+		height: 186upx;;
 	}
 
 	.banner_bg {
