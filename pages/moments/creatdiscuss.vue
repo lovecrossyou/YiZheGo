@@ -21,7 +21,7 @@
 					</block> -->
 				</view>
 			</view>
-			<button class="commitbtn" @tap="getUpImgInfo" @click="createDis" :disabled="isDisable">发送</button>
+			<button class="commitbtn" @tap="getUpImgInfo" @click="createDis" :disabled="isDisable">发布</button>
 		</view>
 	</view>
 </template>
@@ -136,6 +136,7 @@ export default {
 		color: rgba(41, 41, 41, 1);
 		padding: 50upx 0 30upx 32upx;
 		
+		
 	}
 .creatdiscusswrapper {
 	display: flex;
@@ -192,9 +193,15 @@ export default {
 		font-weight: 400;
 		color: rgba(255, 255, 255, 1);
 		line-height: 38upx;
-		background: rgba(204, 38, 55, 1);
+		// background: rgba(204, 38, 55, 1);
 		padding-top: 37upx;
 		margin: 30upx 40upx;
+		
+		
+// 		width:540px;
+// height:88px;
+background:rgba(255,89,75,1);
+border-radius:44upx;
 	}
 }
 </style>
