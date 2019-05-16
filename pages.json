@@ -388,14 +388,18 @@
 			"style": {
 				"navigationBarTitleText": "我的二维码"
 			}
-		}
-	    ,{
-            "path" : "pages/luckhouse/luckhouse",
-            "style": {
+		}, {
+			"path": "pages/luckhouse/luckhouse",
+			"style": {
 				"navigationBarTitleText": "梦想屋"
 			}
-        }
-    ],
+		}, {
+			"path": "pages/luckhouse/dreamTrue/dreamTrue",
+			"style": {
+				"navigationBarTitleText": "美梦成真"
+			}
+		}
+	],
 	"tabBar": {
 		"color": "#7a7e83",
 		"selectedColor": "#FE594B",

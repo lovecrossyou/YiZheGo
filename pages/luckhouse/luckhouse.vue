@@ -6,10 +6,10 @@
 				<view class="top_img"><image src="http://qnimage.xiteng.com/dream_banner@2x.png" mode=""></image></view>
 				<view class="dream_true_area">
 					<view class="left_img"><image src="http://qnimage.xiteng.com/dream_chengzhen%20@2x.png" mode=""></image></view>
-					<view class="dream_true_right_area">
+					<view class="dream_true_right_area" @click="goDreamTrue">
 						<view class="dream_true_top_text">美梦成真</view>
 						<view class="dream_true_botm_text">星星是穷人的钻石，幸福是很简单的事，永远相信美好的事情即将发生</view>
-						<view class="go_dream_true">
+						<view class="go_dream_true" @click="goDreamTrue">
 							<view class="go_dream_true_text">近期有四个幸运儿实现梦想</view>
 							<image src="http://qnimage.xiteng.com/dream_qianwang@2x.png" mode="" style="width: 36upx;height: 36upx;"></image>
 						</view>
@@ -105,6 +105,11 @@ export default {
 					console.log(res.errMsg);
 				}
 			});
+		},
+		goDreamTrue(){
+			uni.navigateTo({
+				url: '/pages/luckhouse/dreamTrue/dreamTrue'
+			});
 		}
 	}
 };
@@ -136,6 +141,7 @@ export default {
 	margin-top: 67upx;
 }
 .dream_true_area {
+	width: 100%;
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
