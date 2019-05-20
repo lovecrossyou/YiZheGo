@@ -99,7 +99,7 @@ function setCodeCount(state,count) {
 export default {
 	namespaced: true,
 	state: {
-		codeCount: 1,
+		codeCount: 1000,
 		codeList: [{
 			code: [-1, -1, -1],
 			state: 'modify',

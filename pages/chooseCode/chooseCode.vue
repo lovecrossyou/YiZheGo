@@ -12,37 +12,39 @@
 				<button class="button" :style="{ opacity: isResetState ? 0.5 : 1 }" :disabled="isResetState" @click="randomAllCode(codeCount)">全部机选</button>
 			</view>
 		</view>
-		<view class="code-content">
+		<scroll-view class="code-content" scroll-y>
 			<text class="code-tips">
 				您可选择
 				<text class="code-tips color-tips">{{ codeCount }}组</text>
 				3D号码
 			</text>
-			<view class="code-list">
-				<view class="code-array" v-for="(codeArray, arrayIndex) in codeList" :key="arrayIndex" v-if="codeArray.state !== 'other'">
-					<button
-						class="code"
-						v-for="(code, index) in codeArray.code"
-						:key="index"
-						:style="{ opacity: code > -1 ? 1 : 0.5 }"
-						@click="deleteCode(index)"
-						:disabled="codeArray.state !== 'modify'"
-					>
-						{{ code > -1 ? code : '' }}
-					</button>
-					<view class="blank"></view>
-					<button
-						class="re-choose"
-						@click="resetCode(arrayIndex)"
-						v-if="codeArray.showReset"
-						:style="{ opacity: codeArray.state === 'modify' ? 0.5 : 1 }"
-						:disabled="codeArray.state === 'modify'"
-					>
-						重选
-					</button>
+			<view class="code-list-content">
+				<view class="code-list">
+					<view class="code-array" v-for="(codeArray, arrayIndex) in codeList" :key="arrayIndex" v-if="codeArray.state !== 'other'">
+						<button
+							class="code"
+							v-for="(code, index) in codeArray.code"
+							:key="index"
+							:style="{ opacity: code > -1 ? 1 : 0.5 }"
+							@click="deleteCode(index)"
+							:disabled="codeArray.state !== 'modify'"
+						>
+							{{ code > -1 ? code : '' }}
+						</button>
+						<view class="blank"></view>
+						<button
+							class="re-choose"
+							@click="resetCode(arrayIndex)"
+							v-if="codeArray.showReset"
+							:style="{ opacity: codeArray.state === 'modify' ? 0.5 : 1 }"
+							:disabled="codeArray.state === 'modify'"
+						>
+							重选
+						</button>
+					</view>
 				</view>
 			</view>
-		</view>
+		</scroll-view>
 
 		<view class="confirm-button" :style="{ background: allFinished ? '#D22222' : '#E28A8A' }" @click="goBack">我选好了</view>
 	</view>
@@ -90,7 +92,6 @@ export default {
 	height: 100%;
 	flex: 1;
 	background-color: #f2f2f2;
-
 	.gray-bg {
 		position: fixed;
 		background-color: #f2f2f2;
@@ -98,14 +99,17 @@ export default {
 		height: 100%;
 	}
 	.choose-content {
+		width: 100%;
 		display: flex;
 		flex-direction: column;
-		margin-left: 30upx;
-		margin-right: 30upx;
 		border-bottom: 1px solid #999999;
-		padding-top: 37upx;
-		padding-bottom: 31upx;
-		z-index: 10;
+		padding: 37upx 30upx 31upx 30upx;
+		box-sizing: border-box;
+		z-index: 999;
+		background-color: #f9f9f9;
+		position: fixed;
+		top: 0;
+
 		.tips {
 			font-size: 30upx;
 			font-family: PingFangSC-Regular;
@@ -179,6 +183,11 @@ export default {
 		display: flex;
 		flex-direction: column;
 		z-index: 10;
+		background-color: #f9f9f9;
+		box-sizing: border-box;
+		top: 410upx;
+		width: 100%;
+		margin-top: 410upx;
 		.code-tips {
 			font-size: 30upx;
 			font-family: PingFangSC-Medium;
@@ -190,48 +199,52 @@ export default {
 			}
 		}
 
-		.code-list {
+		.code-list-content {
 			margin-top: 49upx;
 			padding-left: 16upx;
 			display: flex;
 			flex-direction: column;
+			// background-color: red;
+			flex: 1;
 
-			.code-array {
-				display: flex;
-				align-items: center;
-				margin-bottom: 34upx;
-
-				.code {
-					width: 62upx;
-					height: 62upx;
-					background-color: #d22222;
-					border-radius: 31upx;
-					margin-right: 30upx;
-					padding: 0upx;
+			.code-list {
+				.code-array {
 					display: flex;
 					align-items: center;
-					justify-content: center;
-					font-size: 34upx;
-					font-family: PingFang-SC-Medium;
-					font-weight: 500;
-					color: rgba(255, 255, 255, 1);
-				}
+					margin-bottom: 34upx;
 
-				.blank {
-					flex: 1;
-				}
+					.code {
+						width: 62upx;
+						height: 62upx;
+						background-color: #d22222;
+						border-radius: 31upx;
+						margin-right: 30upx;
+						padding: 0upx;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						font-size: 34upx;
+						font-family: PingFang-SC-Medium;
+						font-weight: 500;
+						color: rgba(255, 255, 255, 1);
+					}
 
-				.re-choose {
-					width: 128upx;
-					height: 74upx;
-					background: rgba(133, 133, 133, 1);
-					display: flex;
-					justify-content: center;
-					align-items: center;
-					font-size: 26upx;
-					font-family: PingFang-SC-Regular;
-					font-weight: 400;
-					color: rgba(255, 255, 255, 1);
+					.blank {
+						flex: 1;
+					}
+
+					.re-choose {
+						width: 128upx;
+						height: 74upx;
+						background: rgba(133, 133, 133, 1);
+						display: flex;
+						justify-content: center;
+						align-items: center;
+						font-size: 26upx;
+						font-family: PingFang-SC-Regular;
+						font-weight: 400;
+						color: rgba(255, 255, 255, 1);
+					}
 				}
 			}
 		}

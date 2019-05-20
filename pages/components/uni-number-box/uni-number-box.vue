@@ -19,7 +19,7 @@
             },
             max: {
                 type: Number,
-                default: 100000
+                default: 9999
             },
             step: {
                 type: Number,
@@ -98,7 +98,7 @@
 </script>
 <style lang="scss">
     $numbox-btn-width:70upx;
-    $numbox-input-width:80upx;
+    $numbox-input-width:100upx;
     $numbox-height:70upx;
     $uni-font-size-xxl:40upx;
 
