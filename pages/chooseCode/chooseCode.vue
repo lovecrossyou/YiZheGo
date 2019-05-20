@@ -12,14 +12,14 @@
 				<button class="button" :style="{ opacity: isResetState ? 0.5 : 1 }" :disabled="isResetState" @click="randomAllCode(codeCount)">全部机选</button>
 			</view>
 		</view>
-		<view class="code-content">
+		<scroll-view class="code-content" scroll-y>
 			<text class="code-tips">
 				您可选择
 				<text class="code-tips color-tips">{{ codeCount }}组</text>
 				3D号码
 			</text>
 			<view class="code-list-content">
-				<scroll-view class="code-list" scroll-y>
+				<view class="code-list">
 					<view class="code-array" v-for="(codeArray, arrayIndex) in codeList" :key="arrayIndex" v-if="codeArray.state !== 'other'">
 						<button
 							class="code"
@@ -42,9 +42,9 @@
 							重选
 						</button>
 					</view>
-				</scroll-view>
+				</view>
 			</view>
-		</view>
+		</scroll-view>
 
 		<view class="confirm-button" :style="{ background: allFinished ? '#D22222' : '#E28A8A' }" @click="goBack">我选好了</view>
 	</view>
@@ -91,24 +91,25 @@ export default {
 	flex-direction: column;
 	height: 100%;
 	flex: 1;
-	//background-color: #f2f2f2;
-	background-color: #00ff00;
+	background-color: #f2f2f2;
 	.gray-bg {
 		position: fixed;
-		//background-color: #f2f2f2;
-		background-color: #00ff00;
+		background-color: #f2f2f2;
 		width: 100%;
 		height: 100%;
 	}
 	.choose-content {
+		width: 100%;
 		display: flex;
 		flex-direction: column;
-		margin-left: 30upx;
-		margin-right: 30upx;
 		border-bottom: 1px solid #999999;
-		padding-top: 37upx;
-		padding-bottom: 31upx;
-		z-index: 10;
+		padding: 37upx 30upx 31upx 30upx;
+		box-sizing: border-box;
+		z-index: 999;
+		background-color: #f9f9f9;
+		position: fixed;
+		top: 0;
+
 		.tips {
 			font-size: 30upx;
 			font-family: PingFangSC-Regular;
@@ -182,7 +183,11 @@ export default {
 		display: flex;
 		flex-direction: column;
 		z-index: 10;
-		height: 300upx;
+		background-color: #f9f9f9;
+		box-sizing: border-box;
+		top: 410upx;
+		width: 100%;
+		margin-top: 410upx;
 		.code-tips {
 			font-size: 30upx;
 			font-family: PingFangSC-Medium;
@@ -199,7 +204,7 @@ export default {
 			padding-left: 16upx;
 			display: flex;
 			flex-direction: column;
-			background-color: red;
+			// background-color: red;
 			flex: 1;
 
 			.code-list {
