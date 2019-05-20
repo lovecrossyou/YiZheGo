@@ -36,7 +36,7 @@
 			</view>
 			<view class="all-code-content">
 				<view class="all-code-title">连号包中</view>
-				<image v-bind:src="addIcon" class="all-code-icon"></image>
+				<image v-bind:src="fireIcon" class="all-code-icon"></image>
 				<view class="all-code-tips">(1000件连号)</view>
 				<switch @change="changeAllCode" />
 			</view>
@@ -71,7 +71,7 @@
 					</view>
 				</view>
 
-				<text class="choose-tips">查看/重选</text>
+				<text class="choose-tips">去查看</text>
 				<uni-icon type="arrowright" color="#bbb" size="20"></uni-icon>
 			</view>
 			<view class="choose-code-select" v-else>
@@ -149,6 +149,7 @@ export default {
 			xinren_upgrade_icon: '../../static/pay/xinren_icon_fuli@2x.png',
 			showChooseCodeModal: false,
 			chooseCodeIcon: '../../static/pay/choseCode@2x.png',
+			fireIcon: '../../static/pay/fire_icon.png',
 			inputValue:1,
 			isAllCode:false,
 		};
@@ -255,7 +256,7 @@ export default {
 		chooseCode() {
 			this.cancelChooseCode();
 			uni.navigateTo({
-				url: './chooseCode'
+				url: './chooseCode?isAllCode='+this.isAllCode
 			});
 		},
 		onCountChanged(event) {
@@ -531,7 +532,6 @@ export default {
 				margin-left: 20upx;
 				width: 16upx;
 				height: 25upx;
-				background-color: red;
 				margin-right: 8upx;
 			}
 			.all-code-tips {

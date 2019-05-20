@@ -8,16 +8,22 @@
 			</view>
 			<view class="button-list">
 				<text class="choose-tips">点击号码选中</text>
-				<button class="button" :style="{ opacity: allFinished ? 0.5 : 1 }" :disabled="allFinished" @click="randomCode">机选一注</button>
-				<button class="button" :style="{ opacity: isResetState ? 0.5 : 1 }" :disabled="isResetState" @click="randomAllCode(codeCount)">全部机选</button>
+				<button class="button" :style="{ opacity: allFinished || isAllCode ? 0.5 : 1 }" :disabled="allFinished || isAllCode" @click="randomCode">机选一注</button>
+				<button class="button" :style="{ opacity: isResetState || isAllCode ? 0.5 : 1 }" :disabled="isResetState || isAllCode" @click="randomAllCode(codeCount)">全部机选</button>
 			</view>
 		</view>
 		<scroll-view class="code-content" scroll-y>
-			<text class="code-tips">
-				您可选择
-				<text class="code-tips color-tips">{{ codeCount }}组</text>
-				3D号码
-			</text>
+			<view class="code-tips-content">
+				<text class="code-tips">
+					{{isAllCode ? '您选择的' : '您可选择'}}
+					<text class="color-tips">{{ codeCount }}组{{isAllCode ? '连号' : ''}}</text>
+					{{isAllCode ? '' : '3D号码'}}
+					
+				</text>
+				<view 
+				:class="['all-code', isAllCode? '' : 'all-code-dis']"
+				>连号包中</view>
+			</view>
 			<view class="code-list-content">
 				<view class="code-list">
 					<view class="code-array" v-for="(codeArray, arrayIndex) in codeList" :key="arrayIndex" v-if="codeArray.state !== 'other'">
@@ -35,7 +41,7 @@
 						<button
 							class="re-choose"
 							@click="resetCode(arrayIndex)"
-							v-if="codeArray.showReset"
+							v-if="codeArray.showReset && (!isAllCode)"
 							:style="{ opacity: codeArray.state === 'modify' ? 0.5 : 1 }"
 							:disabled="codeArray.state === 'modify'"
 						>
@@ -55,9 +61,16 @@ import { mapState, mapGetters, mapMutations } from 'vuex';
 export default {
 	data() {
 		return {
-			ballList: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+			ballList: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+			isAllCode : false,
 		};
 	},
+	
+	onLoad(option) {
+		//console.log(option);
+		this.isAllCode =  option.isAllCode == "true";
+	},
+	
 	computed: {
 		...mapState({
 			codeCount: state => state.chooseCode.codeCount,
@@ -79,8 +92,10 @@ export default {
 		}),
 		goBack() {
 			uni.navigateBack({});
-		}
-	}
+		},
+		
+	},
+	
 };
 </script>
 
@@ -106,7 +121,7 @@ export default {
 		padding: 37upx 30upx 31upx 30upx;
 		box-sizing: border-box;
 		z-index: 999;
-		background-color: #f9f9f9;
+		background-color: #f2f2f2;
 		position: fixed;
 		top: 0;
 
@@ -179,23 +194,52 @@ export default {
 	.code-content {
 		padding-top: 48upx;
 		padding-left: 36upx;
+		padding-right: 36upx;
 		margin-bottom: 80upx;
 		display: flex;
 		flex-direction: column;
 		z-index: 10;
-		background-color: #f9f9f9;
+		background-color: #f2f2f2;
 		box-sizing: border-box;
 		top: 410upx;
 		width: 100%;
 		margin-top: 410upx;
-		.code-tips {
-			font-size: 30upx;
-			font-family: PingFangSC-Medium;
-			font-weight: 500;
-			color: rgba(51, 51, 51, 1);
 
-			.color-tips {
-				color: #e31b1b;
+		.code-tips-content {
+			display: flex;
+			flex-direction: row;
+			
+			
+			.code-tips {
+				font-size: 30upx;
+				font-family: PingFangSC-Medium;
+				font-weight: 500;
+				color: rgba(51, 51, 51, 1);
+				flex: 1;
+				.color-tips {
+					color: #e31b1b;
+					
+				}
+			}
+
+			.all-code {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				height: 40upx;
+				background: rgba(206, 3, 27, 1);
+				border-radius: 20upx;
+				font-size: 24upx;
+				font-family: PingFang-SC-Medium;
+				font-weight: 500;
+				color: rgba(254, 254, 254, 1);
+				
+				padding-left: 22upx;
+				padding-right: 22upx;
+			}
+			
+			.all-code-dis{
+				opacity: 0.4;
 			}
 		}
 
