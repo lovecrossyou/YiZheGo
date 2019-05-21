@@ -1,11 +1,11 @@
 <template>
-	<view class="uni-tab-bar_1">
+	<view class="uni-tab-bar">
 		<block v-if="loading"><LoadingTurn></LoadingTurn></block>
 		<block v-else>
-			<view class="swiper-box_1">
-				<scroll-view class="list_1" scroll-y @scrolltolower="getMoreOrder" v-if="refundOrder.list !== undefined && refundOrder.list.length > 0">
+			<view class="swiper-box">
+				<scroll-view class="list" scroll-y @scrolltolower="getMoreOrder" v-if="refundOrder.list !== undefined && refundOrder.list.length > 0">
 					<block v-for="(orderItem, index) in refundOrder.list" :key="index">
-						<view class="order-item_1">
+						<view class="order-item">
 							<view @click="goDetail(orderItem.platformOrderNo)">
 								<view class="top">
 									<text class="time">下单时间：{{ orderItem.orderTime }}</text>
@@ -51,7 +51,7 @@
 	</view>
 </template>
 <script>
-import mediaList from '../components/mediaList.vue';
+//import mediaList from '../components/mediaList.vue';
 import uniLoadMore from '../components/uni-load-more.vue';
 import productInfo from '../components/productInfo.vue';
 import priceText from '../components/priceText.vue';
@@ -59,7 +59,7 @@ import { mapActions, mapState, mapMutations } from 'vuex';
 import LoadingTurn from '@/pages/components/LoadingTurn.vue';
 export default {
 	components: {
-		mediaList,
+		//mediaList,
 		uniLoadMore,
 		productInfo,
 		priceText,
@@ -125,23 +125,23 @@ export default {
 </script>
 
 <style lang="less">
-.uni-tab-bar_1 {
+.uni-tab-bar {
 	width: 100%;
 	display: flex;
 	flex: 1;
 	flex-direction: column;
 	height: 100%;
-	.swiper-box_1 {
+	.swiper-box {
 		flex: 1;
 		display: flex;
 		width: 100%;
 		position: fixed;
 		height: 100%;
-		.list_1 {
+		.list {
 			width: 100%;
 			height: 100%;
 			background-color: #efeff4;
-			.order-item_1 {
+			.order-item {
 				width: 100%;
 				background-color: white;
 				display: flex;
