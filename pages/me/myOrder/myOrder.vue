@@ -52,7 +52,6 @@
 	</view>
 </template>
 <script>
-import mediaList from '../components/mediaList.vue';
 import uniLoadMore from '../components/uni-load-more.vue';
 import productInfo from '../components/productInfo.vue';
 import priceText from '../components/priceText.vue';
@@ -60,7 +59,6 @@ import { mapActions, mapState, mapMutations } from 'vuex';
 import LoadingTurn from '@/pages/components/LoadingTurn.vue';
 export default {
 	components: {
-		mediaList,
 		uniLoadMore,
 		productInfo,
 		priceText,
