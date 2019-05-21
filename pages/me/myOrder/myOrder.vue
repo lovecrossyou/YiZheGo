@@ -36,6 +36,7 @@
 										<priceText :price="(orderItem.totalPayPrice / 100).toFixed(2)"></priceText>
 									</view>
 								</view>
+								
 							</view>
 						</block>
 
@@ -262,6 +263,7 @@ export default {
 						color: #333333;
 					}
 				}
+				
 			}
 
 			.uni-tab-bar-loading {
