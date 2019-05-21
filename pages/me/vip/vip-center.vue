@@ -46,7 +46,7 @@
 				},
 				inviteItem : {
 					productName: "邀请好友20人",
-					subtitle: "赠送喜腾 1个月 体验VIP会员",
+					subtitle: "赠送喜腾会 1个月 体验VIP会员",
 					price: 0,
 					isVipPro:false,
 				},
