@@ -399,7 +399,15 @@
 				"navigationBarTitleText": "美梦成真"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/dongtai/dongtai",
+            "style" : {
+				"navigationBarBackgroundColor":"#feb1bb",
+				"navigationBarTitleText": "动态",
+				"navigationBarTextStyle":"white"
+			}
+        }
+    ],
 	"tabBar": {
 		"color": "#7a7e83",
 		"selectedColor": "#FE594B",
@@ -417,7 +425,7 @@
 				"selectedIconPath": "static/tab/home_icon_2_2@2x.png"
 			},
 			{
-				"pagePath": "pages/message/message",
+				"pagePath": "pages/dongtai/dongtai",
 				"text": "动态",
 				"iconPath": "static/tab/home_icon_3@2x.png",
 				"selectedIconPath": "static/tab/home_icon_3_3@2x.png"
