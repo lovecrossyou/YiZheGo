@@ -153,9 +153,9 @@
 
 	.header {
 		background: linear-gradient(#FFBFC1,#FFFFFf);
-		/* background-color: #007AFF; */
 		width: 100%;
 		height:600upx ;
+		padding-top: 30upx;
 	}
 
 	.swiper-container {
@@ -217,7 +217,7 @@
 		line-height: 35upx;
 		position: absolute;
 		left: 40upx;
-		bottom: 40rpx;
+		bottom: 60rpx;
 	}
 
 	.vip {
