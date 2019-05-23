@@ -167,7 +167,7 @@ export default {
 	background: #fff;
 	box-shadow: 0upx 5upx 18upx 0upx rgba(0, 0, 0, 0.05);
 	border-radius: 8upx;
-	margin: -80upx auto 0 auto;
+	margin: -110upx auto 0 auto;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
