@@ -152,8 +152,8 @@
 	}
 
 	.header {
-		/* background: linear-gradient(red, green, blue); */
-		background-color: #007AFF;
+		background: linear-gradient(#FFBFC1,#FFFFFf);
+		/* background-color: #007AFF; */
 		width: 100%;
 		height:600upx ;
 	}
@@ -161,7 +161,7 @@
 	.swiper-container {
 		display: flex;
 		align-items: center;
-		background: #FFFFFF;
+		/* background: #FFFFFF; */
 	}
 
 	.swiper-item {
@@ -241,7 +241,7 @@
 		justify-content: space-between;
 		padding: 60upx;
 		box-sizing: border-box;
-		background: #FFFFFF;
+		/* background: #FFFFFF; */
 	}
 
 	.vip-item {
