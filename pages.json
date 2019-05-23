@@ -407,6 +407,12 @@
 				"navigationBarTextStyle":"white"
 			}
         }
+        ,{
+            "path" : "pages/vip/vip",
+            "style" : {
+				"navigationBarTitleText": "会员"
+			}
+        }
     ],
 	"tabBar": {
 		"color": "#7a7e83",

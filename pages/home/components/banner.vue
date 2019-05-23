@@ -45,7 +45,7 @@
 		methods: {
 			goVIP() {
 				uni.navigateTo({
-					url: '/pages/me/vip/vip-center'
+					url: '/pages/vip/vip'
 				});
 			},
 			goRule(detailPage) {
