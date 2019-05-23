@@ -104,7 +104,7 @@
 				previousMargin: uni.upx2px(82) + 'px',
 				nextMargin: uni.upx2px(82) + 'px',
 				circular: true,
-				zoomParam: 1.20,
+				zoomParam: 1.0,
 				swiperCurrentIndex: 0,
 				data: [],
 				max: 0,
@@ -161,7 +161,7 @@
 	.swiper-container {
 		display: flex;
 		align-items: center;
-		/* background: #FFFFFF; */
+		
 	}
 
 	.swiper-item {
@@ -173,9 +173,11 @@
 		height: 100%;
 		width: 611upx;
 		text-align: center;
-		broder-radius: 30upx !important;
+		/* broder-radius: 30upx !important; */
 		position: relative;
-		background-color: #FF4161;
+		/* background-color: #FF4161; */
+		background: url('http://qnimage.xiteng.com/huiiyuan_ka@2x.png') no-repeat center center;
+		background-size: 100%;
 	}
 
 

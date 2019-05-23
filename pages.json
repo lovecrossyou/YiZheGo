@@ -398,22 +398,25 @@
 			"style": {
 				"navigationBarTitleText": "美梦成真"
 			}
-		}
-	    ,{
-            "path" : "pages/dongtai/dongtai",
-            "style" : {
-				"navigationBarBackgroundColor":"#feb1bb",
+		}, {
+			"path": "pages/dongtai/dongtai",
+			"style": {
+				"navigationBarBackgroundColor": "#feb1bb",
 				"navigationBarTitleText": "动态",
-				"navigationBarTextStyle":"white"
+				"navigationBarTextStyle": "white"
 			}
-        }
-        ,{
-            "path" : "pages/vip/vip",
-            "style" : {
+		}, {
+			"path": "pages/vip/vip",
+			"style": {
 				"navigationBarTitleText": "会员"
 			}
-        }
-    ],
+		}, {
+			"path": "pages/personal/personal",
+			"style": {
+				"navigationBarTitleText": "我"
+			}
+		}
+	],
 	"tabBar": {
 		"color": "#7a7e83",
 		"selectedColor": "#FE594B",
@@ -437,7 +440,7 @@
 				"selectedIconPath": "static/tab/home_icon_3_3@2x.png"
 			},
 			{
-				"pagePath": "pages/me/me",
+				"pagePath": "pages/personal/personal",
 				"text": "我",
 				"iconPath": "static/tab/home_icon_4@2x.png",
 				"selectedIconPath": "static/tab/home_icon_4_4@2x.png"
