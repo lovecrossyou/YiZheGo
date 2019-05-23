@@ -31,24 +31,23 @@
 				<view class="vip-item">
 					<image class="icon" src="../../static/vip/huiyuan_icon_2.png" mode="aspectFill"></image>
 					<view class="title">
-						全场一折购
+						每天可投5注
 					</view>
 					<view class="desc">
-						所有商品可参与
+						中奖率高达0.05%
 					</view>
 				</view>
 				<view class="vip-item">
 					<image class="icon" src="../../static/vip/huiyuan_icon_3.png" mode="aspectFill"></image>
 					<view class="title">
-						全场一折购
+						幸福礼包
 					</view>
 					<view class="desc">
-						所有商品可参与
+						同等价位礼物
 					</view>
 				</view>
 			</view>
 		</view>
-
 
 		<!-- 幸福礼包 任选一款商品 -->
 		<view class="libao">
@@ -150,11 +149,13 @@
 
 	.swiper {
 		width: 100%;
-
 	}
 
 	.header {
-		background: #FFFFFF;
+		/* background: linear-gradient(red, green, blue); */
+		background-color: #007AFF;
+		width: 100%;
+		height:600upx ;
 	}
 
 	.swiper-container {
@@ -182,7 +183,7 @@
 	.swiper-tall {
 		display: flex;
 		align-items: center;
-		height: 400upx;
+		height: 310upx;
 
 	}
 
@@ -216,7 +217,7 @@
 		line-height: 35upx;
 		position: absolute;
 		left: 40upx;
-		bottom: 90rpx;
+		bottom: 40rpx;
 	}
 
 	.vip {
@@ -257,6 +258,7 @@
 	}
 
 	.title {
+		padding-top: 10upx;
 		font-size: 28upx;
 		font-family: PingFang-SC-Medium;
 		font-weight: 500;
