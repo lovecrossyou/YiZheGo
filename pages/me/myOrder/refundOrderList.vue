@@ -5,7 +5,7 @@
 			<view class="swiper-box">
 				<scroll-view class="list" scroll-y @scrolltolower="getMoreOrder" v-if="refundOrder.list !== undefined && refundOrder.list.length > 0">
 					<block v-for="(orderItem, index) in refundOrder.list" :key="index">
-						<view class="order-item">
+						<view class="order-item" v-if="orderItem.canApplyAutoRefund">
 							<view @click="goDetail(orderItem.platformOrderNo)">
 								<view class="top">
 									<text class="time">下单时间：{{ orderItem.orderTime }}</text>
@@ -26,7 +26,7 @@
 								</view>
 							</view>
 
-							<view class="reply-refund" @click="replyRefund">申请退款</view>
+							<view class="reply-refund" @click="replyRefund(orderItem.payOrderNo)">申请退款</view>
 						</view>
 					</block>
 
@@ -93,7 +93,8 @@ export default {
 	methods: {
 		...mapActions({
 			getRefundOrder: 'myOrder/getRefundOrder',
-			getMoreOrder: 'myOrder/addRefundData'
+			getMoreOrder: 'myOrder/addRefundData',
+			applyRefund: 'myOrder/applyRefund',
 		}),
 
 		goDetail(platformOrderNo) {
@@ -101,7 +102,7 @@ export default {
 				url: './orderDetail?platformOrderNo=' + platformOrderNo
 			});
 		},
-		replyRefund() {
+		replyRefund(payOrderNo) {
 			uni.showModal({
 				title: '确认退款',
 				content: '点击退款按钮，此订单金额会原路返还至您的账户，是否确认退款',
@@ -110,7 +111,14 @@ export default {
 				success: res => {
 					if (res.confirm) {
 						//console.log('用户点击确定');
-						this.windowIsShown = true;
+						
+						
+						this.applyRefund({payOrderNo:payOrderNo,callback:()=>{
+							this.windowIsShown = true;
+						}})
+						
+						
+						
 					} else if (res.cancel) {
 						//console.log('用户点击取消');
 					}
@@ -150,6 +158,7 @@ export default {
 				padding-right: 28upx;
 				padding-top: 30upx;
 				padding-bottom: 30upx;
+				flex-direction: column;
 				.top {
 					display: flex;
 					flex-direction: row;

@@ -193,7 +193,7 @@
 				<view class="button cancel-order" v-if="orderDetail.refundDetailModel !== null" @click="enterRefundDetail(orderDetail.payOrderNo, true)">查看退款</view>
 				<view class="button cancel-order" v-if="orderDealState === 0" @click="cancelOrder(orderDetail.clientOrderId)">取消订单</view>
 				<view class="button pay-now" v-if="orderDealState === 0" @click="enterPay(orderDetail)">立即支付</view>
-				<view class="button pay-now" v-if="orderDealState !== 0" @click="replyRefund">申请退款</view>
+				<view class="button pay-now" v-if="orderDetail.canApplyAutoRefund" @click="replyRefund">申请退款</view>
 				<view class="button pay-now" v-if="orderDealState !== 0" @click="enterProduct(orderDetail.discountGameId)">再抢一次</view>
 				<view class="button pay-now" v-if="orderDealState === 2 && showShan">去晒单</view>
 			</view>
@@ -363,6 +363,8 @@
 			},
 			...mapActions({
 				//getOrderDetail: 'myOrder/getOrderDetail'
+				applyRefund: 'myOrder/applyRefund'
+				
 			}),
 			changeMoreInfoState() {
 				this.showMoreInfo = !this.showMoreInfo;
@@ -504,7 +506,13 @@
 					success: res => {
 						if (res.confirm) {
 							//console.log('用户点击确定');
-							this.windowIsShown = true;
+							
+							
+							
+							this.applyRefund({payOrderNo:this.orderDetail.payOrderNo,callback:()=>{
+								this.windowIsShown = true;
+							}})
+							
 						} else if (res.cancel) {
 							//console.log('用户点击取消');
 						}

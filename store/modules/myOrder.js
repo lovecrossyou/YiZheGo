@@ -17,7 +17,7 @@ export default {
 		orderDetail: {},
 		refundDetail: {},
 		loading: false,
-		refundOrder:{}
+		refundOrder: {}
 
 	},
 	getters: {
@@ -169,17 +169,17 @@ export default {
 
 			state.orderData[payload.pageNo] = payload.order;
 			state.loading = false;
-			
+
 		},
-		
+
 		setRefundOrder(state, orderList) {
 			state.refundOrder = orderList;
 			state.loading = false;
 		},
-		
-		
-		
-		
+
+
+
+
 		initOrderData(state) {
 			state.orderData = [{}, {}, {}, {}, {}];
 		},
@@ -197,7 +197,7 @@ export default {
 			oldData.pageNo = orderData.pageNo;
 
 			oldData.loadingType = 0;
-			state.orderData = state.orderData.slice(0);   //先注释了，看看添加数据是否生效  todo
+			state.orderData = state.orderData.slice(0); //先注释了，看看添加数据是否生效  todo
 			//console.log(state.orderData);
 
 		},
@@ -263,7 +263,7 @@ export default {
 				loadingType: 1
 			});
 
-			if ((state.orderData[pageNo].pageNo+1) * 10 >= state.orderData[pageNo].totalCount) {
+			if ((state.orderData[pageNo].pageNo + 1) * 10 >= state.orderData[pageNo].totalCount) {
 				commit('changeBottomLoading', {
 					orderData: state.orderData[pageNo],
 					loadingType: 2
@@ -283,22 +283,22 @@ export default {
 
 			})
 		},
-		
-		
+
+
 		addRefundData({
 			commit,
 			state
 		}) {
-			
+
 			console.log('zhixngle')
-			
+
 			commit('changeBottomLoading', {
-				
+
 				orderData: state.refundOrder,
 				loadingType: 1
 			});
-		
-			if ((state.refundOrder.pageNo+1) * 10 >= state.refundOrder.totalCount) {
+
+			if ((state.refundOrder.pageNo + 1) * 10 >= state.refundOrder.totalCount) {
 				commit('changeBottomLoading', {
 					orderData: state.refundOrder,
 					loadingType: 2
@@ -314,13 +314,13 @@ export default {
 					oldData: state.refundOrder,
 					orderData: res
 				});
-		
+
 			})
 		},
-		
-		
-		
-		
+
+
+
+
 		getOrderDetail({
 			commit
 		}, orderNo) {
@@ -339,6 +339,17 @@ export default {
 				commit('setRefundDetail', res)
 			})
 		},
+
+		applyRefund({
+			commit
+		}, payload) {
+			api.applyRefund({
+				payOrderNo: payload.payOrderNo
+			}).then(res => {
+				payload.callback();
+			})
+		},
+
 
 
 	}

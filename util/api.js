@@ -127,7 +127,10 @@ const api = {
 	
 	//上传formid
 	WeChatUserFormId: params => request.post("/user/WeChatUserFormId",params),
-
+	
+	//退款详情
+	applyRefund: params => request.post("/discountGame/orderApplyRefund", params),
+ 
 	//上传
 	uploader: (file, callback) => {
 		uni.uploadFile({
