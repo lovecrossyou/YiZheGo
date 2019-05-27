@@ -229,6 +229,8 @@ export default {
 				padding-right: 28upx;
 				padding-top: 30upx;
 				padding-bottom: 30upx;
+				flex-direction: column;
+				box-sizing: border-box;
 				.top {
 					display: flex;
 					flex-direction: row;
