@@ -5,7 +5,7 @@
 			<view class="swiper-box">
 				<scroll-view class="list" scroll-y @scrolltolower="getMoreOrder" v-if="refundOrder.list !== undefined && refundOrder.list.length > 0">
 					<block v-for="(orderItem, index) in refundOrder.list" :key="index">
-						<view class="order-item" v-if="orderItem.canApplyAutoRefund">
+						<view class="order-item">
 							<view @click="goDetail(orderItem.platformOrderNo)">
 								<view class="top">
 									<text class="time">下单时间：{{ orderItem.orderTime }}</text>
