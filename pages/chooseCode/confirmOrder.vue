@@ -34,7 +34,7 @@
 					<view class="product-info-price-original" v-else>¥{{ fix2Price.originalPrice }}</view>
 				</view>
 			</view>
-			<view class="all-code-content">
+			<view class="all-code-content" v-if="directBuy == 'false'">
 				<view class="all-code-title">连号包中</view>
 				<image v-bind:src="fireIcon" class="all-code-icon"></image>
 				<view class="all-code-tips">(1000件连号)</view>
