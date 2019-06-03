@@ -134,9 +134,12 @@ export default {
 				];
 				
 				if(res.refundStatus === "finish"){
-					this.stepList.every((cur,index)=>{
+					for(let i=0;i<this.stepList.length;i++){
+						this.stepList[i].done= true;
+					}
+					/* this.stepList.every((cur,index)=>{
 						cur.done = true;
-					})
+					}) */
 				}else{
 					 startRefundTime = new Date(res.createRefundTime.replace(/-/g, '/')).getTime();
 					 
@@ -168,9 +171,13 @@ export default {
 				];
 				
 				if(res.refundStatus === "finish"){
-					this.stepList.every((cur,index)=>{
+					for(let i=0;i<this.stepList.length;i++){
+						this.stepList[i].done= true;
+					}
+					
+					/* this.stepList.every((cur,index)=>{
 						cur.done = true;
-					})
+					}) */
 				}else{
 					 startRefundTime = new Date(res.createRefundTime.replace(/-/g, '/')).getTime();
 					 currentTime = new Date().getTime();
