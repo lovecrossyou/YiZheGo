@@ -1,49 +1,51 @@
 <template>
 	<section class="main">
-		<PullUpReload :isLoading="loading" :on-infinite-load="onInfiniteLoad" :parent-pull-up-state="infiniteLoadData.pullUpState" backgroudcolor="#f7f7f7">
-			<div class="lucky-list">
-				<block v-for="(item,index) in luckyListA" :key="index">
-					<view class="lucky-item">
-						<view class="top-tag">
-							<view class="date">{{item.openResultTime}}</view>
-							<view class="day-time">{{item.week}}</view>
-						</view>
-						<view class="lucky" :style='{background: backColorA[index%4].background}'>
-							<view class="caty-No">
-								<view class="catygory-tag">
-									<view class="tag-img"></view>
-									<view class="tag-title">每日22:00揭晓</view>
-								</view>
 
-								<view class="lucky-No">
-									<view class="count-tag">第 {{item.welfareStage}} 期 中签号码</view>
-									<luckyBallItem :numbers="item.winCode"></luckyBallItem>
-								</view>
-
-								<view class="lucky-count-all">
-									<view class="title">本期中签({{item.winUserInfoModelList===null?0:item.winUserInfoModelList.length}})</view>
-									<view class="show-all-tag">
-										<view class="tag-text" @click="turnToLuckyDetail(item,index)">查看全部</view>
-										<view class="right-row-img"></view>
-									</view>
-								</view>
-
-							</view>
-
-							<userPrizeItem v-if="item.winUserInfoModelList!==null&&item.winUserInfoModelList.length!==0" :item="item.winUserInfoModelList[0]"
-							 :backColor="backColorA[index%4].userPrizeColor"></userPrizeItem>
-
-							<view class="sep-line"></view>
-
-							<view class="attention">
-								注：本期中签号码与福彩3D第{{item.welfareStage}}期一等奖号码相同，即选 中3个红球，详情请查询“中国福利彩票开奖公告”。
-							</view>
-
-						</view>
+		<div class="lucky-list">
+			<block v-for="(item,index) in luckyListA" :key="index">
+				<view class="lucky-item">
+					<view class="top-tag">
+						<view class="date">{{item.openResultTime}}</view>
+						<view class="day-time">{{item.week}}</view>
 					</view>
-				</block>
+					<view class="lucky" :style='{background: backColorA[index%4].background}'>
+						<view class="caty-No">
+							<view class="catygory-tag">
+								<view class="tag-img"></view>
+								<view class="tag-title">每日22:00揭晓</view>
+							</view>
 
-			</div>
+							<view class="lucky-No">
+								<view class="count-tag">第 {{item.welfareStage}} 期 中签号码</view>
+								<luckyBallItem :numbers="item.winCode"></luckyBallItem>
+							</view>
+
+							<view class="lucky-count-all">
+								<view class="title">本期中签({{item.winUserInfoModelList===null?0:item.winUserInfoModelList.length}})</view>
+								<view class="show-all-tag">
+									<view class="tag-text" @click="turnToLuckyDetail(item,index)">查看全部</view>
+									<view class="right-row-img"></view>
+								</view>
+							</view>
+
+						</view>
+
+						<userPrizeItem v-if="item.winUserInfoModelList!==null&&item.winUserInfoModelList.length!==0" :item="item.winUserInfoModelList[0]"
+						 :backColor="backColorA[index%4].userPrizeColor"></userPrizeItem>
+
+						<view class="sep-line"></view>
+
+						<view class="attention">
+							注：本期中签号码与福彩3D第{{item.welfareStage}}期一等奖号码相同，即选 中3个红球，详情请查询“中国福利彩票开奖公告”。
+						</view>
+
+					</view>
+				</view>
+			</block>
+
+		</div>
+		<PullUpReload :isLoading="loading" :on-infinite-load="onInfiniteLoad" :parent-pull-up-state="infiniteLoadData.pullUpState"
+		 backgroudcolor="#f7f7f7">
 		</PullUpReload>
 	</section>
 </template>
@@ -94,7 +96,7 @@
 		},
 		methods: {
 			onInfiniteLoad(done) {
-				console.log('正在加载'+this.infiniteLoadData.pullUpState)
+				console.log('正在加载' + this.infiniteLoadData.pullUpState)
 				if (this.infiniteLoadData.pullUpState === 2) {
 					this.getLuckyList();
 				}
@@ -106,12 +108,12 @@
 					pageNo: this.pageNo,
 					size: 10
 				}
-				this.loading=true;
+				this.loading = true;
 				// if (this.pageNo>0) return;
-				api.luckyList(params).then((res)=>{
+				api.luckyList(params).then((res) => {
 					console.log(res);
-					res.list.forEach(lucky=>{
-						lucky.week = lucky.week+' '+lucky.openResultTime.substring(11,19)
+					res.list.forEach(lucky => {
+						lucky.week = lucky.week + ' ' + lucky.openResultTime.substring(11, 19)
 						lucky.openResultTime = this.judgeTime(lucky.openResultTime);
 					})
 					if (res.pageNo === 0) {
@@ -121,7 +123,7 @@
 					}
 					this.pageNo = res.pageNo + 1;
 					this.totalCount = res.totalCount;
-					this.loading=false;
+					this.loading = false;
 					if (this.luckyListA.length === this.totalCount) {
 						this.infiniteLoadData.pullUpState = 3;
 					} else {
@@ -156,9 +158,9 @@
 				if (isToday > 0 && isToday <= 24) {
 					return '今天';
 				} else if (isToday < 0 && isToday >= -24) {
-					return '昨天' 
+					return '昨天'
 				} else {
-					return date.substring(5,10);
+					return date.substring(5, 10);
 				}
 			}
 		},
@@ -170,14 +172,20 @@
 </script>
 
 <style lang="scss">
+	page {
+		background-color: #f7f7f7;
+	}
 	.main {
 		display: flex;
 		flex: 1;
 		flex-direction: column;
-		width: 100%;
-		height: 100%;
-		position: absolute;
+		// width: 100%;
+		// height: 100%;
+		// position: absolute;
+		// left: 0;
+		// right: 0;
 		background-color: #f7f7f7;
+		box-sizing: border-box;
 
 		.lucky-list {
 
