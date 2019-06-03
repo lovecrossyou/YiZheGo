@@ -26,7 +26,7 @@
 								</view>
 							</view>
 
-							<view class="reply-refund" @click="replyRefund(orderItem.payOrderNo)">申请退款</view>
+							<view class="reply-refund"  v-if="orderItem.canApplyAutoRefund" @click="replyRefund(orderItem.payOrderNo)">申请退款</view>
 						</view>
 					</block>
 
