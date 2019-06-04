@@ -401,6 +401,14 @@
 			"style": {
 				"navigationBarTitleText": "我的二维码"
 			}
+		},
+		{
+			"path": "pages/me/myOrder/refundOrderList",
+			"style": {
+				"navigationBarTitleText": "退款",
+				"navigationBarBackgroundColor": "#ffffff",
+				"navigationBarTextStyle": "black"
+			}
 		}
 	],
 	"tabBar": {

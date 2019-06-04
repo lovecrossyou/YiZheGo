@@ -36,6 +36,7 @@
 										<priceText :price="(orderItem.totalPayPrice / 100).toFixed(2)"></priceText>
 									</view>
 								</view>
+								
 							</view>
 						</block>
 
@@ -51,7 +52,6 @@
 	</view>
 </template>
 <script>
-import mediaList from '../components/mediaList.vue';
 import uniLoadMore from '../components/uni-load-more.vue';
 import productInfo from '../components/productInfo.vue';
 import priceText from '../components/priceText.vue';
@@ -59,7 +59,6 @@ import { mapActions, mapState, mapMutations } from 'vuex';
 import LoadingTurn from '@/pages/components/LoadingTurn.vue';
 export default {
 	components: {
-		mediaList,
 		uniLoadMore,
 		productInfo,
 		priceText,
@@ -230,6 +229,8 @@ export default {
 				padding-right: 28upx;
 				padding-top: 30upx;
 				padding-bottom: 30upx;
+				flex-direction: column;
+				box-sizing: border-box;
 				.top {
 					display: flex;
 					flex-direction: row;
@@ -262,6 +263,7 @@ export default {
 						color: #333333;
 					}
 				}
+				
 			}
 
 			.uni-tab-bar-loading {

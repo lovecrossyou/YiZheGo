@@ -3,12 +3,11 @@ import hex_md5 from "../util/md.js"
 import service from "../service.js"
 
 const request = new Fly()
-
 export const baseURL = 'https://www.xiteng.com/xitenggamejar/'
 
 
 
-// export const baseURL = 'http://123.57.161.212:9939/xitenggamejar/'
+ //export const baseURL = 'http://123.57.161.212:9939/xitenggamejar/'
 
 
 

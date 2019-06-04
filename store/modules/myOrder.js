@@ -17,6 +17,7 @@ export default {
 		orderDetail: {},
 		refundDetail: {},
 		loading: false,
+		refundOrder: {}
 
 	},
 	getters: {
@@ -168,8 +169,17 @@ export default {
 
 			state.orderData[payload.pageNo] = payload.order;
 			state.loading = false;
-			console.log(state.orderData);
+
 		},
+
+		setRefundOrder(state, orderList) {
+			state.refundOrder = orderList;
+			state.loading = false;
+		},
+
+
+
+
 		initOrderData(state) {
 			state.orderData = [{}, {}, {}, {}, {}];
 		},
@@ -178,25 +188,25 @@ export default {
 
 		addOrderData(state, payload) {
 			let {
-				pageNo,
+				oldData,
 				orderData
 			} = payload;
 
 
-			state.orderData[pageNo].list = state.orderData[pageNo].list.concat(orderData.list);
-			state.orderData[pageNo].pageNo = orderData.pageNo;
+			oldData.list = oldData.list.concat(orderData.list);
+			oldData.pageNo = orderData.pageNo;
 
-			state.orderData[pageNo].loadingType = 0;
-			state.orderData = state.orderData.slice(0);
-			console.log(state.orderData);
+			oldData.loadingType = 0;
+			state.orderData = state.orderData.slice(0); //先注释了，看看添加数据是否生效  todo
+			//console.log(state.orderData);
 
 		},
 		changeBottomLoading(state, payload) {
 			let {
-				pageNo,
+				orderData,
 				loadingType
 			} = payload;
-			state.orderData[pageNo].loadingType = loadingType;
+			orderData.loadingType = loadingType;
 		},
 		setOrderDetail(state, data) {
 
@@ -230,18 +240,32 @@ export default {
 				});
 			})
 		},
+		getRefundOrder({
+			commit
+		}) {
+			commit('changeLoadingState');
+			api.getMyOrder({
+				clientOrderType: orderTypes[4],
+				pageNo: 0,
+				size: 10
+			}).then((res) => {
+				let order = JSON.parse(JSON.stringify(res));
+				order.loadingType = 0;
+				commit('setRefundOrder', order);
+			})
+		},
 		addData({
 			commit,
 			state
 		}, pageNo) {
 			commit('changeBottomLoading', {
-				pageNo: pageNo,
+				orderData: state.orderData[pageNo],
 				loadingType: 1
 			});
 
-			if (state.orderData[pageNo].pageNo * 10 >= state.orderData[pageNo].totalCount) {
+			if ((state.orderData[pageNo].pageNo + 1) * 10 >= state.orderData[pageNo].totalCount) {
 				commit('changeBottomLoading', {
-					pageNo: pageNo,
+					orderData: state.orderData[pageNo],
 					loadingType: 2
 				});
 				return;
@@ -253,12 +277,50 @@ export default {
 			}).then((res) => {
 				//console.log(res);
 				commit('addOrderData', {
-					pageNo: pageNo,
+					oldData: state.orderData[pageNo],
 					orderData: res
 				});
 
 			})
 		},
+
+
+		addRefundData({
+			commit,
+			state
+		}) {
+
+			console.log('zhixngle')
+
+			commit('changeBottomLoading', {
+
+				orderData: state.refundOrder,
+				loadingType: 1
+			});
+
+			if ((state.refundOrder.pageNo + 1) * 10 >= state.refundOrder.totalCount) {
+				commit('changeBottomLoading', {
+					orderData: state.refundOrder,
+					loadingType: 2
+				});
+				return;
+			}
+			api.getMyOrder({
+				clientOrderType: orderTypes[4],
+				pageNo: ++state.refundOrder.pageNo,
+				size: 10
+			}).then((res) => {
+				commit('addOrderData', {
+					oldData: state.refundOrder,
+					orderData: res
+				});
+
+			})
+		},
+
+
+
+
 		getOrderDetail({
 			commit
 		}, orderNo) {
@@ -277,6 +339,17 @@ export default {
 				commit('setRefundDetail', res)
 			})
 		},
+
+		applyRefund({
+			commit
+		}, payload) {
+			api.applyRefund({
+				payOrderNo: payload.payOrderNo
+			}).then(res => {
+				payload.callback();
+			})
+		},
+
 
 
 	}

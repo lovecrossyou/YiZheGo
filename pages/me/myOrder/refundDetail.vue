@@ -129,14 +129,17 @@ export default {
 					{ title: 'T日22:00 揭晓中签', desc: '已揭晓中签，未中签全额退款',done:true },
 					{ title: 'T+1日 发起退款', desc: '系统自动发起退款',done:false },
 					{ title: 'T+2日 审核退款', desc: '退款正在审核中，T+7日完成审核流程',done:false },
-					{ title: 'T+7日 办理退款', desc: '开始办理退款，预计到账时间1~3日',done:false },
+					{ title: 'T+7日 申请退款', desc: '开始受理申请退款，申请退款后1~3个工作日到账',done:false },
 					{ title: '退款完成', desc: '退款路径:' + way,done:false }
 				];
 				
 				if(res.refundStatus === "finish"){
-					this.stepList.every((cur,index)=>{
+					for(let i=0;i<this.stepList.length;i++){
+						this.stepList[i].done= true;
+					}
+					/* this.stepList.every((cur,index)=>{
 						cur.done = true;
-					})
+					}) */
 				}else{
 					 startRefundTime = new Date(res.createRefundTime.replace(/-/g, '/')).getTime();
 					 
@@ -168,9 +171,13 @@ export default {
 				];
 				
 				if(res.refundStatus === "finish"){
-					this.stepList.every((cur,index)=>{
+					for(let i=0;i<this.stepList.length;i++){
+						this.stepList[i].done= true;
+					}
+					
+					/* this.stepList.every((cur,index)=>{
 						cur.done = true;
-					})
+					}) */
 				}else{
 					 startRefundTime = new Date(res.createRefundTime.replace(/-/g, '/')).getTime();
 					 currentTime = new Date().getTime();

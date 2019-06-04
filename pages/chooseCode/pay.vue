@@ -4,7 +4,7 @@
 			<view class="order_pay_top">
 				<view class="order_pay_top_amount">¥{{fix2TotalPayRmb}}</view>
 				<view class="order_pay_top_msg">支付金额</view>
-				<view class="order_pay_top_refundWay" @click="refundRoute" v-if="productType=='normalProduct'">不中签全额退款></view>
+				<view class="order_pay_top_refundWay" v-if="productType=='normalProduct'">不中签全额退款</view>
 			</view>
 		</view>
 		<view class="p_option_info">

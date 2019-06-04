@@ -193,6 +193,7 @@
 				<view class="button cancel-order" v-if="orderDetail.refundDetailModel !== null" @click="enterRefundDetail(orderDetail.payOrderNo, true)">查看退款</view>
 				<view class="button cancel-order" v-if="orderDealState === 0" @click="cancelOrder(orderDetail.clientOrderId)">取消订单</view>
 				<view class="button pay-now" v-if="orderDealState === 0" @click="enterPay(orderDetail)">立即支付</view>
+				<view class="button pay-now" v-if="orderDetail.canApplyAutoRefund" @click="replyRefund">申请退款</view>
 				<view class="button pay-now" v-if="orderDealState !== 0" @click="enterProduct(orderDetail.discountGameId)">再抢一次</view>
 				<view class="button pay-now" v-if="orderDealState === 2 && showShan">去晒单</view>
 			</view>
@@ -210,6 +211,16 @@
 						</view>
 					</view>
 				</scroll-view>
+			</view>
+			<view class="refund-ok-content" @click="closeWindow" v-if="windowIsShown">
+				<view class="refund-window">
+					<view class="refund-content">
+						<image class="refund-ok" :src="refundOkIcon"></image>
+						<text class="refund-title">退款申请成功</text>
+						<text class="refund-des">工作人员审核确认后订单金额会原路返还至您的账户，请注意查收！</text>
+					</view>
+					<image class="refund-close" :src="refundCloseIcon"></image>
+				</view>
 			</view>
 		</block>
 	</view>
@@ -250,6 +261,8 @@
 				openArrow: '../../../static/me/open_arrow.png',
 				closeArrow: '../../../static/me/close_arrow.png',
 				emptyMember: '../../../static/me/empty_member.png',
+				refundOkIcon: '../../../static/me/refund_ok.png',
+				refundCloseIcon: '../../../static/me/refund_close.png',
 				showMoreInfo: false,
 				downTimeShow: {
 					day: 0,
@@ -261,7 +274,8 @@
 				closeIcon: '../../../static/me/code_close_icon.png',
 				showAllCode: false,
 				showShan: false,
-				loading: false
+				loading: false,
+				windowIsShown:false,
 			};
 		},
 		onLoad(params) {
@@ -349,6 +363,8 @@
 			},
 			...mapActions({
 				//getOrderDetail: 'myOrder/getOrderDetail'
+				applyRefund: 'myOrder/applyRefund'
+				
 			}),
 			changeMoreInfoState() {
 				this.showMoreInfo = !this.showMoreInfo;
@@ -480,6 +496,31 @@
 				uni.navigateTo({
 					url: '../../details/productDetails?productId=' + productId
 				});
+			},
+			replyRefund() {
+				uni.showModal({
+					title: '确认退款',
+					content: '点击退款按钮，此订单金额会原路返还至您的账户，是否确认退款',
+					confirmText: '确认',
+					confirmColor: '#D01717',
+					success: res => {
+						if (res.confirm) {
+							//console.log('用户点击确定');
+							
+							
+							
+							this.applyRefund({payOrderNo:this.orderDetail.payOrderNo,callback:()=>{
+								this.windowIsShown = true;
+							}})
+							
+						} else if (res.cancel) {
+							//console.log('用户点击取消');
+						}
+					}
+				});
+			},
+			closeWindow(){
+				this.windowIsShown = false;
 			},
 			enterRefundDetail(payOrderNo, isRefund) {
 				uni.navigateTo({
@@ -994,5 +1035,65 @@
 				}
 			}
 		}
+		
+		
+		.refund-ok-content {
+			width: 100%;
+			height: 100%;
+			padding-left: 96upx;
+			padding-right: 96upx;
+			flex-direction: row;
+			background-color: rgba(0, 0, 0, 0.6);
+			position: fixed;
+			z-index: 10;
+			box-sizing: border-box;
+			display: flex;
+			align-items: center;
+			.refund-window {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+				
+				.refund-content {
+					border-radius:10upx;
+					background-color: white;
+					padding-top: 78upx;
+					padding-left: 52upx;
+					padding-right: 52upx;
+					padding-bottom: 82upx;
+					display: flex;
+					align-items: center;
+					flex-direction: column;
+					
+					.refund-ok {
+						width: 92upx;
+						height: 92upx;
+					}
+					.refund-title {
+						font-size: 36upx;
+						font-family: PingFangSC-Regular;
+						font-weight: 400;
+						color: rgba(51, 51, 51, 1);
+						margin-top: 28upx;
+						margin-bottom: 64upx;
+						text-align: center;
+					}
+					.refund-des {
+						font-size: 28upx;
+						font-family: PingFangSC-Regular;
+						font-weight: 400;
+						color: rgba(119, 119, 119, 1);
+						text-align: center;
+					}
+				}
+				.refund-close {
+					width: 54upx;
+					height: 54upx;
+					margin-top: 48upx;
+				}
+			}
+		}
+		
 	}
 </style>
