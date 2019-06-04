@@ -68,6 +68,9 @@
 			async get_list(){
 				this.$store.dispatch('showWinOrder/get_list');
 			},
+			updatelist(){
+				this.$store.dispatch('showWinOrder/updatelist');
+			},
 			onInfiniteLoad(done) {
 				if (this.pullUpState === 2) {
 					this.get_list()
@@ -83,6 +86,13 @@
 		},
 		onLoad() {
 			this.get_list()
+		},
+		onPullDownRefresh() {
+			this.updatelist();
+			this.get_list();
+			setTimeout(function() {
+				uni.stopPullDownRefresh(); 
+			}, 1000);
 		}
 	}
 </script>

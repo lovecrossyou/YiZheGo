@@ -49,6 +49,10 @@ const mutations={
 	},
 	updatelistcommentCount(state,date){
 		state.recommendlist[state.index].commentCount =date.commentCount ;
+	},
+	updatelist(state){
+		state.pageNo=0;
+		state.recommendlist=[];
 	}
 }
 
@@ -63,6 +67,9 @@ const actions={
 	},
 	async get_list({commit}){
 		commit('get_list')
+	},
+	async updatelist({commit}){
+		commit('updatelist')
 	}
 }
 export default {

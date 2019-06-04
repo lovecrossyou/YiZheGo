@@ -48,6 +48,10 @@ const mutations={
 	},
 	updatelistcommentCount(state,date){
 		state.showWinOrderlist[state.index].commentCount =date.commentCount ;
+	},
+	updatelist(state){
+		state.pageNo=0;
+		state.showWinOrderlist=[];
 	}
 }
 
@@ -62,6 +66,9 @@ const actions={
 	},
 	async get_list({commit}){
 		commit('get_list')
+	},
+	async updatelist({commit}){
+		commit('updatelist')
 	}
 }
 

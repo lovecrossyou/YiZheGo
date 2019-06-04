@@ -29,7 +29,7 @@ const mutations={
 			state.totalCount=res.totalCount;
 			if(state.pageNo===0){
 				state.commentlist = res.list;
-			}
+			} 
 			else{
 				state.commentlist = state.commentlist.concat(res.list);
 			}
@@ -66,6 +66,9 @@ const actions={
 	},
 	async get_list({commit}){
 		commit('get_list')
+	},
+	async updatelist({commit}){
+		commit('updatelist')
 	}
 }
 
