@@ -24,14 +24,6 @@
 			}
 		},
 		{
-			"path": "pages/me/me",
-			"style": {
-				"navigationBarTitleText": "我",
-				"navigationBarBackgroundColor": "#ffffff",
-				"navigationBarTextStyle": "black"
-			}
-		},
-		{
 			"path": "pages/message/message",
 			"style": {
 				"navigationBarTitleText": "消息"
@@ -383,12 +375,7 @@
 				"navigationBarTitleText": "关注列表"
 			}
 		},
-		{
-			"path": "pages/me/QRcode/QRcode",
-			"style": {
-				"navigationBarTitleText": "我的二维码"
-			}
-		}, {
+		 {
 			"path": "pages/luckhouse/luckhouse",
 			"style": {
 				"navigationBarTitleText": "梦想屋"
