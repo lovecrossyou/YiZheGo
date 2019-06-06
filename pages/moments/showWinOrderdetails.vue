@@ -445,6 +445,7 @@
 			width: 100%;
 			display: flex;
 			flex-direction: column;
+			background: rgba(255, 255, 255, 1);
 
 			.commentcount {
 				display: flex;
